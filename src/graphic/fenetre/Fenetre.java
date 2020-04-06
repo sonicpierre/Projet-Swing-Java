@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Fenetre extends JFrame {
 	
+	//On ajoute la partie principale
+	Panneau paneau;
+	
 	private static Fenetre instance;
 	
 	private Fenetre() {
@@ -14,8 +17,15 @@ public class Fenetre extends JFrame {
 		setSize(new Dimension(1000, 800));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		
+		//On instencie notre panneau
+		paneau = Panneau.getInstance();
+		paneau.setFocusable(true);
+		getContentPane().add(paneau);
+		
 		setVisible(true);
 		setResizable(false);
+		
 	}
 	
 	public static Fenetre getInstance() {
