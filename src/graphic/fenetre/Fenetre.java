@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+
 @SuppressWarnings("serial")
 public class Fenetre extends JFrame {
 	
@@ -13,16 +14,16 @@ public class Fenetre extends JFrame {
 	private static Fenetre instance;
 	
 	private Fenetre() {
-		
+
 		setSize(new Dimension(1000, 800));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
 		//On instencie notre panneau
 		paneau = Panneau.getInstance();
-		paneau.setFocusable(true);
+		paneau.setFocusable(false);
 		getContentPane().add(paneau);
-		
+		setUndecorated(true);
 		setVisible(true);
 		setResizable(false);
 		

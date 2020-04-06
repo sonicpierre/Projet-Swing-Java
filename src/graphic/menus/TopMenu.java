@@ -1,5 +1,9 @@
 package graphic.menus;
 
-public class TopMenu {
+import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
+public class TopMenu extends JPanel{
+
+	
 }
