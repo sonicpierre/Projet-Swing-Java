@@ -9,11 +9,11 @@ public class Panneau extends JPanel {
 	private static Panneau instance;
 	
 	private Panneau() {
-
+		add(Renderer.getInstance());
 	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
+	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Renderer.getInstance().paint(g);
 	}

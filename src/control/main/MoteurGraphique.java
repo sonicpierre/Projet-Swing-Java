@@ -23,14 +23,16 @@ public class MoteurGraphique extends Thread{
 		
 
 		while (isRunning) {
-				
+			
+			Panneau.getInstance().repaint();
+			
 			try {
 				Thread.sleep(50); // Permet de déterminer le temps entre chaque regard sur le moteur
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
-			Panneau.getInstance().repaint();
+			
 		}
 	}
 

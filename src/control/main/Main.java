@@ -1,12 +1,13 @@
 package control.main;
 
-import graphic.fenetre.Fenetre;
+import graphic.fenetre.FenetreLogin;
 
 public class Main {
 
 	public static void main(String[] args) {
 		//Voilà la fenètre graphique sans rien dedans.
-		Fenetre.getInstance();
+		FenetreLogin.getInstance();
+		MoteurGraphique.getInstance();
 	}
 
 }
