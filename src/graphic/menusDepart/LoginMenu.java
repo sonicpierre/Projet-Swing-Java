@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import control.elementSauv.personnesDejaInscrite;
 import graphic.fenetre.Fenetre;
 import graphic.fenetre.FenetreLogin;
 
@@ -56,6 +57,7 @@ public class LoginMenu extends JPanel{
 		JButton valider = new JButton("Valider");
 		JButton quitter = new JButton("Quitter");
 		quitter.addActionListener((event)->quitter());
+		valider.addActionListener((event)->valider());
 		mesBouttons.add(valider);
 		mesBouttons.add(quitter);
 		return mesBouttons;
@@ -82,7 +84,10 @@ public class LoginMenu extends JPanel{
 	}
 	
 	private void valider() {
-		
+		String passewordTraduit =new String(passeword.getPassword());
+		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
+			FenetreLogin.getInstance().dispose();
+		}
 	}
 	
 }

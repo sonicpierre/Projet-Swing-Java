@@ -1,7 +1,5 @@
 package control.main;
 
-import graphic.fenetre.Panneau;
-
 public class MoteurGraphique extends Thread{
 	
 	private static MoteurGraphique instance;
@@ -20,11 +18,9 @@ public class MoteurGraphique extends Thread{
 	public void run() {
 		super.run();
 		
-		
-
 		while (isRunning) {
 			
-			Panneau.getInstance().repaint();
+			//Panneau.getInstance().repaint();
 			
 			try {
 				Thread.sleep(50); // Permet de déterminer le temps entre chaque regard sur le moteur
