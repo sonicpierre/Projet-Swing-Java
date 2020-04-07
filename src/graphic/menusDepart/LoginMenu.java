@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import graphic.fenetre.Fenetre;
+import graphic.fenetre.FenetreLogin;
+
 
 @SuppressWarnings("serial")
 public class LoginMenu extends JPanel{
@@ -52,6 +55,7 @@ public class LoginMenu extends JPanel{
 		JPanel mesBouttons = new JPanel(new FlowLayout(FlowLayout.CENTER,20, 25));
 		JButton valider = new JButton("Valider");
 		JButton quitter = new JButton("Quitter");
+		quitter.addActionListener((event)->quitter());
 		mesBouttons.add(valider);
 		mesBouttons.add(quitter);
 		return mesBouttons;
@@ -70,4 +74,15 @@ public class LoginMenu extends JPanel{
 	public void setMenuLogin(JPanel menuLogin) {
 		this.menuLogin = menuLogin;
 	}
+	
+	private void quitter() {
+		FenetreLogin.getInstance().dispose();
+		Fenetre.getInstance().dispose();
+		System.exit(0);
+	}
+	
+	private void valider() {
+		
+	}
+	
 }
