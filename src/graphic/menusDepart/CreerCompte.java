@@ -20,7 +20,7 @@ public class CreerCompte extends JPanel{
 
 	private static CreerCompte instance;
 	
-	//Elements dont on a besoin de partout...
+	//Elements dont on a besoin de partout... Voilà voilà
 	JPanel menuCreation;
 	JTextField login;
 	JPasswordField passeword;
