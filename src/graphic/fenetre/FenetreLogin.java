@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import graphic.menus.LoginMenu;
+import graphic.menusDepart.MenuDemmarrage;
 
 @SuppressWarnings("serial")
 public class FenetreLogin extends JFrame {
@@ -13,17 +13,36 @@ public class FenetreLogin extends JFrame {
 	
 	private static FenetreLogin instance;
 	
+	//On a pas la même dimension pour la fenêtre de menu de login et de création
+	private static Dimension dimLogin = new Dimension(400, 200);
+	private static Dimension dimCreationMenu = new Dimension(400, 400);
+	
+	
 	private FenetreLogin() {
 		Fenetre.getInstance();
 		this.setTitle("Connexion");
-		setSize(new Dimension(400, 200));
+		setSize(dimLogin);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		getContentPane().add(LoginMenu.getInstance().getMesOnglets());
+		getContentPane().add(new MenuDemmarrage().getMesOnglets());
 		setVisible(true);
 		setResizable(false);
 		
 	}
+	
+	public void changerLadim() {
+		
+		if(this.getSize().equals(dimLogin)) {
+			this.setTitle("Creation de compte");
+			this.setSize(dimCreationMenu);
+		}
+		else {
+			this.setTitle("Connexion");
+			this.setSize(dimLogin);
+		}
+		this.setLocationRelativeTo(null);
+	}
+	
 	
 	public static FenetreLogin getInstance() {
 		if (instance == null)

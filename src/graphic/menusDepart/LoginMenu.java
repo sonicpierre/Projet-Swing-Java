@@ -1,7 +1,6 @@
-package graphic.menus;
+package graphic.menusDepart;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -9,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 
@@ -17,37 +15,36 @@ import javax.swing.JTextField;
 public class LoginMenu extends JPanel{
 	
 	private static LoginMenu instance;
+	
+	//On met ces variables en globale pour y avoir accés de partout et pouvoir valider la connexion
 	JPanel menuLogin;
-	JTabbedPane mesOnglets;
 	JTextField login;
-	JLabel motDePasse;
+	JPasswordField passeword;
+	
 
-	private LoginMenu() {
-		mesOnglets = new JTabbedPane(JTabbedPane.LEFT);
-		
+	private LoginMenu() {		
 		menuLogin = new JPanel(new GridLayout(2,1, 0, 0));
 		menuLogin.setBackground(new Color(200, 100, 100));
 		menuLogin.add(InitialisationDuMenu());
 		menuLogin.add(InitDesBouttons());
-		mesOnglets.add("Membre", menuLogin);
 	}
 	
 	private JPanel InitialisationDuMenu() {
 		JPanel mesEntre = new JPanel(new GridLayout(2,2,15,10));
 		login = new JTextField("Login");
+		passeword = new JPasswordField("Mot de Passe");
 
 		JLabel loginTexte = new JLabel("Login :");
 		loginTexte.setHorizontalAlignment(JLabel.CENTER);
-		motDePasse = new JLabel("Mot de Passe :");
+		JLabel motDePasse = new JLabel("Mot de Passe :");
 		motDePasse.setHorizontalAlignment(JLabel.CENTER);
 		
-		JPasswordField passeword = new JPasswordField("Mot de Passe");
-		passeword.setPreferredSize(new Dimension(50,100));
 		//On ajoute au Panel les éléments pour saisir mot de pass et login.
 		mesEntre.add(loginTexte);
 		mesEntre.add(login);
 		mesEntre.add(motDePasse);
 		mesEntre.add(passeword);
+
 		return mesEntre;
 	}
 	
@@ -72,13 +69,5 @@ public class LoginMenu extends JPanel{
 
 	public void setMenuLogin(JPanel menuLogin) {
 		this.menuLogin = menuLogin;
-	}
-
-	public JTabbedPane getMesOnglets() {
-		return mesOnglets;
-	}
-
-	public void setMesOnglets(JTabbedPane mesOnglets) {
-		this.mesOnglets = mesOnglets;
 	}
 }

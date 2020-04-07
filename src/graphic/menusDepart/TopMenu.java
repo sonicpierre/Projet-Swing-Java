@@ -1,4 +1,4 @@
-package graphic.menus;
+package graphic.menusDepart;
 
 import javax.swing.JPanel;
 
