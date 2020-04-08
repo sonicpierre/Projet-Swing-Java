@@ -84,8 +84,10 @@ public class LoginMenu extends JPanel{
 	}
 	
 	private void valider() {
+		System.out.println(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().size());
 		String passewordTraduit =new String(passeword.getPassword());
 		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
+			FenetreLogin.getInstance().setVerouillage(false);
 			FenetreLogin.getInstance().dispose();
 		}
 	}

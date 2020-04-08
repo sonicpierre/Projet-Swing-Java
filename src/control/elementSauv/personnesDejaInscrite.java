@@ -98,8 +98,16 @@ public class personnesDejaInscrite implements Serializable{
 	}
 	
 	public boolean rechercher(String loginEntre, String passewordEntre) {
-		if((monHashMap.get(loginEntre) != null)&&(monHashMap.get(loginEntre).getPasseword().equals(passewordEntre))) {
-			return true;
+		try {
+			if((monHashMap.get(loginEntre) != null)&&(monHashMap.get(loginEntre).getPasseword().getObject().equals(passewordEntre))) {
+				return true;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return false;
 	}

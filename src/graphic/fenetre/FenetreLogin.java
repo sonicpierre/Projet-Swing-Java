@@ -34,6 +34,7 @@ public class FenetreLogin extends JFrame {
 	public void changerLadim() {
 		
 		if(this.getSize().equals(dimLogin)) {
+			this.setTitle("Créer un compte");
 			this.setSize(dimCreationMenu);
 		}
 		else {

@@ -25,9 +25,6 @@ public class Fenetre extends JFrame {
 		setUndecorated(true);
 		setVisible(true);
 		setResizable(false);
-		
-
-		
 	}
 	
 	public static Fenetre getInstance() {

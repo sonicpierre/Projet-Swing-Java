@@ -8,10 +8,13 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import control.elementSauv.personnesDejaInscrite;
+import control.personne.Compte;
 import graphic.fenetre.Fenetre;
 import graphic.fenetre.FenetreLogin;
 
@@ -80,6 +83,7 @@ public class CreerCompte extends JPanel{
 		JButton quitter = new JButton("Quitter");
 		//On ajoute un listener sur le boutton
 		quitter.addActionListener((event)->quitter());
+		valider.addActionListener((event)->valider());
 		mesBouttons.add(valider);
 		mesBouttons.add(quitter);
 		return mesBouttons;
@@ -108,4 +112,29 @@ public class CreerCompte extends JPanel{
 		System.exit(0);
 	}
 	
+	private void valider() {
+		String passewordTranslate = new String(passeword.getPassword());
+		String passewordCopiTranslate = new String(confirmedPasseword.getPassword());
+		
+		//On regarde les différentes possiblités et on adapte les messages d'erreur en se rappelant que l'utilisateur est fourbe !!
+		
+		if((login.getText() != null) && (passewordTranslate != null) && (passewordCopiTranslate !=null) && (adresseMail.getText() != null)) {
+			if(passewordCopiTranslate.equals(passewordTranslate)) {
+				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {
+					personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate));
+					personnesDejaInscrite.getInstance().sauvegarder();
+				}
+				else {
+					JOptionPane.showInternalMessageDialog(this, "Cette utilisateur existe déjà", "Erreur", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+			else {
+				JOptionPane.showInternalMessageDialog(this, "Vous n'avez pas rentré 2 fois le même mot de passe", "Erreur", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+		else {
+			JOptionPane.showInternalMessageDialog(FenetreLogin.getInstance(), "Vous n'avez pas rentré les champs", "Erreur", JOptionPane.WARNING_MESSAGE);
+		}
+		
+	}
 }
