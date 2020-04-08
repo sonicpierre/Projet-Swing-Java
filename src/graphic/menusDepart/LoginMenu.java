@@ -11,7 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import control.elementSauv.personnesDejaInscrite;
-import graphic.fenetre.Fenetre;
+import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
 
@@ -79,16 +79,15 @@ public class LoginMenu extends JPanel{
 	
 	private void quitter() {
 		FenetreLogin.getInstance().dispose();
-		Fenetre.getInstance().dispose();
+		FenetreFond.getInstance().dispose();
 		System.exit(0);
 	}
 	
 	private void valider() {
-		System.out.println(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().size());
-		String passewordTraduit =new String(passeword.getPassword());
+		String passewordTraduit = new String(passeword.getPassword());
 		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
-			FenetreLogin.getInstance().setVerouillage(false);
 			FenetreLogin.getInstance().dispose();
+			FenetreFond.getInstance().changerFenetre();
 		}
 	}
 	

@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Compte;
-import graphic.fenetre.Fenetre;
+import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
 @SuppressWarnings("serial")
@@ -108,7 +108,7 @@ public class CreerCompte extends JPanel{
 	//Permet de quitter quand on appuie sur le boutton
 	private void quitter() {
 		FenetreLogin.getInstance().dispose();
-		Fenetre.getInstance().dispose();
+		FenetreFond.getInstance().dispose();
 		System.exit(0);
 	}
 	

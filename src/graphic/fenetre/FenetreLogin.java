@@ -16,12 +16,10 @@ public class FenetreLogin extends JFrame {
 	//On a pas la même dimension pour la fenêtre de menu de login et de création
 	private static Dimension dimLogin = new Dimension(400, 200);
 	private static Dimension dimCreationMenu = new Dimension(400, 400);
-	private boolean verouillage;
 	
 	
 	private FenetreLogin() {
-		this.setVerouillage(false);
-		Fenetre.getInstance();
+		FenetreFond.getInstance();
 		this.setTitle("Connexion");
 		setSize(dimLogin);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,14 +47,6 @@ public class FenetreLogin extends JFrame {
 		if (instance == null)
 			instance = new FenetreLogin();
 		return instance;
-	}
-
-	public boolean isVerouillage() {
-		return verouillage;
-	}
-
-	public void setVerouillage(boolean verouillage) {
-		this.verouillage = verouillage;
 	}
 
 
