@@ -1,11 +1,14 @@
 package graphic.fenetre;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
 
 
 @SuppressWarnings("serial")
@@ -40,6 +43,7 @@ public class FenetreFond extends JFrame {
 		setUndecorated(false);
 		this.remove(ImageFond);
 		getContentPane().setBackground(new Color(100,100,100));
+		this.add(TopMenuDescriptif.getInstance().getMenuFinal(), BorderLayout.NORTH);
 		setResizable(true);
 		setVisible(true);
 	}

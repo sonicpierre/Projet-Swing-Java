@@ -90,5 +90,4 @@ public class LoginMenu extends JPanel{
 			FenetreFond.getInstance().changerFenetre();
 		}
 	}
-	
 }
