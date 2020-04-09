@@ -5,8 +5,7 @@ import graphic.fenetre.FenetreLogin;
 public class Main {
 
 	public static void main(String[] args) {
-		//Voilà la fenètre graphique sans rien dedans. Voilà voilà
-		FenetreLogin.getInstance();
+		//Voilà la fenètre graphique sans rien dedans. Voilà voilà voilà
 		MoteurGraphique.getInstance();
 	}
 
