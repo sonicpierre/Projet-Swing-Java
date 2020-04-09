@@ -24,7 +24,7 @@ public class CreerCompte extends JPanel{
 	private static CreerCompte instance;
 	
 	//Elements dont on a besoin de partout... Voilà voilà
-	JPanel menuCreation;
+	JPanel menuCreation;//PANEL D'AJOUT FENETRE QU'ON RENVOIE 
 	JTextField login;
 	JPasswordField passeword;
 	JPasswordField confirmedPasseword;
@@ -79,7 +79,7 @@ public class CreerCompte extends JPanel{
 	
 	private JPanel InitDesBouttons() {
 		JPanel mesBouttons = new JPanel(new FlowLayout(FlowLayout.CENTER,20, 25));
-		JButton valider = new JButton("Valider");
+		JButton valider = new JButton("Valider");//DOIT VERIFIER L'EXISTENCE DE COMPTE, LA SAISIE DES CHAMPS, LES CHAMPS DE SAISIE NON VIDES
 		JButton quitter = new JButton("Quitter");
 		//On ajoute un listener sur le boutton
 		quitter.addActionListener((event)->quitter());
@@ -118,14 +118,14 @@ public class CreerCompte extends JPanel{
 		
 		//On regarde les différentes possiblités et on adapte les messages d'erreur en se rappelant que l'utilisateur est fourbe !!
 		
-		if((login.getText() != null) && (passewordTranslate != null) && (passewordCopiTranslate !=null) && (adresseMail.getText() != null)) {
-			if(passewordCopiTranslate.equals(passewordTranslate)) {
-				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {
+		if((login.getText() != null) && (passewordTranslate != null) && (passewordCopiTranslate !=null) && (adresseMail.getText() != null)) {//VERIFIER SI TOUS LES CHAMPS CONTEINNENT QUELQUE CHOSE
+			if(passewordCopiTranslate.equals(passewordTranslate)) {//VERIFIE LA CONCORDANCE DU MDP
+				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {//VERIFICATION DE L'EXISTENCE
 					personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate));
 					personnesDejaInscrite.getInstance().sauvegarder();
 				}
 				else {
-					JOptionPane.showInternalMessageDialog(this, "Cette utilisateur existe déjà", "Erreur", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showInternalMessageDialog(this, "Cette utilisateur existe déjà", "Erreur", JOptionPane.WARNING_MESSAGE);//GENRATION DE FENETRE D'ERREUR QU'ON OUVRE AVEC LE SHOW 
 				}
 			}
 			else {

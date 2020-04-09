@@ -1,3 +1,4 @@
+//UN ONGLET DU MENU DEMARRAGE
 package graphic.menusDepart;
 
 import java.awt.Color;
@@ -22,14 +23,14 @@ public class LoginMenu extends JPanel{
 	
 	//On met ces variables en globale pour y avoir accés de partout et pouvoir valider la connexion
 	JPanel menuLogin;
-	JTextField login;
-	JPasswordField passeword;
+	JTextField login;//BARRE DE SAISIE LOGIN
+	JPasswordField passeword;//IDEM POUR MDP
 	
 
 	private LoginMenu() {		
-		menuLogin = new JPanel(new GridLayout(2,1, 0, 0));
+		menuLogin = new JPanel(new GridLayout(2,1, 0, 0));//POSITIONNE LA FENETRE COMME UN TABLEAU LIGNE COLONNE ET ESPACE EN HAUTEUR ET LARGEUR
 		menuLogin.setBackground(new Color(200, 100, 100));
-		menuLogin.add(InitialisationDuMenu());
+		menuLogin.add(InitialisationDuMenu());//AJOUT DE LOGIN ET MDP VIA UN TABLEAU 
 		menuLogin.add(InitDesBouttons());
 	}
 	
@@ -38,9 +39,9 @@ public class LoginMenu extends JPanel{
 		login = new JTextField("Login");
 		passeword = new JPasswordField("Mot de Passe");
 
-		JLabel loginTexte = new JLabel("Login :");
+		JLabel loginTexte = new JLabel("Login :");//ECRIRE UNE ETIQUETTE CENTRÉE
 		loginTexte.setHorizontalAlignment(JLabel.CENTER);
-		JLabel motDePasse = new JLabel("Mot de Passe :");
+		JLabel motDePasse = new JLabel("Mot de Passe :");//ECRIRE UNE ETIQUETTE CENTRÉE
 		motDePasse.setHorizontalAlignment(JLabel.CENTER);
 		
 		//On ajoute au Panel les éléments pour saisir mot de pass et login.
@@ -52,12 +53,12 @@ public class LoginMenu extends JPanel{
 		return mesEntre;
 	}
 	
-	private JPanel InitDesBouttons() {
+	private JPanel InitDesBouttons() {//INITIALISATION DES BOUTONS
 		JPanel mesBouttons = new JPanel(new FlowLayout(FlowLayout.CENTER,20, 25));
 		JButton valider = new JButton("Valider");
 		JButton quitter = new JButton("Quitter");
-		quitter.addActionListener((event)->quitter());
-		valider.addActionListener((event)->valider());
+		quitter.addActionListener((event)->quitter());//AJOUT DES LSTENER SUR LE BOUTON AFIN DE REALISER L'ACTION
+		valider.addActionListener((event)->valider());//AJOUT DES LSTENER SUR LE BOUTON AFIN DE REALISER L'ACTION
 		mesBouttons.add(valider);
 		mesBouttons.add(quitter);
 		return mesBouttons;
@@ -78,14 +79,14 @@ public class LoginMenu extends JPanel{
 	}
 	
 	private void quitter() {
-		FenetreLogin.getInstance().dispose();
+		FenetreLogin.getInstance().dispose();//LIBERE LA FENETRE SANS ARRETER LE PROCESSUS
 		FenetreFond.getInstance().dispose();
-		System.exit(0);
+		System.exit(0);//ARRET DU PROCESSSUS
 	}
 	
-	private void valider() {
-		String passewordTraduit = new String(passeword.getPassword());
-		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
+	private void valider() {//VALIDATION 
+		String passewordTraduit = new String(passeword.getPassword());//RENVOIE D'UN TABLEAU DE CARACTERE QUI SERA TRNASFORMÉ EN CHAINE DE CARACTERES
+		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {//LOGIN.GETTEXT RECUPERE LE CONTENU DE LA BARRE DE SAISIE
 			FenetreLogin.getInstance().dispose();
 			FenetreFond.getInstance().changerFenetre();
 		}

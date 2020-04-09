@@ -10,23 +10,23 @@ import graphic.fenetre.FenetreLogin;
 @SuppressWarnings("serial")
 public class MenuDemmarrage extends JPanel{
 	
-	JTabbedPane mesOnglets;
+	JTabbedPane mesOnglets;//PANEL D'ONGLETS
 	
-	public MenuDemmarrage() {
-		mesOnglets = new JTabbedPane(JTabbedPane.TOP);
-		mesOnglets.add("Membre", LoginMenu.getInstance().getMenuLogin());
-		mesOnglets.add("Nouveau", CreerCompte.getInstance().getMenuCreation());
-		mesOnglets.addChangeListener(new ChangeListener() {
+	public MenuDemmarrage() {//CONSTRUCTEUR
+		mesOnglets = new JTabbedPane(JTabbedPane.TOP);//INITIALISATION DU JPanel EN LES PLAÇANT EN HAUT 
+		mesOnglets.add("Membre", LoginMenu.getInstance().getMenuLogin());//AJOUT DU MENU LOGIN
+		mesOnglets.add("Nouveau", CreerCompte.getInstance().getMenuCreation());//AJOUT DE LA FENETRE CREATION DE COMPTE
+		mesOnglets.addChangeListener(new ChangeListener() {//LISTENER ECOUTE LES ACTIONS SUR LA FENETRE, 
 			
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				FenetreLogin.getInstance().changerLadim();
+				FenetreLogin.getInstance().changerLadim();//APPEL DU SINGLETON
 				
 			}
 		});
 	}
 
-	public JTabbedPane getMesOnglets() {
+	public JTabbedPane getMesOnglets() {//RETOURNE LES ONGLETS
 		return mesOnglets;
 	}
 
@@ -36,3 +36,7 @@ public class MenuDemmarrage extends JPanel{
 	
 	
 }
+
+//ON CREE UN PANEL QUI CONTIENT DES OBJETS 
+//PUIS ON Y COLLE SUR LA FENETRE
+//LE JPanel RETOURNE LE MEMBRE ET NOUVEAU
