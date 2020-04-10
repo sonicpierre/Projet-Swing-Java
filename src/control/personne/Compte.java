@@ -13,13 +13,13 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.SignedObject;
 
-public class Compte implements Serializable{
+public class Compte implements Serializable{//VERIFICATION DE LA NATURE DES OBJET A SERIALIZER (INT, FLOAT ETC..)
 	
 	private static final long serialVersionUID = 6421959812909952648L;
 
-	SignedObject passewordCrypte;
-	Color couleurDuFond;
-	Color couleurEcriture;
+	SignedObject passewordCrypte;//OBJET SECURISÉ ET SERIALISABLE
+	Color couleurDuFond;//TYPE COULEUR
+	Color couleurEcriture;//TYPE COULEUR
 	
 	//Un Compte contient le passeword mais aussi les différentes préférences de l'utilisateur.
 	
@@ -64,11 +64,11 @@ public class Compte implements Serializable{
 	//hexadécimal. Ici on utilise l'objet SignedObject qui permet d'utiliser l'algorithme de cryptage DSA. On a choisi cet objet car
 	//il est serialisable et donc compatible avec notre façon de sauvegarder le fichier.
 	
-	private void securiser(String passeword) {
+	private void securiser(String passeword) {//PRIVATISATION DU FICHIER DE MDP
 		//Create a key
 		KeyPairGenerator keyGen;
 		try {
-			keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
+			keyGen = KeyPairGenerator.getInstance("DSA", "SUN");//SIGNATURE D'UN OBJET
 			//Définit la source pour la génération de la clée
 			SecureRandom random;
 			random = SecureRandom.getInstance("SHA1PRNG", "SUN");

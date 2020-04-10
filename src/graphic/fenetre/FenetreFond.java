@@ -27,9 +27,9 @@ public class FenetreFond extends JFrame {
 		this.setLocationRelativeTo(null);
 		ImageFond = new JLabel(new ImageIcon("ImageDeFond/ImageAnime.gif"));
 		this.add(ImageFond);
-		setUndecorated(true);
+		setUndecorated(true);//ENLEVE LA BARRE DU DESSUS POUR REDIMENTIONNER ET FERMER LA FENETRE
 		setVisible(true);
-		setResizable(false);
+		setResizable(false);//NON POSSIBILITÉ DE REDIMENSIONNER LA FENETRE
 	}
 	
 	public static FenetreFond getInstance() {

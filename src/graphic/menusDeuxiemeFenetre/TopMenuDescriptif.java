@@ -6,7 +6,7 @@ import javax.swing.JMenuItem;
 
 public class TopMenuDescriptif{
 	
-	JMenuBar menuFinal;
+	JMenuBar menuFinal;//BARRE DU DESSUS
 	
 	private static TopMenuDescriptif instance;
 	

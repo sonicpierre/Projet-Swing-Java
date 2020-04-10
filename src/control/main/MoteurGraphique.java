@@ -1,6 +1,6 @@
 package control.main;
 
-public class MoteurGraphique extends Thread{
+public class MoteurGraphique extends Thread{//SINGLETON POUR POUVOIR FAIRE TOURNER DEUX OPERATIONS EN MÊME TEMPS
 	
 	private static MoteurGraphique instance;
 
@@ -11,12 +11,12 @@ public class MoteurGraphique extends Thread{
 
 		setRunning(true);
 
-		this.start(); // Lancement du run()
+		this.start(); // Lancement du run() 
 	}
 
 	@Override
 	public void run() {
-		super.run();
+		super.run();//ON REPREND CE QUI A ETE ECRIT POUR RUN
 		
 		while (isRunning) {
 			
