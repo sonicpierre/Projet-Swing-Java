@@ -8,5 +8,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="Librairie_Externe/activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="Librairie_Externe/javax.mail.jar"/>
+	<classpathentry kind="lib" path="Librairie_Externe/commons-validator-1.6-bin/commons-validator-1.6/commons-validator-1.6.jar"/>
+	<classpathentry kind="lib" path="Librairie_Externe/commons-validator-1.6-bin/commons-validator-1.6/commons-validator-1.6-javadoc.jar"/>
+	<classpathentry kind="lib" path="Librairie_Externe/commons-validator-1.6-bin/commons-validator-1.6/commons-validator-1.6-sources.jar"/>
+	<classpathentry kind="lib" path="Librairie_Externe/commons-validator-1.6-bin/commons-validator-1.6/commons-validator-1.6-test-sources.jar"/>
+	<classpathentry kind="lib" path="Librairie_Externe/commons-validator-1.6-bin/commons-validator-1.6/commons-validator-1.6-tests.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -13,12 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import org.apache.commons.validator.EmailValidator;
+
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Compte;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "deprecation" })
 public class CreerCompte extends JPanel{
 
 	private static CreerCompte instance;
@@ -121,8 +123,13 @@ public class CreerCompte extends JPanel{
 		if((login.getText() != null) && (passewordTranslate != null) && (passewordCopiTranslate !=null) && (adresseMail.getText() != null)) {//VERIFIER SI TOUS LES CHAMPS CONTEINNENT QUELQUE CHOSE
 			if(passewordCopiTranslate.equals(passewordTranslate)) {//VERIFIE LA CONCORDANCE DU MDP
 				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {//VERIFICATION DE L'EXISTENCE
-					personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate));
-					personnesDejaInscrite.getInstance().sauvegarder();
+					if(validateEmailAddress(adresseMail.getText())) {
+						personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate));
+						personnesDejaInscrite.getInstance().sauvegarder();
+					}
+					else {
+						JOptionPane.showInternalMessageDialog(this, "Mail invalide", "Erreur", JOptionPane.WARNING_MESSAGE);
+					}
 				}
 				else {
 					JOptionPane.showInternalMessageDialog(this, "Cette utilisateur existe déjà", "Erreur", JOptionPane.WARNING_MESSAGE);//GENRATION DE FENETRE D'ERREUR QU'ON OUVRE AVEC LE SHOW 
@@ -137,4 +144,15 @@ public class CreerCompte extends JPanel{
 		}
 		
 	}
+	
+	public static boolean validateEmailAddress(String votreEmail){
+		EmailValidator emailvalidator = EmailValidator.getInstance();
+        if(emailvalidator.isValid(votreEmail)) {
+            return true;
+        } else {
+            return false;
+        }
+	}
 }
+
+
