@@ -133,7 +133,7 @@ public class CreerCompte extends JPanel{
 			}
 		}
 		else {
-			JOptionPane.showInternalMessageDialog(FenetreLogin.getInstance(), "Vous n'avez pas rentré les champs", "Erreur", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showInternalMessageDialog(this, "Vous n'avez pas rentré les champs", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 		
 	}

@@ -23,7 +23,7 @@ public class personnesDejaInscrite implements Serializable{//SINGLETON AUQUEL ON
 	
 	private personnesDejaInscrite() {
 		monHashMap = new HashMap<String, Compte>();//INSTANCIATION DE L'OBJET
-		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE));//AJOUT D'UN "ADMINISTRATEUR"
+		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE, "artistaketexe@gmail.com"));//AJOUT D'UN "ADMINISTRATEUR"
 	}
 
 	public HashMap<String, Compte> getMaListDePersonneInscrite() {

@@ -20,13 +20,15 @@ public class Compte implements Serializable{//VERIFICATION DE LA NATURE DES OBJE
 	SignedObject passewordCrypte;//OBJET SECURISÉ ET SERIALISABLE
 	Color couleurDuFond;//TYPE COULEUR
 	Color couleurEcriture;//TYPE COULEUR
+	String adresseMail;
 	
 	//Un Compte contient le passeword mais aussi les différentes préférences de l'utilisateur.
 	
-	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture) {
+	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String adresseMail) {
 		this.couleurDuFond = couleurDeFond;
 		this.couleurEcriture = couleurEcriture;
 		securiser(passeword);
+		this.adresseMail = adresseMail;
 	}
 	
 	
