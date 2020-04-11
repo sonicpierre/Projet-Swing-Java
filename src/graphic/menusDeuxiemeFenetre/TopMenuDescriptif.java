@@ -32,11 +32,8 @@ public class TopMenuDescriptif{
 		
 		JMenuItem autreUtilisateur = new JMenuItem("Autre utilisateur");
 		autreUtilisateur.addActionListener((event)->ouvertureFenetreMail());
-		JMenuItem createur = new JMenuItem("Administrateur");
 		
 		contacter.add(autreUtilisateur);
-		contacter.addSeparator();
-		contacter.add(createur);
 		
 		return contacter;
 	}

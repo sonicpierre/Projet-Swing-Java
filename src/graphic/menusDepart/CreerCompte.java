@@ -2,6 +2,7 @@ package graphic.menusDepart;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -31,6 +32,9 @@ public class CreerCompte extends JPanel{
 	JPasswordField passeword;
 	JPasswordField confirmedPasseword;
 	JTextField adresseMail;
+	JCheckBox checkArtiste;
+	JCheckBox checkChanteur;
+	JCheckBox checkDanseur;
 	
 	private CreerCompte() {
 		menuCreation = new JPanel(new BorderLayout());
@@ -58,9 +62,9 @@ public class CreerCompte extends JPanel{
 		confirmedMotDePasse.setHorizontalAlignment(JLabel.CENTER);
 		
 		JPanel choixCategorie = new JPanel(new GridLayout(1,3));
-		JCheckBox checkArtiste = new JCheckBox("Artiste");
-		JCheckBox checkChanteur = new JCheckBox("Chanteur");
-		JCheckBox checkDanseur = new JCheckBox("Danseur");
+		checkArtiste = new JCheckBox("Artiste");
+		checkChanteur = new JCheckBox("Chanteur");
+		checkDanseur = new JCheckBox("Danseur");
 		choixCategorie.add(checkArtiste);
 		choixCategorie.add(checkChanteur);
 		choixCategorie.add(checkDanseur);
@@ -83,6 +87,8 @@ public class CreerCompte extends JPanel{
 		JPanel mesBouttons = new JPanel(new FlowLayout(FlowLayout.CENTER,20, 25));
 		JButton valider = new JButton("Valider");//DOIT VERIFIER L'EXISTENCE DE COMPTE, LA SAISIE DES CHAMPS, LES CHAMPS DE SAISIE NON VIDES
 		JButton quitter = new JButton("Quitter");
+		valider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		quitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		//On ajoute un listener sur le boutton
 		quitter.addActionListener((event)->quitter());
 		valider.addActionListener((event)->valider());
@@ -124,8 +130,13 @@ public class CreerCompte extends JPanel{
 			if(passewordCopiTranslate.equals(passewordTranslate)) {//VERIFIE LA CONCORDANCE DU MDP
 				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {//VERIFICATION DE L'EXISTENCE
 					if(validateEmailAddress(adresseMail.getText())) {
-						personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate));
-						personnesDejaInscrite.getInstance().sauvegarder();
+						if(compteurDeCaseCoche() != null) {
+							personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate, compteurDeCaseCoche(), null));
+							personnesDejaInscrite.getInstance().sauvegarder();
+						} 
+						else {
+							JOptionPane.showInternalMessageDialog(this, "Vous avez trop de talent", "Erreur", JOptionPane.WARNING_MESSAGE);
+						}
 					}
 					else {
 						JOptionPane.showInternalMessageDialog(this, "Mail invalide", "Erreur", JOptionPane.WARNING_MESSAGE);
@@ -145,6 +156,30 @@ public class CreerCompte extends JPanel{
 		
 	}
 	
+	//Permet de vérifier si une seule case a été appuyé et renvoie son nom
+	
+	private String compteurDeCaseCoche() {
+		int compteur = 0;
+		JCheckBox tempon = null;
+		if(checkArtiste.isSelected()) {
+			tempon = checkArtiste;
+			compteur++;
+		}
+		if(checkChanteur.isSelected()) {
+			tempon = checkChanteur;
+			compteur++;
+		}
+		if(checkDanseur.isSelected()) {
+			tempon = checkDanseur;
+			compteur++;
+		}
+		System.out.println(compteur);
+		if(compteur != 1)
+			return null;
+		else
+			return tempon.getText();
+	}
+	
 	public static boolean validateEmailAddress(String votreEmail){
 		EmailValidator emailvalidator = EmailValidator.getInstance();
         if(emailvalidator.isValid(votreEmail)) {
@@ -154,5 +189,3 @@ public class CreerCompte extends JPanel{
         }
 	}
 }
-
-

@@ -2,6 +2,7 @@
 package graphic.menusDepart;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
@@ -59,6 +60,9 @@ public class LoginMenu extends JPanel{
 		JButton quitter = new JButton("Quitter");
 		quitter.addActionListener((event)->quitter());//AJOUT DES LSTENER SUR LE BOUTON AFIN DE REALISER L'ACTION
 		valider.addActionListener((event)->valider());//AJOUT DES LSTENER SUR LE BOUTON AFIN DE REALISER L'ACTION
+		//PERMET DE CHANGER LE CURSEUR QUAND ON PASSE DESSUS
+		valider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		quitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		mesBouttons.add(valider);
 		mesBouttons.add(quitter);
 		return mesBouttons;
@@ -88,7 +92,9 @@ public class LoginMenu extends JPanel{
 		String passewordTraduit = new String(passeword.getPassword());//RENVOIE D'UN TABLEAU DE CARACTERE QUI SERA TRNASFORMÉ EN CHAINE DE CARACTERES
 		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {//LOGIN.GETTEXT RECUPERE LE CONTENU DE LA BARRE DE SAISIE
 			FenetreLogin.getInstance().dispose();
-			FenetreFond.getInstance().changerFenetre();
+			FenetreFond.getInstance().changerFenetre(login.getText());
+			login.setText("");
+			passeword.setText("");
 		}
 	}
 }

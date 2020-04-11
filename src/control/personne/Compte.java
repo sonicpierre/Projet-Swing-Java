@@ -21,21 +21,27 @@ public class Compte implements Serializable{//VERIFICATION DE LA NATURE DES OBJE
 	Color couleurDuFond;//TYPE COULEUR
 	Color couleurEcriture;//TYPE COULEUR
 	String adresseMail;
+	String talent;
+	String cheminVersImage;
 	
 	//Un Compte contient le passeword mais aussi les différentes préférences de l'utilisateur.
 	
-	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String adresseMail) {
+	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String adresseMail, String talent, String CheminVersImage) {
 		this.couleurDuFond = couleurDeFond;
 		this.couleurEcriture = couleurEcriture;
 		securiser(passeword);
 		this.adresseMail = adresseMail;
+		this.talent = talent;
+		this.cheminVersImage = CheminVersImage;
 	}
 	
 	
-	public Compte(String passeword) {	
+	public Compte(String passeword, String talent, String CheminVersImage) {	
 		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
+		this.talent = talent;
+		this.cheminVersImage = CheminVersImage;
 	}
 
 	public SignedObject getPasseword() {
@@ -62,10 +68,21 @@ public class Compte implements Serializable{//VERIFICATION DE LA NATURE DES OBJE
 		this.couleurEcriture = couleurEcriture;
 	}
 	
+	
+	public String getTalent() {
+		return talent;
+	}
+
+
+	public void setTalent(String talent) {
+		this.talent = talent;
+	}
 	//Permet de sécuriser le champ password. Par ce que le fichier Serializable serait trop simplement lu avec un simple éditeur
 	//hexadécimal. Ici on utilise l'objet SignedObject qui permet d'utiliser l'algorithme de cryptage DSA. On a choisi cet objet car
 	//il est serialisable et donc compatible avec notre façon de sauvegarder le fichier.
-	
+
+
+
 	private void securiser(String passeword) {//PRIVATISATION DU FICHIER DE MDP
 		//Create a key
 		KeyPairGenerator keyGen;
@@ -88,4 +105,16 @@ public class Compte implements Serializable{//VERIFICATION DE LA NATURE DES OBJE
 			e.printStackTrace();
 		}	
 	}
+
+
+	public String getCheminVersImage() {
+		return cheminVersImage;
+	}
+
+
+	public void setCheminVersImage(String cheminVersImage) {
+		this.cheminVersImage = cheminVersImage;
+	}
+	
+	
 }
