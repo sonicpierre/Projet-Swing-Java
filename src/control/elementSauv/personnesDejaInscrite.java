@@ -12,44 +12,104 @@ import java.util.HashMap;
 
 import control.personne.Compte;
 
+/**
+ * <b>personneDejaInscrite est la classe qui permet de vérifier l'inscription d'une personne.</b>
+ * <p>Cette vérification suit le processus suivant : 
+ * <ul>
+ * <li>Détermination d'un format de représentation de l'objet à n'importe quel moment</li>
+ * <li>Initialisation de l'objet</li>
+ * <li>Déclaration d'un fichier de sauvegarde d'information</li>
+ * <li>Vérification d'existence ou création d'un nouvel inscrit</li>
+ * </ul>
+ * NB : Il s'agit d'un singleton auquel on a acces depuis la fenêtre.
+ * </p>
+ * */
 
-public class personnesDejaInscrite implements Serializable{//SINGLETON AUQUEL ON A ACCES DEPUIS LA FENETRE
+public class personnesDejaInscrite implements Serializable{
 	
-	private static final long serialVersionUID = 289235133718470195L;//DETERMINE UN CHIFFRE OU UNE ADRESSE QUI REPRESENTE L'OBJET A N'IMPORTE QUEL TEMPS. ON L'ECRIT DANS UN FICHIER
+	/**
+	 *Détermination du format de représentation à écrire dans le fichier.
+	 **/
+	
+	private static final long serialVersionUID = 289235133718470195L;
+	
+	/**
+	 *Initialisation d'une table de hashage permettant d'associer une clé à une valeur.
+	 **/
 	
 	private HashMap<String, Compte> monHashMap;
+	
 	private static personnesDejaInscrite instance;
 	
+	/**
+	 *Dans un premier temps, on instancie l'objet
+	 *puis on crée un utilisateur de type administrateur. 
+	 **/
 	
 	private personnesDejaInscrite() {
-		monHashMap = new HashMap<String, Compte>();//INSTANCIATION DE L'OBJET
-		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE));//AJOUT D'UN "ADMINISTRATEUR"
+		monHashMap = new HashMap<String, Compte>();
+		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE));
 	}
-
+	
+	/**
+	 * Retourne une correspondance clé-valeur.
+	 *@return Une instance de personneDejaInscrite, qui lie une clé à une valeur.
+	 **/
+	
 	public HashMap<String, Compte> getMaListDePersonneInscrite() {
 		return monHashMap;
 	}
 	
+	/**
+	 *La méthode permet de serializer un objet via un flux de sortie initialisé.
+	 **/
+	
 	public void sauvegarder() {
-		ObjectOutputStream oos = null;//FLUX DE SORTIE
 		
-		//Va permettre de serializer un objet.
+		/**
+		 *Flux de sortie
+		 **/
 		
-	    try {//TRY CATCH POUR EVITER LES ERREURS
-	        final FileOutputStream fichier = new FileOutputStream("sauvegardeLogin.sauvFichier");//DECLARATION DU FICHIER D'ECRITURE
-	        //On crée un flux de sortie 
+		ObjectOutputStream oos = null;
+		
+		/**
+		 *Sérialization en utilisant un "try catch" afin d'éviter les erreurs.
+		 **/
+	    try {
+	    	/**
+	    	 *Déclaration du fichier d'écriture
+	    	 **/
+	    	
+	        final FileOutputStream fichier = new FileOutputStream("sauvegardeLogin.sauvFichier");
+	        
+	        
 	        oos = new ObjectOutputStream(fichier);
-	        oos.writeObject(this);//ECRITURE DE L'OBJET A SERIALIZER
-	        //Va permettre de forcer l'écriture dans le fichier pour vider le tampon
-	        oos.flush();//LIBERATION DU CONTENANT
-	        //Les problèmes d'écriture lié à l'écriture dans le fichier
+	        
+	        /**
+	         *Ecriture de l'objet à serializer
+	         **/
+	        
+	        oos.writeObject(this);
+	        
+	        /**Force l'écriture dans le fichier pour libérer le contenant
+	         **/
+	        
+	        oos.flush();
+	        
+	        /**Gestion des problèmes liés à l'écriture dans le fichier
+	         **/
+	        
 	      } catch (final IOException e) {
 	        e.printStackTrace();
 	      } finally {
 	        try {
 	          if (oos != null) {
 	            oos.flush();
-	            oos.close();//FERMETURE DU FLUX S'IL N'EST PAS NUL
+	            
+	            /**Fermeture du flux s'il n'est pas vide
+	             **/
+	            
+	            oos.close();
 	          }
 	        } catch (final IOException ex) {
 	          ex.printStackTrace();
@@ -57,17 +117,26 @@ public class personnesDejaInscrite implements Serializable{//SINGLETON AUQUEL ON
 	      }
 	}
 	
-	//On utilise ici la serialisation pour charger cet objet et le mettre à jour
+	/**
+	 *Utilisation de la serialization pour charger l'objet et le mettre à jour selon le procédé suivant :
+	 *<ul>
+	 *<li>Initialisation de la lecture d'une personne déjà inscrite</li>
+	 *<li>Indexation du fichier de lecture</li>
+	 *<li>Lecture du flux et affichage de la confirmation du chargement</li>
+	 *<li>Fermeture du flux</li>
+	 *@return Personne inscrite dans le fichier
+	 *</ul>
+	 **/
 	
 	private static personnesDejaInscrite chargerObjet() {
 	    ObjectInputStream ois = null;
-	    personnesDejaInscrite personneInscrite = null;//INITIALISATION DE LA LECTURE D'UNE PERSONNE DEJA INSCRITE
+	    personnesDejaInscrite personneInscrite = null;
 	    
 	    try {
-	        final FileInputStream fichier = new FileInputStream("sauvegardeLogin.sauvFichier");//FICHIER A LIRE 
+	        final FileInputStream fichier = new FileInputStream("sauvegardeLogin.sauvFichier");
 	        ois = new ObjectInputStream(fichier);
-	        personneInscrite = (personnesDejaInscrite) ois.readObject();//ON DIRIGE LE FLUX VERS NOUS ET ON LE LIT
-	        System.out.println("Fichier Charge");//CONFIRMATION DE CHARGEMENT
+	        personneInscrite = (personnesDejaInscrite) ois.readObject();
+	        System.out.println("Fichier Charge");
 	      } catch (final java.io.IOException e) {
 	        e.printStackTrace();
 	      } catch (final ClassNotFoundException e) {
@@ -75,7 +144,7 @@ public class personnesDejaInscrite implements Serializable{//SINGLETON AUQUEL ON
 	      } finally {
 	        try {
 	          if (ois != null) {
-	            ois.close();//FERMETURE DU FLUX
+	            ois.close();
 	          }
 	        } catch (final IOException ex) {
 	        	
@@ -86,18 +155,32 @@ public class personnesDejaInscrite implements Serializable{//SINGLETON AUQUEL ON
 	    return personneInscrite;
 	}
     
+	/**
+	 *Traitement du fichier d'enregstrement selon le processus suivant : 
+	 *<ul>
+	 *<li>Vérification de l'existence du fichier et sa crétion le cas écheant</li>
+	 *<li>Lecture du fichier en cas d'existence</li>
+	 *<li>Création d'une nouvelle personne inscrite</li>
+	 *</ul>
+	 *@return Fichier crée avec personne inscrite.
+	 **/
 	
 	public static personnesDejaInscrite getInstance() {
-		File f = new File("sauvegardeLogin.sauvFichier");//VERIFICATION D'EXITENCE ET CREATION LE CAS ECHEANT
-		if ((instance == null) && (f.exists()))//LECTURE EN CAS D'EXISTENCE
+		File f = new File("sauvegardeLogin.sauvFichier");
+		if ((instance == null) && (f.exists()))
 			instance = chargerObjet();
-		else if(instance == null)//CREATION D'UNE NOUVELLE PERSONNE INSCRITE
+		else if(instance == null)
 			instance = new personnesDejaInscrite();
 			
 		return instance;
 	}
 	
-	public boolean rechercher(String loginEntre, String passewordEntre) {//VERIFICATION D'EXISTENCE
+	/**
+	 *Vérification de l'existence de la personne.
+	 *@return True si la personne existe.
+	 **/
+	
+	public boolean rechercher(String loginEntre, String passewordEntre) {
 		try {
 			if((monHashMap.get(loginEntre) != null)&&(monHashMap.get(loginEntre).getPasseword().getObject().equals(passewordEntre))) {
 				return true;
