@@ -4,6 +4,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import graphic.fenetreEnvoieMail.FenetreMail;
+import graphic.fenetreEnvoieMail.MenuDeMail;
+
 public class TopMenuDescriptif{
 	
 	JMenuBar menuFinal;//BARRE DU DESSUS
@@ -28,11 +31,9 @@ public class TopMenuDescriptif{
 		JMenu contacter = new JMenu("Contact");
 		
 		JMenuItem autreUtilisateur = new JMenuItem("Autre utilisateur");
-		JMenuItem createur = new JMenuItem("Administrateur");
+		autreUtilisateur.addActionListener((event)->ouvertureFenetreMail());
 		
 		contacter.add(autreUtilisateur);
-		contacter.addSeparator();
-		contacter.add(createur);
 		
 		return contacter;
 	}
@@ -52,9 +53,22 @@ public class TopMenuDescriptif{
 		return baseDeDonne;
 	}
 	
+	
+	private void ouvertureFenetreMail() {
+		FenetreMail.getInstance().setVisible(true);
+		MenuDeMail.getInstance().getMessage().setText("");
+		MenuDeMail.getInstance().getAdresseMailRentre().setText("");
+	}
+	
+	
+	
 	public static TopMenuDescriptif getInstance() {
 		if (instance == null)
 			instance = new TopMenuDescriptif();
 		return instance;
 	}
 }
+
+
+
+

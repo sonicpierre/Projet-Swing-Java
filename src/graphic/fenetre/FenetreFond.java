@@ -7,7 +7,9 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 
+import graphic.menusDeuxiemeFenetre.EspaceDeconnexion;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
 
 
@@ -19,6 +21,10 @@ public class FenetreFond extends JFrame {
 	
 	private static FenetreFond instance;
 	private JLabel ImageFond;
+	JMenuBar maMenuBarre;
+	EspaceDeconnexion monEspaceDeconnexion;
+	
+	boolean FenetreFondDepartActive = true;
 	
 	private FenetreFond() {
 		//Fenêtre de démarrage 
@@ -30,6 +36,7 @@ public class FenetreFond extends JFrame {
 		setUndecorated(true);//ENLEVE LA BARRE DU DESSUS POUR REDIMENTIONNER ET FERMER LA FENETRE
 		setVisible(true);
 		setResizable(false);//NON POSSIBILITÉ DE REDIMENSIONNER LA FENETRE
+		setFocusable(true);
 	}
 	
 	public static FenetreFond getInstance() {
@@ -38,14 +45,34 @@ public class FenetreFond extends JFrame {
 		return instance;
 	}
 
-	public void changerFenetre() {
-		dispose();
-		setUndecorated(false);
-		this.remove(ImageFond);
-		getContentPane().setBackground(new Color(100,100,100));
-		this.add(TopMenuDescriptif.getInstance().getMenuFinal(), BorderLayout.NORTH);
-		setResizable(true);
-		setVisible(true);
+	public void changerFenetre(String login) {
+		if(FenetreFondDepartActive) {
+			dispose();
+			setUndecorated(false);
+			this.remove(ImageFond);
+			getContentPane().setBackground(new Color(100,100,100));
+			maMenuBarre = TopMenuDescriptif.getInstance().getMenuFinal();
+			this.add(maMenuBarre, BorderLayout.NORTH);
+			monEspaceDeconnexion = new EspaceDeconnexion(login);
+			this.add(monEspaceDeconnexion.getMonPannelDeconexion(), BorderLayout.EAST);
+			setResizable(true);
+			setVisible(true);
+			setFocusable(true);
+			FenetreFondDepartActive = false;
+		}
+		else {
+			dispose();
+			ImageFond = new JLabel(new ImageIcon("ImageDeFond/ImageAnime.gif"));
+			this.add(ImageFond);
+			this.remove(maMenuBarre);
+			this.remove(monEspaceDeconnexion.getMonPannelDeconexion());
+			setUndecorated(true);
+			setResizable(false);
+			setFocusable(true);
+			FenetreFondDepartActive = true;
+			setVisible(true);
+			FenetreLogin.getInstance().setVisible(true);
+		}
 	}
 
 }

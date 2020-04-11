@@ -21,6 +21,16 @@ import java.security.SignedObject;
 public class Compte implements Serializable{
 	
 	private static final long serialVersionUID = 6421959812909952648L;
+<<<<<<< HEAD
+=======
+
+	SignedObject passewordCrypte;//OBJET SECURISÉ ET SERIALISABLE
+	Color couleurDuFond;//TYPE COULEUR
+	Color couleurEcriture;//TYPE COULEUR
+	String adresseMail;
+	String talent;
+	String cheminVersImage;
+>>>>>>> refs/heads/Pierre
 	
 	/**
 	 *<p>Initialisation d'un objet sécurisé et sérializable puis défintion
@@ -41,10 +51,13 @@ public class Compte implements Serializable{
 	 *</p>
 	 *Sécurise le mot de passe */
 	
-	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture) {
+	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String adresseMail, String talent, String CheminVersImage) {
 		this.couleurDuFond = couleurDeFond;
 		this.couleurEcriture = couleurEcriture;
 		securiser(passeword);
+		this.adresseMail = adresseMail;
+		this.talent = talent;
+		this.cheminVersImage = CheminVersImage;
 	}
 	
 	/**Applique des couleurs d'ecriture et de fond lors de la saisie du mot de passe
@@ -52,10 +65,12 @@ public class Compte implements Serializable{
 	 *	mot de passe
 	 **/
 	
-	public Compte(String passeword) {	
+	public Compte(String passeword, String talent, String CheminVersImage) {	
 		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
+		this.talent = talent;
+		this.cheminVersImage = CheminVersImage;
 	}
 	
 	/**Récupère le mot de passe à encoder
@@ -107,6 +122,7 @@ public class Compte implements Serializable{
 		this.couleurEcriture = couleurEcriture;
 	}
 	
+<<<<<<< HEAD
 	/**
 	 *<p>Cette méthode est un point important de la classe Compte.
 	 *En effet elle permet de sécuriser le champ du mot de passe. De plus, puisque le Serialize serait trop simplement lu
@@ -121,6 +137,23 @@ public class Compte implements Serializable{
 	 * </p>
 	 **/
 	
+=======
+	
+	public String getTalent() {
+		return talent;
+	}
+
+
+	public void setTalent(String talent) {
+		this.talent = talent;
+	}
+	//Permet de sécuriser le champ password. Par ce que le fichier Serializable serait trop simplement lu avec un simple éditeur
+	//hexadécimal. Ici on utilise l'objet SignedObject qui permet d'utiliser l'algorithme de cryptage DSA. On a choisi cet objet car
+	//il est serialisable et donc compatible avec notre façon de sauvegarder le fichier.
+
+
+
+>>>>>>> refs/heads/Pierre
 	private void securiser(String passeword) {//PRIVATISATION DU FICHIER DE MDP
 		/**
 		 *Création d'une clé
@@ -164,4 +197,16 @@ public class Compte implements Serializable{
 			e.printStackTrace();
 		}	
 	}
+
+
+	public String getCheminVersImage() {
+		return cheminVersImage;
+	}
+
+
+	public void setCheminVersImage(String cheminVersImage) {
+		this.cheminVersImage = cheminVersImage;
+	}
+	
+	
 }
