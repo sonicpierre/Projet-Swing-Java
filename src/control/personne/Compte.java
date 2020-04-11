@@ -150,7 +150,7 @@ public class Compte implements Serializable{
 			
 			PrivateKey signingKey = keyGen.generateKeyPair().getPrivate();
 			
-			/**Création d'un signature
+			/**Création d'une signature
 			 **/
 			
 			Signature signingEngine = Signature.getInstance("DSA");
