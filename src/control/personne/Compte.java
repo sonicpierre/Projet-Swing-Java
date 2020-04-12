@@ -31,12 +31,13 @@ public class Compte implements Serializable{
 	 *</p>
 	 *Sécurise le mot de passe */
 	
-	SignedObject passewordCrypte;//OBJET SECURISÉ ET SERIALISABLE
-	Color couleurDuFond;//TYPE COULEUR
-	Color couleurEcriture;//TYPE COULEUR
-	String adresseMail;
-	String talent;
-	String cheminVersImage;
+	private SignedObject passewordCrypte;//OBJET SECURISÉ ET SERIALISABLE
+	private Color couleurDuFond;//TYPE COULEUR
+	private Color couleurEcriture;//TYPE COULEUR
+	private String adresseMail;
+	private String talent;
+	private String cheminVersImage;
+	private String description; 
 	
 	/**
 	 *<p>Initialisation d'un objet sécurisé et sérializable puis défintion
@@ -53,6 +54,7 @@ public class Compte implements Serializable{
 		this.adresseMail = adresseMail;
 		this.talent = talent;
 		this.cheminVersImage = CheminVersImage;
+		this.setDescription("Vous n'avez pas de description pour le moment...");
 	}
 	
 	/**Applique des couleurs d'ecriture et de fond lors de la saisie du mot de passe
@@ -67,6 +69,7 @@ public class Compte implements Serializable{
 		this.talent = talent;
 		this.cheminVersImage = CheminVersImage;
 		this.adresseMail = addresseMail;
+		this.setDescription("Vous n'avez pas de description pour le moment...");
 	}
 	
 	/**Récupère le mot de passe à encoder
@@ -204,6 +207,14 @@ public class Compte implements Serializable{
 
 	public void setAdresseMail(String adresseMail) {
 		this.adresseMail = adresseMail;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

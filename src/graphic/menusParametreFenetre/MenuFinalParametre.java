@@ -14,4 +14,5 @@ public class MenuFinalParametre extends JTabbedPane{
 		this.add("Mes Préférences", new JPanel());
 		this.add("Mon Compte", new JPanel());
 	}	
+	
 }

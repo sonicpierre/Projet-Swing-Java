@@ -1,7 +1,9 @@
 package graphic.menusParametreFenetre;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -15,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.filechooser.FileSystemView;
 
 import control.elementSauv.personnesDejaInscrite;
@@ -30,11 +33,13 @@ public class MenuProfilDescription extends JPanel{
 	private String login;
 	private BufferedImage photoProfil; 
 	private String description;
+	private JTextArea zoneEdition;
 	
 	private MenuProfilDescription(String login) {
 		this.login = login;
 		this.setLayout(new BorderLayout());
 		this.add(bouttons(), BorderLayout.SOUTH);
+		description = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getDescription();
 		chargerImage();
 	}
 	
@@ -45,9 +50,12 @@ public class MenuProfilDescription extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(photoProfil, 5, 10, null);
-		g.drawString(login, photoProfil.getWidth() + 15, 10);
-		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getAdresseMail(), photoProfil.getWidth() + 15, 30);
-		g.drawString("Vous n'avez pas de description pour le moment...", 10, 300);
+		g.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		g.setColor(new Color(100,100,100));
+		g.drawString(login, photoProfil.getWidth() + 15, photoProfil.getHeight()/2);
+		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getAdresseMail(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 15);
+		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 30);
+		g.drawString(description, 10, 170);
 	}
 	
 	
@@ -70,7 +78,7 @@ public class MenuProfilDescription extends JPanel{
 		
 		try {
 			photoProfil = ImageIO.read(new File(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getCheminVersImage()));
-			BufferedImage nouvelleImage=redimentionne(photoProfil, 1.5);
+			BufferedImage nouvelleImage=redimentionne(photoProfil, (double) 150/photoProfil.getWidth(), (double) 150/photoProfil.getHeight());
 			ImageIO.write(nouvelleImage, "png", new File("ImageProfil/"+login+".png"));
 			photoProfil = ImageIO.read(new File("ImageProfil/"+login+".png"));
 		} catch (IOException e) {
@@ -97,6 +105,7 @@ public class MenuProfilDescription extends JPanel{
 		JButton exit = new JButton("Exit");
 		
 		changerPhotoBoutton.addActionListener((event)->changerLaPhoto());
+		edit.addActionListener((event)->passerEnModeEdition());
 		
 		exit.addActionListener((event)->FenetreParametre.getInstance(login).dispose());
 		tempon.add(changerPhotoBoutton);
@@ -108,9 +117,9 @@ public class MenuProfilDescription extends JPanel{
 	
 	
 	
-    public static BufferedImage redimentionne(BufferedImage imageDeBase, double factor) {
-        int destWidth=(int) (imageDeBase.getWidth() * factor);
-        int destHeight=(int) (imageDeBase.getHeight() * factor);
+    public static BufferedImage redimentionne(BufferedImage imageDeBase, double factorx, double factory) {
+        int destWidth=(int) (imageDeBase.getWidth() * factorx);
+        int destHeight=(int) (imageDeBase.getHeight() * factory);
         //créer l'image de destination
         GraphicsConfiguration configuration = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         BufferedImage bImageNew = configuration.createCompatibleImage(destWidth, destHeight);
@@ -124,6 +133,27 @@ public class MenuProfilDescription extends JPanel{
         graphics.dispose();
  
         return bImageNew;
+    }
+    
+    private void passerEnModeEdition() {
+    	JPanel edition = new JPanel(new BorderLayout());
+    	zoneEdition = new JTextArea(description);
+    	JButton valider = new JButton("Valider");
+    	valider.addActionListener((event)->validationEdition());
+    	edition.add(zoneEdition, BorderLayout.CENTER);
+    	edition.add(valider, BorderLayout.SOUTH);
+    	this.add(edition);
+    	//Permet de recalculer la place des différents Panels
+    	this.validate();
+    }
+    
+    private void validationEdition() {
+    	personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setDescription(zoneEdition.getText());
+    	description = zoneEdition.getText();
+    	personnesDejaInscrite.getInstance().sauvegarder();
+    	this.remove(this.getComponentCount() - 1);
+    	this.validate();
+    	this.repaint();
     }
     
 	public static MenuProfilDescription getInstance(String login) {
