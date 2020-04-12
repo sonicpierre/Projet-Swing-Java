@@ -48,7 +48,7 @@ public class personnesDejaInscrite implements Serializable{
 	
 	private personnesDejaInscrite() {
 		monHashMap = new HashMap<String, Compte>();//INSTANCIATION DE L'OBJET
-		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE, "artistaketexe@gmail.com", null, null));//AJOUT D'UN "ADMINISTRATEUR"
+		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE, "artistaketexe@gmail.com", null, "ImageProfil/inconnu.jpg"));//AJOUT D'UN "ADMINISTRATEUR"
 	}
 	
 	/**

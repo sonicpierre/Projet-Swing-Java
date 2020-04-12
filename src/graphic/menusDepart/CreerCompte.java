@@ -131,7 +131,7 @@ public class CreerCompte extends JPanel{
 				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {//VERIFICATION DE L'EXISTENCE
 					if(validateEmailAddress(adresseMail.getText())) {
 						if(compteurDeCaseCoche() != null) {
-							personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate, compteurDeCaseCoche(), null));
+							personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate, compteurDeCaseCoche(), "ImageProfil/inconnu.jpg", adresseMail.getText()));
 							personnesDejaInscrite.getInstance().sauvegarder();
 						} 
 						else {

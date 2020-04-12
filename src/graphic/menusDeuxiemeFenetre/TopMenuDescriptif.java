@@ -4,6 +4,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import graphic.fenetre.FenetreFond;
+import graphic.fenetre.FenetreLogin;
+import graphic.fenetre.FenetreParametre;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 
@@ -13,10 +16,13 @@ public class TopMenuDescriptif{
 	
 	private static TopMenuDescriptif instance;
 	
-	private TopMenuDescriptif() {
+	private String login;
+	
+	private TopMenuDescriptif(String login) {
 		menuFinal = new JMenuBar();
 		menuFinal.add(baseDeDonneMenu());
 		menuFinal.add(contactMenu());
+		this.login = login;
 	}
 	
 	public JMenuBar getMenuFinal() {
@@ -43,12 +49,17 @@ public class TopMenuDescriptif{
 		JMenuItem creer = new JMenuItem("CréerBase");
 		JMenuItem modifierLaBDD = new JMenuItem("Modifier");
 		JMenuItem paramBDD = new JMenuItem("Paramètres");
+		JMenuItem deconnexion = new JMenuItem("Déconnexion");
+		deconnexion.addActionListener((event)->deconnexion());
+		paramBDD.addActionListener((event)->FenetreParametre.getInstance(login).setVisible(true));
 		
 		baseDeDonne.add(creer);
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(modifierLaBDD);
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(paramBDD);
+		baseDeDonne.addSeparator();
+		baseDeDonne.add(deconnexion);
 		
 		return baseDeDonne;
 	}
@@ -61,14 +72,14 @@ public class TopMenuDescriptif{
 	}
 	
 	
+	public void deconnexion() {
+		FenetreFond.getInstance().changerFenetre(null);
+		FenetreLogin.getInstance().setVisible(true);
+	}
 	
-	public static TopMenuDescriptif getInstance() {
+	public static TopMenuDescriptif getInstance(String login) {
 		if (instance == null)
-			instance = new TopMenuDescriptif();
+			instance = new TopMenuDescriptif(login);
 		return instance;
 	}
 }
-
-
-
-

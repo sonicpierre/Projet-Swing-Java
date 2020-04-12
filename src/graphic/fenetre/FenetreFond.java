@@ -7,9 +7,7 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 
-import graphic.menusDeuxiemeFenetre.EspaceDeconnexion;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
 
 
@@ -21,8 +19,6 @@ public class FenetreFond extends JFrame {
 	
 	private static FenetreFond instance;
 	private JLabel ImageFond;
-	JMenuBar maMenuBarre;
-	EspaceDeconnexion monEspaceDeconnexion;
 	
 	boolean FenetreFondDepartActive = true;
 	
@@ -51,10 +47,7 @@ public class FenetreFond extends JFrame {
 			setUndecorated(false);
 			this.remove(ImageFond);
 			getContentPane().setBackground(new Color(100,100,100));
-			maMenuBarre = TopMenuDescriptif.getInstance().getMenuFinal();
-			this.add(maMenuBarre, BorderLayout.NORTH);
-			monEspaceDeconnexion = new EspaceDeconnexion(login);
-			this.add(monEspaceDeconnexion.getMonPannelDeconexion(), BorderLayout.EAST);
+			this.add(TopMenuDescriptif.getInstance(login).getMenuFinal(), BorderLayout.NORTH);
 			setResizable(true);
 			setVisible(true);
 			setFocusable(true);
@@ -64,8 +57,7 @@ public class FenetreFond extends JFrame {
 			dispose();
 			ImageFond = new JLabel(new ImageIcon("ImageDeFond/ImageAnime.gif"));
 			this.add(ImageFond);
-			this.remove(maMenuBarre);
-			this.remove(monEspaceDeconnexion.getMonPannelDeconexion());
+			this.remove(TopMenuDescriptif.getInstance(login).getMenuFinal());
 			setUndecorated(true);
 			setResizable(false);
 			setFocusable(true);

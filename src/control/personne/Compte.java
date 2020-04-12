@@ -60,12 +60,13 @@ public class Compte implements Serializable{
 	 *	mot de passe
 	 **/
 	
-	public Compte(String passeword, String talent, String CheminVersImage) {	
+	public Compte(String passeword, String talent, String CheminVersImage, String addresseMail) {	
 		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
 		this.talent = talent;
 		this.cheminVersImage = CheminVersImage;
+		this.adresseMail = addresseMail;
 	}
 	
 	/**Récupère le mot de passe à encoder
@@ -195,6 +196,14 @@ public class Compte implements Serializable{
 
 	public void setCheminVersImage(String cheminVersImage) {
 		this.cheminVersImage = cheminVersImage;
+	}
+
+	public String getAdresseMail() {
+		return adresseMail;
+	}
+
+	public void setAdresseMail(String adresseMail) {
+		this.adresseMail = adresseMail;
 	}
 	
 	
