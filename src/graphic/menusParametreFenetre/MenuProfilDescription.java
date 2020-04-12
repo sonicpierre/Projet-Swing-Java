@@ -12,6 +12,8 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -29,6 +31,7 @@ public class MenuProfilDescription extends JPanel{
 	
 	private static MenuProfilDescription instance;
 	
+	private static final int tailleDuneLigne = 75;
 	
 	private String login;
 	private BufferedImage photoProfil; 
@@ -38,8 +41,9 @@ public class MenuProfilDescription extends JPanel{
 	private MenuProfilDescription(String login) {
 		this.login = login;
 		this.setLayout(new BorderLayout());
-		this.add(bouttons(), BorderLayout.SOUTH);
+		
 		description = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getDescription();
+		this.add(bouttons(), BorderLayout.PAGE_END);
 		chargerImage();
 	}
 	
@@ -49,13 +53,37 @@ public class MenuProfilDescription extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
+		
 		g.drawImage(photoProfil, 5, 10, null);
 		g.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		g.setColor(new Color(100,100,100));
 		g.drawString(login, photoProfil.getWidth() + 15, photoProfil.getHeight()/2);
 		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getAdresseMail(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 15);
 		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 30);
-		g.drawString(description, 10, 170);
+		
+		String[] monTabFinalEcrie = description.split("\n");
+		List<String[]> maListFinale = new ArrayList<String[]>();
+		
+		for(String monString : monTabFinalEcrie) {
+			StringBuffer descriptionTab = new StringBuffer(monString);
+			for(int i=tailleDuneLigne; i<descriptionTab.length(); i+=tailleDuneLigne)
+				descriptionTab.insert(i, "\n");
+			monString = descriptionTab.toString();
+			maListFinale.add(monString.split("\n"));
+		}
+		
+		
+		
+		int espaceInterLigne = 200;
+		for(String[] monTabString : maListFinale) {
+			for(String monString : monTabString) {
+				g.drawString(monString, 10, espaceInterLigne);
+				espaceInterLigne+=15;
+			}
+
+		}
+			
 	}
 	
 	
@@ -138,6 +166,7 @@ public class MenuProfilDescription extends JPanel{
     private void passerEnModeEdition() {
     	JPanel edition = new JPanel(new BorderLayout());
     	zoneEdition = new JTextArea(description);
+    	zoneEdition.setLineWrap(true);
     	JButton valider = new JButton("Valider");
     	valider.addActionListener((event)->validationEdition());
     	edition.add(zoneEdition, BorderLayout.CENTER);
