@@ -133,6 +133,7 @@ public class CreerCompte extends JPanel{
 						if(compteurDeCaseCoche() != null) {
 							personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate, compteurDeCaseCoche(), "ImageProfil/inconnu.jpg", adresseMail.getText()));
 							personnesDejaInscrite.getInstance().sauvegarder();
+							JOptionPane.showInternalMessageDialog(this, "Votre compte a été créé, allez vous login.", "Compte créé", JOptionPane.INFORMATION_MESSAGE);
 						} 
 						else {
 							JOptionPane.showInternalMessageDialog(this, "Vous avez trop de talent", "Erreur", JOptionPane.WARNING_MESSAGE);

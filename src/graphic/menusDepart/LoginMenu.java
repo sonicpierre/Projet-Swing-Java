@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -95,6 +96,9 @@ public class LoginMenu extends JPanel{
 			FenetreFond.getInstance().changerFenetre(login.getText());
 			login.setText("");
 			passeword.setText("");
+		}
+		else {
+			JOptionPane.showInternalMessageDialog(this, "Utilisateur ou mot de passe inconnu", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 }
