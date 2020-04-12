@@ -18,7 +18,9 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileSystemView;
 
@@ -41,7 +43,7 @@ public class MenuProfilDescription extends JPanel{
 	private MenuProfilDescription(String login) {
 		this.login = login;
 		this.setLayout(new BorderLayout());
-		
+		this.setAutoscrolls(true);
 		description = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getDescription();
 		this.add(bouttons(), BorderLayout.PAGE_END);
 		chargerImage();
@@ -73,16 +75,18 @@ public class MenuProfilDescription extends JPanel{
 			maListFinale.add(monString.split("\n"));
 		}
 		
-		
-		
+		int compteur = 0;
 		int espaceInterLigne = 200;
 		for(String[] monTabString : maListFinale) {
 			for(String monString : monTabString) {
-				g.drawString(monString, 10, espaceInterLigne);
-				espaceInterLigne+=15;
+				if(compteur<14) {
+					g.drawString(monString, 10, espaceInterLigne);
+					espaceInterLigne+=14;
+					compteur++;
+				}
 			}
-
 		}
+
 			
 	}
 	
