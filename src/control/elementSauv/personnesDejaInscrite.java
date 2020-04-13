@@ -13,7 +13,7 @@ import java.util.HashMap;
 import control.personne.Compte;
 
 /**
- * <b>personneDejaInscrite est la classe qui permet de vérifier l'inscription d'une personne.</b>
+ * <b>personneDejaInscrite</b> est la classe qui permet de vérifier l'inscription d'une personne.
  * <p>Cette vérification suit le processus suivant : 
  * <ul>
  * <li>Détermination d'un format de représentation de l'objet à n'importe quel moment</li>
@@ -23,7 +23,8 @@ import control.personne.Compte;
  * </ul>
  * NB : Il s'agit d'un singleton auquel on a acces depuis la fenêtre.
  * </p>
- * */
+ * @author VIRGAUX Pierre
+ **/
 
 public class personnesDejaInscrite implements Serializable{
 	
@@ -47,8 +48,18 @@ public class personnesDejaInscrite implements Serializable{
 	 **/
 	
 	private personnesDejaInscrite() {
-		monHashMap = new HashMap<String, Compte>();//INSTANCIATION DE L'OBJET
-		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE, "artistaketexe@gmail.com", null, "ImageProfil/inconnu.jpg"));//AJOUT D'UN "ADMINISTRATEUR"
+		
+		/**
+		 *Instanciation de l'objet
+		 **/
+		
+		monHashMap = new HashMap<String, Compte>();
+		
+		/**
+		 *Ajout d'un profil administrateur
+		 **/
+		
+		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE, "artistaketexe@gmail.com", null, "ImageProfil/inconnu.jpg"));
 	}
 	
 	/**

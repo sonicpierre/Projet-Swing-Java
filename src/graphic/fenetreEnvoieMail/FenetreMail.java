@@ -5,7 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-
+//FENETRE DE LANCEMENT D'EMAIL
 @SuppressWarnings("serial")
 public class FenetreMail extends JFrame {
 	
