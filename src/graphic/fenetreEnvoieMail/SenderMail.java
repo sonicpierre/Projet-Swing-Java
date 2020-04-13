@@ -17,9 +17,10 @@ import javax.mail.internet.MimeMessage;
 public class SenderMail {
 	public static void sendMail(String recepient, String sujet, String messageAEnvoyer) throws MessagingException {
 		System.out.println("Preparation de l'envoie du message");
-		
+		//REFERENCES AUX PROPIETES PERMETTANT DE NOUS CONNECTER A GMAIL => UTILISATION DE LA LIBRAIRIE JAVAS.MAIL.JAR
+		//SMTP est l'acronyme de Simple Mail Transport Protocol. Ce protocole défini par la recommandation RFC 821 permet l'envoi de mails vers un serveur de mails qui supporte ce protocole.
 		Properties properties = new Properties();
-		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.auth", "true");//SMTP PROTOCOLE EN RESEAU
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
@@ -34,7 +35,7 @@ public class SenderMail {
 			}
 		});
 		Message message = prepareMessage(session, myAccountEmail, recepient, sujet, messageAEnvoyer);
-		Transport.send(message);
+		Transport.send(message);//ENVOIE MESSAGE 
 		System.out.println("Message envoyé !!");
 	}
 	

@@ -16,24 +16,37 @@ import java.security.SignedObject;
 
 /**
  *<b>Compte</b> est la classe qui permet de gérer la sécurité des sessions sur l'interface.
+ *@author VIRGAUX Pierre
  **/
 
 public class Compte implements Serializable{
 	
-	private static final long serialVersionUID = 6421959812909952648L;
-	/**<p>Compte contient le mot de passe mais aussi les préférences de l'utilisateur.
-	 *@param passeword
-	 *	le mot de passe
-	 *@param couleurDeFond 
-	 *	une couleur de fond
-	 *@param couleurEcriture 
-	 *	une couleur d'écriture
-	 *</p>
-	 *Sécurise le mot de passe */
+	/**
+	 *Détermination du format de représentation à écrire dans le fichier.
+	 **/
 	
-	private SignedObject passewordCrypte;//OBJET SECURISÉ ET SERIALISABLE
-	private Color couleurDuFond;//TYPE COULEUR
-	private Color couleurEcriture;//TYPE COULEUR
+	private static final long serialVersionUID = 6421959812909952648L;
+	
+	/**Paramètres de la classe : 
+	 *@param SignedObject
+	 *	Objet sécurisé et sérializable
+	 *@param couleurDuFond
+	 *	Type couleur 
+	 *@param couleurEcriture
+	 *	Type couleur
+	 *@param adressMail
+	 *	Adresse e-mail
+	 *@param talent
+	 *	Le talent de l'artiste
+	 *@param cheminVersImage
+	 *	Le chemin vers l'image
+	 *@param description
+	 *	La description utilisateur
+	 **/
+	
+	private SignedObject passewordCrypte;
+	private Color couleurDuFond;
+	private Color couleurEcriture;
 	private String adresseMail;
 	private String talent;
 	private String cheminVersImage;
@@ -41,11 +54,8 @@ public class Compte implements Serializable{
 	
 	/**
 	 *<p>Initialisation d'un objet sécurisé et sérializable puis défintion
-	 *d'une couleur de fond et d'éciture</p>
+	 *d'une couleur de fond et d'écriture</p>
 	 **/
-	
-
-	
 	
 	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String adresseMail, String talent, String CheminVersImage) {
 		this.couleurDuFond = couleurDeFond;
@@ -57,10 +67,18 @@ public class Compte implements Serializable{
 		this.setDescription("Vous n'avez pas de description pour le moment...");
 	}
 	
-	/**Applique des couleurs d'ecriture et de fond lors de la saisie du mot de passe
+	/**Applique des couleurs d'ecriture et de fond lors de la saisie des informations. 
+	 * Il définit également le chemin vers l'image, l'e-mail et affiche un message en cas d'abscence de description.
 	 *@param passeword
-	 *	mot de passe
+	 *	Mot de passe
+	 *@param talent
+	 *	Le talent de l'utilisateur
+	 *@param CheminVersImage
+	 *	Chemin vers l'image
+	 *@param addresseMail
+	 *	Adresse e-mail
 	 **/
+	
 	
 	public Compte(String passeword, String talent, String CheminVersImage, String addresseMail) {	
 		securiser(passeword);
@@ -81,7 +99,7 @@ public class Compte implements Serializable{
 	}
 	
 	/**Met en place la sécurité du mot de passe
-	 * */
+	 **/
 	
 	public void setPasseword(String passeword) {
 		securiser(passeword);
@@ -97,7 +115,7 @@ public class Compte implements Serializable{
 	
 	/**Initialise la couleur de fond
 	 *@param couleurDuFond
-	 *	couleur de fond
+	 *	Couleur de fond
 	 **/
 	
 	public void setCouleurDuFond(Color couleurDuFond) {
@@ -120,8 +138,25 @@ public class Compte implements Serializable{
 	public void setCouleurEcriture(Color couleurEcriture) {
 		this.couleurEcriture = couleurEcriture;
 	}
+		
+	/**
+	 *Récupération du talent utilisateur
+	 *@return Talent de l'utilisateur
+	 **/
 	
+	public String getTalent() {
+		return talent;
+	}
 
+	/**
+	 *Définition du talent de l'utilisateur
+	 **/
+	
+	public void setTalent(String talent) {
+		this.talent = talent;
+	}
+
+	
 	/**
 	 *<p>Cette méthode est un point important de la classe Compte.
 	 *En effet elle permet de sécuriser le champ du mot de passe. De plus, puisque le Serialize serait trop simplement lu
@@ -136,17 +171,6 @@ public class Compte implements Serializable{
 	 * </p>
 	 **/
 	
-
-	public String getTalent() {
-		return talent;
-	}
-
-
-	public void setTalent(String talent) {
-		this.talent = talent;
-	}
-
-
 	private void securiser(String passeword) {//PRIVATISATION DU FICHIER DE MDP
 		/**
 		 *Création d'une clé
@@ -154,9 +178,11 @@ public class Compte implements Serializable{
 		
 		KeyPairGenerator keyGen;
 		try {
+			
 			/**
 			 *Signature d'un objet
 			 **/
+			
 			keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
 			
 			/**Définit la source pour la génération de la clé
@@ -181,6 +207,7 @@ public class Compte implements Serializable{
 			
 			Signature signingEngine = Signature.getInstance("DSA");
 			signingEngine.initSign(signingKey);
+			
 			/**Signature de l'objet
 			 **/
 			
@@ -191,28 +218,53 @@ public class Compte implements Serializable{
 		}	
 	}
 
-
+	
+	/**
+	 *Récupère le chemin vers l'image
+	 *@return Chemin vers l'image
+	 **/
+	
 	public String getCheminVersImage() {
 		return cheminVersImage;
 	}
 
-
+	/**
+	 *Permet de définir le chemin vers l'image
+	 **/
+	
 	public void setCheminVersImage(String cheminVersImage) {
 		this.cheminVersImage = cheminVersImage;
 	}
-
+	
+	/**Récupération de l'e-mail utilisateur
+	 *@return Adresse e-mail
+	 **/
+	
 	public String getAdresseMail() {
 		return adresseMail;
 	}
-
+	
+	/**
+	 *Permet de définir l'e-mail de l'utilisateur
+	 **/
+	
 	public void setAdresseMail(String adresseMail) {
 		this.adresseMail = adresseMail;
 	}
-
+	
+	/**
+	 * Permet de récupérer la description utilisateur
+	 *@return Description utilisateur
+	 **/
+	
 	public String getDescription() {
 		return description;
 	}
-
+	
+	/**
+	 *Permet de définir la description de l'utilisateur
+	 **/
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}

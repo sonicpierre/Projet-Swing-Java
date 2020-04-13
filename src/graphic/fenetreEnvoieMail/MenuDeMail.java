@@ -59,7 +59,7 @@ public class MenuDeMail extends JPanel{
 	private JPanel bouttonEnvoi() {
 		JPanel panelBoutton = new JPanel(new FlowLayout());
 		JButton envoyer = new JButton("Envoyer");
-		envoyer.addActionListener((event)->envoyerMail());
+		envoyer.addActionListener((event)->envoyerMail());//PENSER AU @SENDERMAIL
 		panelBoutton.add(envoyer);
 		return panelBoutton;
 	}
