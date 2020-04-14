@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"control.personne","l":"Compte"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"control.personne","l":"Compte"},{"p":"graphic.fenetreEnvoieMail","l":"MenuDeMail"},{"p":"graphic.menusParametreFenetre","l":"MenuFinalParametre"},{"p":"graphic.menusParametreFenetre","l":"MenuProfilDescription"},{"p":"graphic.menusParametreFenetre","l":"MenuReparametrageDuCompte"},{"p":"control.elementSauv","l":"personnesDejaInscrite"}]
