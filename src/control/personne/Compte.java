@@ -27,23 +27,6 @@ public class Compte implements Serializable{
 	
 	private static final long serialVersionUID = 6421959812909952648L;
 	
-	/**Paramètres de la classe : 
-	 *@param SignedObject
-	 *	Objet sécurisé et sérializable
-	 *@param couleurDuFond
-	 *	Type couleur 
-	 *@param couleurEcriture
-	 *	Type couleur
-	 *@param adressMail
-	 *	Adresse e-mail
-	 *@param talent
-	 *	Le talent de l'artiste
-	 *@param cheminVersImage
-	 *	Le chemin vers l'image
-	 *@param description
-	 *	La description utilisateur
-	 **/
-	
 	private SignedObject passewordCrypte;
 	private Color couleurDuFond;
 	private Color couleurEcriture;
