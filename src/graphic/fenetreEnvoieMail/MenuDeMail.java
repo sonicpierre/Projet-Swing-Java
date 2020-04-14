@@ -145,7 +145,7 @@ public class MenuDeMail extends JPanel{
 	
 	/**
 	 *Initialisation de l'e-mail
-	 *@param adressMailRentre
+	 *@param adresseMailRentre
 	 *	E-mail saisie
 	 **/
 	
@@ -164,7 +164,7 @@ public class MenuDeMail extends JPanel{
 	
 	/**
 	 *Définition du message de l'e-mail
-	 *@param Message dans une zone de texte
+	 *@param message dans une zone de texte
 	 **/
 	
 	public void setMessage(JTextArea message) {

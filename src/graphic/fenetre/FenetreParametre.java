@@ -14,13 +14,13 @@ public class FenetreParametre extends JFrame{
 	
 	String login;
 	
-	private FenetreParametre(String login) {
+	private FenetreParametre(String login){
 		this.login = login;
 		FenetreFond.getInstance();
 		this.setTitle("Paramètre");
 		setSize(new Dimension(600,500));
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.getContentPane().add(new MenuFinalParametre(login));
+		this.getContentPane().add(MenuFinalParametre.getInstance(login));
 		this.setLocationRelativeTo(null);
 		setVisible(true);
 		setResizable(false);
