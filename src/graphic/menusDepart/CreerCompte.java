@@ -18,6 +18,9 @@ import org.apache.commons.validator.EmailValidator;
 
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Compte;
+import control.personne.CompteActeur;
+import control.personne.CompteChanteur;
+import control.personne.CompteComedien;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
@@ -62,9 +65,9 @@ public class CreerCompte extends JPanel{
 		confirmedMotDePasse.setHorizontalAlignment(JLabel.CENTER);
 		
 		JPanel choixCategorie = new JPanel(new GridLayout(1,3));
-		checkArtiste = new JCheckBox("Artiste");
+		checkArtiste = new JCheckBox("Acteur");
 		checkChanteur = new JCheckBox("Chanteur");
-		checkDanseur = new JCheckBox("Danseur");
+		checkDanseur = new JCheckBox("Comedien");
 		choixCategorie.add(checkArtiste);
 		choixCategorie.add(checkChanteur);
 		choixCategorie.add(checkDanseur);
@@ -131,9 +134,19 @@ public class CreerCompte extends JPanel{
 				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {//VERIFICATION DE L'EXISTENCE
 					if(validateEmailAddress(adresseMail.getText())) {
 						if(compteurDeCaseCoche() != null) {
-							personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new Compte(passewordTranslate, compteurDeCaseCoche(), "ImageProfil/inconnu.jpg", adresseMail.getText()));
-							personnesDejaInscrite.getInstance().sauvegarder();
-							JOptionPane.showInternalMessageDialog(this, "Votre compte a été créé, allez vous login.", "Compte créé", JOptionPane.INFORMATION_MESSAGE);
+							if(compteurDeCaseCoche().equals("Acteur")) {
+								personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new CompteActeur(passewordTranslate, compteurDeCaseCoche(), "ImageProfil/inconnu.jpg", adresseMail.getText()));
+								personnesDejaInscrite.getInstance().sauvegarder();
+								JOptionPane.showInternalMessageDialog(this, "Bienvenue l'artiste allez-vous login, allez vous login.", "Compte créé", JOptionPane.INFORMATION_MESSAGE);
+							} else if(compteurDeCaseCoche().equals("Comedien")) {
+								personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new CompteComedien(passewordTranslate, compteurDeCaseCoche(), "ImageProfil/inconnu.jpg", adresseMail.getText()));
+								personnesDejaInscrite.getInstance().sauvegarder();
+								JOptionPane.showInternalMessageDialog(this, "Bienvenu comédien, allez vous login.", "Compte créé", JOptionPane.INFORMATION_MESSAGE);
+							} else if(compteurDeCaseCoche().equals("Chanteur")) {
+								personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(), new CompteChanteur(passewordTranslate, compteurDeCaseCoche(), "ImageProfil/inconnu.jpg", adresseMail.getText()));
+								personnesDejaInscrite.getInstance().sauvegarder();
+								JOptionPane.showInternalMessageDialog(this, "Bienvenu chanteur, allez vous login.", "Compte créé", JOptionPane.INFORMATION_MESSAGE);
+							}
 						} 
 						else {
 							JOptionPane.showInternalMessageDialog(this, "Vous avez trop de talent", "Erreur", JOptionPane.WARNING_MESSAGE);
