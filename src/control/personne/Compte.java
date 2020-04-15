@@ -12,6 +12,10 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.SignedObject;
+import java.util.ArrayList;
+import java.util.List;
+
+import control.musique.Album;
 
 
 /**
@@ -34,7 +38,9 @@ public class Compte implements Serializable{
 	private String talent;
 	private String cheminVersImage;
 	private String description; 
+	//Utilise que dans le compteChanteur
 	
+	List<Album> maListeDeAlbums;
 	/**
 	 *<p>Initialisation d'un objet sécurisé et sérializable puis défintion
 	 *d'une couleur de fond et d'écriture</p>
@@ -63,7 +69,7 @@ public class Compte implements Serializable{
 	 **/
 	
 	
-	public Compte(String passeword, String talent, String CheminVersImage, String addresseMail) {	
+	public Compte(String passeword, String talent, String CheminVersImage, String addresseMail) {
 		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
@@ -250,6 +256,14 @@ public class Compte implements Serializable{
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public List<Album> getMaListeDeAlbums() {
+		return maListeDeAlbums;
+	}
+
+	public void setMaListeDeAlbums(List<Album> maListeDeChansons) {
+		this.maListeDeAlbums = maListeDeChansons;
 	}
 	
 	

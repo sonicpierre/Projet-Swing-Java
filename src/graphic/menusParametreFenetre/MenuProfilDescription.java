@@ -115,7 +115,8 @@ public class MenuProfilDescription extends JPanel{
 		g.setColor(new Color(100,100,100));
 		g.drawString(login, photoProfil.getWidth() + 15, photoProfil.getHeight()/2);
 		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getAdresseMail(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 15);
-		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 30);
+		if(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent() != null)
+			g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 30);
 		
 		/**
 		 *Création d'un tableau de string qu'on split par rapport à tous les retours chariots.

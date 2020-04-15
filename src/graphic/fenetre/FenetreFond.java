@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import control.elementSauv.personnesDejaInscrite;
+import graphic.menusDeuxiemeFenetre.MenuChanteur;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
 
 
@@ -44,10 +46,11 @@ public class FenetreFond extends JFrame {
 	public void changerFenetre(String login) {
 		if(FenetreFondDepartActive) {
 			dispose();
-			setUndecorated(false);
 			this.remove(ImageFond);
+			setUndecorated(false);
 			getContentPane().setBackground(new Color(100,100,100));
-			this.add(TopMenuDescriptif.getInstance(login).getMenuFinal(), BorderLayout.NORTH);
+			this.add(TopMenuDescriptif.getInstance(login, personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent()), BorderLayout.NORTH);
+			this.add(MenuChanteur.getInstance(login), BorderLayout.CENTER);
 			setResizable(true);
 			setVisible(true);
 			setFocusable(true);
@@ -55,9 +58,7 @@ public class FenetreFond extends JFrame {
 		}
 		else {
 			dispose();
-			ImageFond = new JLabel(new ImageIcon("ImageDeFond/ImageAnime.gif"));
 			this.add(ImageFond);
-			this.remove(TopMenuDescriptif.getInstance(login).getMenuFinal());
 			setUndecorated(true);
 			setResizable(false);
 			setFocusable(true);
