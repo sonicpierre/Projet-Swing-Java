@@ -40,19 +40,25 @@ public class MenuChanteur extends JScrollPane{
 	
 	private void constructionDuPanel() {
 		int nombreTotalDeTitre = 0;
+		boolean premierPassage = true;
 		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums())
-			nombreTotalDeTitre+= monAlbum.getChansonsDelAlbum().size();
-		menuFinal = new JPanel(new GridLayout(nombreTotalDeTitre, 2));
+			nombreTotalDeTitre+= monAlbum.getChansonsDelAlbum().size() + 1;
+		menuFinal = new JPanel(new GridLayout(nombreTotalDeTitre, 2, 20, 10));
 		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums()) {
 			for(Titre monTitre : monAlbum.getChansonsDelAlbum()) {
-				JPanel temponConstruction = constructionEtiquette(monTitre.getTitre(), monAlbum.getTitre());
+				if(premierPassage) {
+					JLabel album = new JLabel(monAlbum.getTitre());
+					menuFinal.add(album);
+					ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+					JLabel imageCorespondante = new JLabel(monImage);
+					menuFinal.add(imageCorespondante);
+					premierPassage = false;
+				}
+					
+				JPanel temponConstruction = constructionEtiquette(monTitre.getTitre());
 				menuFinal.add(temponConstruction);
 				JPanel bouttons = lesBouttonsDeControle(monTitre);
 				menuFinal.add(bouttons);
-				
-				ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
-				JLabel imageCorespondante = new JLabel(monImage);
-				menuFinal.add(imageCorespondante);
 				
 				titreAssociePlayer.put(monTitre, bouttons);
 			}
@@ -60,11 +66,9 @@ public class MenuChanteur extends JScrollPane{
 	}
 	
 	
-	private JPanel constructionEtiquette(String titreMusique, String titreAlbum) {
+	private JPanel constructionEtiquette(String titreMusique) {
 		JPanel description = new JPanel(new FlowLayout());
 		JLabel titre = new JLabel(titreMusique);
-		JLabel album = new JLabel(titreAlbum);
-		description.add(album);
 		description.add(titre);
 		return description;
 	}
