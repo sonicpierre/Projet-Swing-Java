@@ -1,5 +1,6 @@
 package control.musique;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Titre implements Serializable{
@@ -9,8 +10,14 @@ public class Titre implements Serializable{
 	private String titre;
 	private double duree;
 	private String cheminVersLaMusique;
+	private boolean isPlaying;
+	private boolean isEnPause;
+	private Lecteur lecteurAssocie;
 	
 	public Titre(String titre, double duree, String cheminVersLaMusique) {
+		this.lecteurAssocie = null;
+		this.setEnPause(false);
+		this.setPlaying(false);
 		this.setTitre(titre);
 		this.setDuree(duree);
 		this.setCheminVersLaMusique(cheminVersLaMusique);
@@ -22,6 +29,38 @@ public class Titre implements Serializable{
 		this.setCheminVersLaMusique(cheminVersLaMusique);
 	}
 
+	
+	@SuppressWarnings("deprecation")
+	public void play() {
+		if(!this.isPlaying() && !this.isEnPause) {
+			lecteurAssocie = new Lecteur(new PisteAudio(new File(this.getCheminVersLaMusique()), this.getTitre()));
+			this.setPlaying(true);
+		}
+		else if(!this.isPlaying && this.isEnPause) {
+			lecteurAssocie.resume();
+			this.isEnPause = false;
+			this.isPlaying = true;
+		}
+			
+	}
+	@SuppressWarnings("deprecation")
+	public void stop() {
+		if(this.isPlaying) {
+			lecteurAssocie.suspend();
+			this.isEnPause = true;
+			this.isPlaying = false;
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void reset() {
+		if(this.isPlaying) {
+			lecteurAssocie.stop();
+			isPlaying = false;
+			this.play();
+		}
+			
+	}
 	public String getTitre() {
 		return titre;
 	}
@@ -44,5 +83,21 @@ public class Titre implements Serializable{
 
 	public void setCheminVersLaMusique(String cheminVersLaMusique) {
 		this.cheminVersLaMusique = cheminVersLaMusique;
+	}
+
+	public boolean isPlaying() {
+		return isPlaying;
+	}
+
+	public void setPlaying(boolean isPlaying) {
+		this.isPlaying = isPlaying;
+	}
+
+	public boolean isEnPause() {
+		return isEnPause;
+	}
+
+	public void setEnPause(boolean isEnPause) {
+		this.isEnPause = isEnPause;
 	}
 }

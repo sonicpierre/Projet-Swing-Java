@@ -48,12 +48,15 @@ public class TopMenuDescriptif extends JMenuBar{
 		JMenuItem ajouterAlbums = new JMenuItem("Albums");
 		JMenuItem ajouterSaMusique = new JMenuItem("Ajouter musique");
 		JMenuItem supprimerSaMusique = new JMenuItem("Supprimer musique");
+		JMenuItem param = new JMenuItem("Paramètres");
 		JMenuItem deconnexion = new JMenuItem("Déconnexion");
 		deconnexion.addActionListener((event)->deconnexion());
 		ajouterAlbums.addActionListener((event)->FenetreParametre.getInstance(login).ajoutAlbumFenetre());
+		param.addActionListener((event)->FenetreParametre.getInstance(login).ajoutParametre());
 		chanson.add(ajouterSaMusique);
 		chanson.add(supprimerSaMusique);
 		chanson.add(ajouterAlbums);
+		chanson.add(param);
 		chanson.add(deconnexion);
 		return chanson;
 	}
@@ -115,6 +118,7 @@ public class TopMenuDescriptif extends JMenuBar{
 		FenetreFond.getInstance().changerFenetre(login);
 		FenetreLogin.getInstance().setVisible(true);
 	}
+	
 	
 	public static TopMenuDescriptif getInstance(String login, String typeArtiste) {
 		if (instance == null)

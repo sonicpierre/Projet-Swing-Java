@@ -30,13 +30,16 @@ public class FenetreParametre extends JFrame{
 	
 	public void ajoutParametre() {
 		dispose();
+		this.getContentPane().removeAll();
 		setSize(dimParametre);
 		this.getContentPane().add(MenuFinalParametre.getInstance(login));
 		setVisible(true);
+		
 	}
 	
 	public void ajoutAlbumFenetre() {
 		dispose();
+		this.getContentPane().removeAll();
 		setSize(dimChoixAlbum);
 		this.getContentPane().add(MenuAjoutAlbum.getInstance(login));
 		setVisible(true);

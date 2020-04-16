@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +16,7 @@ import javax.swing.JTextField;
 import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
 import control.musique.Titre;
+import graphic.fenetre.FenetreParametre;
 
 @SuppressWarnings("serial")
 public class MenuAjoutAlbum extends JPanel{
@@ -23,9 +25,10 @@ public class MenuAjoutAlbum extends JPanel{
 	
 	private final String login;
 	private JTextField nom;
-	private  JTextField style;
 	private List<Titre> titreAssocie;
 	private String cheminVersImageAssocie;
+	JComboBox<String> style;
+	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};
 	
 	private MenuAjoutAlbum(String login) {
 		this.login = login;
@@ -36,10 +39,10 @@ public class MenuAjoutAlbum extends JPanel{
 	private JPanel choixLabels() {
 		JPanel choixLabels = new JPanel(new FlowLayout());
 		JLabel nomLabel = new JLabel("Nom Album");
-		JLabel styleLabel = new JLabel("Style");
+		style = new JComboBox<String>(listeStyle);
+		
 		JLabel dossierLabel = new JLabel("Dossier");
 		nom = new JTextField("Nom Album");
-		style = new JTextField("Style");
 		JButton dossier = new JButton("Browse");
 		JButton valider = new JButton("Valider");
 		dossier.addActionListener((event)->choixDunAlbum());
@@ -47,7 +50,6 @@ public class MenuAjoutAlbum extends JPanel{
 		
 		choixLabels.add(nomLabel);
 		choixLabels.add(nom);
-		choixLabels.add(styleLabel);
 		choixLabels.add(style);
 		choixLabels.add(dossierLabel);
 		choixLabels.add(dossier);
@@ -89,8 +91,14 @@ public class MenuAjoutAlbum extends JPanel{
 	}
 	
 	private void valider() {
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums().add(new Album(nom.getText(), style.getText(), titreAssocie, cheminVersImageAssocie));
-		personnesDejaInscrite.getInstance().sauvegarder();
-		MenuChanteur.getInstance(login).update();
+		if(titreAssocie != null) {
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums().add(new Album(nom.getText(), style.getItemAt(style.getSelectedIndex()), titreAssocie, cheminVersImageAssocie));
+			personnesDejaInscrite.getInstance().sauvegarder();
+			MenuChanteur.getInstance(login).update();
+			titreAssocie = null;
+			nom.setText("Nom Album");
+			style.setSelectedItem(listeStyle[0]);
+			FenetreParametre.getInstance(login).dispose();
+		}
 	}
 }
