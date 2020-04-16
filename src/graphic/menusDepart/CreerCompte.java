@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 import org.apache.commons.validator.EmailValidator;
 
 import control.elementSauv.personnesDejaInscrite;
-import control.personne.Compte;
 import control.personne.CompteActeur;
 import control.personne.CompteChanteur;
 import control.personne.CompteComedien;

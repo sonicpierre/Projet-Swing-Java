@@ -27,7 +27,7 @@ public class MenuAjoutAlbum extends JPanel{
 	private JTextField nom;
 	private List<Titre> titreAssocie;
 	private String cheminVersImageAssocie;
-	JComboBox<String> style;
+	private JComboBox<String> style;
 	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};
 	
 	private MenuAjoutAlbum(String login) {
