@@ -58,7 +58,7 @@ public class MenuChanteur extends JScrollPane{
 				if(monAlbum.getType().equals(monNomOnglet))
 					for(Titre monTitre : monAlbum.getChansonsDelAlbum()) {
 						if(premierPassage) {
-							JLabel album = new JLabel(monAlbum.getTitre());
+							JLabel album = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">"+ monAlbum.getTitre() +"</FONT></html>");
 							menuFinal.add(album);
 							ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
 							JLabel imageCorespondante = new JLabel(monImage);

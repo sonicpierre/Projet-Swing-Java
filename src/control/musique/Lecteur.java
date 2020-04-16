@@ -2,14 +2,18 @@ package control.musique;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
-public class Lecteur extends Thread {
+public class Lecteur extends Thread implements Serializable{
+
+	private static final long serialVersionUID = -4883518060149659730L;
+	
 	private final PisteAudio maPiste;
-	private AdvancedPlayer player;
-	private FileInputStream fileInputStream;
+	transient private AdvancedPlayer player;
+	transient private FileInputStream fileInputStream;
 
 	public Lecteur(PisteAudio maPiste) {
 		super("Thread de Son");
