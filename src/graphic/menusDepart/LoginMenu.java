@@ -1,4 +1,3 @@
-//UN ONGLET DU MENU DEMARRAGE
 package graphic.menusDepart;
 
 import java.awt.Color;
@@ -19,34 +18,80 @@ import graphic.fenetre.FenetreLogin;
 
 
 @SuppressWarnings("serial")
+
+/**
+ *<b>LoginMenu</b> est la classe qui va créer le menu d'indentification
+ *@author VIRGAUX Pierre
+ **/
+
 public class LoginMenu extends JPanel{
 	
 	private static LoginMenu instance;
 	
-	//On met ces variables en globale pour y avoir accés de partout et pouvoir valider la connexion
-	JPanel menuLogin;
-	JTextField login;//BARRE DE SAISIE LOGIN
-	JPasswordField passeword;//IDEM POUR MDP
+	/**On met ces variables en globales afin d'y avoir accés partout et pouvoir valider la connexion
+	 **/
 	
-
+	JPanel menuLogin;
+	
+	/**
+	 *Barre de saisie login
+	 **/
+	
+	JTextField login;
+	
+	/**
+	 *Barre saisie mot de passe
+	 **/
+	
+	JPasswordField passeword;
+	
+	/**
+	 *Initialise les positions de la fenetre de login
+	 **/
+	
 	private LoginMenu() {		
-		menuLogin = new JPanel(new GridLayout(2,1, 0, 0));//POSITIONNE LA FENETRE COMME UN TABLEAU LIGNE COLONNE ET ESPACE EN HAUTEUR ET LARGEUR
+		
+		/**
+		 *Fenêtre positionnée comme tableau de ligne/colonne avec un espace en hauteur et largeur
+		 **/
+		
+		menuLogin = new JPanel(new GridLayout(2,1, 0, 0));
 		menuLogin.setBackground(new Color(200, 100, 100));
-		menuLogin.add(InitialisationDuMenu());//AJOUT DE LOGIN ET MDP VIA UN TABLEAU 
+		
+		/**
+		 *Ajout du login et mot de passe via un tableau
+		 **/
+		
+		menuLogin.add(InitialisationDuMenu()); 
 		menuLogin.add(InitDesBouttons());
 	}
+	
+	/**
+	 *Initialisation de menu 
+	 **/
 	
 	private JPanel InitialisationDuMenu() {
 		JPanel mesEntre = new JPanel(new GridLayout(2,2,15,10));
 		login = new JTextField("Login");
 		passeword = new JPasswordField("Mot de Passe");
-
-		JLabel loginTexte = new JLabel("Login :");//ECRIRE UNE ETIQUETTE CENTRÉE
+		
+		/**
+		 *Centrage du login
+		 **/
+		
+		JLabel loginTexte = new JLabel("Login :");
 		loginTexte.setHorizontalAlignment(JLabel.CENTER);
-		JLabel motDePasse = new JLabel("Mot de Passe :");//ECRIRE UNE ETIQUETTE CENTRÉE
+		
+		/**
+		 *Centrage du mot de passe
+		 **/
+		
+		JLabel motDePasse = new JLabel("Mot de Passe :");
 		motDePasse.setHorizontalAlignment(JLabel.CENTER);
 		
-		//On ajoute au Panel les éléments pour saisir mot de pass et login.
+		/**On ajoute au Panel les éléments de saisie mot de passe et login
+		 **/
+		
 		mesEntre.add(loginTexte);
 		mesEntre.add(login);
 		mesEntre.add(motDePasse);
@@ -55,43 +100,121 @@ public class LoginMenu extends JPanel{
 		return mesEntre;
 	}
 	
-	private JPanel InitDesBouttons() {//INITIALISATION DES BOUTONS
+	/**
+	 *Création des boutons de validationde choix
+	 *@return Boutons de validation
+	 **/
+	 
+	private JPanel InitDesBouttons() {
+		
+		/**
+		 *Initialisation des boutons centrés
+		 **/
+		
 		JPanel mesBouttons = new JPanel(new FlowLayout(FlowLayout.CENTER,20, 25));
 		JButton valider = new JButton("Valider");
 		JButton quitter = new JButton("Quitter");
-		quitter.addActionListener((event)->quitter());//AJOUT DES LSTENER SUR LE BOUTON AFIN DE REALISER L'ACTION
-		valider.addActionListener((event)->valider());//AJOUT DES LSTENER SUR LE BOUTON AFIN DE REALISER L'ACTION
-		//PERMET DE CHANGER LE CURSEUR QUAND ON PASSE DESSUS
+		
+		/**
+		 *Ajout de listener sur le bouton afin de realiser l'action
+		 **/
+		
+		quitter.addActionListener((event)->quitter());
+		
+		/**
+		 *Ajout de listener sur le bouton afin de realiser l'action
+		 **/
+		
+		valider.addActionListener((event)->valider());
+		
+		/**
+		 *Permet de changer le curseur lorsqu'on passe dessus
+		 **/
+		
 		valider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		quitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		/**
+		 *Ajout des actions
+		 **/
+		
 		mesBouttons.add(valider);
+		
+		/**
+		 *Ajout des actions
+		 **/
+		
 		mesBouttons.add(quitter);
 		return mesBouttons;
 	}
+	
+	/**
+	 *Instanciation du menu de login
+	 *@return Menu de login
+	 **/
 	
 	public static LoginMenu getInstance() {
 		if (instance == null)
 			instance = new LoginMenu();
 		return instance;
 	}
-
+	
+	
+	/**
+	 *Retourne le menu de login
+	 *@return Menu login
+	 **/
+	
 	public JPanel getMenuLogin() {
 		return menuLogin;
 	}
 
+	/**
+	 *Initialisation du menu de login
+	 *@param menuLogin
+	 **/
+	
 	public void setMenuLogin(JPanel menuLogin) {
 		this.menuLogin = menuLogin;
 	}
 	
+	/**
+	 *Permet de quitter la fenêtre en cours, sans arrêter le processus
+	 **/
+	
 	private void quitter() {
-		FenetreLogin.getInstance().dispose();//LIBERE LA FENETRE SANS ARRETER LE PROCESSUS
+		
+		/**
+		 *On rend invisible la fenêtre de login
+		 **/
+		
+		FenetreLogin.getInstance().dispose();
+		
+		/**
+		 *On rend invisible la fenêtre de fond
+		 **/
+		
 		FenetreFond.getInstance().dispose();
-		System.exit(0);//ARRET DU PROCESSSUS
+		System.exit(0);
 	}
 	
-	private void valider() {//VALIDATION 
-		String passewordTraduit = new String(passeword.getPassword());//RENVOIE D'UN TABLEAU DE CARACTERE QUI SERA TRNASFORMÉ EN CHAINE DE CARACTERES
-		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {//LOGIN.GETTEXT RECUPERE LE CONTENU DE LA BARRE DE SAISIE
+	/**
+	 *Permet la valider de la saisie d'informations
+	 **/
+	
+	private void valider() {
+		
+		/**
+		 *Renvoie un tableau de caractères qui sera transformé en chaine de caractère
+		 **/
+		
+		String passewordTraduit = new String(passeword.getPassword());
+		
+		/**
+		 *login.getText() récupère le contenu de la barre de saisie
+		 **/
+		
+		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
 			FenetreLogin.getInstance().dispose();
 			FenetreFond.getInstance().changerFenetre(login.getText());
 			login.setText("");
