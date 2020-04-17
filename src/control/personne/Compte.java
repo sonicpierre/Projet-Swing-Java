@@ -40,6 +40,10 @@ public class Compte implements Serializable{
 	private String description; 
 	//Utilise que dans le compteChanteur
 	
+	/**
+	 *Tableau d'album, utilisé dans le compte chanteur
+	 **/
+	
 	List<Album> maListeDeAlbums;
 	/**
 	 *<p>Initialisation d'un objet sécurisé et sérializable puis défintion

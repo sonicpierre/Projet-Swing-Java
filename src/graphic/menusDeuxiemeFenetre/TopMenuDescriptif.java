@@ -10,6 +10,9 @@ import graphic.fenetre.FenetreParametre;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 
+
+//BARRE DE HAUT SELON LE TALENT DE L'UTILISATEUR
+//CE N'EST PA PRATIK DAVOIU UN BARR POUR CHAQ PEROSN => COMBINAISON DES PREFERENCES
 @SuppressWarnings("serial")
 public class TopMenuDescriptif extends JMenuBar{
 	
@@ -19,7 +22,7 @@ public class TopMenuDescriptif extends JMenuBar{
 	private String login;
 	
 	private TopMenuDescriptif(String login, String typeArtiste) {
-		if(typeArtiste == null) {
+		if(typeArtiste == null) {//ADMINISTRATEUR IL POURRA AVOIR ACCES A CERTAINES INFO DES PERSONNES
 			this.add(baseDeDonneMenu());
 			this.add(contactMenu());
 		} else if(typeArtiste.equals("Chanteur")) {
@@ -33,7 +36,7 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	
-	private JMenu contactMenu() {
+	private JMenu contactMenu() {//RESERVER A L'ADMIN => IL CONTACTE TOUT LE MONDE
 		JMenu contacter = new JMenu("Contact");
 		JMenuItem autreUtilisateur = new JMenuItem("Autre utilisateur");
 		autreUtilisateur.addActionListener((event)->ouvertureFenetreMail());

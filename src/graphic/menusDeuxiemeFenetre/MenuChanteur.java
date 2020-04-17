@@ -19,6 +19,7 @@ import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
 import control.musique.Titre;
 
+//
 @SuppressWarnings("serial")
 public class MenuChanteur extends JScrollPane{
 
@@ -40,46 +41,48 @@ public class MenuChanteur extends JScrollPane{
 		
 	}
 	
+
 	private void constructionDuPanel() {
-		this.mesOnglets = new JTabbedPane();
-		for(String monNomOnglet : listeStyle) {
+		this.mesOnglets = new JTabbedPane();	//CREATION PANEL ONGLETS
+		for(String monNomOnglet : listeStyle) {//POUR TOUS LES STYLES DE ZIK, ON PASSE TOUS LES ALBUMS YANT UN CERTAIN STYLE, ON COMPTE LEUR NOMBRE DE TITRE DANS L'LABUM => NBR DE LIGNE DU TABLEAU QUON VEUR AFFICHER
 			int nombreTotalDeTitre = 0;
-			boolean premierPassage = true;
-			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums())	
-				if(monAlbum.getType().equals(monNomOnglet))
-					nombreTotalDeTitre+= monAlbum.getChansonsDelAlbum().size() + 1;
+			boolean premierPassage = true;//PREMIER PASS NOM ET IMG ALBUM
+			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums())	//POUR TOUS LES ALBUM DAN SLA LISTE D'ALBUM,SAUVEGARDER
+				if(monAlbum.getType().equals(monNomOnglet))//TEST DU TYPE EN LECTURE
+					nombreTotalDeTitre+= monAlbum.getChansonsDelAlbum().size() + 1;//COMPTE DU NBR DE TITRE + 1 CAR RAJOUT D'UNE LIGNE NOM + PHOTO
 			
+			//CREATION COLONNES: NOM DE TITRE + GESTION LECTURE
 			menuFinal = new JPanel(new GridLayout(nombreTotalDeTitre, 2, 20, 10));
 			
-			menuFinal.setBorder(BorderFactory.createLineBorder(new Color(100,100,100), 10));
+			menuFinal.setBorder(BorderFactory.createLineBorder(new Color(100,100,100), 10));//BORDURE
 			
-			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums()) {
+			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums()) {//POUR TOUS LES ALBUM INSCRIS
 				premierPassage = true;
 				if(monAlbum.getType().equals(monNomOnglet))
-					for(Titre monTitre : monAlbum.getChansonsDelAlbum()) {
+					for(Titre monTitre : monAlbum.getChansonsDelAlbum()) {//ON PASSSE TOUTES LES MUSIQUES
 						if(premierPassage) {
-							JLabel album = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">"+ monAlbum.getTitre() +"</FONT></html>");
-							menuFinal.add(album);
-							ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
+							JLabel album = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">"+ monAlbum.getTitre() +"</FONT></html>");//ECRITURE EN HTML PERMETTAT DES PREZ FOLIFOLI
+							menuFinal.add(album);//AJOUT TITRE 
+							ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
 							JLabel imageCorespondante = new JLabel(monImage);
-							menuFinal.add(imageCorespondante);
+							menuFinal.add(imageCorespondante);//BOUTON CORRESPONDANT AU CONTROL DE LA ZIK
 							premierPassage = false;
 						}
 							
-						JPanel temponConstruction = constructionEtiquette(monTitre.getTitre());
+						JPanel temponConstruction = constructionEtiquette(monTitre.getTitre());//TITRE ZIK
 						menuFinal.add(temponConstruction);
-						JPanel bouttons = lesBouttonsDeControle(monTitre);
+						JPanel bouttons = lesBouttonsDeControle(monTitre);//CONTROLE LECTURE ZIK
 						menuFinal.add(bouttons);
 						
 						titreAssociePlayer.put(monTitre, bouttons);
 					}
 			}
-			mesOnglets.add(menuFinal, monNomOnglet);
+			mesOnglets.add(menuFinal, monNomOnglet);//AJOUT DE TOUS LES ONGLETS A UN SEUL ONGLET 
 		}
 	}
 	
 	
-	private JPanel constructionEtiquette(String titreMusique) {
+	private JPanel constructionEtiquette(String titreMusique) {//CONSTRUCTION PANEL ETIQUETTE (TITRE) DE LA CHANSON
 		JPanel description = new JPanel(new FlowLayout());
 		JLabel titre = new JLabel(titreMusique);
 		description.add(titre);
@@ -87,13 +90,13 @@ public class MenuChanteur extends JScrollPane{
 	}
 	
 	
-	private JPanel lesBouttonsDeControle(Titre titreAssocie) {
+	private JPanel lesBouttonsDeControle(Titre titreAssocie) {//BOUTON DE COTROLE => CONTROLE LECTEUR DOU LE TRIRE ASSOCIÉ
 		
 		JPanel menuInter = new JPanel(new FlowLayout());
 		JButton play = new JButton("Play");
 		JButton stop = new JButton("Stop");
 		JButton reset = new JButton("Reset");
-		play.addActionListener((event)-> titreAssocie.play());
+		play.addActionListener((event)-> titreAssocie.play());//DEFINITION DE L'ACTION DU BOUTON CORRESPONDANT AU BON TITRE @SEE TITRE
 		stop.addActionListener((event)-> titreAssocie.stop());
 		reset.addActionListener((event)-> titreAssocie.reset());
 		menuInter.add(play);
@@ -102,11 +105,11 @@ public class MenuChanteur extends JScrollPane{
 		return menuInter;
 	}
 	
-	public void update() {
-		this.setViewportView(null);
-		constructionDuPanel();
-		this.setViewportView(mesOnglets);
-		this.validate();
+	public void update() {//
+		this.setViewportView(null);//INIT A NULL
+		constructionDuPanel();//RECLACULE INTERIEUR PANEL
+		this.setViewportView(mesOnglets);//REAJOUTE AUX ONGLETS
+		this.validate();//RECALCUL DE L'EMPLACMENT DES LAYOUT 
 	}
 	
 	public static MenuChanteur getInstance(String login) {

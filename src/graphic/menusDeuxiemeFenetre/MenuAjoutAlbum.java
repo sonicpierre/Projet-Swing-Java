@@ -18,40 +18,42 @@ import control.musique.Album;
 import control.musique.Titre;
 import graphic.fenetre.FenetreParametre;
 
+//JPANEL PERMETTANT D'AJOUTER LES ALBUMS
 @SuppressWarnings("serial")
 public class MenuAjoutAlbum extends JPanel{
 
 	private static MenuAjoutAlbum instance;
 	
-	private final String login;
+	private final String login;//IDENTIFIER UTILISATEUR
 	private JTextField nom;
-	private List<Titre> titreAssocie;
-	private String cheminVersImageAssocie;
-	private JComboBox<String> style;
-	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};
+	private List<Titre> titreAssocie;//LITE RITRE ASSO
+	private String cheminVersImageAssocie;//CHEMIN DE L'IMAGE JPEG
+	private JComboBox<String> style;//MENU DEROULANT
+	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};//ONGLET TYPE DE ZIK
 	
+	//SINGLETON
+	//AFFICHAGE
 	private MenuAjoutAlbum(String login) {
 		this.login = login;
-		this.setLayout(new FlowLayout());
+		this.setLayout(new FlowLayout());//AFICHAE EN HORIZONTAL 
 		this.add(choixLabels());
 	}
 	
+	//CONSTRUCTION DU CONTENU
 	private JPanel choixLabels() {
 		JPanel choixLabels = new JPanel(new FlowLayout());
 		JLabel nomLabel = new JLabel("Nom Album");
-		style = new JComboBox<String>(listeStyle);
+		style = new JComboBox<String>(listeStyle);//EN PARAM LA LISTE DE TYPE
 		
-		JLabel dossierLabel = new JLabel("Dossier");
 		nom = new JTextField("Nom Album");
 		JButton dossier = new JButton("Browse");
 		JButton valider = new JButton("Valider");
-		dossier.addActionListener((event)->choixDunAlbum());
-		valider.addActionListener((event)->valider());
+		dossier.addActionListener((event)->choixDunAlbum());//FONCTION DE CHOIX ALBUM
+		valider.addActionListener((event)->valider());//FONCTION VALIDATION ENSEMBLE CHOIX ALBUM
 		
 		choixLabels.add(nomLabel);
 		choixLabels.add(nom);
 		choixLabels.add(style);
-		choixLabels.add(dossierLabel);
 		choixLabels.add(dossier);
 		choixLabels.add(valider);
 		
@@ -64,41 +66,43 @@ public class MenuAjoutAlbum extends JPanel{
 		return instance;
 	}
 	
+	//
 	private void choixDunAlbum() {
-        JFileChooser jfc = new JFileChooser();
-        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        JFileChooser jfc = new JFileChooser();//FONCTION CHOIX 
+        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);//ARRET QUAND POLUS DE DOSS A OUVRIR
         int ret = jfc.showOpenDialog(null); // ne te rend la main que si tu ferme
         
         if(ret == JFileChooser.APPROVE_OPTION) { // validation
-        	File repSon = jfc.getSelectedFile();
-        	File repImage = repSon;
-	        File[] fichiersMP3 = repSon.listFiles(new FilenameFilter(){
+        	File repSon = jfc.getSelectedFile();//RECUPERE LE DOSSIER SELECTIONNÉ
+        	File repImage = repSon;//COPIE CAR SLECTION MP3 DAN SUN PREMOIER TEMPS, PUISJPEG ENSUITE
+	        File[] fichiersMP3 = repSon.listFiles(new FilenameFilter(){//TABLEAU DE FICHIER MP3
 	          public boolean accept(File dir, String name) {
-	            return name.endsWith(".mp3");
+	            return name.endsWith(".mp3");//TEST DE TERMINAISON
 	          }
 	        });
-	        File[] fichiersImage = repImage.listFiles(new FilenameFilter(){
+	        File[] fichiersImage = repImage.listFiles(new FilenameFilter(){//IDEM POUR IMAGE
 		          public boolean accept(File dir, String name) {
 		            return name.endsWith(".jpg");
 		          }
 		        });
-	        cheminVersImageAssocie = fichiersImage[0].getAbsolutePath();
-	        titreAssocie = new ArrayList<Titre>();
+	        cheminVersImageAssocie = fichiersImage[0].getAbsolutePath();//ON GARDE QUE LA PREMIERE IMAGE SELECTIONNÉE
+	        titreAssocie = new ArrayList<Titre>();//LISTE DE CHEMIN VERS FICHIER MP3
 	        for(File monFile : fichiersMP3) {
-	        	titreAssocie.add(new Titre(monFile.getName(), monFile.getAbsolutePath()));
+	        	titreAssocie.add(new Titre(monFile.getName(), monFile.getAbsolutePath()));//REMPLISSAGE AVEC LES CHEMINS ABS
 	        }
         }
 	}
 	
+
 	private void valider() {
-		if(titreAssocie != null) {
+		if(titreAssocie != null) {//SI LA LISTE DE TITE N'EST PAS NULLE => CREATION ALBUM DANSLES ENDROOITS DE SAUVEGARDE
 			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums().add(new Album(nom.getText(), style.getItemAt(style.getSelectedIndex()), titreAssocie, cheminVersImageAssocie));
-			personnesDejaInscrite.getInstance().sauvegarder();
-			MenuChanteur.getInstance(login).update();
-			titreAssocie = null;
-			nom.setText("Nom Album");
+			personnesDejaInscrite.getInstance().sauvegarder();//SAUVEGARDE
+			MenuChanteur.getInstance(login).update();//ON LA FONCTION QUE PV A CREER QUI S'APPELLE ET QUI PERMET L'AJOUT DE L'ALNUM ENTRE
+			titreAssocie = null;//INITIALISATION DE LA LISTE
+			nom.setText("Nom Album");//RESTTAURATION DE LA FENETRE 
 			style.setSelectedItem(listeStyle[0]);
-			FenetreParametre.getInstance(login).dispose();
+			FenetreParametre.getInstance(login).dispose();//DISPARITION
 		}
 	}
 }
