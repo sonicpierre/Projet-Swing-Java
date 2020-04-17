@@ -3,6 +3,7 @@ package control.personne;
 import java.util.ArrayList;
 
 import control.musique.Album;
+import control.musique.Titre;
 
 /**
  *<b>CompteChanteur</b> est la classe qui donne les caractéristiques de la fenetre d'un utilisateur chanteur.
@@ -41,6 +42,6 @@ public class CompteChanteur extends Compte{
 		
 		maListeDeAlbums = new ArrayList<Album>();
 	}
-	
+
 	
 }

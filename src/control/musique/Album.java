@@ -3,6 +3,8 @@ package control.musique;
 import java.io.Serializable;
 import java.util.List;
 
+import control.elementSauv.personnesDejaInscrite;
+
 
 /**
  *La classe <b>Album</b> permet de définir les caractèristiques de l'album :
@@ -72,6 +74,27 @@ public class Album implements Serializable{
 		this.setType(type);
 		this.setChansonsDelAlbum(titreDeLalbum);
 		this.setCheminVersImageAssocie(cheminVersImageAssocie);
+		
+		for(Titre montTitre : titreDeLalbum)
+			montTitre.setAlbumAssocie(this);
+	}
+	
+	public void ajouterMusique(Titre titreAAjouter) {
+		this.getChansonsDelAlbum().add(titreAAjouter);
+		personnesDejaInscrite.getInstance().sauvegarder();
+	}
+	
+	public void supprimerMusique(Titre titreAAjouter) {
+
+	}
+	
+	public void rechercheSuppressionMusique(Titre musiqueATrouver) {
+		for(Titre monTitre : this.getChansonsDelAlbum())
+			if(monTitre.equals(musiqueATrouver)) {
+				this.getChansonsDelAlbum().remove(monTitre);
+				personnesDejaInscrite.getInstance().sauvegarder();
+				break;
+			}
 	}
 	
 	/**

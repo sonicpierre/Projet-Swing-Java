@@ -4,14 +4,23 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
@@ -28,17 +37,17 @@ public class MenuChanteur extends JScrollPane{
 	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};
 	private JTabbedPane mesOnglets;
 	private String login;
-	private Map<Titre, JPanel> titreAssociePlayer;
-
+	Map<JCheckBox, Titre> mesAssociationsCheckTitre;
+	Map<JPopupMenu, Album> mesAssociation;
 	//A chaque musique sont associé des bouttons :) 
 	
 	private MenuChanteur(String login) {
+		mesAssociationsCheckTitre = new HashMap<JCheckBox, Titre>();
+		mesAssociation = new HashMap<JPopupMenu, Album>();
 		this.login = login;
-		this.titreAssociePlayer = new HashMap<Titre, JPanel>();
 		constructionDuPanel();
 		//On utilise ça pour les JScrollPan pour ajouter à la place de add un JScrollPane ne peut gérer qu'un seul élément à la foi
 		this.setViewportView(mesOnglets);
-		
 	}
 	
 
@@ -65,16 +74,26 @@ public class MenuChanteur extends JScrollPane{
 							menuFinal.add(album);//AJOUT TITRE 
 							ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
 							JLabel imageCorespondante = new JLabel(monImage);
+							
+							imageCorespondante.addMouseListener(new MouseAdapter() {
+
+								@Override
+								public void mousePressed(MouseEvent event) {
+									if(event.isPopupTrigger()) {
+										createPopupMenu(monAlbum).show(event.getComponent(), event.getX(), event.getY());
+									}
+								}
+
+							});
+							
 							menuFinal.add(imageCorespondante);//BOUTON CORRESPONDANT AU CONTROL DE LA ZIK
 							premierPassage = false;
 						}
 							
-						JPanel temponConstruction = constructionEtiquette(monTitre.getTitre());//TITRE ZIK
+						JPanel temponConstruction = constructionEtiquette(monTitre);//TITRE ZIK
 						menuFinal.add(temponConstruction);
 						JPanel bouttons = lesBouttonsDeControle(monTitre);//CONTROLE LECTURE ZIK
 						menuFinal.add(bouttons);
-						
-						titreAssociePlayer.put(monTitre, bouttons);
 					}
 			}
 			mesOnglets.add(menuFinal, monNomOnglet);//AJOUT DE TOUS LES ONGLETS A UN SEUL ONGLET 
@@ -82,10 +101,12 @@ public class MenuChanteur extends JScrollPane{
 	}
 	
 	
-	private JPanel constructionEtiquette(String titreMusique) {//CONSTRUCTION PANEL ETIQUETTE (TITRE) DE LA CHANSON
+	private JPanel constructionEtiquette(Titre titre) {//CONSTRUCTION PANEL ETIQUETTE (TITRE) DE LA CHANSON
+		
 		JPanel description = new JPanel(new FlowLayout());
-		JLabel titre = new JLabel(titreMusique);
-		description.add(titre);
+		JCheckBox maCheckBox = new JCheckBox(titre.getTitre());
+		mesAssociationsCheckTitre.put(maCheckBox, titre);
+		description.add(maCheckBox);
 		return description;
 	}
 	
@@ -116,6 +137,40 @@ public class MenuChanteur extends JScrollPane{
 		if (instance == null)
 			instance = new MenuChanteur(login);
 		return instance;
+	}
+	
+	public void checkSupprimer() {
+	      Set<Entry<JCheckBox, Titre>> set = mesAssociationsCheckTitre.entrySet();
+	      Iterator<Entry<JCheckBox, Titre>> monIterateur = set.iterator();
+	      boolean passage = false;
+	      while(monIterateur.hasNext()){
+	         Entry<JCheckBox, Titre> e = monIterateur.next();
+	         if(e.getKey().isSelected()) {
+	        	 e.getValue().supprimerMusique();
+	        	 //On supprime un album qui est vide
+	        	 if(e.getValue().getAlbumAssocie().getChansonsDelAlbum().isEmpty()) {
+	        		 personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums().remove(e.getValue().getAlbumAssocie());
+	        		 personnesDejaInscrite.getInstance().sauvegarder();
+	        		 passage = true;
+	        	 }
+	         }
+		
+	      }
+	      if(passage)
+	    	  this.update();
+	      else {
+	    	  JMenuItem indication = new JMenuItem();
+	    	  JOptionPane.showMessageDialog(indication,"Aucune musique sélectionnée");
+	      }
+	}
+	
+	private JPopupMenu createPopupMenu(Album albumAssocie) {
+		JPopupMenu monPopUp = new JPopupMenu();
+		monPopUp.add(MenuRaccourcis.getInstance(login).actSuppressionAlbum);
+		monPopUp.add(MenuRaccourcis.getInstance(login).actChangerImage);
+		monPopUp.add(MenuRaccourcis.getInstance(login).actRenommer);
+		mesAssociation.put(monPopUp, albumAssocie);
+		return monPopUp;
 	}
 
 }

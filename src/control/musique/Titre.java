@@ -3,6 +3,8 @@ package control.musique;
 import java.io.File;
 import java.io.Serializable;
 
+import control.elementSauv.personnesDejaInscrite;
+
 /**
  *<p><b>Titre</b> est la classe permettant de définir les actions 
  *relatives aux titres des albums.
@@ -56,6 +58,8 @@ public class Titre implements Serializable{
 	 *<b>NB : </b>Chaque musique a un lecteur dédié
 	 **/
 	
+	private Album albumAssocie;
+	
 	public Titre(String titre, double duree, String cheminVersLaMusique) {
 		
 		/**
@@ -93,6 +97,7 @@ public class Titre implements Serializable{
 		 **/
 		
 		this.setCheminVersLaMusique(cheminVersLaMusique);
+		
 	}
 	
 	/**
@@ -165,6 +170,13 @@ public class Titre implements Serializable{
 		}
 			
 	}
+	
+	public void supprimerMusique() {
+		
+		albumAssocie.rechercheSuppressionMusique(this);
+		personnesDejaInscrite.getInstance().sauvegarder();
+	}
+	
 	
 	/**
 	 *Récupération du titre
@@ -260,4 +272,15 @@ public class Titre implements Serializable{
 	public void setEnPause(boolean isEnPause) {
 		this.isEnPause = isEnPause;
 	}
+
+	public Album getAlbumAssocie() {
+		return albumAssocie;
+	}
+
+	public void setAlbumAssocie(Album albumAssocie) {
+		this.albumAssocie = albumAssocie;
+	}
+	
+	
+	
 }

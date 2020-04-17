@@ -15,6 +15,7 @@ import java.security.SignedObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
 
 
@@ -268,6 +269,17 @@ public class Compte implements Serializable{
 
 	public void setMaListeDeAlbums(List<Album> maListeDeChansons) {
 		this.maListeDeAlbums = maListeDeChansons;
+	}
+	
+
+	public void ajouterAlbum(Album AlbumASupprimer) {
+		this.getMaListeDeAlbums().add(AlbumASupprimer);
+		personnesDejaInscrite.getInstance().sauvegarder();
+	}
+	
+	public void supprimerAlbum(Album AlbumASupprimer) {
+		this.getMaListeDeAlbums().remove(AlbumASupprimer);
+		personnesDejaInscrite.getInstance().sauvegarder();
 	}
 	
 	

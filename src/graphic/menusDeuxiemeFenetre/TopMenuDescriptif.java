@@ -20,8 +20,11 @@ public class TopMenuDescriptif extends JMenuBar{
 	private static TopMenuDescriptif instance;
 	
 	private String login;
+	private String typeArtiste;
 	
 	private TopMenuDescriptif(String login, String typeArtiste) {
+		this.login = login;
+		this.typeArtiste = typeArtiste;
 		if(typeArtiste == null) {//ADMINISTRATEUR IL POURRA AVOIR ACCES A CERTAINES INFO DES PERSONNES
 			this.add(baseDeDonneMenu());
 			this.add(contactMenu());
@@ -32,7 +35,7 @@ public class TopMenuDescriptif extends JMenuBar{
 			this.add(menuActeurComedien());
 		}
 		
-		this.login = login;
+		
 	}
 	
 	
@@ -48,19 +51,13 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private JMenu menuChanteur() {
 		JMenu chanson = new JMenu("Musique");
-		JMenuItem ajouterAlbums = new JMenuItem("Albums");
 		JMenuItem ajouterSaMusique = new JMenuItem("Ajouter musique");
-		JMenuItem supprimerSaMusique = new JMenuItem("Supprimer musique");
-		JMenuItem param = new JMenuItem("Paramètres");
-		JMenuItem deconnexion = new JMenuItem("Déconnexion");
-		deconnexion.addActionListener((event)->deconnexion());
-		ajouterAlbums.addActionListener((event)->FenetreParametre.getInstance(login).ajoutAlbumFenetre());
-		param.addActionListener((event)->FenetreParametre.getInstance(login).ajoutParametre());
+		
 		chanson.add(ajouterSaMusique);
-		chanson.add(supprimerSaMusique);
-		chanson.add(ajouterAlbums);
-		chanson.add(param);
-		chanson.add(deconnexion);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actSuppressionMusique);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actAjoutAlb);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actParametre);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
 		return chanson;
 	}
 	
@@ -79,11 +76,10 @@ public class TopMenuDescriptif extends JMenuBar{
 		JMenu spectacles = new JMenu("Représentation");
 		JMenuItem ajouterUnSpectacle = new JMenuItem("Ajouter représentation");
 		JMenuItem ajouterUneVille = new JMenuItem("Ajouter une ville");
-		JMenuItem deconnexion = new JMenuItem("Déconnexion");
-		deconnexion.addActionListener((event)->deconnexion());
+
 		spectacles.add(ajouterUnSpectacle);
 		spectacles.add(ajouterUneVille);
-		spectacles.add(deconnexion);
+		spectacles.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
 		return spectacles;
 	}
 	
@@ -92,8 +88,6 @@ public class TopMenuDescriptif extends JMenuBar{
 		JMenuItem creer = new JMenuItem("CréerBase");
 		JMenuItem modifierLaBDD = new JMenuItem("Modifier");
 		JMenuItem paramBDD = new JMenuItem("Paramètres");
-		JMenuItem deconnexion = new JMenuItem("Déconnexion");
-		deconnexion.addActionListener((event)->deconnexion());
 		paramBDD.addActionListener((event)->FenetreParametre.getInstance(login).ajoutParametre());
 		
 		baseDeDonne.add(creer);
@@ -102,7 +96,7 @@ public class TopMenuDescriptif extends JMenuBar{
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(paramBDD);
 		baseDeDonne.addSeparator();
-		baseDeDonne.add(deconnexion);
+		baseDeDonne.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
 		
 		return baseDeDonne;
 	}

@@ -4,9 +4,12 @@ import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -30,7 +33,7 @@ public class MenuAjoutAlbum extends JPanel{
 	private String cheminVersImageAssocie;//CHEMIN DE L'IMAGE JPEG
 	private JComboBox<String> style;//MENU DEROULANT
 	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};//ONGLET TYPE DE ZIK
-	
+
 	//SINGLETON
 	//AFFICHAGE
 	private MenuAjoutAlbum(String login) {
@@ -96,8 +99,7 @@ public class MenuAjoutAlbum extends JPanel{
 
 	private void valider() {
 		if(titreAssocie != null) {//SI LA LISTE DE TITE N'EST PAS NULLE => CREATION ALBUM DANSLES ENDROOITS DE SAUVEGARDE
-			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums().add(new Album(nom.getText(), style.getItemAt(style.getSelectedIndex()), titreAssocie, cheminVersImageAssocie));
-			personnesDejaInscrite.getInstance().sauvegarder();//SAUVEGARDE
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).ajouterAlbum(new Album(nom.getText(), style.getItemAt(style.getSelectedIndex()), titreAssocie, cheminVersImageAssocie));
 			MenuChanteur.getInstance(login).update();//ON LA FONCTION QUE PV A CREER QUI S'APPELLE ET QUI PERMET L'AJOUT DE L'ALNUM ENTRE
 			titreAssocie = null;//INITIALISATION DE LA LISTE
 			nom.setText("Nom Album");//RESTTAURATION DE LA FENETRE 
