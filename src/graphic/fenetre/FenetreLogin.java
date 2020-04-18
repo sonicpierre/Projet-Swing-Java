@@ -15,7 +15,7 @@ public class FenetreLogin extends JFrame {//LE CONSTRUCTEUR N'EST ACCESSIBLE QUE
 	
 	//On a pas la même dimension pour la fenêtre de menu de login et de création
 	private static Dimension dimLogin = new Dimension(400, 200);
-	private static Dimension dimCreationMenu = new Dimension(400, 400);
+	private static Dimension dimCreationMenu = new Dimension(400, 350);
 	
 	
 	private FenetreLogin() {

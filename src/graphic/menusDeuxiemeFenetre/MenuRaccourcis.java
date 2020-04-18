@@ -14,16 +14,9 @@ public class MenuRaccourcis {
 
 	private static MenuRaccourcis instance;
 	private String login;
-	private String typeArtiste;
-	
-	private MenuRaccourcis(String login, String typeArtiste) {
-		this.login = login;
-		this.typeArtiste = typeArtiste;
-	}
-	
+
 	private MenuRaccourcis(String login) {
 		this.login = login;
-		this.typeArtiste = null;
 	}
 
 
@@ -97,7 +90,7 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			TopMenuDescriptif.getInstance(login, typeArtiste).deconnexion();
+			TopMenuDescriptif.getInstance(login).deconnexion();
 		}
 	};
 
@@ -216,14 +209,6 @@ public class MenuRaccourcis {
 		}
 	};
 	
-
-	
-	public static MenuRaccourcis getInstance(String login, String typeArtiste) {
-		if (instance == null)
-			instance = new MenuRaccourcis(login, typeArtiste);
-		return instance;
-	}
-
 	
 	public static MenuRaccourcis getInstance(String login) {
 		if (instance == null)

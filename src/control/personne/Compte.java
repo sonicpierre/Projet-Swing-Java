@@ -12,6 +12,7 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.SignedObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import control.elementSauv.personnesDejaInscrite;
@@ -34,8 +35,6 @@ public class Compte implements Serializable{
 	private SignedObject passewordCrypte;
 	private Color couleurDuFond;
 	private Color couleurEcriture;
-	private String adresseMail;
-	private String talent;
 	private String cheminVersImage;
 	private String description; 
 	//Utilise que dans le compteChanteur
@@ -50,12 +49,11 @@ public class Compte implements Serializable{
 	 *d'une couleur de fond et d'écriture</p>
 	 **/
 	
-	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String adresseMail, String talent, String CheminVersImage) {
+	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String CheminVersImage) {
+		maListeDeAlbums = new ArrayList<Album>();
 		this.couleurDuFond = couleurDeFond;
 		this.couleurEcriture = couleurEcriture;
 		securiser(passeword);
-		this.adresseMail = adresseMail;
-		this.talent = talent;
 		this.cheminVersImage = CheminVersImage;
 		this.setDescription("Vous n'avez pas de description pour le moment...");
 	}
@@ -73,13 +71,12 @@ public class Compte implements Serializable{
 	 **/
 	
 	
-	public Compte(String passeword, String talent, String CheminVersImage, String addresseMail) {
+	public Compte(String passeword, String CheminVersImage) {
+		maListeDeAlbums = new ArrayList<Album>();
 		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
-		this.talent = talent;
 		this.cheminVersImage = CheminVersImage;
-		this.adresseMail = addresseMail;
 		this.setDescription("Vous n'avez pas de description pour le moment...");
 	}
 	
@@ -132,23 +129,6 @@ public class Compte implements Serializable{
 		this.couleurEcriture = couleurEcriture;
 	}
 		
-	/**
-	 *Récupération du talent utilisateur
-	 *@return Talent de l'utilisateur
-	 **/
-	
-	public String getTalent() {
-		return talent;
-	}
-
-	/**
-	 *Définition du talent de l'utilisateur
-	 **/
-	
-	public void setTalent(String talent) {
-		this.talent = talent;
-	}
-
 	
 	/**
 	 *<p>Cette méthode est un point important de la classe Compte.
@@ -227,22 +207,6 @@ public class Compte implements Serializable{
 	
 	public void setCheminVersImage(String cheminVersImage) {
 		this.cheminVersImage = cheminVersImage;
-	}
-	
-	/**Récupération de l'e-mail utilisateur
-	 *@return Adresse e-mail
-	 **/
-	
-	public String getAdresseMail() {
-		return adresseMail;
-	}
-	
-	/**
-	 *Permet de définir l'e-mail de l'utilisateur
-	 **/
-	
-	public void setAdresseMail(String adresseMail) {
-		this.adresseMail = adresseMail;
 	}
 	
 	/**

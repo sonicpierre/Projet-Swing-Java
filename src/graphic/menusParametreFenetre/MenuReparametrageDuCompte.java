@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import control.elementSauv.personnesDejaInscrite;
 
@@ -16,11 +15,9 @@ import control.elementSauv.personnesDejaInscrite;
 public class MenuReparametrageDuCompte extends JPanel{
 	
 	private String login;
-	private JTextField adresseMail;
 	private JPasswordField motPasse;
 	private JPanel tempon1;
 	private JPanel tempon2;
-	private JPanel tempon3;
 	
 	public MenuReparametrageDuCompte(String login){
 		this.login = login;
@@ -37,7 +34,6 @@ public class MenuReparametrageDuCompte extends JPanel{
 		this.setLayout(new GridLayout(6, 1));
 		tempon1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
 		tempon2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
-		tempon3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 0));
 		
 		//Le code HTML fonctionne bien dans les JLabels.
 		JLabel monUtilisateurActuel = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">Utilisateur actuel</FONT></html>");
@@ -48,10 +44,7 @@ public class MenuReparametrageDuCompte extends JPanel{
 		JButton changerMotDePasse = new JButton("Modifier");
 		changerMotDePasse.addActionListener((event)->changerMotDePasse());
 		
-		JLabel monAdresseMailActuel = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">Adresse mail</FONT>");
-		JLabel AdresseMailActuel = new JLabel("<html><FONT color=\"#5a98f7\" size = \"4\" face=\"Times New Roman\">" + personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getAdresseMail()+ "</FONT></html>");
-		JButton changerAdresseMail = new JButton("Modifier");
-		changerAdresseMail.addActionListener((event)->changeradresseMail());
+
 		
 		this.add(monUtilisateurActuel);
 		tempon1.add(UtilisateurActuel);
@@ -60,10 +53,6 @@ public class MenuReparametrageDuCompte extends JPanel{
 		tempon2.add(MotPasseActuel);
 		tempon2.add(changerMotDePasse);
 		this.add(tempon2);
-		this.add(monAdresseMailActuel);
-		tempon3.add(AdresseMailActuel);
-		tempon3.add(changerAdresseMail);
-		this.add(tempon3);
 		
 	}
 	
@@ -78,28 +67,7 @@ public class MenuReparametrageDuCompte extends JPanel{
 		tempon2.validate();
 	}
 	
-	private void changeradresseMail() {
-		adresseMail = new JTextField("Nouvelle adresse mail");
-		tempon3.removeAll();
-		tempon3.add(new JLabel("Nouvelle adresse mail"));
-		tempon3.add(adresseMail);
-		JButton validerAdresse = new JButton("valider");
-		tempon3.add(validerAdresse);
-		validerAdresse.addActionListener((event)->validerAdresseMail());
-		tempon3.validate();
-	}
-	
-	private void validerAdresseMail() {
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setAdresseMail(adresseMail.getText());
-		personnesDejaInscrite.getInstance().sauvegarder();
-		tempon3.removeAll();
-		JLabel AdresseMailActuel = new JLabel("<html><FONT color=\"#5a98f7\" size = \"4\" face=\"Times New Roman\">" + personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getAdresseMail()+ "</FONT></html>");
-		JButton changerAdresseMail = new JButton("Modifier");
-		tempon3.add(AdresseMailActuel);
-		tempon3.add(changerAdresseMail);
-		MenuFinalParametre.getInstance(login).setSelectedComponent(MenuProfilDescription.getInstance(login));
-		MenuFinalParametre.getInstance(login).validate();
-	}
+
 	
 	private void validerMotDePasse() {
 		String passewordTraduit = new String(motPasse.getPassword());

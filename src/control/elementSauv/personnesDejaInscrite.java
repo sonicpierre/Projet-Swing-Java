@@ -59,7 +59,7 @@ public class personnesDejaInscrite implements Serializable{
 		 *Ajout d'un profil administrateur
 		 **/
 		
-		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE, "artistaketexe@gmail.com", null, "ImageProfil/inconnu.jpg"));
+		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE,"ImageProfil/inconnu.jpg"));
 	}
 	
 	/**

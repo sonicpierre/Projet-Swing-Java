@@ -52,7 +52,7 @@ public class FenetreFond extends JFrame {
 			setUndecorated(false);
 			getContentPane().setBackground(new Color(100,100,100));
 			JPanel intermediaire = new JPanel(new BorderLayout());
-			intermediaire.add(TopMenuDescriptif.getInstance(login, personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent()), BorderLayout.NORTH);
+			intermediaire.add(TopMenuDescriptif.getInstance(login), BorderLayout.NORTH);
 			intermediaire.add(ToolBarChanteur.getInstance(login));
 			this.add(intermediaire, BorderLayout.NORTH);
 			this.add(MenuChanteur.getInstance(login), BorderLayout.CENTER);
