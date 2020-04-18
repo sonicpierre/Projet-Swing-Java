@@ -23,28 +23,105 @@ import control.personne.CompteComedien;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
+
+/**
+ *<b>CreerCompte</b> est la classe permettant de définir les actions de création de compte.
+ *@author VIRGAUX Pierre
+ **/
+
 @SuppressWarnings({ "serial", "deprecation" })
 public class CreerCompte extends JPanel{
-
+	
+	/**
+	 *Instanciation de la création de compte
+	 **/
+	
 	private static CreerCompte instance;
 	
-	//Elements dont on a besoin de partout... Voilà voilà
-	JPanel menuCreation;//PANEL D'AJOUT FENETRE QU'ON RENVOIE 
+	/**
+	 *Ajout fenêtre à renvoyer
+	 **/
+	
+	JPanel menuCreation;
+	
+	/**
+	 *Saisie login
+	 **/
+	
 	JTextField login;
+	
+	/**
+	 *Saisie mot de passe
+	 **/
+	
 	JPasswordField passeword;
+	
+	/**
+	 *Confirmation saisie mot de passe
+	 **/
+	
 	JPasswordField confirmedPasseword;
+	
+	/**
+	 *Saisie e-mail
+	 **/
+	
 	JTextField adresseMail;
+	
+	/**
+	 *Coche du talent artiste
+	 **/
+	
 	JCheckBox checkArtiste;
+	
+	/**
+	 *Coche du talent chanteur
+	 **/
+	
 	JCheckBox checkChanteur;
+	
+	/**
+	 *Coche du talent danseur
+	 **/
+	
 	JCheckBox checkDanseur;
 	
+	/**
+	 *Définition l'aspect du menu de création
+	 **/
+	
 	private CreerCompte() {
+		
+		/**
+		 *Définition du menu
+		 **/
+		
 		menuCreation = new JPanel(new BorderLayout());
+		
+		/**
+		 *Couleur de fond du menu
+		 **/
+		
 		menuCreation.setBackground(new Color(200, 100, 100));
+		
+		/**
+		 *Initialisation et centrage du menu
+		 **/
+		
 		menuCreation.add(InitialisationDuMenu(), BorderLayout.CENTER);
+		
+		/**
+		 *Initialisation et positionnement des boutons en bas
+		 **/
+		
 		menuCreation.add(InitDesBouttons(), BorderLayout.SOUTH);
 	}
 	
+	
+	/**
+	 *Permet l'initialisation des composantes du menu d'identification et de création de compte
+	 *@return Information saisies
+	 **/
 	
 	private JPanel InitialisationDuMenu() {
 		JPanel mesEntre = new JPanel(new GridLayout(9,2,25,10));
@@ -53,15 +130,28 @@ public class CreerCompte extends JPanel{
 		adresseMail = new JTextField("...@gmail.com");
 		passeword = new JPasswordField("Mot de Passe");
 		
+		
+		/**
+		 *Gestion de la saisie d'identifiants de connexion
+		 **/
+		
 		JLabel loginTexte = new JLabel("Login :");
 		loginTexte.setHorizontalAlignment(JLabel.CENTER);
 		JLabel motDePasse = new JLabel("Mot de Passe :");
 		motDePasse.setHorizontalAlignment(JLabel.CENTER);
 		
+		/**
+		 *Gestion de saisie mot de passe
+		 **/
+		
 		JLabel addresseMail = new JLabel("Adresse mail :");
 		addresseMail.setHorizontalAlignment(JLabel.CENTER);
 		JLabel confirmedMotDePasse = new JLabel("Confirmer Mot de Passe :");
 		confirmedMotDePasse.setHorizontalAlignment(JLabel.CENTER);
+		
+		/**
+		 *On ajoute puis enregistre les saisies concernant le talent des artistes
+		 **/
 		
 		JPanel choixCategorie = new JPanel(new GridLayout(1,3));
 		checkArtiste = new JCheckBox("Acteur");
@@ -71,7 +161,9 @@ public class CreerCompte extends JPanel{
 		choixCategorie.add(checkChanteur);
 		choixCategorie.add(checkDanseur);
 		
-		//On ajoute au Panel les éléments pour saisir mot de pass et login.
+		/**Ajoute au Panel des éléments de saisie mot de passe et login
+		 **/
+		
 		mesEntre.add(loginTexte);
 		mesEntre.add(login);
 		mesEntre.add(motDePasse);
@@ -85,13 +177,21 @@ public class CreerCompte extends JPanel{
 		return mesEntre;
 	}
 	
+	/**
+	 *Initilisation des boutons
+	 *<b>NB : </b> Vérification nécessaire de l'existence de compte, de la saisie des champs
+	 **/
+	
 	private JPanel InitDesBouttons() {
 		JPanel mesBouttons = new JPanel(new FlowLayout(FlowLayout.CENTER,20, 25));
-		JButton valider = new JButton("Valider");//DOIT VERIFIER L'EXISTENCE DE COMPTE, LA SAISIE DES CHAMPS, LES CHAMPS DE SAISIE NON VIDES
+		JButton valider = new JButton("Valider");
 		JButton quitter = new JButton("Quitter");
 		valider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		quitter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		//On ajoute un listener sur le boutton
+		
+		/**Ajoute d'un listener sur le boutton
+		 **/
+		
 		quitter.addActionListener((event)->quitter());
 		valider.addActionListener((event)->valider());
 		mesBouttons.add(valider);
@@ -99,23 +199,37 @@ public class CreerCompte extends JPanel{
 		return mesBouttons;
 	}
 	
+	/**
+	 *Instanciation de la fenetre de creation de compte
+	 **/
+	
 	public static CreerCompte getInstance() {
 		if (instance == null)
 			instance = new CreerCompte();
 		return instance;
 	}
 
-
+	/**
+	 *Récupère le menu de création
+	 *@return menuCreation
+	 **/
+	
 	public JPanel getMenuCreation() {
 		return menuCreation;
 	}
 
-
+	/**
+	 *Initialisation du menu de création
+	 *@param menuCreation
+	 **/
+	
 	public void setMenuCreation(JPanel menuCreation) {
 		this.menuCreation = menuCreation;
 	}
 	
-	//Permet de quitter quand on appuie sur le boutton
+	/**Permet de quitter quand on appuie sur le boutton
+	 **/
+	
 	private void quitter() {
 		FenetreLogin.getInstance().dispose();
 		FenetreFond.getInstance().dispose();
@@ -126,11 +240,26 @@ public class CreerCompte extends JPanel{
 		String passewordTranslate = new String(passeword.getPassword());
 		String passewordCopiTranslate = new String(confirmedPasseword.getPassword());
 		
-		//On regarde les différentes possiblités et on adapte les messages d'erreur en se rappelant que l'utilisateur est fourbe !!
+		/**On regarde les différentes possiblités et on adapte les messages d'erreur selon l'utilisateur
+		 **/
 		
-		if((login.getText() != null) && (passewordTranslate != null) && (passewordCopiTranslate !=null) && (adresseMail.getText() != null)) {//VERIFIER SI TOUS LES CHAMPS CONTEINNENT QUELQUE CHOSE
-			if(passewordCopiTranslate.equals(passewordTranslate)) {//VERIFIE LA CONCORDANCE DU MDP
-				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {//VERIFICATION DE L'EXISTENCE
+		/**
+		 *Vérification d'un contenu existent des champs de saisie
+		 **/
+		
+		if((login.getText() != null) && (passewordTranslate != null) && (passewordCopiTranslate !=null) && (adresseMail.getText() != null)) {
+			
+			/**
+			 *Vérification de la concordance des mot de passe
+			 **/
+			
+			if(passewordCopiTranslate.equals(passewordTranslate)) {
+				
+				/**
+				 *Vérification de l'existence de l'utilisateur
+				 **/
+				
+				if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {
 					if(validateEmailAddress(adresseMail.getText())) {
 						if(compteurDeCaseCoche() != null) {
 							if(compteurDeCaseCoche().equals("Acteur")) {
@@ -156,7 +285,12 @@ public class CreerCompte extends JPanel{
 					}
 				}
 				else {
-					JOptionPane.showInternalMessageDialog(this, "Cette utilisateur existe déjà", "Erreur", JOptionPane.WARNING_MESSAGE);//GENRATION DE FENETRE D'ERREUR QU'ON OUVRE AVEC LE SHOW 
+					
+					/**
+					 *Génération de fenêtres d'erreurs qu'on ouvre avec le show
+					 **/
+					
+					JOptionPane.showInternalMessageDialog(this, "Cette utilisateur existe déjà", "Erreur", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 			else {
@@ -169,7 +303,8 @@ public class CreerCompte extends JPanel{
 		
 	}
 	
-	//Permet de vérifier si une seule case a été appuyé et renvoie son nom
+	/**Permet de vérifier si une seule case talent a été appuyée et renvoie son nom
+	 **/
 	
 	private String compteurDeCaseCoche() {
 		int compteur = 0;
@@ -192,6 +327,13 @@ public class CreerCompte extends JPanel{
 		else
 			return tempon.getText();
 	}
+	
+	/**
+	 *Permet de valider l'adresse e-mail de l'utilisateur
+	 *@param votreEmail
+	 *	E-mail utilisateur
+	 *@return True si e-mail valide
+	 **/
 	
 	public static boolean validateEmailAddress(String votreEmail){
 		EmailValidator emailvalidator = EmailValidator.getInstance();

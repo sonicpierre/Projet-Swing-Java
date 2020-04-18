@@ -12,7 +12,6 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.SignedObject;
-import java.util.ArrayList;
 import java.util.List;
 
 import control.elementSauv.personnesDejaInscrite;
