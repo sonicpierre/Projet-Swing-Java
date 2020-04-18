@@ -1,12 +1,13 @@
 package control.main;
 
+import graphic.fenetre.FenetreLogin;
+
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Ceci est un premier commit pour faire des tests...");
-		System.out.println("Coucou1");
-		System.out.println("Coucou2");
-		System.out.println("Me voila");
+		//Voilà la fenètre graphique sans rien dedans. Voilà voilà voilà
+		FenetreLogin.getInstance();
+		MoteurGraphique.getInstance();
 	}
 
 }
