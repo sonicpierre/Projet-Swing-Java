@@ -26,6 +26,8 @@ public class PisteAudio implements Serializable{
 	
 	private final String Name;
 	
+	
+	private final Titre titreAssocie;
 	/**
 	 *Définition de la pste audio 
 	 *@param fichierAssocie
@@ -34,9 +36,10 @@ public class PisteAudio implements Serializable{
 	 *	Nom de la piste audio
 	 **/
 	
-	public PisteAudio(File fichierAssocie, String Name) {
+	public PisteAudio(File fichierAssocie, String Name, Titre titreAssocie) {
 		this.setFichierAssocie(fichierAssocie);
 		this.Name = Name;
+		this.titreAssocie = titreAssocie;
 	}
 	
 	/**
@@ -65,5 +68,9 @@ public class PisteAudio implements Serializable{
 	
 	public String getName() {
 		return Name;
+	}
+
+	public Titre getTitreAssocie() {
+		return titreAssocie;
 	}
 }

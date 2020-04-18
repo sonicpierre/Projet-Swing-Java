@@ -80,6 +80,8 @@ public class Lecteur extends Thread implements Serializable{
 	public void run() {
 		super.run();
 		jouer(maPiste);
+		maPiste.getTitreAssocie().setPlaying(false);
+		maPiste.getTitreAssocie().setEnPause(false);
 	}
 	
 	/**

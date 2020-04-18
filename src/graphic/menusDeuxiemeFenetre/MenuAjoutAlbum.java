@@ -13,13 +13,14 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
 import control.musique.Titre;
-import graphic.fenetre.FenetreParametre;
 
 //JPANEL PERMETTANT D'AJOUTER LES ALBUMS
 @SuppressWarnings("serial")
@@ -33,7 +34,7 @@ public class MenuAjoutAlbum extends JPanel{
 	private String cheminVersImageAssocie;//CHEMIN DE L'IMAGE JPEG
 	private JComboBox<String> style;//MENU DEROULANT
 	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};//ONGLET TYPE DE ZIK
-
+	Map<JCheckBox, Titre> mesAssociationsCheckTitre;
 	//SINGLETON
 	//AFFICHAGE
 	private MenuAjoutAlbum(String login) {
@@ -44,6 +45,7 @@ public class MenuAjoutAlbum extends JPanel{
 	
 	//CONSTRUCTION DU CONTENU
 	private JPanel choixLabels() {
+		mesAssociationsCheckTitre = new HashMap<JCheckBox, Titre>();
 		JPanel choixLabels = new JPanel(new FlowLayout());
 		JLabel nomLabel = new JLabel("Nom Album");
 		style = new JComboBox<String>(listeStyle);//EN PARAM LA LISTE DE TYPE
@@ -104,7 +106,11 @@ public class MenuAjoutAlbum extends JPanel{
 			titreAssocie = null;//INITIALISATION DE LA LISTE
 			nom.setText("Nom Album");//RESTTAURATION DE LA FENETRE 
 			style.setSelectedItem(listeStyle[0]);
-			FenetreParametre.getInstance(login).dispose();//DISPARITION
+			JMenuItem contenant = new JMenuItem();
+			JOptionPane.showMessageDialog(contenant,"Album ajouté");
+
 		}
 	}
+	
+	
 }

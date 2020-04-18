@@ -7,9 +7,11 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import control.elementSauv.personnesDejaInscrite;
 import graphic.menusDeuxiemeFenetre.MenuChanteur;
+import graphic.menusDeuxiemeFenetre.ToolBarChanteur;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
 
 
@@ -49,7 +51,10 @@ public class FenetreFond extends JFrame {
 			this.remove(ImageFond);
 			setUndecorated(false);
 			getContentPane().setBackground(new Color(100,100,100));
-			this.add(TopMenuDescriptif.getInstance(login, personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent()), BorderLayout.NORTH);
+			JPanel intermediaire = new JPanel(new BorderLayout());
+			intermediaire.add(TopMenuDescriptif.getInstance(login, personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent()), BorderLayout.NORTH);
+			intermediaire.add(ToolBarChanteur.getInstance(login));
+			this.add(intermediaire, BorderLayout.NORTH);
 			this.add(MenuChanteur.getInstance(login), BorderLayout.CENTER);
 			setResizable(true);
 			setVisible(true);

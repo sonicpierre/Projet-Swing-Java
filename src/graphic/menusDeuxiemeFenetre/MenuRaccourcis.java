@@ -53,7 +53,7 @@ public class MenuRaccourcis {
 
 		{//C'est le constructeur
 			putValue (Action.NAME, "Ajout album...");
-			//putValue (Action.SMALL_ICON, new ImageIcon("icons/copy.png"));
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_A);
 			putValue( Action.SHORT_DESCRIPTION, "Ajout album (CTRL+A)");
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
@@ -88,7 +88,7 @@ public class MenuRaccourcis {
 
 		{//C'est le constructeur
 			putValue (Action.NAME, "Supprimer la musique");
-			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Supprimer.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_S);
 			putValue( Action.SHORT_DESCRIPTION, "Supprimer musique (CTRL+S)");
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
@@ -96,21 +96,58 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).checkSupprimer();
+			MenuChanteur.getInstance(login).checkOperation("Supprimer");
 		}
 	};
 	
 	@SuppressWarnings("serial")
-	public AbstractAction actSuppressionAlbum = new AbstractAction() {
+	public AbstractAction actPlay = new AbstractAction() {
 
 		{//C'est le constructeur
-			putValue (Action.NAME, "Supprimer album");
-			//putValue (Action.SMALL_ICON, new ImageIcon("icons/paste.png"));
+			putValue (Action.NAME, "Play");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Play.png"));
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_J);
+			putValue( Action.SHORT_DESCRIPTION, "Jouer musique (CTRL+R)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_J, KeyEvent.CTRL_DOWN_MASK));
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			System.out.println("coucou");
+			MenuChanteur.getInstance(login).checkOperation("Play");
+		}
+	};
+
+	@SuppressWarnings("serial")
+	public AbstractAction actStop = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Stop");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_I);
+			putValue( Action.SHORT_DESCRIPTION, "Interrupt musique (CTRL+S)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			MenuChanteur.getInstance(login).checkOperation("Stop");
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actReset = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Reset");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Reset.png"));
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_R);
+			putValue( Action.SHORT_DESCRIPTION, "Rejouer musique (CTRL+S)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			MenuChanteur.getInstance(login).checkOperation("Reset");
 		}
 	};
 	
@@ -124,24 +161,43 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			System.out.println("coucou");
+			MenuChanteur.getInstance(login).changerImage();
+			MenuChanteur.getInstance(login).update();
 		}
 	};
 	
+
 	@SuppressWarnings("serial")
 	public AbstractAction actRenommer = new AbstractAction() {
 
 		{//C'est le constructeur
-			putValue (Action.NAME, "Renomer");
+			putValue (Action.NAME, "Renommer");
 			//putValue (Action.SMALL_ICON, new ImageIcon("icons/paste.png"));
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			System.out.println("coucou");
+			MenuChanteur.getInstance(login).renommerAlbum();
+			MenuChanteur.getInstance(login).update();
 		}
 	};
 	
+	@SuppressWarnings("serial")
+	public AbstractAction actSuppressionAlbum = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Supprimer album");
+			//putValue (Action.SMALL_ICON, new ImageIcon("icons/paste.png"));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			MenuChanteur.getInstance(login).supprimerAlbum();
+			MenuChanteur.getInstance(login).update();
+		}
+	};
+	
+
 	
 	public static MenuRaccourcis getInstance(String login, String typeArtiste) {
 		if (instance == null)

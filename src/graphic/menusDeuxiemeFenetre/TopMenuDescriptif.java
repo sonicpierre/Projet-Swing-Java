@@ -63,12 +63,10 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private JMenu menuPlayer() {
 		JMenu player = new JMenu("Player");
-		JMenuItem jouer = new JMenuItem("Jouer");
-		JMenuItem arreter = new JMenuItem("Stop");
-		JMenuItem reprendreAuDebut = new JMenuItem("Reprendre au début");
-		player.add(jouer);
-		player.add(arreter);
-		player.add(reprendreAuDebut);
+
+		player.add(MenuRaccourcis.getInstance(login).actPlay);
+		player.add(MenuRaccourcis.getInstance(login).actStop);
+		player.add(MenuRaccourcis.getInstance(login).actReset);
 		return player;
 	}
 	
@@ -110,6 +108,8 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	
 	public void deconnexion() {
+		if(typeArtiste.equals("Chanteur"))
+			MenuChanteur.getInstance(login).getTitreEnCoursDeLecture().stop();
 		FenetreFond.getInstance().remove(this);
 		FenetreFond.getInstance().remove(MenuChanteur.getInstance(login));
 		FenetreFond.getInstance().changerFenetre(login);

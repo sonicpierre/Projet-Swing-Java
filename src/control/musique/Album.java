@@ -55,6 +55,7 @@ public class Album implements Serializable{
 	
 	private List<Titre> chansonsDelAlbum;
 	
+	private boolean selected;
 	
 	/**
 	 *Initialisation des composentes de l'album
@@ -74,6 +75,7 @@ public class Album implements Serializable{
 		this.setType(type);
 		this.setChansonsDelAlbum(titreDeLalbum);
 		this.setCheminVersImageAssocie(cheminVersImageAssocie);
+		this.selected = false;
 		
 		for(Titre montTitre : titreDeLalbum)
 			montTitre.setAlbumAssocie(this);
@@ -185,6 +187,14 @@ public class Album implements Serializable{
 	
 	public void setCheminVersImageAssocie(String cheminVersImageAssocie) {
 		this.cheminVersImageAssocie = cheminVersImageAssocie;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 
 }

@@ -131,7 +131,7 @@ public class Titre implements Serializable{
 	
 	public void play() {
 		if(!this.isPlaying() && !this.isEnPause) {
-			lecteurAssocie = new Lecteur(new PisteAudio(new File(this.getCheminVersLaMusique()), this.getTitre()));
+			lecteurAssocie = new Lecteur(new PisteAudio(new File(this.getCheminVersLaMusique()), this.getTitre(), this));
 			this.setPlaying(true);
 		}
 		else if(!this.isPlaying && this.isEnPause) {
