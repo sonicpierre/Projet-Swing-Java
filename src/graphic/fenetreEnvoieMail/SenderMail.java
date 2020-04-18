@@ -12,15 +12,30 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
+/**
+ *<p>
+ *<b>SenderMail</b> est la classe qui permet à l'utilisateur d'envoyer des e-mails
+ *à des contacts depuis une fenetre d'envoie. Son fonctionne se fait comme suit : 
+ *<ul>
+ *<li>Définition du protocole permettant la connexion aux serveurs de Google Mail (Gmail)</li>
+ *<li>Définition des identifiants du compte d'envoie d'artistak</li>
+ *<li>Préparation et envoie du message</li>
+ *</ul>
+ *</p>
+ *@author VIRGAUX Pierre 
+ **/
 
 public class SenderMail {
 	public static void sendMail(String recepient, String sujet, String messageAEnvoyer) throws MessagingException {
 		System.out.println("Preparation de l'envoie du message");
-		//REFERENCES AUX PROPIETES PERMETTANT DE NOUS CONNECTER A GMAIL => UTILISATION DE LA LIBRAIRIE JAVAS.MAIL.JAR
-		//SMTP est l'acronyme de Simple Mail Transport Protocol. Ce protocole défini par la recommandation RFC 821 permet l'envoi de mails vers un serveur de mails qui supporte ce protocole.
+		
+		/**<p>Définition des propriétés SMTP. SMTP étant l'acronyme de Simple Mail Transport Protocol. Ce protocole défini par la recommandation RFC 821 permet
+		 *l'envoi de mails vers un serveur de mails qui supporte ce protocole.</p>
+		 *<b>NB : </b> Ce protocole nécessite l'utilisation de la librairie Java.mail.jar
+		 **/
+		
 		Properties properties = new Properties();
-		properties.put("mail.smtp.auth", "true");//SMTP PROTOCOLE EN RESEAU
+		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
@@ -28,16 +43,54 @@ public class SenderMail {
 		String myAccountEmail = "artistaketexe@gmail.com";
 		String password = "artistak";
 		
+		/**
+		 *Authentification de la session de connexion
+		 *@param properties
+		 *	Propriétés du protocole
+		 *@param Autheticator
+		 *	Fonction de vérification
+		 *@return Authetification de la personne via son e-mail et mot de passe
+		 **/
+		
 		Session session = Session.getInstance(properties, new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(myAccountEmail, password);
 			}
 		});
+		
+		/**
+		 *Permet d'envoyer le message
+		 *@param session
+		 *	Session de connexion
+		 *@param myAccountEmail
+		 *	Adresse e-mail
+		 *@param recepient
+		 *	Destinataire
+		 *@param sujet
+		 *	Objet de l'e-mail
+		 *@param messageAEnvoyer
+		 *	Contenu du message
+		 **/
+		
 		Message message = prepareMessage(session, myAccountEmail, recepient, sujet, messageAEnvoyer);
 		Transport.send(message);//ENVOIE MESSAGE 
 		System.out.println("Message envoyé !!");
 	}
+	
+	/**
+	 *Définit les paramètres d'envoie du message
+	 *@param session
+	 *	Session de connexion
+	 *@param MyAccount
+	 *	L'e-mail d'envoie
+	 *@param recepient
+	 *	Destinataire
+	 *@param sujet
+	 *	Objet du message
+	 *@param messageAEnvoyer
+	 *	Contenu du message
+	 **/
 	
 	private static Message prepareMessage(Session session, String MyAcount, String recepient, String sujet, String messageAEnvoyer) {
 		try {

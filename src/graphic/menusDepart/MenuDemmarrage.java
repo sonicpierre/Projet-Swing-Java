@@ -7,36 +7,94 @@ import javax.swing.event.ChangeListener;
 
 import graphic.fenetre.FenetreLogin;
 
+
+/**
+ *<p> <b>MenuDemmarrage</b> est la classe qui construit la fenêtre 
+ *du menu de démarrage. Elle permettra la navigation de l'utilisateur dans deux onglets : 
+ *<lu>
+ *<li>Membre : servant à la connexion via identifiants</li>
+ *<li>Nouveau : servant à la saisie d'informations de création de compte</li>
+ *</lu>
+ *@author VIRAGAUX Pierre
+ *</p>
+ **/
+
 @SuppressWarnings("serial")
 public class MenuDemmarrage extends JPanel{
 	
-	JTabbedPane mesOnglets;//PANEL D'ONGLETS
+	/**
+	 *Panel d'onglets
+	 **/
 	
-	public MenuDemmarrage() {//CONSTRUCTEUR
-		mesOnglets = new JTabbedPane(JTabbedPane.TOP);//INITIALISATION DU JPanel EN LES PLAÇANT EN HAUT 
-		mesOnglets.add("Membre", LoginMenu.getInstance().getMenuLogin());//AJOUT DU MENU LOGIN
-		mesOnglets.add("Nouveau", CreerCompte.getInstance().getMenuCreation());//AJOUT DE LA FENETRE CREATION DE COMPTE
-		mesOnglets.addChangeListener(new ChangeListener() {//LISTENER ECOUTE LES ACTIONS SUR LA FENETRE, 
+	JTabbedPane mesOnglets;
+	
+	/**
+	 *Permet initialisation de la fenêtre puis l'ajout de ses composantes
+	 **/
+	
+	public MenuDemmarrage() {
+		
+		/**
+		 *Initialisation du JPanel en le plaçant en haut
+		 **/
+		
+		mesOnglets = new JTabbedPane(JTabbedPane.TOP);
+		
+		/**
+		 *Ajout du menu login
+		 **/
+		
+		mesOnglets.add("Membre", LoginMenu.getInstance().getMenuLogin());
+		
+		/**
+		 *Ajout de la fenête de création de compte
+		 **/
+		
+		mesOnglets.add("Nouveau", CreerCompte.getInstance().getMenuCreation());
+		
+		/**
+		 *Listener qui ecoute les actions sur la fenêtre
+		 **/
+		
+		mesOnglets.addChangeListener(new ChangeListener() {
 			
 			@Override
+			
+			/**
+			 *<p> Fonction permettant le changement de dimension de 
+			 *la fenêtre lorsqu'on passe de l'onglet Nouveau à Membre (vice-versa)
+			 *</p>
+			 **/
+			
 			public void stateChanged(ChangeEvent e) {
-				FenetreLogin.getInstance().changerLadim();//APPEL DU SINGLETON
+				
+				/**
+				 *Appel du sigleton
+				 **/
+				
+				FenetreLogin.getInstance().changerLadim();
 				
 			}
 		});
 	}
-
-	public JTabbedPane getMesOnglets() {//RETOURNE LES ONGLETS
+	
+	/**
+	 *Retourne les onglets de la fenêtre
+	 *@return Onglet fenêtre
+	 **/
+	
+	public JTabbedPane getMesOnglets() {
 		return mesOnglets;
 	}
-
+	
+	/**
+	 *Création des onglets de navigation
+	 *@param mesOnglets
+	 **/
+	
 	public void setMesOnglets(JTabbedPane mesOnglets) {
 		this.mesOnglets = mesOnglets;
 	}
 	
 	
 }
-
-//ON CREE UN PANEL QUI CONTIENT DES OBJETS 
-//PUIS ON Y COLLE SUR LA FENETRE
-//LE JPanel RETOURNE LE MEMBRE ET NOUVEAU

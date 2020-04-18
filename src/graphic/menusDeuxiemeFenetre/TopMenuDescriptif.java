@@ -10,32 +10,37 @@ import graphic.fenetre.FenetreParametre;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 
-public class TopMenuDescriptif{
+
+//BARRE DE HAUT SELON LE TALENT DE L'UTILISATEUR
+//CE N'EST PA PRATIK DAVOIU UN BARR POUR CHAQ PEROSN => COMBINAISON DES PREFERENCES
+@SuppressWarnings("serial")
+public class TopMenuDescriptif extends JMenuBar{
 	
-	JMenuBar menuFinal;//BARRE DU DESSUS
 	
 	private static TopMenuDescriptif instance;
 	
 	private String login;
+	private String typeArtiste;
 	
-	private TopMenuDescriptif(String login) {
-		menuFinal = new JMenuBar();
-		menuFinal.add(baseDeDonneMenu());
-		menuFinal.add(contactMenu());
+	private TopMenuDescriptif(String login, String typeArtiste) {
 		this.login = login;
-	}
-	
-	public JMenuBar getMenuFinal() {
-		return menuFinal;
-	}
-	
-	public void setMenuFinal(JMenuBar menuFinal) {
-		this.menuFinal = menuFinal;
-	}
-	
-	private JMenu contactMenu() {
-		JMenu contacter = new JMenu("Contact");
+		this.typeArtiste = typeArtiste;
+		if(typeArtiste == null) {//ADMINISTRATEUR IL POURRA AVOIR ACCES A CERTAINES INFO DES PERSONNES
+			this.add(baseDeDonneMenu());
+			this.add(contactMenu());
+		} else if(typeArtiste.equals("Chanteur")) {
+			this.add(menuChanteur());
+			this.add(menuPlayer());
+		} else {
+			this.add(menuActeurComedien());
+		}
 		
+		
+	}
+	
+	
+	private JMenu contactMenu() {//RESERVER A L'ADMIN => IL CONTACTE TOUT LE MONDE
+		JMenu contacter = new JMenu("Contact");
 		JMenuItem autreUtilisateur = new JMenuItem("Autre utilisateur");
 		autreUtilisateur.addActionListener((event)->ouvertureFenetreMail());
 		
@@ -44,14 +49,43 @@ public class TopMenuDescriptif{
 		return contacter;
 	}
 	
+	private JMenu menuChanteur() {
+		JMenu chanson = new JMenu("Musique");
+
+		chanson.add(MenuRaccourcis.getInstance(login).actAjoutMus);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actSuppressionMusique);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actAjoutAlb);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actParametre);
+		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
+		return chanson;
+	}
+	
+	private JMenu menuPlayer() {
+		JMenu player = new JMenu("Player");
+
+		player.add(MenuRaccourcis.getInstance(login).actPlay);
+		player.add(MenuRaccourcis.getInstance(login).actStop);
+		player.add(MenuRaccourcis.getInstance(login).actReset);
+		return player;
+	}
+	
+	private JMenu menuActeurComedien() {
+		JMenu spectacles = new JMenu("Représentation");
+		JMenuItem ajouterUnSpectacle = new JMenuItem("Ajouter représentation");
+		JMenuItem ajouterUneVille = new JMenuItem("Ajouter une ville");
+
+		spectacles.add(ajouterUnSpectacle);
+		spectacles.add(ajouterUneVille);
+		spectacles.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
+		return spectacles;
+	}
+	
 	private JMenu baseDeDonneMenu() {
 		JMenu baseDeDonne = new JMenu("Donnée");
 		JMenuItem creer = new JMenuItem("CréerBase");
 		JMenuItem modifierLaBDD = new JMenuItem("Modifier");
 		JMenuItem paramBDD = new JMenuItem("Paramètres");
-		JMenuItem deconnexion = new JMenuItem("Déconnexion");
-		deconnexion.addActionListener((event)->deconnexion());
-		paramBDD.addActionListener((event)->FenetreParametre.getInstance(login).setVisible(true));
+		paramBDD.addActionListener((event)->FenetreParametre.getInstance(login).ajoutParametre());
 		
 		baseDeDonne.add(creer);
 		baseDeDonne.addSeparator();
@@ -59,7 +93,7 @@ public class TopMenuDescriptif{
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(paramBDD);
 		baseDeDonne.addSeparator();
-		baseDeDonne.add(deconnexion);
+		baseDeDonne.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
 		
 		return baseDeDonne;
 	}
@@ -73,13 +107,18 @@ public class TopMenuDescriptif{
 	
 	
 	public void deconnexion() {
-		FenetreFond.getInstance().changerFenetre(null);
+		if(typeArtiste.equals("Chanteur"))
+			MenuChanteur.getInstance(login).getTitreEnCoursDeLecture().stop();
+		FenetreFond.getInstance().remove(this);
+		FenetreFond.getInstance().remove(MenuChanteur.getInstance(login));
+		FenetreFond.getInstance().changerFenetre(login);
 		FenetreLogin.getInstance().setVisible(true);
 	}
 	
-	public static TopMenuDescriptif getInstance(String login) {
+	
+	public static TopMenuDescriptif getInstance(String login, String typeArtiste) {
 		if (instance == null)
-			instance = new TopMenuDescriptif(login);
+			instance = new TopMenuDescriptif(login, typeArtiste);
 		return instance;
 	}
 }

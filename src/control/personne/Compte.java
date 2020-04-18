@@ -12,6 +12,10 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.SignedObject;
+import java.util.List;
+
+import control.elementSauv.personnesDejaInscrite;
+import control.musique.Album;
 
 
 /**
@@ -27,23 +31,6 @@ public class Compte implements Serializable{
 	
 	private static final long serialVersionUID = 6421959812909952648L;
 	
-	/**Paramètres de la classe : 
-	 *@param SignedObject
-	 *	Objet sécurisé et sérializable
-	 *@param couleurDuFond
-	 *	Type couleur 
-	 *@param couleurEcriture
-	 *	Type couleur
-	 *@param adressMail
-	 *	Adresse e-mail
-	 *@param talent
-	 *	Le talent de l'artiste
-	 *@param cheminVersImage
-	 *	Le chemin vers l'image
-	 *@param description
-	 *	La description utilisateur
-	 **/
-	
 	private SignedObject passewordCrypte;
 	private Color couleurDuFond;
 	private Color couleurEcriture;
@@ -51,7 +38,13 @@ public class Compte implements Serializable{
 	private String talent;
 	private String cheminVersImage;
 	private String description; 
+	//Utilise que dans le compteChanteur
 	
+	/**
+	 *Tableau d'album, utilisé dans le compte chanteur
+	 **/
+	
+	List<Album> maListeDeAlbums;
 	/**
 	 *<p>Initialisation d'un objet sécurisé et sérializable puis défintion
 	 *d'une couleur de fond et d'écriture</p>
@@ -80,7 +73,7 @@ public class Compte implements Serializable{
 	 **/
 	
 	
-	public Compte(String passeword, String talent, String CheminVersImage, String addresseMail) {	
+	public Compte(String passeword, String talent, String CheminVersImage, String addresseMail) {
 		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
@@ -267,6 +260,25 @@ public class Compte implements Serializable{
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public List<Album> getMaListeDeAlbums() {
+		return maListeDeAlbums;
+	}
+
+	public void setMaListeDeAlbums(List<Album> maListeDeChansons) {
+		this.maListeDeAlbums = maListeDeChansons;
+	}
+	
+
+	public void ajouterAlbum(Album AlbumASupprimer) {
+		this.getMaListeDeAlbums().add(AlbumASupprimer);
+		personnesDejaInscrite.getInstance().sauvegarder();
+	}
+	
+	public void supprimerAlbum(Album AlbumASupprimer) {
+		this.getMaListeDeAlbums().remove(AlbumASupprimer);
+		personnesDejaInscrite.getInstance().sauvegarder();
 	}
 	
 	

@@ -28,63 +28,169 @@ import graphic.fenetre.FenetreParametre;
 
 
 /**
- *<b>MenuProfilDescription</b> est la classe qui permet de */
+ *<b>MenuProfilDescription</b> est la classe qui permet la création de la fenetre 
+ *de description utilisateur.
+ *@author VIRGAUX Pierre
+ **/
 
 @SuppressWarnings("serial")
 public class MenuProfilDescription extends JPanel{
 	
 	private static MenuProfilDescription instance;
 	
-	private static final int tailleDuneLigne = 75;//INIT TAILLE LIGNE SELON TAILLE FENETRE 
+	/**
+	 *Initialisation de la taille de la ligne selon celle de la fenetre
+	 **/
+	
+	private static final int tailleDuneLigne = 75; 
+	
+	/**
+	 *Définition du login utilisateur
+	 **/
 	
 	private String login;
-	private BufferedImage photoProfil;//CLASSE QUI PERMET DE REDIMENSIONNER L'IMAGE, C'EST POUR CELA QUON UTILISE PAS LA CLASSE IMAGE
+	
+	/**
+	 *Classe qui permet de redilensionner l'image, car action impossible avec la classe image.
+	 **/
+	
+	private BufferedImage photoProfil;
+	
+	/**
+	 *Définition de la description
+	 **/
+	
 	private String description;
+	
+	/**
+	 *Définition de la zone de saisie de texte
+	 **/
+	
 	private JTextArea zoneEdition;
 	
-	private MenuProfilDescription(String login) {//A PARTIR DU LOGIN ON A LE MDP, EMAIL, TALENT
+	/**Permet d'indentifier l'utilisateur grâce à son login.
+	 *A partir du login on obtient le mot de passe, l'e-mail et le talent de l'utilisateur
+	 *@param login
+	 *	Login utilisateur
+	 **/
+	
+	private MenuProfilDescription(String login) {
 		this.login = login;
 		this.setLayout(new BorderLayout());
 		this.setAutoscrolls(true);
-		description = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getDescription();//DESCRIPTION LOGIN DE LA PERSONNE
+		description = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getDescription();
 		this.add(bouttons(), BorderLayout.PAGE_END);
 		chargerImage();
 	}
 	
 	
-	//Va permettre de dessiner joliment les paramètres du compte utilisateur
-	
 	@Override
-	protected void paintComponent(Graphics g) {//PERMET DE DESSINER L'IMAGE AVEC UNE POSITION PRECISE EN PIXEL
+	
+	/**Permet de dessiner de manière plus agréable les paramètres du compte utilisateur.
+	 * L'image de l'utilisateur sera aussi créer avec une position précise et en pixel
+	 *@param g
+	 *	Librairie graphique
+	 *Il incluit une méthode qui resoud le problème du retour chariot.
+	 **/
+	
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
+		/**
+		 *Dessin de l'image
+		 **/
 		
-		g.drawImage(photoProfil, 5, 10, null);//DESSINER IMAGE
-		g.setFont(new Font("Comic Sans MS", Font.BOLD, 13));//DEFINITION DE LA POLICE
-		g.setColor(new Color(100,100,100));//DEFINITION COULEUR POLICE
+		g.drawImage(photoProfil, 5, 10, null);
+		
+		/**
+		 *Définition de la police
+		 **/
+		
+		g.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		
+		/**
+		 *Définition de la couleur de la police
+		 **/
+		
+		g.setColor(new Color(100,100,100));
 		g.drawString(login, photoProfil.getWidth() + 15, photoProfil.getHeight()/2);
 		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getAdresseMail(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 15);
-		g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 30);
+		if(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent() != null)
+			g.drawString(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getTalent(), photoProfil.getWidth() + 15, photoProfil.getHeight()/2 + 30);
 		
-		String[] monTabFinalEcrie = description.split("\n");//CREATION TABLEAU DE STRING A SPLITER PAR RAPP À TOUS LES /n => TABLEAU DE MOT DE LA PHRASE
-		List<String[]> maListFinale = new ArrayList<String[]>();//TABLEAU DE TABLEAU VIDE
+		/**
+		 *Création d'un tableau de string qu'on split par rapport à tous les retours chariots.
+		 *Ce qui permet la création d'un tabeau de mot de la phrase.
+		 **/
 		
-		for(String monString : monTabFinalEcrie) {//ON FAIT UNE BOUCLE QUI VA DE LIGNE EN LIGNE => RAJOUT MANUELLE D'UN /n TOUS LES 20 CARACTÈRES
-			StringBuffer descriptionTab = new StringBuffer(monString);//TABLEAU DE CARACTÈRES
+		String[] monTabFinalEcrie = description.split("\n");
+		
+		/**
+		 *Tableau de tableau vide
+		 **/
+		
+		List<String[]> maListFinale = new ArrayList<String[]>();
+		
+		/**
+		 *Création d'une boucle allant de ligne en ligne pour rajouter manuellement un retour chariot tous les 75 caractères
+		 **/
+		
+		for(String monString : monTabFinalEcrie) {
+			/**
+			 *Tableau de caractères
+			 **/
+			
+			StringBuffer descriptionTab = new StringBuffer(monString);
 			for(int i=tailleDuneLigne; i<descriptionTab.length(); i+=tailleDuneLigne)
-				descriptionTab.insert(i, "\n");//INSERTION A i D'UN /n 
-			monString = descriptionTab.toString();//RETRANSFORMATION DU STRINGBUFFER EN STRING NORMAL
-			maListFinale.add(monString.split("\n"));//SPLIT EN PRENANT TOUS LES \n
+				
+				/**
+				 *Insertion à "i" d'un retour chariot
+				 **/
+				
+				descriptionTab.insert(i, "\n");
+			
+			/**
+			 *Retransformation de StringBuffer en String notmal
+			 **/
+			
+			monString = descriptionTab.toString();
+			
+			/**
+			 *Split en prenant tous les \n
+			 **/
+			
+			maListFinale.add(monString.split("\n"));
 		}
-		//TABLEAU AYANT CHAQUE CASSE ETANT UN TABLEAU DE PHRASE DE BONNE TAILLE DE LIGNE 
-		int compteur = 0;//UTILSATION D'UN COMPTEUR POUR VERIFIER LE MAXIMUM DE LIGNE
-		int espaceInterLigne = 200;//POINT DE DEPART
+		
+		/**
+		 *Tableau ayant chaque case étant un tableau de phrase dont la taille 
+		 *correspond à celle de la ligne. 
+		 *NB : On utilise un compteur pour vérifier le non dépassement du maximum de la ligne
+		 **/
+		
+		int compteur = 0;
+		
+		/**
+		 *Point de départ
+		 **/
+		
+		int espaceInterLigne = 200;
 		for(String[] monTabString : maListFinale) {
 			for(String monString : monTabString) {
 				if(compteur<14) {
 					g.drawString(monString, 10, espaceInterLigne);
-					espaceInterLigne+=14;//ENTRE INTERLIGNE 14
-					compteur++;//SAUT DE LIGNE
+					
+					/**
+					 *Espace ente chaque ligne
+					 **/
+					
+					espaceInterLigne+=14;
+					
+					/**
+					 *Saut de ligne
+					 **/
+					
+					compteur++;
 				}
 			}
 		}
@@ -92,13 +198,23 @@ public class MenuProfilDescription extends JPanel{
 			
 	}
 	
+	/**
+	 *Permet de changer la photo de l'utilisateur selon le processus suivant : 
+	 *<ul>
+	 *<li>Ouverture de la navigation de fichier</li>
+	 *<li>Choix du fichier à selectionner</li>
+	 *<li>Indexation du fichier</li>
+	 *<li>Redefinition du chemin</li>
+	 *</ul>
+	 *@see paintComponent
+	 **/
 	
 	private void changerLaPhoto() {
-		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());//PERMET D'AVOIR LE NAVIGATEUR DE FICHIER
-		int returnValue = jfc.showOpenDialog(null);//CENTRAGE
-		if (returnValue == JFileChooser.APPROVE_OPTION) {//VERIF CHOIX FICHIER
-		    File selectedFile = jfc.getSelectedFile();//INDEXATION DU FICHIER SELECTIONNE
-		    personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setCheminVersImage(selectedFile.getAbsolutePath());//LE CHEMIN VERS L'IMAGE EST LE CHEMIN SELECTIONÉ
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		int returnValue = jfc.showOpenDialog(null);
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+		    File selectedFile = jfc.getSelectedFile();
+		    personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setCheminVersImage(selectedFile.getAbsolutePath());
 		}
 	    chargerImageNouvelle();
 	    personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setCheminVersImage("ImageProfil/"+login+".png");
@@ -106,20 +222,48 @@ public class MenuProfilDescription extends JPanel{
 	    this.repaint();
 	}
 	
-	//Charge l'image et la redimmentionne pour qu'elle rentre bien dans la description
+	/**Permet de charger l'image et de la redimmentionner.
+	 *Ainsi elle correspondrait bien dans l'espace de description.
+	 *@see paintComponent
+	 **/
 	
 	private void chargerImageNouvelle() {
 		
 		try {
-			photoProfil = ImageIO.read(new File(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getCheminVersImage()));//PHOTO OBTENUE AVEC LE NOUVEAU CHEMIN
-			BufferedImage nouvelleImage=redimentionne(photoProfil, (double) 150/photoProfil.getWidth(), (double) 150/photoProfil.getHeight());//REDIMENSIONNER L'IMAGE AVEC UNE PHOTO DE 150PXL PAR 150
-			ImageIO.write(nouvelleImage, "png", new File("ImageProfil/"+login+".png"));//ENREGISTEREMENT DE L'IMAGE
-			photoProfil = ImageIO.read(new File("ImageProfil/"+login+".png"));//RENOMMAGE
+			
+			/**
+			 *Photo obtenue avec le nouveau chemin
+			 **/
+			
+			photoProfil = ImageIO.read(new File(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getCheminVersImage()));
+			
+			/**
+			 *Redimensionne l'image avec une image de 150 pixels par 150
+			 **/
+			
+			BufferedImage nouvelleImage=redimentionne(photoProfil, (double) 150/photoProfil.getWidth(), (double) 150/photoProfil.getHeight());
+			
+			/**
+			 *Enregistrement de l'image
+			 **/
+			
+			ImageIO.write(nouvelleImage, "png", new File("ImageProfil/"+login+".png"));
+			
+			/**
+			 *Renommage de l'image
+			 **/
+			
+			photoProfil = ImageIO.read(new File("ImageProfil/"+login+".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.repaint();//APPEL DE LA FONCTION PAINTCOMPONENT PERMETTANT DE REDESSINER L'IMAGE
+		
+		/**
+		 *Appel de paintComponent pour redessiner l'image
+		 **/
+		
+		this.repaint();
 	}
 	
 	private void chargerImage() {//QUAND ON CHARGE LA PGAE AU DEART, ON CHAREGE L'IAGE QUI ETAIT AVANT
@@ -131,12 +275,26 @@ public class MenuProfilDescription extends JPanel{
 		}
 	}
 	
+	/**
+	 *Permet de définir les boutons de la fenêtre
+	 *@return Bouton centré
+	 **/
 	
 	private JPanel bouttons() {
 		JPanel tempon = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton changerPhotoBoutton = new JButton("Changer Photo");//CHANGER LA PHOTO
+		
+		/**
+		 *Change la photo
+		 **/
+		
+		JButton changerPhotoBoutton = new JButton("Changer Photo");
 		JButton edit = new JButton("Edit");
-		JButton exit = new JButton("Exit");//REND INVISIBLE LA FENTRE PARAMETRE
+		
+		/**
+		 *Permet de rendre la fenetre invisible
+		 **/
+		
+		JButton exit = new JButton("Exit");
 		
 		changerPhotoBoutton.addActionListener((event)->changerLaPhoto());
 		edit.addActionListener((event)->passerEnModeEdition());
@@ -150,46 +308,117 @@ public class MenuProfilDescription extends JPanel{
 	}
 	
 	
+	/**
+	 *Permet de redimentionner l'image importée.
+	 *@param imageDeBase
+	 *	Image initiale
+	 *@param factorx
+	 *	Facteur de redimention de la largeur
+	 *@param factory
+	 *	Facteur de redimention de la hauteur
+	 *@return Image modifiée
+	 **/
 	
     public static BufferedImage redimentionne(BufferedImage imageDeBase, double factorx, double factory) {
-        int destWidth=(int) (imageDeBase.getWidth() * factorx);//LARGEUR FINALE
-        int destHeight=(int) (imageDeBase.getHeight() * factory);//HAUTEUR FINALE
-        //créer l'image de destination
+    	
+    	/**
+    	 *Largeur finale
+    	 **/
+    	
+        int destWidth=(int) (imageDeBase.getWidth() * factorx);
+        
+        /**
+         *Hauteur finale
+         **/
+        
+        int destHeight=(int) (imageDeBase.getHeight() * factory);
+        
+        /**Création de l'image de destination
+         **/
+        
         GraphicsConfiguration configuration = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         BufferedImage bImageNew = configuration.createCompatibleImage(destWidth, destHeight);
         Graphics2D graphics = bImageNew.createGraphics();
-        //On utilise l'interpolation pour rajouter on enlever les pixels CREATION NOUVELLE IMAGE
+        
+        /**
+         * Utilisation de l'interpolation pour rajouter ou enlever les pixels CREATION NOUVELLE IMAGE
+         **/
+        
         graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-        //dessiner l'image de destination
+        
+        /**
+         *Dessin de l'image de destination
+         */
+        
         graphics.drawImage(imageDeBase, 0, 0, destWidth, destHeight, 0, 0, imageDeBase.getWidth(), imageDeBase.getHeight(), null);
-        //On libère le dessinateur
+        
+        /**On libère le dessinateur
+         **/
+        
         graphics.dispose();
  
         return bImageNew;
     }
     
-    private void passerEnModeEdition() {//PRBL : COMMENT FAIRE POUR SAUTER DES LIGNES PUISQUE \n NE FONCTIONNE PAS. 
+    /**
+     *Permet le passage de la fenetre en mode édition et saisie texte.
+     **/
+    
+    private void passerEnModeEdition() { 
     	JPanel edition = new JPanel(new BorderLayout());
     	zoneEdition = new JTextArea(description);
-    	zoneEdition.setLineWrap(true);//PERMET LE RETOUR CHARIOT
-    	JButton valider = new JButton("Valider");//BOUTON DE VALIDATION EDITION
+    	
+    	/**
+    	 *Permet le retour chariot
+    	 **/
+    	
+    	zoneEdition.setLineWrap(true);
+    	
+    	/**
+    	 *Bouton de validation édition
+    	 **/
+    	
+    	JButton valider = new JButton("Valider");
     	valider.addActionListener((event)->validationEdition());
     	edition.add(zoneEdition, BorderLayout.CENTER);
     	edition.add(valider, BorderLayout.SOUTH);
     	this.add(edition);
-    	//Permet de recalculer la place des différents Panels
+    	/**Permet de recalculer la place des différents Panels
+    	 **/
+    	
     	this.validate();
     }
+    
+    /**
+     *<p>Permet comme son nom l'indique de valider l'édition de la fenetre puis de 
+     *sauvegarder les informations</p>
+     **/
     
     private void validationEdition() {
     	personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setDescription(zoneEdition.getText());
     	description = zoneEdition.getText();
     	personnesDejaInscrite.getInstance().sauvegarder();
     	this.remove(this.getComponentCount() - 1);
-    	this.validate();//RECALCUL DE LA FENETRE + ESPACE DE CHAQUE PANEL
-    	this.repaint();//RAPPEL DE PAINT COMPONENT POUR L'EDITION DE LA DESCRIPTION ENTRÉE CORRECTEMENT
+    	
+    	/**
+    	 *Recalcul de la fenetre et des espaces ente chaque panel
+    	 **/
+    	
+    	this.validate();
+    	
+    	/**
+    	 *Rappel de paintComponent pour l'édition de la description
+    	 *@see paintComponent
+    	 **/
+    	
+    	this.repaint();
     }
+    
+    /**
+     *Instances du menu de profil utilisateur
+     *@return Le menu de description utilisateur
+     **/
     
 	public static MenuProfilDescription getInstance(String login) {
 		if (instance == null)
