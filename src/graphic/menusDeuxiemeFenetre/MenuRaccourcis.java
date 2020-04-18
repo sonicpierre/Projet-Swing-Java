@@ -66,6 +66,24 @@ public class MenuRaccourcis {
 	};
 
 	@SuppressWarnings("serial")
+	public AbstractAction actAjoutMus = new AbstractAction() {
+
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Ajout musique...");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_M);
+			putValue( Action.SHORT_DESCRIPTION, "Ajout musique (CTRL+M)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			FenetreParametre.getInstance(login).ajoutMusiqueFenetre();
+		}
+	};
+	
+	@SuppressWarnings("serial")
 	public AbstractAction actDeco = new AbstractAction() {
 
 
@@ -194,6 +212,7 @@ public class MenuRaccourcis {
 		public void actionPerformed(ActionEvent event) {
 			MenuChanteur.getInstance(login).supprimerAlbum();
 			MenuChanteur.getInstance(login).update();
+			MenuAjoutMusique.getInstance(login).update();
 		}
 	};
 	

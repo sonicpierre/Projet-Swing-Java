@@ -99,6 +99,7 @@ public class Album implements Serializable{
 			}
 	}
 	
+	
 	/**
 	 *Récupère le titre
 	 *@return Titre

@@ -51,9 +51,8 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private JMenu menuChanteur() {
 		JMenu chanson = new JMenu("Musique");
-		JMenuItem ajouterSaMusique = new JMenuItem("Ajouter musique");
-		
-		chanson.add(ajouterSaMusique);
+
+		chanson.add(MenuRaccourcis.getInstance(login).actAjoutMus);
 		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actSuppressionMusique);
 		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actAjoutAlb);
 		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actParametre);

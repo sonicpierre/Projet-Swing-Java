@@ -4,7 +4,9 @@ import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,7 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import javax.swing.JCheckBox;
 import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
 import control.musique.Titre;
@@ -105,7 +107,7 @@ public class MenuAjoutAlbum extends JPanel{
 			style.setSelectedItem(listeStyle[0]);
 			JMenuItem contenant = new JMenuItem();
 			JOptionPane.showMessageDialog(contenant,"Album ajouté");
-
+			MenuAjoutMusique.getInstance(login).update();
 		}
 	}
 	
