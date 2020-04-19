@@ -1,15 +1,16 @@
 package graphic.menusDeuxiemeFenetre;
 
 import java.awt.FlowLayout;
+import java.awt.MenuItem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
@@ -17,7 +18,7 @@ import javax.swing.filechooser.FileSystemView;
 import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
 import control.musique.Titre;
-import graphic.fenetre.FenetreParametre;
+import control.personne.Artiste;
 
 @SuppressWarnings("serial")
 public class MenuAjoutMusique extends JPanel{
@@ -25,13 +26,14 @@ public class MenuAjoutMusique extends JPanel{
 	private static MenuAjoutMusique instance;
 	
 	private String login;
+	private Artiste artiste;
 	private JTextField nouveauNom;
 	private String cheminVersMusique;
 	private JComboBox<String> listeAlbum;
-	private JComboBox<String> libelleAssocie;
 	
 	private MenuAjoutMusique(String login) {
 		this.login = login;
+		this.artiste = null;
 		this.setLayout(new FlowLayout());
 		this.add(panelChoixMusique());
 	}
@@ -58,29 +60,45 @@ public class MenuAjoutMusique extends JPanel{
 	
 	private void constructionListeAlbum() {
 		List<String> listeTitreAlbum = new ArrayList<String>();
-		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums())
-			listeTitreAlbum.add(monAlbum.getTitre());
-		int index = 0;
-		String[] listeConstruction = new String[listeTitreAlbum.size()];
-		for(String monTitre : listeTitreAlbum) {
-			listeConstruction[index] = monTitre;
-			index++;
+		if(artiste != null) {
+			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums()) {
+				listeTitreAlbum.add(monAlbum.getTitre());
+			}
+			int index = 0;
+			String[] listeConstruction = new String[listeTitreAlbum.size()];
+			for(String monTitre : listeTitreAlbum) {
+				listeConstruction[index] = monTitre;
+				index++;
+			}
+			this.listeAlbum = new JComboBox<String>(listeConstruction);
+		} else {
+			this.listeAlbum = new JComboBox<String>();
 		}
-		this.listeAlbum = new JComboBox<String>(listeConstruction);
 	}
 	
 	public void update() {
-		constructionListeAlbum();
+		artiste = MenuPrincipal.getInstance(login).getArtisteSelectionne();
+		System.out.println(artiste);
+		this.removeAll();
+		this.add(panelChoixMusique());
+		this.validate();
 	}
 	
 	private void valider() {
-		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeDeAlbums()) {
+		boolean passage = false;
+		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums()) {
 			if(monAlbum.getTitre().equals(listeAlbum.getSelectedItem())) {
 				monAlbum.getChansonsDelAlbum().add(new Titre(nouveauNom.getText(), cheminVersMusique));
+				passage = true;
 				break;
 			}
 		}
-		MenuChanteur.getInstance(login).update();
+		if (passage)
+			MenuMusique.getInstance(login).update();
+		else {
+			MenuItem contenant = new MenuItem();
+			JOptionPane.showInputDialog(contenant,"Champs incorrect !");
+		}
 	}
 	
 	private void choixFichier() {
@@ -97,5 +115,12 @@ public class MenuAjoutMusique extends JPanel{
 			instance = new MenuAjoutMusique(login);
 		return instance;
 	}
-	
+
+	public Artiste getArtiste() {
+		return artiste;
+	}
+
+	public void setArtiste(Artiste artiste) {
+		this.artiste = artiste;
+	}
 }

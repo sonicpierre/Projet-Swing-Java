@@ -8,15 +8,24 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
+import control.personne.Artiste;
+import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreParametre;
 
 public class MenuRaccourcis {
 
 	private static MenuRaccourcis instance;
 	private String login;
+	private Artiste artiste;
+
+	private MenuRaccourcis(String login, Artiste artiste) {
+		this.login = login;
+		this.artiste = artiste;
+	}
 
 	private MenuRaccourcis(String login) {
 		this.login = login;
+		this.artiste = null;
 	}
 
 
@@ -26,7 +35,7 @@ public class MenuRaccourcis {
 
 		{//C'est le constructeur
 			putValue (Action.NAME, "Paramètre...");
-			//putValue (Action.SMALL_ICON, new ImageIcon("icons/file.png"));
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/parametre.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_P);
 			putValue( Action.SHORT_DESCRIPTION, "Paramètre (CTRL+P)");
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));
@@ -34,7 +43,6 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.println(login);
 			FenetreParametre.getInstance(login).ajoutParametre();
 		}
 	};
@@ -107,7 +115,7 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).checkOperation("Supprimer");
+			MenuMusique.getInstance(login).checkOperation("Supprimer");
 		}
 	};
 	
@@ -124,7 +132,7 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).checkOperation("Play");
+			MenuMusique.getInstance(login).checkOperation("Play");
 		}
 	};
 
@@ -141,7 +149,7 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).checkOperation("Stop");
+			MenuMusique.getInstance(login).checkOperation("Stop");
 		}
 	};
 	
@@ -158,7 +166,40 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).checkOperation("Reset");
+			MenuMusique.getInstance(login).checkOperation("Reset");
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actBack = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Revenir");
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_B);
+			putValue( Action.SHORT_DESCRIPTION, "Revenir en arrière (CTRL+B)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			FenetreFond.getInstance().retourEtatInitial(login);
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actAjoutArtiste = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Ajouter artiste");
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
+			putValue( Action.SHORT_DESCRIPTION, "Ajouter artiste (CTRL+E)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			FenetreParametre.getInstance(login).ajoutArtisteFenetre();
 		}
 	};
 	
@@ -172,8 +213,8 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).changerImage();
-			MenuChanteur.getInstance(login).update();
+			MenuMusique.getInstance(login).changerImage();
+			MenuMusique.getInstance(login).update();
 		}
 	};
 	
@@ -188,8 +229,8 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).renommerAlbum();
-			MenuChanteur.getInstance(login).update();
+			MenuMusique.getInstance(login).renommerAlbum();
+			MenuMusique.getInstance(login).update();
 		}
 	};
 	
@@ -203,12 +244,18 @@ public class MenuRaccourcis {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			MenuChanteur.getInstance(login).supprimerAlbum();
-			MenuChanteur.getInstance(login).update();
+			MenuMusique.getInstance(login).supprimerAlbum();
+			MenuMusique.getInstance(login).update();
 			MenuAjoutMusique.getInstance(login).update();
 		}
 	};
 	
+	
+	public static MenuRaccourcis getInstance(String login, Artiste artiste) {
+		if (instance == null)
+			instance = new MenuRaccourcis(login, artiste);
+		return instance;
+	}
 	
 	public static MenuRaccourcis getInstance(String login) {
 		if (instance == null)

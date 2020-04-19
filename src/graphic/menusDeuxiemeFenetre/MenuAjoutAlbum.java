@@ -9,17 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JCheckBox;
+
 import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
 import control.musique.Titre;
+import control.personne.Artiste;
 
 //JPANEL PERMETTANT D'AJOUTER LES ALBUMS
 @SuppressWarnings("serial")
@@ -28,16 +29,17 @@ public class MenuAjoutAlbum extends JPanel{
 	private static MenuAjoutAlbum instance;
 	
 	private final String login;//IDENTIFIER UTILISATEUR
+	private Artiste artiste;
 	private JTextField nom;
 	private List<Titre> titreAssocie;//LITE RITRE ASSO
 	private String cheminVersImageAssocie;//CHEMIN DE L'IMAGE JPEG
-	private JComboBox<String> style;//MENU DEROULANT
-	private static final String[] listeStyle = {"Rock", "Classique", "Folk", "Electro", "Dance Hall"};//ONGLET TYPE DE ZIK
+
 	Map<JCheckBox, Titre> mesAssociationsCheckTitre;
 	//SINGLETON
 	//AFFICHAGE
 	private MenuAjoutAlbum(String login) {
 		this.login = login;
+		this.artiste = null;
 		this.setLayout(new FlowLayout());//AFICHAE EN HORIZONTAL 
 		this.add(choixLabels());
 	}
@@ -47,7 +49,6 @@ public class MenuAjoutAlbum extends JPanel{
 		mesAssociationsCheckTitre = new HashMap<JCheckBox, Titre>();
 		JPanel choixLabels = new JPanel(new FlowLayout());
 		JLabel nomLabel = new JLabel("Nom Album");
-		style = new JComboBox<String>(listeStyle);//EN PARAM LA LISTE DE TYPE
 		
 		nom = new JTextField("Nom Album");
 		JButton dossier = new JButton("Browse");
@@ -57,7 +58,6 @@ public class MenuAjoutAlbum extends JPanel{
 		
 		choixLabels.add(nomLabel);
 		choixLabels.add(nom);
-		choixLabels.add(style);
 		choixLabels.add(dossier);
 		choixLabels.add(valider);
 		
@@ -100,15 +100,24 @@ public class MenuAjoutAlbum extends JPanel{
 
 	private void valider() {
 		if(titreAssocie != null) {//SI LA LISTE DE TITE N'EST PAS NULLE => CREATION ALBUM DANSLES ENDROOITS DE SAUVEGARDE
-			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).ajouterAlbum(new Album(nom.getText(), style.getItemAt(style.getSelectedIndex()), titreAssocie, cheminVersImageAssocie));
-			MenuChanteur.getInstance(login).update();//ON LA FONCTION QUE PV A CREER QUI S'APPELLE ET QUI PERMET L'AJOUT DE L'ALNUM ENTRE
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).ajouterAlbum(new Album(nom.getText(), titreAssocie, cheminVersImageAssocie));
+			MenuMusique.getInstance(login).update();//ON LA FONCTION QUE PV A CREER QUI S'APPELLE ET QUI PERMET L'AJOUT DE L'ALNUM ENTRE
 			titreAssocie = null;//INITIALISATION DE LA LISTE
 			nom.setText("Nom Album");//RESTTAURATION DE LA FENETRE 
-			style.setSelectedItem(listeStyle[0]);
+
 			JMenuItem contenant = new JMenuItem();
 			JOptionPane.showMessageDialog(contenant,"Album ajouté");
+			MenuAjoutMusique.getInstance(login).setArtiste(artiste);
 			MenuAjoutMusique.getInstance(login).update();
 		}
+	}
+
+	public Artiste getArtiste() {
+		return artiste;
+	}
+
+	public void setArtiste(Artiste artiste) {
+		this.artiste = artiste;
 	}
 	
 	

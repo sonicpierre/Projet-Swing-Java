@@ -16,7 +16,8 @@ import javax.swing.JTextField;
 import org.apache.commons.validator.EmailValidator;
 
 import control.elementSauv.personnesDejaInscrite;
-import control.personne.Compte;
+import control.personne.Artiste;
+import control.personne.CompteAdministrateur;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
@@ -212,7 +213,7 @@ public class CreerCompte extends JPanel {
 
 			if (!(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTranslate))) {
 				personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(),
-						new Compte(passewordTranslate, "ImageProfil/inconnu.jpg"));
+						new CompteAdministrateur(passewordTranslate));
 				personnesDejaInscrite.getInstance().sauvegarder();
 				
 				

@@ -34,11 +34,6 @@ public class Album implements Serializable{
 	 *Type du titre
 	 **/
 	
-	private String type;
-	
-	/**
-	 *Chemin vers le dossier de titre
-	 **/
 	
 	private String cheminVerDossier;
 	
@@ -69,10 +64,9 @@ public class Album implements Serializable{
 	 *	Localisation du chemin associé
 	 **/
 	
-	public Album(String titre, String type, List<Titre> titreDeLalbum, String cheminVersImageAssocie) {
+	public Album(String titre, List<Titre> titreDeLalbum, String cheminVersImageAssocie) {
 		this.setTitre(titre);
 
-		this.setType(type);
 		this.setChansonsDelAlbum(titreDeLalbum);
 		this.setCheminVersImageAssocie(cheminVersImageAssocie);
 		this.selected = false;
@@ -135,24 +129,7 @@ public class Album implements Serializable{
 	public void setCheminVerDossier(String cheminVerDossier) {
 		this.cheminVerDossier = cheminVerDossier;
 	}
-	
-	/**
-	 *Récupère le type du titre
-	 *@return Type du titre
-	 **/
-	
-	public String getType() {
-		return type;
-	}
-	
-	/**
-	 *Initialisation du type du titre
-	 *@param type
-	 **/
-	
-	public void setType(String type) {
-		this.type = type;
-	}
+
 	
 	/**
 	 *Récupère les chansons de l'album

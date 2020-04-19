@@ -4,8 +4,10 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuAjoutAlbum;
 import graphic.menusDeuxiemeFenetre.MenuAjoutMusique;
+import graphic.menusParametreFenetre.MenuAjoutArtiste;
 import graphic.menusParametreFenetre.MenuFinalParametre;
 
 
@@ -22,8 +24,9 @@ public class FenetreParametre extends JFrame{
 	private final static Dimension dimChoixAlbum = new Dimension(600,100);//DIMENSION FEN CHOIX ALBUM
 	private final static Dimension dimChoixMusique = new Dimension(600,100);//DIMENSION FEN CHOIX MUSIQUE
 	private final static Dimension dimParametre = new Dimension(600,500);//DIM FEN PARAM
+	private final static Dimension dimAjoutArtiste = new Dimension(400,400);//DIMENSION FEN CHOIX ALBUM
 	
-	String login;//CLÉ VERS UTILISATEUR
+	private String login;//CLÉ VERS UTILISATEUR
 	
 	private FenetreParametre(String login){
 		this.login = login;
@@ -63,6 +66,15 @@ public class FenetreParametre extends JFrame{
 		this.getContentPane().removeAll();//SUPPREMSSION CONTENU
 		setSize(dimChoixMusique);//REDIMENSION
 		this.getContentPane().add(MenuAjoutMusique.getInstance(login));//LECTURE CONTENU + AJOUT DU MENU CORRESPONDZNT À L'AJOUT ALBUM
+		setVisible(true);//VISIBLITE DELA FEN
+	}
+	
+	public void ajoutArtisteFenetre() {
+		dispose();//ON REND LA FEN INVISIBLE
+		this.setTitle("Ajouter artiste");
+		this.getContentPane().removeAll();//SUPPREMSSION CONTENU
+		setSize(dimAjoutArtiste);//REDIMENSION
+		this.getContentPane().add(MenuAjoutArtiste.getInstance(login));//LECTURE CONTENU + AJOUT DU MENU CORRESPONDZNT À L'AJOUT ALBUM
 		setVisible(true);//VISIBLITE DELA FEN
 	}
 	

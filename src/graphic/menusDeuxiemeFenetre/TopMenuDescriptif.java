@@ -4,6 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 import graphic.fenetre.FenetreParametre;
@@ -20,16 +21,15 @@ public class TopMenuDescriptif extends JMenuBar{
 	private static TopMenuDescriptif instance;
 	
 	private String login;
+	private Artiste artiste;
 	
 	private TopMenuDescriptif(String login) {
 		this.login = login;
+		this.artiste = null;
+
 		this.add(baseDeDonneMenu());
 		this.add(contactMenu());
-
-		this.add(menuChanteur());
-		this.add(menuPlayer());
-
-		this.add(menuActeurComedien());
+		
 	}
 		
 		
@@ -48,42 +48,47 @@ public class TopMenuDescriptif extends JMenuBar{
 	private JMenu menuChanteur() {
 		JMenu chanson = new JMenu("Musique");
 
-		chanson.add(MenuRaccourcis.getInstance(login).actAjoutMus);
-		chanson.add(MenuRaccourcis.getInstance(login).actSuppressionMusique);
-		chanson.add(MenuRaccourcis.getInstance(login).actAjoutAlb);
-		chanson.add(MenuRaccourcis.getInstance(login).actParametre);
-		chanson.add(MenuRaccourcis.getInstance(login).actDeco);
+		chanson.add(MenuRaccourcis.getInstance(login, artiste).actAjoutMus);
+		chanson.add(MenuRaccourcis.getInstance(login, artiste).actSuppressionMusique);
+		chanson.add(MenuRaccourcis.getInstance(login, artiste).actAjoutAlb);
+		chanson.add(MenuRaccourcis.getInstance(login, artiste).actParametre);
+		chanson.add(MenuRaccourcis.getInstance(login, artiste).actBack);
+		chanson.add(MenuRaccourcis.getInstance(login, artiste).actDeco);
 		return chanson;
 	}
 	
 	private JMenu menuPlayer() {
 		JMenu player = new JMenu("Player");
 
-		player.add(MenuRaccourcis.getInstance(login).actPlay);
-		player.add(MenuRaccourcis.getInstance(login).actStop);
-		player.add(MenuRaccourcis.getInstance(login).actReset);
+		player.add(MenuRaccourcis.getInstance(login, artiste).actPlay);
+		player.add(MenuRaccourcis.getInstance(login, artiste).actStop);
+		player.add(MenuRaccourcis.getInstance(login, artiste).actReset);
 		return player;
 	}
 	
-	private JMenu menuActeurComedien() {
-		JMenu spectacles = new JMenu("Représentation");
-		JMenuItem ajouterUnSpectacle = new JMenuItem("Ajouter représentation");
-		JMenuItem ajouterUneVille = new JMenuItem("Ajouter une ville");
-
-		spectacles.add(ajouterUnSpectacle);
-		spectacles.add(ajouterUneVille);
-		spectacles.add(MenuRaccourcis.getInstance(login).actDeco);
-		return spectacles;
+	public void updateVersChanteur() {
+		this.removeAll();
+		
+		this.add(menuChanteur());
+		this.add(menuPlayer());
+		this.add(contactMenu());
+		this.validate();
+	}
+	
+	public void updateVersInitial() {
+		this.removeAll();
+		
+		this.add(baseDeDonneMenu());
+		this.add(contactMenu());
 	}
 	
 	private JMenu baseDeDonneMenu() {
-		JMenu baseDeDonne = new JMenu("Donnée");
-		JMenuItem creer = new JMenuItem("CréerBase");
+		JMenu baseDeDonne = new JMenu("Base de données");
 		JMenuItem modifierLaBDD = new JMenuItem("Modifier");
 		JMenuItem paramBDD = new JMenuItem("Paramètres");
-		paramBDD.addActionListener((event)->FenetreParametre.getInstance(login).ajoutParametre());
 		
-		baseDeDonne.add(creer);
+		baseDeDonne.add(MenuRaccourcis.getInstance(login).actAjoutArtiste);
+		
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(modifierLaBDD);
 		baseDeDonne.addSeparator();
@@ -103,15 +108,27 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	
 	public void deconnexion() {
-		if(MenuChanteur.getInstance(login).getTitreEnCoursDeLecture()!=null)
-			MenuChanteur.getInstance(login).getTitreEnCoursDeLecture().stop();
+		if(MenuMusique.getInstance(login).getTitreEnCoursDeLecture()!=null)
+			MenuMusique.getInstance(login).getTitreEnCoursDeLecture().stop();
 		FenetreFond.getInstance().remove(this);
-		FenetreFond.getInstance().remove(MenuChanteur.getInstance(login));
+		FenetreFond.getInstance().remove(MenuPrincipal.getInstance(login));
 		FenetreFond.getInstance().changerFenetre(login);
 		FenetreLogin.getInstance().setVisible(true);
 	}
 	
 	
+	public Artiste getArtiste() {
+		return artiste;
+	}
+
+
+	public void setArtiste(Artiste artiste) {
+		this.artiste = artiste;
+	}
+
+
+
+
 	public static TopMenuDescriptif getInstance(String login) {
 		if (instance == null)
 			instance = new TopMenuDescriptif(login);
