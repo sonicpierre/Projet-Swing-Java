@@ -84,12 +84,11 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private JMenu baseDeDonneMenu() {
 		JMenu baseDeDonne = new JMenu("Base de données");
-		JMenuItem ajoutArtiste = new JMenuItem("Ajouter artiste");
 		JMenuItem modifierLaBDD = new JMenuItem("Modifier");
 		JMenuItem paramBDD = new JMenuItem("Paramètres");
-		ajoutArtiste.addActionListener((event)->FenetreParametre.getInstance(login).ajoutArtisteFenetre());
 		
-		baseDeDonne.add(ajoutArtiste);
+		baseDeDonne.add(MenuRaccourcis.getInstance(login).actAjoutArtiste);
+		
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(modifierLaBDD);
 		baseDeDonne.addSeparator();

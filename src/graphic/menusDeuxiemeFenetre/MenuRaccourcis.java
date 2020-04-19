@@ -35,7 +35,7 @@ public class MenuRaccourcis {
 
 		{//C'est le constructeur
 			putValue (Action.NAME, "Paramètre...");
-			//putValue (Action.SMALL_ICON, new ImageIcon("icons/file.png"));
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/parametre.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_P);
 			putValue( Action.SHORT_DESCRIPTION, "Paramètre (CTRL+P)");
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));
@@ -183,6 +183,23 @@ public class MenuRaccourcis {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			FenetreFond.getInstance().retourEtatInitial(login);
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actAjoutArtiste = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Ajouter artiste");
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
+			putValue( Action.SHORT_DESCRIPTION, "Ajouter artiste (CTRL+E)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			FenetreParametre.getInstance(login).ajoutArtisteFenetre();
 		}
 	};
 	

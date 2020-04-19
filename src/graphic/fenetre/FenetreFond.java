@@ -14,6 +14,7 @@ import graphic.menusDeuxiemeFenetre.MenuAjoutMusique;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
+import graphic.menusParametreFenetre.MenuProfilDescription;
 
 
 @SuppressWarnings("serial")
@@ -79,6 +80,7 @@ public class FenetreFond extends JFrame {
 		MenuMusique.getInstance(login).setArtiste(null);
 		MenuAjoutAlbum.getInstance(login).setArtiste(null);
 		MenuAjoutMusique.getInstance(login).setArtiste(null);
+		MenuProfilDescription.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).updateVersInitial();
 		

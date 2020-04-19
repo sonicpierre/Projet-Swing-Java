@@ -1,6 +1,7 @@
 package graphic.menusDeuxiemeFenetre;
 
 import java.awt.FlowLayout;
+import java.awt.MenuItem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
@@ -83,13 +85,20 @@ public class MenuAjoutMusique extends JPanel{
 	}
 	
 	private void valider() {
+		boolean passage = false;
 		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums()) {
 			if(monAlbum.getTitre().equals(listeAlbum.getSelectedItem())) {
 				monAlbum.getChansonsDelAlbum().add(new Titre(nouveauNom.getText(), cheminVersMusique));
+				passage = true;
 				break;
 			}
 		}
-		MenuMusique.getInstance(login).update();
+		if (passage)
+			MenuMusique.getInstance(login).update();
+		else {
+			MenuItem contenant = new MenuItem();
+			JOptionPane.showInputDialog(contenant,"Champs incorrect !");
+		}
 	}
 	
 	private void choixFichier() {

@@ -17,6 +17,7 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Acteur;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
+import graphic.menusParametreFenetre.MenuProfilDescription;
 
 @SuppressWarnings("serial")
 public class MenuPrincipal extends JTabbedPane{
@@ -70,6 +71,7 @@ public class MenuPrincipal extends JTabbedPane{
 				if(artiste.getType().equals("Chanteur")) {
 					setArtisteSelectionne(artiste);
 					MenuAjoutAlbum.getInstance(login).setArtiste(artiste);
+					MenuProfilDescription.getInstance(login).setArtiste(artiste);
 					MenuAjoutMusique.getInstance(login).update();
 					MenuMusique.getInstance(login).update();
 					MenuPrincipal.getInstance(login).removeAll();
