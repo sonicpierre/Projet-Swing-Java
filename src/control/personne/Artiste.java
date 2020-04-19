@@ -24,7 +24,7 @@ import control.musique.Album;
  *@author VIRGAUX Pierre
  **/
 
-public class Compte implements Serializable{
+public class Artiste implements Serializable{
 	
 	/**
 	 *Détermination du format de représentation à écrire dans le fichier.
@@ -32,11 +32,15 @@ public class Compte implements Serializable{
 	
 	private static final long serialVersionUID = 6421959812909952648L;
 	
-	private SignedObject passewordCrypte;
+	private String nom;
+	private String prenom;
 	private Color couleurDuFond;
 	private Color couleurEcriture;
 	private String cheminVersImage;
-	private String description; 
+	private String description;
+	private String adresseMail;
+	private String type;
+
 	//Utilise que dans le compteChanteur
 	
 	/**
@@ -49,13 +53,17 @@ public class Compte implements Serializable{
 	 *d'une couleur de fond et d'écriture</p>
 	 **/
 	
-	public Compte(String passeword, Color couleurDeFond, Color couleurEcriture, String CheminVersImage) {
+	public Artiste(String description, Color couleurDeFond, Color couleurEcriture, String CheminVersImage, String nom, String prenom, String adresseMail, String type) {
 		maListeDeAlbums = new ArrayList<Album>();
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setAdresseMail(adresseMail);
+		this.setType(type);
 		this.couleurDuFond = couleurDeFond;
 		this.couleurEcriture = couleurEcriture;
-		securiser(passeword);
 		this.cheminVersImage = CheminVersImage;
 		this.setDescription("Vous n'avez pas de description pour le moment...");
+		
 	}
 	
 	/**Applique des couleurs d'ecriture et de fond lors de la saisie des informations. 
@@ -71,29 +79,19 @@ public class Compte implements Serializable{
 	 **/
 	
 	
-	public Compte(String passeword, String CheminVersImage) {
+	public Artiste(String description, String CheminVersImage,  String nom, String prenom, String adresseMail, String type) {
+		this.description = description;
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setAdresseMail(adresseMail);
+		this.setType(type);
 		maListeDeAlbums = new ArrayList<Album>();
-		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
 		this.cheminVersImage = CheminVersImage;
 		this.setDescription("Vous n'avez pas de description pour le moment...");
 	}
-	
-	/**Récupère le mot de passe à encoder
-	 *@return Mot de passe crypté
-	 **/
-	
-	public SignedObject getPasseword() {
-		return passewordCrypte;
-	}
-	
-	/**Met en place la sécurité du mot de passe
-	 **/
-	
-	public void setPasseword(String passeword) {
-		securiser(passeword);
-	}
+
 	
 	/** Récupère la couleur de fond
 	 *@return La couleur de fond
@@ -129,68 +127,6 @@ public class Compte implements Serializable{
 		this.couleurEcriture = couleurEcriture;
 	}
 		
-	
-	/**
-	 *<p>Cette méthode est un point important de la classe Compte.
-	 *En effet elle permet de sécuriser le champ du mot de passe. De plus, puisque le Serialize serait trop simplement lu
-	 *via un éditeur de texte, nous avons sécurisé le fichier d'informations en utilisant l'objet SignedObject qui utilise
-	 *l'algorithme de cryptage DSA.
-	 *</p>
-	 *<p>Le choix de cet objet s'est fait car :
-	 *<ul>
-	 *<li>Serializable</li>
-	 *<li>Compatible avec notre méthode de sauvegarde fichier</li>
-	 *</ul>
-	 * </p>
-	 **/
-	
-	private void securiser(String passeword) {//PRIVATISATION DU FICHIER DE MDP
-		/**
-		 *Création d'une clé
-		 **/
-		
-		KeyPairGenerator keyGen;
-		try {
-			
-			/**
-			 *Signature d'un objet
-			 **/
-			
-			keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
-			
-			/**Définit la source pour la génération de la clé
-			 **/
-			
-			SecureRandom random;
-			random = SecureRandom.getInstance("SHA1PRNG", "SUN");
-			
-			/**Ici 1024 est la taille de la clé générée
-			 **/
-			
-			keyGen.initialize(1024, random);
-			
-			/**
-			 *Création d'une clé privée
-			 **/
-			
-			PrivateKey signingKey = keyGen.generateKeyPair().getPrivate();
-			
-			/**Création d'une signature
-			 **/
-			
-			Signature signingEngine = Signature.getInstance("DSA");
-			signingEngine.initSign(signingKey);
-			
-			/**Signature de l'objet
-			 **/
-			
-			this.passewordCrypte = new SignedObject(passeword, signingKey, signingEngine);
-		} catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException | SignatureException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
-
 	
 	/**
 	 *Récupère le chemin vers l'image
@@ -244,6 +180,40 @@ public class Compte implements Serializable{
 		this.getMaListeDeAlbums().remove(AlbumASupprimer);
 		personnesDejaInscrite.getInstance().sauvegarder();
 	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getAdresseMail() {
+		return adresseMail;
+	}
+
+	public void setAdresseMail(String adresseMail) {
+		this.adresseMail = adresseMail;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
 	
 	
 }

@@ -1,6 +1,5 @@
 package control.elementSauv;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import control.personne.Compte;
+import control.personne.CompteAdministrateur;
 
 /**
  * <b>personneDejaInscrite</b> est la classe qui permet de vérifier l'inscription d'une personne.
@@ -38,7 +37,7 @@ public class personnesDejaInscrite implements Serializable{
 	 *Initialisation d'une table de hashage permettant d'associer une clé à une valeur.
 	 **/
 	
-	private HashMap<String, Compte> monHashMap;
+	private HashMap<String, CompteAdministrateur> monHashMap;
 	
 	private static personnesDejaInscrite instance;
 	
@@ -53,13 +52,13 @@ public class personnesDejaInscrite implements Serializable{
 		 *Instanciation de l'objet
 		 **/
 		
-		monHashMap = new HashMap<String, Compte>();
+		monHashMap = new HashMap<String, CompteAdministrateur>();
 		
 		/**
 		 *Ajout d'un profil administrateur
 		 **/
 		
-		monHashMap.put("Utilisateur", new Compte("123", Color.BLACK, Color.WHITE,"ImageProfil/inconnu.jpg"));
+		monHashMap.put("Utilisateur", new CompteAdministrateur("123"));
 	}
 	
 	/**
@@ -67,7 +66,7 @@ public class personnesDejaInscrite implements Serializable{
 	 *@return Une instance de personneDejaInscrite, qui lie une clé à une valeur.
 	 **/
 	
-	public HashMap<String, Compte> getMaListDePersonneInscrite() {
+	public HashMap<String, CompteAdministrateur> getMaListDePersonneInscrite() {
 		return monHashMap;
 	}
 	

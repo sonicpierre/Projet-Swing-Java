@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileSystemView;
 
 import control.elementSauv.personnesDejaInscrite;
+import control.personne.Artiste;
 import graphic.fenetre.FenetreParametre;
 
 
@@ -74,11 +75,14 @@ public class MenuProfilDescription extends JPanel{
 	 *	Login utilisateur
 	 **/
 	
+	private final Artiste artiste;
+	
 	private MenuProfilDescription(String login) {
+		this.artiste = null;
 		this.login = login;
 		this.setLayout(new BorderLayout());
 		this.setAutoscrolls(true);
-		description = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getDescription();
+		description = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getDescription();
 		this.add(bouttons(), BorderLayout.PAGE_END);
 		chargerImage();
 	}
@@ -212,10 +216,10 @@ public class MenuProfilDescription extends JPanel{
 		int returnValue = jfc.showOpenDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    File selectedFile = jfc.getSelectedFile();
-		    personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setCheminVersImage(selectedFile.getAbsolutePath());
+		    personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).setCheminVersImage(selectedFile.getAbsolutePath());
 		}
 	    chargerImageNouvelle();
-	    personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setCheminVersImage("ImageProfil/"+login+".png");
+	    personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).setCheminVersImage("ImageProfil/"+login+".png");
 		personnesDejaInscrite.getInstance().sauvegarder();
 	    this.repaint();
 	}
@@ -233,7 +237,7 @@ public class MenuProfilDescription extends JPanel{
 			 *Photo obtenue avec le nouveau chemin
 			 **/
 			
-			photoProfil = ImageIO.read(new File(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getCheminVersImage()));
+			photoProfil = ImageIO.read(new File(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getCheminVersImage()));
 			
 			/**
 			 *Redimensionne l'image avec une image de 150 pixels par 150
@@ -266,7 +270,7 @@ public class MenuProfilDescription extends JPanel{
 	
 	private void chargerImage() {//QUAND ON CHARGE LA PGAE AU DEART, ON CHAREGE L'IAGE QUI ETAIT AVANT
 		try {//ON ASSOCIE A UN FICIER POUR OBSERVER LES PERSONNES DJA INSCRITES ET A PARTIR DE LA CLE LOGIN ON RECIPERE NON PAS LA DESCRIPTION MAIS LE CHEMIN DE LA PHOTO
-			photoProfil = ImageIO.read(new File(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getCheminVersImage()));
+			photoProfil = ImageIO.read(new File(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getCheminVersImage()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -394,7 +398,7 @@ public class MenuProfilDescription extends JPanel{
      **/
     
     private void validationEdition() {
-    	personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).setDescription(zoneEdition.getText());
+    	personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).setDescription(zoneEdition.getText());
     	description = zoneEdition.getText();
     	personnesDejaInscrite.getInstance().sauvegarder();
     	this.remove(this.getComponentCount() - 1);
