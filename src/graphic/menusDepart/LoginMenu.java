@@ -72,14 +72,14 @@ public class LoginMenu extends JPanel{
 	
 	private JPanel InitialisationDuMenu() {
 		JPanel mesEntre = new JPanel(new GridLayout(2,2,15,10));
-		login = new JTextField("Login");
+		login = new JTextField("Utilisateur");
 		passeword = new JPasswordField("Mot de Passe");
 		
 		/**
 		 *Centrage du login
 		 **/
 		
-		JLabel loginTexte = new JLabel("Login :");
+		JLabel loginTexte = new JLabel("Utilisateur :");
 		loginTexte.setHorizontalAlignment(JLabel.CENTER);
 		
 		/**
@@ -214,6 +214,12 @@ public class LoginMenu extends JPanel{
 		 *login.getText() récupère le contenu de la barre de saisie
 		 **/
 		
+		
+		//ICI TRAVAILLE BDD A LA PLACE DE CETTE CONDITION QUE JE GARDE SUR MA BRANCHE POUR POUVOIR CONTINUER À BOSSER IL FAUT QUE TU METTES
+		//TA PROPRE FONCTION POUR SAVOIR SI L UTILISATEUR EXISTE BIEN ET 
+		//PENSE A REGARDER L ERREUR QUE CA FAIT QD C LE MAUVAIS UTILISATEUR ET FAIS UN TRY CATCH CA SERA LE MIEU
+		
+		
 		if(personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
 			FenetreLogin.getInstance().dispose();
 			FenetreFond.getInstance().changerFenetre(login.getText());
@@ -223,5 +229,9 @@ public class LoginMenu extends JPanel{
 		else {
 			JOptionPane.showInternalMessageDialog(this, "Utilisateur ou mot de passe inconnu", "Erreur", JOptionPane.WARNING_MESSAGE);
 		}
+		
+		
+		
+		
 	}
 }

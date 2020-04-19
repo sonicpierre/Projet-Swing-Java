@@ -44,13 +44,13 @@ public class MenuDemmarrage extends JPanel{
 		 *Ajout du menu login
 		 **/
 		
-		mesOnglets.add("Membre", LoginMenu.getInstance().getMenuLogin());
+		mesOnglets.add("Utilisateur", LoginMenu.getInstance().getMenuLogin());
 		
 		/**
 		 *Ajout de la fenête de création de compte
 		 **/
 		
-		mesOnglets.add("Nouveau", CreerCompte.getInstance().getMenuCreation());
+		mesOnglets.add("Nouvel utilisateur", CreerCompte.getInstance().getMenuCreation());
 		
 		/**
 		 *Listener qui ecoute les actions sur la fenêtre

@@ -20,23 +20,19 @@ public class TopMenuDescriptif extends JMenuBar{
 	private static TopMenuDescriptif instance;
 	
 	private String login;
-	private String typeArtiste;
 	
-	private TopMenuDescriptif(String login, String typeArtiste) {
+	private TopMenuDescriptif(String login) {
 		this.login = login;
-		this.typeArtiste = typeArtiste;
-		if(typeArtiste == null) {//ADMINISTRATEUR IL POURRA AVOIR ACCES A CERTAINES INFO DES PERSONNES
-			this.add(baseDeDonneMenu());
-			this.add(contactMenu());
-		} else if(typeArtiste.equals("Chanteur")) {
-			this.add(menuChanteur());
-			this.add(menuPlayer());
-		} else {
-			this.add(menuActeurComedien());
-		}
-		
-		
+		this.add(baseDeDonneMenu());
+		this.add(contactMenu());
+
+		this.add(menuChanteur());
+		this.add(menuPlayer());
+
+		this.add(menuActeurComedien());
 	}
+		
+		
 	
 	
 	private JMenu contactMenu() {//RESERVER A L'ADMIN => IL CONTACTE TOUT LE MONDE
@@ -53,10 +49,10 @@ public class TopMenuDescriptif extends JMenuBar{
 		JMenu chanson = new JMenu("Musique");
 
 		chanson.add(MenuRaccourcis.getInstance(login).actAjoutMus);
-		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actSuppressionMusique);
-		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actAjoutAlb);
-		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actParametre);
-		chanson.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
+		chanson.add(MenuRaccourcis.getInstance(login).actSuppressionMusique);
+		chanson.add(MenuRaccourcis.getInstance(login).actAjoutAlb);
+		chanson.add(MenuRaccourcis.getInstance(login).actParametre);
+		chanson.add(MenuRaccourcis.getInstance(login).actDeco);
 		return chanson;
 	}
 	
@@ -76,7 +72,7 @@ public class TopMenuDescriptif extends JMenuBar{
 
 		spectacles.add(ajouterUnSpectacle);
 		spectacles.add(ajouterUneVille);
-		spectacles.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
+		spectacles.add(MenuRaccourcis.getInstance(login).actDeco);
 		return spectacles;
 	}
 	
@@ -93,7 +89,7 @@ public class TopMenuDescriptif extends JMenuBar{
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(paramBDD);
 		baseDeDonne.addSeparator();
-		baseDeDonne.add(MenuRaccourcis.getInstance(login, typeArtiste).actDeco);
+		baseDeDonne.add(MenuRaccourcis.getInstance(login).actDeco);
 		
 		return baseDeDonne;
 	}
@@ -107,7 +103,7 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	
 	public void deconnexion() {
-		if(typeArtiste.equals("Chanteur"))
+		if(MenuChanteur.getInstance(login).getTitreEnCoursDeLecture()!=null)
 			MenuChanteur.getInstance(login).getTitreEnCoursDeLecture().stop();
 		FenetreFond.getInstance().remove(this);
 		FenetreFond.getInstance().remove(MenuChanteur.getInstance(login));
@@ -116,9 +112,9 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	
-	public static TopMenuDescriptif getInstance(String login, String typeArtiste) {
+	public static TopMenuDescriptif getInstance(String login) {
 		if (instance == null)
-			instance = new TopMenuDescriptif(login, typeArtiste);
+			instance = new TopMenuDescriptif(login);
 		return instance;
 	}
 }
