@@ -1,6 +1,7 @@
 package graphic.menusParametreFenetre;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -13,16 +14,20 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
+import org.apache.commons.validator.EmailValidator;
+
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "deprecation" })
 public class MenuAjoutArtiste extends JPanel{
 	
 	private static MenuAjoutArtiste instance;
@@ -35,6 +40,7 @@ public class MenuAjoutArtiste extends JPanel{
 	private JTextField adresseMail;
 	private JTextArea description;
 	private JComboBox<String> type;
+	private JLabel imageProfil;
 	
 	private MenuAjoutArtiste(String login) {
 		this.login = login;
@@ -51,50 +57,58 @@ public class MenuAjoutArtiste extends JPanel{
 	private JPanel constructionArtiste() {
 		JPanel menuTerminal = new JPanel(new BorderLayout());
 		ImageIcon monImage = new ImageIcon(new ImageIcon(cheminVersImage).getImage().getScaledInstance(130, 130, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
-		JLabel imageProfil = new JLabel(monImage);
+		imageProfil = new JLabel(monImage);
+		imageProfil.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		imageProfil.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				choixPhoto();
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton()==MouseEvent.BUTTON1)
+					choixPhoto();
 			}
 		});
+		
 		menuTerminal.add(imageProfil, BorderLayout.WEST);
-		menuTerminal.add(constructionEtiquetteDroite(), BorderLayout.EAST);
+		menuTerminal.add(constructionEtiquetteDroite(), BorderLayout.CENTER);
 		return menuTerminal;
 	}
 	
 	private JPanel constructionEtiquetteDroite() {
-		JPanel menuDroite = new JPanel(new GridLayout(5,1));
-		JPanel tempon1 = new JPanel(new FlowLayout());
-		JPanel tempon2 = new JPanel(new FlowLayout());
-		JPanel tempon3 = new JPanel(new FlowLayout());
+		JPanel menuDroite = new JPanel(new BorderLayout());
+		JPanel tempon1 = new JPanel(new GridLayout(4,2, 0, 10));
 		
 		JLabel nomLabel = new JLabel("Nom :");
+		nomLabel.setHorizontalAlignment(JLabel.CENTER);
 		JLabel prenomLabel = new JLabel("Prenom :");
+		prenomLabel.setHorizontalAlignment(JLabel.CENTER);
 		JLabel adresseMailLabel = new JLabel("Adresse mail :");
+		adresseMailLabel.setHorizontalAlignment(JLabel.CENTER);
 		nom = new JTextField("Nom");
 		prenom = new JTextField("Prenom");
 		adresseMail = new JTextField("Adresse mail");
 		
-		tempon1.add(nomLabel, FlowLayout.LEFT);
+		tempon1.add(nomLabel);
 		tempon1.add(nom);
-		tempon2.add(prenomLabel, FlowLayout.LEFT);
-		tempon2.add(prenom);
-		tempon3.add(adresseMailLabel, FlowLayout.LEFT);
-		tempon3.add(adresseMail);
+		tempon1.add(prenomLabel);
+		tempon1.add(prenom);
+		tempon1.add(adresseMailLabel);
+		tempon1.add(adresseMail);
 		
-		menuDroite.add(tempon1, FlowLayout.LEFT);
-		menuDroite.add(tempon2);
-		menuDroite.add(tempon3);
-		menuDroite.add(type);
+		menuDroite.add(tempon1, BorderLayout.CENTER);
+
+		menuDroite.add(type, BorderLayout.SOUTH);
 		
 		return menuDroite;
 	}
 	
 	private void valider() {
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(new Artiste(description.getText(),cheminVersImage, nom.getText(), prenom.getText(), adresseMail.getText(), (String) type.getSelectedItem()));
-		personnesDejaInscrite.getInstance().sauvegarder();
-		MenuPrincipal.getInstance(login).update();
+		if(validateEmailAddress(adresseMail.getText())) {
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(new Artiste(description.getText(),cheminVersImage, nom.getText(), prenom.getText(), adresseMail.getText(), (String) type.getSelectedItem()));
+			personnesDejaInscrite.getInstance().sauvegarder();
+			MenuPrincipal.getInstance(login).update();
+		} else {
+			JMenuItem contenant = new JMenuItem();
+			JOptionPane.showMessageDialog(contenant,"Email incorrect","Erreur", JOptionPane.WARNING_MESSAGE);
+		}
 
 	}
 	
@@ -118,6 +132,26 @@ public class MenuAjoutArtiste extends JPanel{
 		return panelBouttons;
 	}
 	
+
+	/**
+	 * Permet de vérifier si une seule case talent a été appuyée et renvoie son nom
+	 **/
+
+	/**
+	 * Permet de valider l'adresse e-mail de l'utilisateur
+	 * 
+	 * @param votreEmail E-mail utilisateur
+	 * @return True si e-mail valide
+	 **/
+	
+	public static boolean validateEmailAddress(String votreEmail) {
+		EmailValidator emailvalidator = EmailValidator.getInstance();
+		if (emailvalidator.isValid(votreEmail)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	public String getCheminVersImage() {
 		return cheminVersImage;

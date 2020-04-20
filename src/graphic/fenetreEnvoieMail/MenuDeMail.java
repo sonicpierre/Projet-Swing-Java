@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import control.personne.Artiste;
+
 @SuppressWarnings("serial")
 
 /**
@@ -28,6 +30,7 @@ public class MenuDeMail extends JPanel{
 	private JTextField adresseMailRentre;
 	private JTextField objetEntre;
 	private JTextArea message;
+	private Artiste artiste;
 	
 	/**
 	 *Espace de menu e-mail
@@ -171,5 +174,14 @@ public class MenuDeMail extends JPanel{
 		this.message = message;
 	}
 
+	public Artiste getArtiste() {
+		return artiste;
+	}
+
+	public void setArtiste(Artiste artiste) {
+		this.artiste = artiste;
+	}
+
+	
 	
 }

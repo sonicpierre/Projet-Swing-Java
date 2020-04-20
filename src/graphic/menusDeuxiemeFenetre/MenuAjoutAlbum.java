@@ -102,6 +102,7 @@ public class MenuAjoutAlbum extends JPanel{
 		if(titreAssocie != null) {//SI LA LISTE DE TITE N'EST PAS NULLE => CREATION ALBUM DANSLES ENDROOITS DE SAUVEGARDE
 			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).ajouterAlbum(new Album(nom.getText(), titreAssocie, cheminVersImageAssocie));
 			MenuMusique.getInstance(login).update();//ON LA FONCTION QUE PV A CREER QUI S'APPELLE ET QUI PERMET L'AJOUT DE L'ALNUM ENTRE
+			MenuPrincipal.getInstance(login).validate();
 			titreAssocie = null;//INITIALISATION DE LA LISTE
 			nom.setText("Nom Album");//RESTTAURATION DE LA FENETRE 
 
@@ -109,6 +110,7 @@ public class MenuAjoutAlbum extends JPanel{
 			JOptionPane.showMessageDialog(contenant,"Album ajouté");
 			MenuAjoutMusique.getInstance(login).setArtiste(artiste);
 			MenuAjoutMusique.getInstance(login).update();
+			MenuAlbum.getInstance(login).update();
 		}
 	}
 

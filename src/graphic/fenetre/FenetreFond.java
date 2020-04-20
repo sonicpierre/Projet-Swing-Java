@@ -64,6 +64,7 @@ public class FenetreFond extends JFrame {
 		}
 		else {
 			dispose();
+			this.getContentPane().removeAll();
 			this.add(ImageFond);
 			setUndecorated(true);
 			setResizable(false);
