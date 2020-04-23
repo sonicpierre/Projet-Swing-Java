@@ -6,12 +6,13 @@ import java.sql.Statement;
 
 public class Modification {
 	String url = "jdbc:mysql://localhost/artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	String user = "MoneyMan";
-	String passwd = "money";
+	String user = "$$$$$";
+	String passwd = "$$$$";
 	boolean userCree = false;
 	private static Modification instance;
 
 	private Modification() {
+
 	}
 
 	public static Modification getInstance() {
@@ -221,4 +222,22 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPasswd() {
+		return passwd;
+	}
+
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+	
+	
 }

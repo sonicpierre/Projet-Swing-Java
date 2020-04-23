@@ -58,7 +58,7 @@ public class CreerCompte extends JPanel {
 	 * Confirmation saisie mot de passe
 	 **/
 
-	JPasswordField confirmedPasseword;
+	JPasswordField confirmedRoot;
 
 	private CreerCompte() {
 
@@ -97,7 +97,7 @@ public class CreerCompte extends JPanel {
 	private JPanel InitialisationDuMenu() {
 		JPanel mesEntre = new JPanel(new GridLayout(6, 1, 25, 10));
 		login = new JTextField("Login");
-		confirmedPasseword = new JPasswordField("Mot de Passe");
+		confirmedRoot = new JPasswordField("Mot de Passe");
 		passeword = new JPasswordField("Mot de Passe");
 
 		/**
@@ -123,7 +123,7 @@ public class CreerCompte extends JPanel {
 		mesEntre.add(motDePasse);
 		mesEntre.add(passeword);
 		mesEntre.add(confirmedMotDePasse);
-		mesEntre.add(confirmedPasseword);
+		mesEntre.add(confirmedRoot);
 
 		return mesEntre;
 	}
@@ -193,7 +193,7 @@ public class CreerCompte extends JPanel {
 
 	private void valider() {
 		String passewordTranslate = new String(passeword.getPassword());
-		String passewordCopiTranslate = new String(confirmedPasseword.getPassword());
+		String passewordRoot = new String(confirmedRoot.getPassword());
 
 		/**
 		 * On regarde les différentes possiblités et on adapte les messages d'erreur
@@ -204,7 +204,7 @@ public class CreerCompte extends JPanel {
 		 * Vérification d'un contenu existent des champs de saisie
 		 **/
 
-		if ((login.getText() != null) && (passewordTranslate != null) && (passewordCopiTranslate != null)) {
+		if ((login.getText() != null) && (passewordTranslate != null) && (passewordRoot != null)) {
 
 			/**
 			 * Vérification de l'existence de l'utilisateur
@@ -218,8 +218,9 @@ public class CreerCompte extends JPanel {
 				// ICI IL FAUT FAIRE LE TRAITEMENT DE LA BDD CREER L UTILISATEUR SI IL EXISTE
 				// PAS DEJA !!!!!!!
 				// CREER LA BDD VIDE !!!!
-				Initialisation.getInstance().creerUser();
-				Initialisation.getInstance().creerBDD();
+				
+				Initialisation.getInstance().creerUser(passewordRoot, login.getText(), passewordTranslate);
+				Initialisation.getInstance().creerBDD(login.getText(), passewordTranslate);
 
 				JOptionPane.showInternalMessageDialog(this, "Bienvenue " + login.getText(), "Utilisateur crée",
 						JOptionPane.INFORMATION_MESSAGE);

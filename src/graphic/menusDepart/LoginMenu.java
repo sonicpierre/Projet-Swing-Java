@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import control.BDD.Initialisation;
+import control.BDD.Modification;
 import control.elementSauv.personnesDejaInscrite;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
@@ -223,18 +225,29 @@ public class LoginMenu extends JPanel {
 		/**
 		 * login.getText() récupère le contenu de la barre de saisie
 		 **/
+		
 
-		String url = "jdbc:mysql://localhost/user?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-		String user = "MoneyMan";
-		String passwd = "money";
+		
+		String url = "jdbc:mysql://localhost/Artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+		String user = login.getText();
+		String passwd = passewordTraduit;
+		
+		System.out.println(user);
+		System.out.println(passwd);
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
-			Statement stat = conn.createStatement();
-			stat.executeQuery("SELECT nom FROM user WHERE user=");
+			Initialisation.getInstance().setPasswd(passwd);
+			Initialisation.getInstance().setUser(user);
+			Modification.getInstance().setPasswd(passwd);
+			Modification.getInstance().setUser(user);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+			JOptionPane.showInternalMessageDialog(this, "Utilisateur ou mot de passe inconnu", "Erreur",
+					JOptionPane.WARNING_MESSAGE);
 		}
 
 		// ICI TRAVAILLE BDD A LA PLACE DE CETTE CONDITION QUE JE GARDE SUR MA BRANCHE
@@ -243,6 +256,10 @@ public class LoginMenu extends JPanel {
 		// PENSE A REGARDER L ERREUR QUE CA FAIT QD C LE MAUVAIS UTILISATEUR ET FAIS UN
 		// TRY CATCH CA SERA LE MIEU
 
+		
+		/*
+		 * Permettait de vérifié si le perso existait dans le fichier sauvegardé à rebosser !!!!! DANGER
+		 * 
 		if (personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
 			FenetreLogin.getInstance().dispose();
 			FenetreFond.getInstance().changerFenetre(login.getText());
@@ -252,6 +269,8 @@ public class LoginMenu extends JPanel {
 			JOptionPane.showInternalMessageDialog(this, "Utilisateur ou mot de passe inconnu", "Erreur",
 					JOptionPane.WARNING_MESSAGE);
 		}
+		
+		*/
 
 	}
 }

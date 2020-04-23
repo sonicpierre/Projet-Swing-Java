@@ -1,14 +1,15 @@
 package control.BDD;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class Initialisation {
-	String url = "jdbc:mysql://localhost/artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static final String url = "jdbc:mysql://localhost/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private static final String urlApresConnexion = "jdbc:mysql://localhost/Artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	String user = "MoneyMan";
 	String passwd = "money";
-	boolean userCree = false;
 	private static Initialisation instance;
 
 	private Initialisation() {
@@ -20,31 +21,47 @@ public class Initialisation {
 		return instance;
 	}
 
-	public void creerUser() {
+	public void creerUser(String passwrdRoot, String userACreer, String passwrdAssocie) {
 		try {
-			if (!userCree) {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection conn = DriverManager.getConnection(url, user, passwd);
-				System.out.println("Connexion effective !");
-				Statement stat = conn.createStatement();
-				stat.executeUpdate("CREATE USER IF NOT EXISTS 'user'@'localhost' IDENTIFIED BY '123'");
-				stat.executeUpdate("GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost'");
-				userCree = true;
-			}
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(url, "root", passwrdRoot);
+			System.out.println("Connexion effective !");
+			Statement stat = conn.createStatement();
+			stat.executeUpdate("CREATE USER IF NOT EXISTS '"+ userACreer +"'@'localhost' IDENTIFIED BY '" + passwrdAssocie + "'");
+			stat.executeUpdate("GRANT ALL PRIVILEGES ON *.* TO '" + userACreer + "'@'localhost'");
+			stat.executeUpdate("CREATE DATABASE IF NOT EXISTS Artistak");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void creerBDD() {
+	public void creerBDD(String user, String passwd) {
+		File sourceBDD = new File("iniBDD.sql");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(url, user, passwd);
+			Connection conn = DriverManager.getConnection(urlApresConnexion, user, passwd);
 			System.out.println("Connexion effective !");
-			Statement stat = conn.createStatement();
-			stat.executeUpdate("source iniBDD.sql");
+			SQLScript.remplissageDeBDD(user, passwd);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPasswd() {
+		return passwd;
+	}
+
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+	
 }
