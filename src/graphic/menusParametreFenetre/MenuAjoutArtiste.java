@@ -33,11 +33,8 @@ public class MenuAjoutArtiste extends JPanel{
 	private static MenuAjoutArtiste instance;
 
 	private static final String[] mesTalents = {"Chanteur", "Acteur", "Comedien"};
-	private String login;
-	private String cheminVersImage;
-	private JTextField prenom;
-	private JTextField nom;
-	private JTextField adresseMail;
+	private String login, cheminVersImage;
+	private JTextField prenom, nom, adresseMail;
 	private JTextArea description;
 	private JComboBox<String> type;
 	private JLabel imageProfil;
@@ -45,7 +42,6 @@ public class MenuAjoutArtiste extends JPanel{
 	private MenuAjoutArtiste(String login) {
 		this.login = login;
 		this.type = new JComboBox<String>(mesTalents);
-		
 		this.cheminVersImage = "ImageProfil/inconnu.jpg";
 		this.setLayout(new BorderLayout());
 		this.add(constructionArtiste(), BorderLayout.NORTH);
@@ -72,47 +68,6 @@ public class MenuAjoutArtiste extends JPanel{
 		return menuTerminal;
 	}
 	
-	private JPanel constructionEtiquetteDroite() {
-		JPanel menuDroite = new JPanel(new BorderLayout());
-		JPanel tempon1 = new JPanel(new GridLayout(4,2, 0, 10));
-		
-		JLabel nomLabel = new JLabel("Nom :");
-		nomLabel.setHorizontalAlignment(JLabel.CENTER);
-		JLabel prenomLabel = new JLabel("Prenom :");
-		prenomLabel.setHorizontalAlignment(JLabel.CENTER);
-		JLabel adresseMailLabel = new JLabel("Adresse mail :");
-		adresseMailLabel.setHorizontalAlignment(JLabel.CENTER);
-		nom = new JTextField("Nom");
-		prenom = new JTextField("Prenom");
-		adresseMail = new JTextField("Adresse mail");
-		
-		tempon1.add(nomLabel);
-		tempon1.add(nom);
-		tempon1.add(prenomLabel);
-		tempon1.add(prenom);
-		tempon1.add(adresseMailLabel);
-		tempon1.add(adresseMail);
-		
-		menuDroite.add(tempon1, BorderLayout.CENTER);
-
-		menuDroite.add(type, BorderLayout.SOUTH);
-		
-		return menuDroite;
-	}
-	
-	private void valider() {
-		if(validateEmailAddress(adresseMail.getText())) {
-			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(new Artiste(description.getText(),cheminVersImage, nom.getText(), prenom.getText(), adresseMail.getText(), (String) type.getSelectedItem()));
-			personnesDejaInscrite.getInstance().sauvegarder();
-			MenuPrincipal.getInstance(login).update();
-		} else {
-			JMenuItem contenant = new JMenuItem();
-			JOptionPane.showMessageDialog(contenant,"Email incorrect","Erreur", JOptionPane.WARNING_MESSAGE);
-		}
-
-	}
-	
-	//PROBLEME MAJEUR ICI AU NIVEAU DE NOM ET PRENOM !!!
 	
 	private void choixPhoto() {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -124,6 +79,44 @@ public class MenuAjoutArtiste extends JPanel{
 	}
 	
 	
+	private JPanel constructionEtiquetteDroite() {
+		JPanel menuDroite = new JPanel(new BorderLayout());
+		JPanel tempon1 = new JPanel(new GridLayout(4,2, 0, 10));
+		
+		//On crée les labels
+		
+		JLabel nomLabel = new JLabel("Nom :");
+		JLabel prenomLabel = new JLabel("Prenom :");
+		JLabel adresseMailLabel = new JLabel("Adresse mail :");
+		
+		//On les centres
+		
+		nomLabel.setHorizontalAlignment(JLabel.CENTER);
+		prenomLabel.setHorizontalAlignment(JLabel.CENTER);
+		adresseMailLabel.setHorizontalAlignment(JLabel.CENTER);
+		
+		//On initialise les endroits de rentré de texte
+		
+		nom = new JTextField("Nom");
+		prenom = new JTextField("Prenom");
+		adresseMail = new JTextField("Adresse mail");
+		
+		//On ajoute dans le bonne ordre
+		
+		tempon1.add(nomLabel);
+		tempon1.add(nom);
+		tempon1.add(prenomLabel);
+		tempon1.add(prenom);
+		tempon1.add(adresseMailLabel);
+		tempon1.add(adresseMail);
+		
+		menuDroite.add(tempon1, BorderLayout.CENTER);
+		menuDroite.add(type, BorderLayout.SOUTH);
+		
+		return menuDroite;
+	}
+	
+	
 	private JPanel constructionBoutton() {
 		JPanel panelBouttons = new JPanel(new FlowLayout());
 		JButton valider = new JButton("Valider");
@@ -131,6 +124,22 @@ public class MenuAjoutArtiste extends JPanel{
 		panelBouttons.add(valider);
 		return panelBouttons;
 	}
+	
+	
+	private void valider() {
+		if(validateEmailAddress(adresseMail.getText())) {
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(new Artiste(description.getText(),cheminVersImage, nom.getText(), prenom.getText(), adresseMail.getText(), (String) type.getSelectedItem()));
+			personnesDejaInscrite.getInstance().sauvegarder();
+			JMenuItem contenant = new JMenuItem();
+			JOptionPane.showMessageDialog(contenant,"L'artiste " + nom.getText() +" a été ajouté","Artiste ajouté", JOptionPane.INFORMATION_MESSAGE);
+			MenuPrincipal.getInstance(login).update();
+		} else {
+			JMenuItem contenant = new JMenuItem();
+			JOptionPane.showMessageDialog(contenant,"Email incorrect","Erreur", JOptionPane.WARNING_MESSAGE);
+		}
+
+	}
+	
 	
 
 	/**
@@ -152,6 +161,9 @@ public class MenuAjoutArtiste extends JPanel{
 			return false;
 		}
 	}
+	
+	//Ici les getter et les Setters
+	
 	
 	public String getCheminVersImage() {
 		return cheminVersImage;

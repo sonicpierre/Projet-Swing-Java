@@ -3,8 +3,6 @@ package graphic.menusParametreFenetre;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import control.personne.Artiste;
-
 
 /**
  *<p><b>MenuFinalParametre</b> est la classe qui permet d'afficher les options
@@ -17,7 +15,7 @@ public class MenuFinalParametre extends JTabbedPane{
 
 	private static MenuFinalParametre instance;
 	
-	private String login;
+	private final String login;
 	
 	/**
 	 *Permet la représentation des options du menu

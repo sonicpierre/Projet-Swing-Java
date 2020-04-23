@@ -13,7 +13,9 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.SignedObject;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CompteAdministrateur implements Serializable{
 
@@ -23,11 +25,11 @@ public class CompteAdministrateur implements Serializable{
 	private SignedObject passewordCrypte;
 	private Color couleurDuFond;
 	private Color couleurEcriture;
-	private List<Artiste> maListeArtiste;
+	private Set<Artiste> maListeArtiste;
 	
 	
 	public CompteAdministrateur(String passeword, Color couleurDeFond, Color couleurEcriture) {
-		this.maListeArtiste = new ArrayList<Artiste>();
+		this.maListeArtiste = new HashSet<Artiste>();
 		this.couleurDuFond = couleurDeFond;
 		this.couleurEcriture = couleurEcriture;
 		securiser(passeword);
@@ -35,7 +37,7 @@ public class CompteAdministrateur implements Serializable{
 	
 	
 	public CompteAdministrateur(String passeword) {
-		this.maListeArtiste = new ArrayList<Artiste>();
+		this.maListeArtiste = new HashSet<Artiste>();
 		securiser(passeword);
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
@@ -161,12 +163,12 @@ public class CompteAdministrateur implements Serializable{
 		
 	}
 
-	public List<Artiste> getMaListeArtiste() {
+	public Set<Artiste> getMaListeArtiste() {
 		return maListeArtiste;
 	}
 
 
-	public void setMaListeArtiste(List<Artiste> maListeArtiste) {
+	public void setMaListeArtiste(Set<Artiste> maListeArtiste) {
 		this.maListeArtiste = maListeArtiste;
 	}
 

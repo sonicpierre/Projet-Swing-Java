@@ -281,6 +281,32 @@ public class Titre implements Serializable{
 		this.albumAssocie = albumAssocie;
 	}
 	
+
+	@Override
+	public boolean equals(Object autreTitre) {
+		Titre titrePourComparaison = (Titre) autreTitre;
+		if(this.titre.equals(titrePourComparaison.getTitre()) && this.cheminVersLaMusique.equals(titrePourComparaison.cheminVersLaMusique))
+			return true;
+		
+		return false;
+	}
 	
+	
+	@Override
+	public int hashCode() {
+		int compteurFinal = 0;
+		
+		char[] monTitre = this.getTitre().toCharArray();
+		char[] monChemin = this.cheminVersLaMusique.toCharArray();
+		
+		for(char titre : monTitre)
+			compteurFinal+= (int) titre;
+		
+		for(char chemin : monChemin)
+			compteurFinal+= (int) chemin;
+		
+		
+		return compteurFinal;
+	}
 	
 }

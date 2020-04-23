@@ -4,7 +4,6 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuAjoutAlbum;
 import graphic.menusDeuxiemeFenetre.MenuAjoutMusique;
 import graphic.menusParametreFenetre.MenuAjoutArtiste;

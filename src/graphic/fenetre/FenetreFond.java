@@ -26,7 +26,7 @@ public class FenetreFond extends JFrame {
 	private static FenetreFond instance;
 	private JLabel ImageFond;
 	
-	boolean FenetreFondDepartActive = true;
+	private boolean FenetreFondDepartActive;
 	
 	private FenetreFond() {
 		//Fenêtre de démarrage 
@@ -39,6 +39,7 @@ public class FenetreFond extends JFrame {
 		setVisible(true);
 		setResizable(false);//NON POSSIBILITÉ DE REDIMENSIONNER LA FENETRE
 		setFocusable(true);
+		this.FenetreFondDepartActive = true;
 	}
 	
 	public static FenetreFond getInstance() {
@@ -87,8 +88,6 @@ public class FenetreFond extends JFrame {
 		
 		this.getContentPane().removeAll();
 		JPanel intermediaire = new JPanel(new BorderLayout());
-		
-		
 		
 		intermediaire.add(TopMenuDescriptif.getInstance(login));
 		this.add(intermediaire, BorderLayout.NORTH);

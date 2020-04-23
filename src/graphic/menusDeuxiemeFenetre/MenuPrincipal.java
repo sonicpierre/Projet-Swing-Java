@@ -29,32 +29,13 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	private String login;
 	private JPanel constructionPanel;
-	private JScrollPane musique;
-	private JScrollPane album;
-	private JScrollPane artiste;
+	private JScrollPane musique, album, artiste;
 	private Artiste artisteSelectionne;
+	
 	
 	private MenuPrincipal(String login) {
 		this.login = login;
-		
-		musique = new JScrollPane();
-		JPanel menuMusique = MenuMusique.getInstance(login);
-		musique.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));
-		musique.setViewportView(menuMusique);
-		
-		album = new JScrollPane();
-		JPanel menuAlbum = MenuAlbum.getInstance(login);
-		album.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));
-		album.setViewportView(menuAlbum);
-		
-		artiste = new JScrollPane();
-		artiste.setPreferredSize(new Dimension(100,100));
-		artiste.setViewportView(constructionDuMenuPrincipal());
-		
-		
-		this.add(artiste, "Artiste");
-		this.add(musique, "Musique");
-		this.add(album, "Albums");
+		update();
 	}
 	
 	
@@ -69,6 +50,7 @@ public class MenuPrincipal extends JTabbedPane{
 		}
 		return constructionPanel;
 	}
+	
 	
 	private JPanel constructionCase(Artiste artiste) {
 		JPanel constructionCase = new JPanel(new FlowLayout());
@@ -119,19 +101,20 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	public void update() {
 		this.removeAll();
+		
 		musique = new JScrollPane();
 		JPanel menuMusique = MenuMusique.getInstance(login);
 		musique.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));
 		musique.setViewportView(menuMusique);
 		
-		artiste = new JScrollPane();
-		artiste.setPreferredSize(new Dimension(100,100));
-		artiste.setViewportView(constructionDuMenuPrincipal());
-		
 		album = new JScrollPane();
 		JPanel menuAlbum = MenuAlbum.getInstance(login);
 		album.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));
 		album.setViewportView(menuAlbum);
+		
+		artiste = new JScrollPane();
+		artiste.setPreferredSize(new Dimension(100,100));
+		artiste.setViewportView(constructionDuMenuPrincipal());
 		
 		
 		this.add(artiste, "Artiste");
