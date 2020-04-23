@@ -4,7 +4,6 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuAjoutAlbum;
 import graphic.menusDeuxiemeFenetre.MenuAjoutMusique;
 import graphic.menusParametreFenetre.MenuAjoutArtiste;
@@ -24,7 +23,7 @@ public class FenetreParametre extends JFrame{
 	private final static Dimension dimChoixAlbum = new Dimension(600,100);//DIMENSION FEN CHOIX ALBUM
 	private final static Dimension dimChoixMusique = new Dimension(600,100);//DIMENSION FEN CHOIX MUSIQUE
 	private final static Dimension dimParametre = new Dimension(600,500);//DIM FEN PARAM
-	private final static Dimension dimAjoutArtiste = new Dimension(400,400);//DIMENSION FEN CHOIX ALBUM
+	private final static Dimension dimAjoutArtiste = new Dimension(450,400);//DIMENSION FEN CHOIX ALBUM
 	
 	private String login;//CLÉ VERS UTILISATEUR
 	

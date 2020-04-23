@@ -13,9 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import org.apache.commons.validator.EmailValidator;
-
 import control.BDD.Initialisation;
+
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.CompteAdministrateur;
 import graphic.fenetre.FenetreFond;
@@ -28,7 +27,7 @@ import graphic.fenetre.FenetreLogin;
  * @author VIRGAUX Pierre
  **/
 
-@SuppressWarnings({ "serial", "deprecation" })
+@SuppressWarnings({ "serial" })
 public class CreerCompte extends JPanel {
 
 	/**
@@ -242,23 +241,4 @@ public class CreerCompte extends JPanel {
 
 	}
 
-	/**
-	 * Permet de vérifier si une seule case talent a été appuyée et renvoie son nom
-	 **/
-
-	/**
-	 * Permet de valider l'adresse e-mail de l'utilisateur
-	 * 
-	 * @param votreEmail E-mail utilisateur
-	 * @return True si e-mail valide
-	 **/
-
-	public static boolean validateEmailAddress(String votreEmail) {
-		EmailValidator emailvalidator = EmailValidator.getInstance();
-		if (emailvalidator.isValid(votreEmail)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }

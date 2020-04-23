@@ -8,9 +8,11 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
+import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreParametre;
+import graphic.fenetreEnvoieMail.FenetreMail;
 
 public class MenuRaccourcis {
 
@@ -141,7 +143,7 @@ public class MenuRaccourcis {
 
 		{//C'est le constructeur
 			putValue (Action.NAME, "Stop");
-			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/pause.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_I);
 			putValue( Action.SHORT_DESCRIPTION, "Interrupt musique (CTRL+S)");
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
@@ -176,6 +178,7 @@ public class MenuRaccourcis {
 		{//C'est le constructeur
 			putValue (Action.NAME, "Revenir");
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_B);
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/retour.png"));
 			putValue( Action.SHORT_DESCRIPTION, "Revenir en arrière (CTRL+B)");
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
 		}
@@ -191,15 +194,49 @@ public class MenuRaccourcis {
 
 		{//C'est le constructeur
 			putValue (Action.NAME, "Ajouter artiste");
-			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_E);
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_A);
 			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
-			putValue( Action.SHORT_DESCRIPTION, "Ajouter artiste (CTRL+E)");
-			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+			putValue( Action.SHORT_DESCRIPTION, "Ajouter artiste (CTRL+A)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			FenetreParametre.getInstance(login).ajoutArtisteFenetre();
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actContacter = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Contacter artistes");
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_C);
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/mail.png"));
+			putValue( Action.SHORT_DESCRIPTION, "Contacter artistes (CTRL+C)");
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			TopMenuDescriptif.getInstance(login).ouvertureFenetreMail();
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actSupressionArtiste = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Supprimer artiste");
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_S);
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().remove(artiste);
+			MenuPrincipal.getInstance(login).update();
+			personnesDejaInscrite.getInstance().sauvegarder();
 		}
 	};
 	
@@ -247,6 +284,7 @@ public class MenuRaccourcis {
 			MenuMusique.getInstance(login).supprimerAlbum();
 			MenuMusique.getInstance(login).update();
 			MenuAjoutMusique.getInstance(login).update();
+			MenuPrincipal.getInstance(login).update();
 		}
 	};
 	
@@ -262,4 +300,14 @@ public class MenuRaccourcis {
 			instance = new MenuRaccourcis(login);
 		return instance;
 	}
+
+	public Artiste getArtiste() {
+		return artiste;
+	}
+
+	public void setArtiste(Artiste artiste) {
+		this.artiste = artiste;
+	}
+	
+	
 }

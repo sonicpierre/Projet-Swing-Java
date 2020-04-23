@@ -1,19 +1,11 @@
 package control.personne;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.io.Serializable;
-import java.security.InvalidKeyException;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.SecureRandom;
-import java.security.Signature;
-import java.security.SignatureException;
-import java.security.SignedObject;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import control.elementSauv.personnesDejaInscrite;
 import control.musique.Album;
@@ -32,14 +24,9 @@ public class Artiste implements Serializable{
 	
 	private static final long serialVersionUID = 6421959812909952648L;
 	
-	private String nom;
-	private String prenom;
-	private Color couleurDuFond;
-	private Color couleurEcriture;
-	private String cheminVersImage;
-	private String description;
-	private String adresseMail;
-	private String type;
+	private String nom, prenom , cheminVersImage, description, adresseMail, type;
+	private Color couleurDuFond, couleurEcriture;
+
 
 	//Utilise que dans le compteChanteur
 	
@@ -47,14 +34,14 @@ public class Artiste implements Serializable{
 	 *Tableau d'album, utilisé dans le compte chanteur
 	 **/
 	
-	List<Album> maListeDeAlbums;
+	Set<Album> maListeDeAlbums;
 	/**
 	 *<p>Initialisation d'un objet sécurisé et sérializable puis défintion
 	 *d'une couleur de fond et d'écriture</p>
 	 **/
 	
 	public Artiste(String description, Color couleurDeFond, Color couleurEcriture, String CheminVersImage, String nom, String prenom, String adresseMail, String type) {
-		maListeDeAlbums = new ArrayList<Album>();
+		maListeDeAlbums = new HashSet<Album>();
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setAdresseMail(adresseMail);
@@ -85,7 +72,7 @@ public class Artiste implements Serializable{
 		this.setPrenom(prenom);
 		this.setAdresseMail(adresseMail);
 		this.setType(type);
-		maListeDeAlbums = new ArrayList<Album>();
+		maListeDeAlbums = new HashSet<Album>();
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
 		this.cheminVersImage = CheminVersImage;
@@ -162,23 +149,60 @@ public class Artiste implements Serializable{
 		this.description = description;
 	}
 	
-	public List<Album> getMaListeDeAlbums() {
+	public Set<Album> getMaListeDeAlbums() {
 		return maListeDeAlbums;
 	}
 
-	public void setMaListeDeAlbums(List<Album> maListeDeChansons) {
+	public void setMaListeDeAlbums(Set<Album> maListeDeChansons) {
 		this.maListeDeAlbums = maListeDeChansons;
 	}
 	
-
+	//Permet l'ajout d'un Album et la sauvegarde
+	
 	public void ajouterAlbum(Album AlbumASupprimer) {
 		this.getMaListeDeAlbums().add(AlbumASupprimer);
 		personnesDejaInscrite.getInstance().sauvegarder();
 	}
 	
+	//Permet la suppression d'un Album et la sauvegarde
+	
 	public void supprimerAlbum(Album AlbumASupprimer) {
 		this.getMaListeDeAlbums().remove(AlbumASupprimer);
 		personnesDejaInscrite.getInstance().sauvegarder();
+	}
+	
+	//On redéfinie equals car on ne veut pas que la photo rentre en jeu
+	
+	@Override
+	public boolean equals(Object autreArtiste) {
+		Artiste artistePourComparaison = (Artiste) autreArtiste;
+		if(this.nom.equals(artistePourComparaison.getNom()) && this.prenom.equals(artistePourComparaison.getPrenom()) && this.type.equals(artistePourComparaison.getType()))
+			return true;
+		
+		return false;
+	}
+	
+	//Va permettre aux Set de bien marcher
+	//Deux artistes seront égaux si ils ont le même nom prenom et Type on évite les doublons dans la liste
+	
+	@Override
+	public int hashCode() {
+		int compteurFinal = 0;
+		
+		char[] monNom = this.getNom().toCharArray();
+		char[] monPrenom = this.getPrenom().toCharArray();
+		char[] monType = this.getType().toCharArray();
+		
+		for(char nom : monNom)
+			compteurFinal+= (int) nom;
+		
+		for(char prenom : monPrenom)
+			compteurFinal+= (int) prenom;
+		
+		for(char type : monType)
+			compteurFinal+= (int) type;
+		
+		return compteurFinal;
 	}
 
 	public String getNom() {
@@ -212,8 +236,4 @@ public class Artiste implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
-
-
-	
-	
 }

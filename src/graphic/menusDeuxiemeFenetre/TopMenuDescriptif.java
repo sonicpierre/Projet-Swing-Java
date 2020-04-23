@@ -37,10 +37,7 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private JMenu contactMenu() {//RESERVER A L'ADMIN => IL CONTACTE TOUT LE MONDE
 		JMenu contacter = new JMenu("Contact");
-		JMenuItem autreUtilisateur = new JMenuItem("Autre utilisateur");
-		autreUtilisateur.addActionListener((event)->ouvertureFenetreMail());
-		
-		contacter.add(autreUtilisateur);
+		contacter.add(MenuRaccourcis.getInstance(login).actContacter);
 		
 		return contacter;
 	}
@@ -100,7 +97,7 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	
-	private void ouvertureFenetreMail() {
+	public void ouvertureFenetreMail() {
 		FenetreMail.getInstance().setVisible(true);
 		MenuDeMail.getInstance().getMessage().setText("");
 		MenuDeMail.getInstance().getAdresseMailRentre().setText("");

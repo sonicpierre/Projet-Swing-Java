@@ -42,6 +42,13 @@ public class FenetreMail extends JFrame {
 		setVisible(true);
 	}
 	
+	public void contacter() {
+		MenuDeMail.getInstance().getAdresseMailRentre().setText(MenuDeMail.getInstance().getArtiste().getAdresseMail());
+		MenuDeMail.getInstance().validate();
+		this.setVisible(true);
+	}
+	
+	
 	/**
 	 *Création d'une fenetre
 	 *@return Fenetre d'envoie d'e-mail
