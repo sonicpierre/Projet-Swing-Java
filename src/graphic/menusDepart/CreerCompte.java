@@ -15,8 +15,8 @@ import javax.swing.JTextField;
 
 import org.apache.commons.validator.EmailValidator;
 
+import control.BDD.Initialisation;
 import control.elementSauv.personnesDejaInscrite;
-import control.personne.Artiste;
 import control.personne.CompteAdministrateur;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
@@ -125,7 +125,7 @@ public class CreerCompte extends JPanel {
 		mesEntre.add(passeword);
 		mesEntre.add(confirmedMotDePasse);
 		mesEntre.add(confirmedPasseword);
-		
+
 		return mesEntre;
 	}
 
@@ -215,11 +215,13 @@ public class CreerCompte extends JPanel {
 				personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(),
 						new CompteAdministrateur(passewordTranslate));
 				personnesDejaInscrite.getInstance().sauvegarder();
-				
-				
-				//ICI IL FAUT FAIRE LE TRAITEMENT DE LA BDD CREER L UTILISATEUR SI IL EXISTE PAS DEJA !!!!!!!
-				//CREER LA BDD VIDE !!!!
-				
+
+				// ICI IL FAUT FAIRE LE TRAITEMENT DE LA BDD CREER L UTILISATEUR SI IL EXISTE
+				// PAS DEJA !!!!!!!
+				// CREER LA BDD VIDE !!!!
+				Initialisation.getInstance().creerUser();
+				Initialisation.getInstance().creerBDD();
+
 				JOptionPane.showInternalMessageDialog(this, "Bienvenue " + login.getText(), "Utilisateur crée",
 						JOptionPane.INFORMATION_MESSAGE);
 
@@ -232,7 +234,7 @@ public class CreerCompte extends JPanel {
 				JOptionPane.showInternalMessageDialog(this, "Cette utilisateur existe déjà", "Erreur",
 						JOptionPane.WARNING_MESSAGE);
 			}
-		
+
 		} else {
 			JOptionPane.showInternalMessageDialog(this, "Vous n'avez pas rentré les champs", "Erreur",
 					JOptionPane.WARNING_MESSAGE);
