@@ -40,20 +40,28 @@ public class MenuPrincipal extends JTabbedPane{
 		update();
 	}
 	
-	
+	/**
+	 **/
 	private JPanel constructionDuMenuPrincipal() {
+		
+		/**
+		 *Savoir combien d'artiste on affiche sur le panel
+		 **/
+		
 		int nombreDeLigne = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().size();
 		if(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().isEmpty())
-			constructionPanel = new JPanel();
+			constructionPanel = new JPanel();//AJOUTER UN TRUC QUI DIT QU'IL N'YA PAS D'ARTISTE/DE PERSONNE POUR PIERRE :)
 		else {
-			constructionPanel = new JPanel(new GridLayout(nombreDeLigne%4 + 1, 4, 10, 20));
+			constructionPanel = new JPanel(new GridLayout(nombreDeLigne%4 + 1, 4, 10, 20));//MOD 4 CAR 4 4 COL/LIGNE
 			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste())
-				constructionPanel.add(constructionCase(monArtiste));
+				constructionPanel.add(constructionCase(monArtiste));//CONSTRCUION CASE ADEQUATE
 		}
 		return constructionPanel;
 	}
 	
-	
+	/**
+	 *descriptif et position description
+	 **/
 	private JPanel constructionLabelCase(Artiste artiste) {
 		JPanel panelLabel = new JPanel(new BorderLayout());
 		
@@ -68,7 +76,8 @@ public class MenuPrincipal extends JTabbedPane{
 		return panelLabel;
 	}
 	
-	
+	/**
+	 **/
 	private JPanel constructionCase(Artiste artiste) {
 		JPanel constructionCase = new JPanel(new FlowLayout());
 		ImageIcon monImage = new ImageIcon(new ImageIcon(artiste.getCheminVersImage()).getImage().getScaledInstance(130, 130, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
@@ -77,7 +86,7 @@ public class MenuPrincipal extends JTabbedPane{
 		JPopupMenu maPopup = new JPopupMenu();
 		JMenuItem supprimer = new JMenuItem("Supprimer");
 		JMenuItem contacter = new JMenuItem("Contacter");
-		supprimer.addActionListener((event)->supprimerArtiste(artiste));
+		supprimer.addActionListener((event)->supprimerArtiste(artiste));//CHAQUE LISTENER EST ASSOCIÉ A UN ARTISTE
 		contacter.addActionListener((event)->contacterArtiste(artiste));
 		maPopup.add(supprimer);
 		maPopup.add(contacter);
@@ -126,6 +135,14 @@ public class MenuPrincipal extends JTabbedPane{
 		return constructionCase;
 	}
 	
+	/**
+	 *Suppression du contenu
+	 *scroll pan pourr chaque onglet (panel scrollable, ne pouvant conteniur qu'un seul elemnt) pour ca on utilise setvieyxportviex
+	 *chaque onglet a spn scroll panel auqyel on ajoute un panel ou se trouve notre onglet. On peut donc li définir une taille
+	 *en definisszant la taille avec set prefered sieze, on evite d'avoir des onglets de taille egale et on evite les prblm de prez
+	 *a la fin, on ajoute les onglets scrollable au grabd panel en leur donnant des noms
+	 **/
+	
 	public void update() {
 		this.removeAll();
 		
@@ -136,7 +153,7 @@ public class MenuPrincipal extends JTabbedPane{
 		
 		album = new JScrollPane();
 		JPanel menuAlbum = MenuAlbum.getInstance(login);
-		album.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));
+		album.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));//160 car cha album a peu pret 160 pxl
 		album.setViewportView(menuAlbum);
 		
 		representation = new JScrollPane();
@@ -155,8 +172,15 @@ public class MenuPrincipal extends JTabbedPane{
 		this.add(representation, "Representations");
 	}
 	
+	/**
+	 *Fonction des pop-up menu
+	 *utilise lors d'un clic droit sur l'image 
+	 *supprime l'artiste et met  jour
+	 **/
+	
 	private void supprimerArtiste(Artiste artiste) {
 		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().remove(artiste);
+		personnesDejaInscrite.getInstance().sauvegarder();
 		this.update();
 	}
 	

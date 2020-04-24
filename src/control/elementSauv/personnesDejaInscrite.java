@@ -23,6 +23,7 @@ import control.personne.CompteAdministrateur;
  * NB : Il s'agit d'un singleton auquel on a acces depuis la fenêtre.
  * </p>
  * @author VIRGAUX Pierre
+ * @version 2.0
  **/
 
 public class personnesDejaInscrite implements Serializable{
@@ -34,7 +35,8 @@ public class personnesDejaInscrite implements Serializable{
 	private static final long serialVersionUID = 289235133718470195L;
 	
 	/**
-	 *Initialisation d'une table de hashage permettant d'associer une clé à une valeur.
+	 *Initialisation d'une table de hashage permettant d'associer une clé à une valeur et associer chaque user mysql à son compte
+	 *@CompteAdministrateur 
 	 **/
 	
 	private HashMap<String, CompteAdministrateur> monHashMap;
