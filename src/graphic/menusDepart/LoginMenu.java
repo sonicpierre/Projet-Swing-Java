@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import control.BDD.Initialisation;
 import control.BDD.Modification;
 import control.elementSauv.personnesDejaInscrite;
+import control.personne.Artiste;
+import control.personne.CompteAdministrateur;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
@@ -58,6 +60,7 @@ public class LoginMenu extends JPanel {
 
 	private LoginMenu() {
 
+		
 		/**
 		 * Fenêtre positionnée comme tableau de ligne/colonne avec un espace en hauteur
 		 * et largeur
@@ -226,51 +229,26 @@ public class LoginMenu extends JPanel {
 		 * login.getText() récupère le contenu de la barre de saisie
 		 **/
 		
-
-		
-		String url = "jdbc:mysql://localhost/Artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String user = login.getText();
 		String passwd = passewordTraduit;
+		boolean reussite;
 		
-		System.out.println(user);
-		System.out.println(passwd);
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(url, user, passwd);
-			System.out.println("Connexion effective !");
-			Initialisation.getInstance().setPasswd(passwd);
-			Initialisation.getInstance().setUser(user);
-			Modification.getInstance().setPasswd(passwd);
-			Modification.getInstance().setUser(user);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showInternalMessageDialog(this, "Utilisateur ou mot de passe inconnu", "Erreur",
-					JOptionPane.WARNING_MESSAGE);
-		}
 
-		// ICI TRAVAILLE BDD A LA PLACE DE CETTE CONDITION QUE JE GARDE SUR MA BRANCHE
-		// POUR POUVOIR CONTINUER À BOSSER IL FAUT QUE TU METTES
-		// TA PROPRE FONCTION POUR SAVOIR SI L UTILISATEUR EXISTE BIEN ET
-		// PENSE A REGARDER L ERREUR QUE CA FAIT QD C LE MAUVAIS UTILISATEUR ET FAIS UN
-		// TRY CATCH CA SERA LE MIEU
-
-		
-		/*
-		 * Permettait de vérifié si le perso existait dans le fichier sauvegardé à rebosser !!!!! DANGER
-		 * 
-		if (personnesDejaInscrite.getInstance().rechercher(login.getText(), passewordTraduit)) {
+		reussite = Initialisation.getInstance().creerBDD(user, passwd);
+		Initialisation.getInstance().setPasswd(passwd);
+		Initialisation.getInstance().setUser(user);
+		Modification.getInstance().setPasswd(passwd);
+		Modification.getInstance().setUser(user);
+		if(reussite) {
+			if(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(user) == null) {
+				personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(user, new CompteAdministrateur(passwd));
+				personnesDejaInscrite.getInstance().sauvegarder();
+			}
 			FenetreLogin.getInstance().dispose();
 			FenetreFond.getInstance().changerFenetre(login.getText());
 			login.setText("");
 			passeword.setText("");
-		} else {
-			JOptionPane.showInternalMessageDialog(this, "Utilisateur ou mot de passe inconnu", "Erreur",
-					JOptionPane.WARNING_MESSAGE);
 		}
-		
-		*/
-
+	
 	}
 }

@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class Modification {
-	String url = "jdbc:mysql://localhost/artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	String user = "$$$$$";
-	String passwd = "$$$$";
+	private static final String url = "jdbc:mysql://localhost/artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private String user;
+	private String passwd;
 	boolean userCree = false;
 	private static Modification instance;
 
@@ -20,6 +20,7 @@ public class Modification {
 			instance = new Modification();
 		return instance;
 	}
+	
 	public void insererArtiste(int id, String nom, String bio, String type) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

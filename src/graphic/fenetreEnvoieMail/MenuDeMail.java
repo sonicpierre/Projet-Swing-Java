@@ -27,8 +27,7 @@ public class MenuDeMail extends JPanel{
 	private static MenuDeMail instance;
 	
 	private JPanel menuMail;
-	private JTextField adresseMailRentre;
-	private JTextField objetEntre;
+	private JTextField adresseMailRentre, objetEntre;
 	private JTextArea message;
 	private Artiste artiste;
 	
@@ -165,6 +164,15 @@ public class MenuDeMail extends JPanel{
 		return message;
 	}
 	
+	
+	public JTextField getObjetEntre() {
+		return objetEntre;
+	}
+
+	public void setObjetEntre(JTextField objetEntre) {
+		this.objetEntre = objetEntre;
+	}
+
 	/**
 	 *Définition du message de l'e-mail
 	 *@param message dans une zone de texte

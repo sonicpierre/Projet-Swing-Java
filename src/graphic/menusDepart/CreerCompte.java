@@ -214,10 +214,6 @@ public class CreerCompte extends JPanel {
 				personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(login.getText(),
 						new CompteAdministrateur(passewordTranslate));
 				personnesDejaInscrite.getInstance().sauvegarder();
-
-				// ICI IL FAUT FAIRE LE TRAITEMENT DE LA BDD CREER L UTILISATEUR SI IL EXISTE
-				// PAS DEJA !!!!!!!
-				// CREER LA BDD VIDE !!!!
 				
 				Initialisation.getInstance().creerUser(passewordRoot, login.getText(), passewordTranslate);
 				Initialisation.getInstance().creerBDD(login.getText(), passewordTranslate);

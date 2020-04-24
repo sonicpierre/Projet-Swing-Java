@@ -62,6 +62,9 @@ public class Album implements Serializable {
 	 **/
 
 	public Album(String titre, Set<Titre> titreDeLalbum, String cheminVersImageAssocie) {
+		
+		
+		
 		this.setTitre(titre);
 
 		this.setChansonsDelAlbum(titreDeLalbum);

@@ -41,6 +41,9 @@ public class Artiste implements Serializable{
 	 **/
 	
 	public Artiste(String description, Color couleurDeFond, Color couleurEcriture, String CheminVersImage, String nom, String prenom, String adresseMail, String type) {
+		
+
+		
 		maListeDeAlbums = new HashSet<Album>();
 		this.setNom(nom);
 		this.setPrenom(prenom);
