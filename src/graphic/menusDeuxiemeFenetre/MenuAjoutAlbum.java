@@ -17,9 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import control.activite.Album;
+import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
-import control.musique.Album;
-import control.musique.Titre;
 import control.personne.Artiste;
 
 //JPANEL PERMETTANT D'AJOUTER LES ALBUMS

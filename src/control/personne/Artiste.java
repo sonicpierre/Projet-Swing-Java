@@ -2,13 +2,12 @@ package control.personne;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+import control.activite.Album;
+import control.activite.Representation;
 import control.elementSauv.personnesDejaInscrite;
-import control.musique.Album;
 
 
 /**
@@ -40,10 +39,10 @@ public class Artiste implements Serializable{
 	 *d'une couleur de fond et d'écriture</p>
 	 **/
 	
+	Set<Representation> maListeDeRepresentations;
+	
 	public Artiste(String description, Color couleurDeFond, Color couleurEcriture, String CheminVersImage, String nom, String prenom, String adresseMail, String type) {
-		
-
-		
+		maListeDeRepresentations = new HashSet<Representation>();
 		maListeDeAlbums = new HashSet<Album>();
 		this.setNom(nom);
 		this.setPrenom(prenom);
@@ -75,6 +74,7 @@ public class Artiste implements Serializable{
 		this.setPrenom(prenom);
 		this.setAdresseMail(adresseMail);
 		this.setType(type);
+		maListeDeRepresentations = new HashSet<Representation>();
 		maListeDeAlbums = new HashSet<Album>();
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
@@ -239,4 +239,13 @@ public class Artiste implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public Set<Representation> getMaListeDeRepresentations() {
+		return maListeDeRepresentations;
+	}
+
+	public void setMaListeDeRepresentations(Set<Representation> maListeDeRepresentations) {
+		this.maListeDeRepresentations = maListeDeRepresentations;
+	}
+	
 }

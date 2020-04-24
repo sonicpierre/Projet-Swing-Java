@@ -1,4 +1,4 @@
-package control.musique;
+package control.activite;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -1,5 +1,6 @@
 package graphic.menusDeuxiemeFenetre;
 
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,6 +21,7 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
+import graphic.menusParametreFenetre.MenuAjoutRepresentation;
 import graphic.menusParametreFenetre.MenuProfilDescription;
 
 @SuppressWarnings("serial")
@@ -29,7 +31,7 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	private String login;
 	private JPanel constructionPanel;
-	private JScrollPane musique, album, artiste;
+	private JScrollPane musique, album, artiste, representation;
 	private Artiste artisteSelectionne;
 	
 	
@@ -52,6 +54,21 @@ public class MenuPrincipal extends JTabbedPane{
 	}
 	
 	
+	private JPanel constructionLabelCase(Artiste artiste) {
+		JPanel panelLabel = new JPanel(new BorderLayout());
+		
+		JLabel nomArtiste = new JLabel(artiste.getNom());
+		JLabel prenomArtiste = new JLabel(artiste.getPrenom());
+		JLabel typeArtiste = new JLabel(artiste.getType());
+		
+		panelLabel.add(nomArtiste, BorderLayout.NORTH);
+		panelLabel.add(prenomArtiste, BorderLayout.CENTER);
+		panelLabel.add(typeArtiste, BorderLayout.SOUTH);
+		
+		return panelLabel;
+	}
+	
+	
 	private JPanel constructionCase(Artiste artiste) {
 		JPanel constructionCase = new JPanel(new FlowLayout());
 		ImageIcon monImage = new ImageIcon(new ImageIcon(artiste.getCheminVersImage()).getImage().getScaledInstance(130, 130, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
@@ -71,8 +88,8 @@ public class MenuPrincipal extends JTabbedPane{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.getButton()==MouseEvent.BUTTON1) {
+					setArtisteSelectionne(artiste);
 					if(artiste.getType().equals("Chanteur")) {
-						setArtisteSelectionne(artiste);
 						MenuAjoutAlbum.getInstance(login).setArtiste(artiste);
 						MenuProfilDescription.getInstance(login).setArtiste(artiste);
 						MenuAjoutMusique.getInstance(login).update();
@@ -85,17 +102,27 @@ public class MenuPrincipal extends JTabbedPane{
 						TopMenuDescriptif.getInstance(login).setArtiste(artiste);
 						TopMenuDescriptif.getInstance(login).updateVersChanteur();
 					}
+					if(artiste.getType().equals("Comedien") || artiste.getType().equals("Acteur")) {
+						MenuAjoutRepresentation.getInstance(login).setArtiste(artiste);
+						MenuRepresentation.getInstance(login).setArtiste(artiste);
+						MenuRepresentation.getInstance(login).update();
+						MenuPrincipal.getInstance(login).removeAll();
+						JScrollPane temporaireRepres = new JScrollPane();
+						temporaireRepres.setViewportView(MenuRepresentation.getInstance(login));
+						MenuPrincipal.getInstance(login).add(temporaireRepres,"Représentation de " + artiste.getNom());
+						MenuPrincipal.getInstance(login).validate();
+						TopMenuDescriptif.getInstance(login).setArtiste(artiste);
+						TopMenuDescriptif.getInstance(login).updateVersActeurComedien();
+					}
+					
 				}
 					
 			}
 
 		});
-
-		JLabel nomArtiste = new JLabel(artiste.getNom());
-		JLabel prenomArtiste = new JLabel(artiste.getPrenom());
 		constructionCase.add(maPhoto);
-		constructionCase.add(nomArtiste);
-		constructionCase.add(prenomArtiste);
+		constructionCase.add(constructionLabelCase(artiste));
+		
 		return constructionCase;
 	}
 	
@@ -112,6 +139,11 @@ public class MenuPrincipal extends JTabbedPane{
 		album.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));
 		album.setViewportView(menuAlbum);
 		
+		representation = new JScrollPane();
+		JPanel menuRepresentation = MenuRepresentation.getInstance(login);
+		menuRepresentation.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 100));
+		representation.setViewportView(menuRepresentation);
+		
 		artiste = new JScrollPane();
 		artiste.setPreferredSize(new Dimension(100,100));
 		artiste.setViewportView(constructionDuMenuPrincipal());
@@ -120,6 +152,7 @@ public class MenuPrincipal extends JTabbedPane{
 		this.add(artiste, "Artiste");
 		this.add(musique, "Musique");
 		this.add(album, "Albums");
+		this.add(representation, "Representations");
 	}
 	
 	private void supprimerArtiste(Artiste artiste) {
@@ -148,7 +181,5 @@ public class MenuPrincipal extends JTabbedPane{
 	public void setArtisteSelectionne(Artiste artisteSelectionne) {
 		this.artisteSelectionne = artisteSelectionne;
 	}
-
-	
 	
 }

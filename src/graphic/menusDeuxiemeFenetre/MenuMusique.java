@@ -25,9 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileSystemView;
 
+import control.activite.Album;
+import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
-import control.musique.Album;
-import control.musique.Titre;
 import control.personne.Artiste;
 
 //

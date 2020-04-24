@@ -31,9 +31,6 @@ public class TopMenuDescriptif extends JMenuBar{
 		this.add(contactMenu());
 		
 	}
-		
-		
-	
 	
 	private JMenu contactMenu() {//RESERVER A L'ADMIN => IL CONTACTE TOUT LE MONDE
 		JMenu contacter = new JMenu("Contact");
@@ -70,6 +67,16 @@ public class TopMenuDescriptif extends JMenuBar{
 		this.add(menuPlayer());
 		this.add(contactMenu());
 		this.validate();
+	}
+	
+	public void updateVersActeurComedien() {
+		this.removeAll();
+		JMenu representation = new JMenu("Representation");
+		representation.add(MenuRaccourcis.getInstance(login).actAjoutRepresentation);
+		representation.add(MenuRaccourcis.getInstance(login, artiste).actBack);
+		representation.add(MenuRaccourcis.getInstance(login, artiste).actDeco);
+		this.add(representation);
+		this.add(contactMenu());
 	}
 	
 	public void updateVersInitial() {

@@ -12,9 +12,7 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.SignedObject;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class CompteAdministrateur implements Serializable{
@@ -23,8 +21,7 @@ public class CompteAdministrateur implements Serializable{
 	
 	
 	private SignedObject passewordCrypte;
-	private Color couleurDuFond;
-	private Color couleurEcriture;
+	private Color couleurDuFond, couleurEcriture;
 	private Set<Artiste> maListeArtiste;
 	
 	

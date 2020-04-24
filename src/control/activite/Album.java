@@ -1,4 +1,4 @@
-package control.musique;
+package control.activite;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -106,14 +106,10 @@ public class Album implements Serializable {
 		int compteurFinal = 0;
 		
 		char[] monTitre = this.getTitre().toCharArray();
-		char[] monChemin = this.getCheminVerDossier().toCharArray();
 		
 		for(char titre : monTitre)
 			compteurFinal+= (int) titre;
-		
-		for(char chemin : monChemin)
-			compteurFinal+= (int) chemin;
-		
+
 		
 		return compteurFinal;
 	}

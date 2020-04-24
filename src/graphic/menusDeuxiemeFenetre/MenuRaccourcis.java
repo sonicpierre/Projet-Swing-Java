@@ -12,7 +12,6 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreParametre;
-import graphic.fenetreEnvoieMail.FenetreMail;
 
 public class MenuRaccourcis {
 
@@ -237,6 +236,21 @@ public class MenuRaccourcis {
 			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().remove(artiste);
 			MenuPrincipal.getInstance(login).update();
 			personnesDejaInscrite.getInstance().sauvegarder();
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actAjoutRepresentation = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Ajout representation");
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_A);
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			FenetreParametre.getInstance(login).ajoutRepresentationFenetre();
 		}
 	};
 	

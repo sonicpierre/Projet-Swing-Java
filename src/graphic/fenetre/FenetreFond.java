@@ -13,7 +13,9 @@ import graphic.menusDeuxiemeFenetre.MenuAjoutAlbum;
 import graphic.menusDeuxiemeFenetre.MenuAjoutMusique;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
+import graphic.menusDeuxiemeFenetre.MenuRepresentation;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
+import graphic.menusParametreFenetre.MenuAjoutRepresentation;
 import graphic.menusParametreFenetre.MenuProfilDescription;
 
 
@@ -82,6 +84,7 @@ public class FenetreFond extends JFrame {
 		MenuMusique.getInstance(login).setArtiste(null);
 		MenuAjoutAlbum.getInstance(login).setArtiste(null);
 		MenuAjoutMusique.getInstance(login).setArtiste(null);
+		MenuAjoutRepresentation.getInstance(login).setArtiste(null);
 		MenuProfilDescription.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).updateVersInitial();
@@ -93,6 +96,7 @@ public class FenetreFond extends JFrame {
 		this.add(intermediaire, BorderLayout.NORTH);
 		MenuMusique.getInstance(login).update();
 		MenuPrincipal.getInstance(login).update();
+		MenuRepresentation.getInstance(login).update();
 		this.add(MenuPrincipal.getInstance(login), BorderLayout.CENTER);
 		setVisible(true);
 	}
