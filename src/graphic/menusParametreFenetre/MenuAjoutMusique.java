@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
+import control.BDD.Modification;
 import control.activite.Album;
 import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;

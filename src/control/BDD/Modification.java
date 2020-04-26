@@ -137,13 +137,13 @@ public class Modification {
 		}
 	}
 
-	public void supprimerChanson(int id) {
+	public void supprimerChanson(String titre) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			Statement stat = conn.createStatement();
-			stat.executeUpdate("DELETE FROM Chanson WHERE id=" + id);
+			stat.executeUpdate("DELETE FROM Chanson WHERE titre=" + titre);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

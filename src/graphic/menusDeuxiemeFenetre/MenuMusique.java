@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileSystemView;
 
+import control.BDD.Modification;
 import control.activite.Album;
 import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
@@ -199,6 +200,7 @@ public class MenuMusique extends JPanel{
 	         Entry<JCheckBox, Titre> e = monIterateur.next();
 	         if(e.getKey().isSelected() && operation.equals("Supprimer")) {
 	        	 e.getValue().supprimerMusique();
+	        	 Modification.getInstance().supprimerChanson(e.getValue().getTitre());
 	        	 passage = true;
 	        	 //On supprime un album qui est vide
 	        	 if(e.getValue().getAlbumAssocie().getChansonsDelAlbum().isEmpty()) {
