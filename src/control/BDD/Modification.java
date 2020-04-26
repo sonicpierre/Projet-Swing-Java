@@ -29,7 +29,7 @@ public class Modification {
 			Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			Statement stat = conn.createStatement();
-			stat.executeUpdate("INSERT INTO Artiste VALUES(" + id + "," + nom + "," + bio + "," + type + ")");
+			stat.executeUpdate("INSERT INTO Artiste VALUES(" + id + ",'" + nom + "','" + bio + "','" + type + "')");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class Modification {
 			Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			Statement stat = conn.createStatement();
-			stat.executeUpdate("INSERT INTO Album VALUES(" + id + "," + nom + "," + date + "," + idArtiste + ")");
+			stat.executeUpdate("INSERT INTO Album VALUES(" + id + ",'" + nom + "','" + date + "'," + idArtiste + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,7 +53,7 @@ public class Modification {
 			Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			Statement stat = conn.createStatement();
-			stat.executeUpdate("INSERT INTO Chanson VALUES(" + id + "," + titre + "," + duree + "," + idAlbum + ")");
+			stat.executeUpdate("INSERT INTO Chanson VALUES(" + id + ",'" + titre + "'," + duree + "," + idAlbum + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,7 +63,7 @@ public class Modification {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(url, user, passwd);
-			System.out.println("Connexion effective !");
+			System.out.println("Film inséré !");
 			Statement stat = conn.createStatement();
 			stat.executeUpdate("INSERT INTO Film VALUES(" + id + "," + titre + "," + annee + ")");
 		} catch (Exception e) {
@@ -130,8 +130,8 @@ public class Modification {
 			Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			Statement stat = conn.createStatement();
-			stat.executeUpdate("DELETE FROM Album WHERE id=" + id);
 			stat.executeUpdate("DELETE FROM Chanson WHERE idAlbum=" + id);
+			stat.executeUpdate("DELETE FROM Album WHERE id=" + id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -216,6 +216,18 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
+	
+	public void modifierChansonID(int id, int idAlbum) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(url, user, passwd);
+            System.out.println("Connexion effective !");
+            Statement stat = conn.createStatement();
+            stat.executeUpdate("UPDATE Chanson SET idAlbum=" + idAlbum + " WHERE id=" + id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 	public void modifierFilm(int id, String titre, String annee, int idFilm, int idArtiste) {
 		try {

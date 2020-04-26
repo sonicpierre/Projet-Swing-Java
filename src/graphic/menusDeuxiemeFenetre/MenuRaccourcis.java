@@ -8,7 +8,6 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
-import control.BDD.Modification;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;

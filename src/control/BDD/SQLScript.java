@@ -25,19 +25,19 @@ public class SQLScript {
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Artiste(\n" + 
 					"	id INT PRIMARY KEY,\n" + 
 					"	nom VARCHAR(30),\n" + 
-					"	biographie VARCHAR(1000),\n" + 
+					"	biographie VARCHAR(10000),\n" + 
 					"	type VARCHAR(10));");
 			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Album(\n" + 
 					"	id INT PRIMARY KEY,\n" + 
-					"	nom VARCHAR(30),\n" + 
-					"	date DATE,\n" + 
+					"	nom VARCHAR(150),\n" + 
+					"	date VARCHAR(10),\n" + 
 					"	idArtiste INT,\n" + 
 					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
 			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Chanson(\n" + 
 					"	id INT PRIMARY KEY,\n" + 
-					"	titre VARCHAR(30),\n" + 
+					"	titre VARCHAR(150),\n" + 
 					"	duree INT,\n" + 
 					"	idAlbum INT,\n" + 
 					"	FOREIGN KEY fk_artiste(idAlbum) REFERENCES Album(id));");

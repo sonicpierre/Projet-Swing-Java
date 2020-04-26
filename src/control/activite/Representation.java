@@ -2,7 +2,7 @@ package control.activite;
 
 import java.io.Serializable;
 
-public class Representation implements Serializable{
+public class Representation implements Serializable {
 
 	private static final long serialVersionUID = 1875901704643110886L;
 	

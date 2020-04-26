@@ -17,6 +17,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import control.BDD.Modification;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetreEnvoieMail.FenetreMail;
@@ -182,6 +183,7 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	private void supprimerArtiste(Artiste artiste) {
 		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().remove(artiste);
+		Modification.getInstance().supprimerArtiste(artiste.hashCode());
 		personnesDejaInscrite.getInstance().sauvegarder();
 		this.update();
 	}

@@ -91,7 +91,9 @@ public class MenuAjoutMusique extends JPanel{
 		boolean passage = false;
 		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums()) {
 			if(monAlbum.getTitre().equals(listeAlbum.getSelectedItem())) {
-				monAlbum.getChansonsDelAlbum().add(new Titre(nouveauNom.getText(), cheminVersMusique));
+				Titre maChanson = new Titre(nouveauNom.getText(), cheminVersMusique);
+				monAlbum.getChansonsDelAlbum().add(maChanson);
+				Modification.getInstance().insererChanson(maChanson.hashCode(), maChanson.getTitre(), 0, monAlbum.hashCode());
 				passage = true;
 				break;
 			}

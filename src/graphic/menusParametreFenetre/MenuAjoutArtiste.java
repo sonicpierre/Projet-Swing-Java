@@ -23,6 +23,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.validator.EmailValidator;
 
+import control.BDD.Modification;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
@@ -128,11 +129,15 @@ public class MenuAjoutArtiste extends JPanel{
 	
 	private void valider() {
 		if(validateEmailAddress(adresseMail.getText())) {
-			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(new Artiste(description.getText(),cheminVersImage, nom.getText(), prenom.getText(), adresseMail.getText(), (String) type.getSelectedItem()));
+			Artiste monArtiste = new Artiste(description.getText(),cheminVersImage, nom.getText(), prenom.getText(), adresseMail.getText(), (String) type.getSelectedItem());
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(monArtiste);
 			personnesDejaInscrite.getInstance().sauvegarder();
 			JMenuItem contenant = new JMenuItem();
 			JOptionPane.showMessageDialog(contenant,"L'artiste " + nom.getText() +" a été ajouté","Artiste ajouté", JOptionPane.INFORMATION_MESSAGE);
 			MenuPrincipal.getInstance(login).update();
+			
+			System.out.println(monArtiste.getDescription());
+			Modification.getInstance().insererArtiste(monArtiste.hashCode(), monArtiste.getNom() + " " + monArtiste.getPrenom(), monArtiste.getDescription(), monArtiste.getType());
 		} else {
 			JMenuItem contenant = new JMenuItem();
 			JOptionPane.showMessageDialog(contenant,"Email incorrect","Erreur", JOptionPane.WARNING_MESSAGE);

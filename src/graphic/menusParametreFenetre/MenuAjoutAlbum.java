@@ -3,6 +3,7 @@ package graphic.menusParametreFenetre;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import control.BDD.Modification;
 import control.activite.Album;
 import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
@@ -95,7 +97,8 @@ public class MenuAjoutAlbum extends JPanel{
 	        cheminVersImageAssocie = fichiersImage[0].getAbsolutePath();//ON GARDE QUE LA PREMIERE IMAGE SELECTIONNÉE
 	        titreAssocie = new HashSet<Titre>();//LISTE DE CHEMIN VERS FICHIER MP3
 	        for(File monFile : fichiersMP3) {
-	        	titreAssocie.add(new Titre(monFile.getName(), monFile.getAbsolutePath()));//REMPLISSAGE AVEC LES CHEMINS ABS
+	        	Titre monTitre = new Titre(monFile.getName(), monFile.getAbsolutePath());
+	        	titreAssocie.add(monTitre);//REMPLISSAGE AVEC LES CHEMINS ABS
 	        }
         }
 	}
@@ -103,7 +106,18 @@ public class MenuAjoutAlbum extends JPanel{
 
 	private void valider() {
 		if(titreAssocie != null) {//SI LA LISTE DE TITE N'EST PAS NULLE => CREATION ALBUM DANSLES ENDROOITS DE SAUVEGARDE
-			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).ajouterAlbum(new Album(nom.getText(), titreAssocie, cheminVersImageAssocie));
+			Album monAlbum = new Album(nom.getText(), titreAssocie, cheminVersImageAssocie);
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).ajouterAlbum(monAlbum);
+			
+			//System.out.println(monAlbum.hashCode() + " " + monAlbum.getTitre() + " " + artiste.hashCode());
+			
+			
+			Modification.getInstance().insererAlbum(monAlbum.hashCode(), monAlbum.getTitre(), "10-12-1990", artiste.hashCode());
+			
+			
+			for(Titre maChanson : titreAssocie)
+				Modification.getInstance().insererChanson(maChanson.hashCode(), maChanson.getTitre(), 0, monAlbum.hashCode());
+			
 			MenuMusique.getInstance(login).update();//ON LA FONCTION QUE PV A CREER QUI S'APPELLE ET QUI PERMET L'AJOUT DE L'ALNUM ENTRE
 			MenuPrincipal.getInstance(login).validate();
 			titreAssocie = null;//INITIALISATION DE LA LISTE

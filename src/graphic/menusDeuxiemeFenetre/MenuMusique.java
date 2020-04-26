@@ -204,8 +204,10 @@ public class MenuMusique extends JPanel{
 	        	 passage = true;
 	        	 //On supprime un album qui est vide
 	        	 if(e.getValue().getAlbumAssocie().getChansonsDelAlbum().isEmpty()) {
+	        		 Modification.getInstance().supprimerAlbum(e.getValue().getAlbumAssocie().hashCode());
 	        		 personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums().remove(e.getValue().getAlbumAssocie());
 	        		 personnesDejaInscrite.getInstance().sauvegarder();
+	        		
 	        	 }
 	         } else if(e.getKey().isSelected() && operation.equals("Play")) {
 	        	 this.play(e.getValue());
@@ -242,6 +244,9 @@ public class MenuMusique extends JPanel{
 	public void supprimerAlbum() {
 		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums())
 			if(monAlbum.isSelected()) {
+				
+				Modification.getInstance().supprimerAlbum(monAlbum.hashCode());
+				
 				personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums().remove(monAlbum);
 				personnesDejaInscrite.getInstance().sauvegarder();
 				this.update();
