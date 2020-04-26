@@ -77,7 +77,6 @@ public class SenderMail {
 		Message message = prepareMessage(session, myAccountEmail, recepient, sujet, messageAEnvoyer);
 		Transport.send(message);//ENVOIE MESSAGE 
 		System.out.println("Message envoyé !!");
-		JOptionPane.showInternalInputDialog(MenuDeMail.getInstance(), "Mail envoyé");
 		MenuDeMail.getInstance().getMessage().setText("");
 		MenuDeMail.getInstance().getAdresseMailRentre().setText("");
 		MenuDeMail.getInstance().getObjetEntre().setText("");

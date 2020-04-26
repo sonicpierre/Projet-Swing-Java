@@ -85,6 +85,7 @@ public class FenetreFond extends JFrame {
 		MenuAjoutAlbum.getInstance(login).setArtiste(null);
 		MenuAjoutMusique.getInstance(login).setArtiste(null);
 		MenuAjoutRepresentation.getInstance(login).setArtiste(null);
+		MenuRepresentation.getInstance(login).setArtiste(null);
 		MenuProfilDescription.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).updateVersInitial();

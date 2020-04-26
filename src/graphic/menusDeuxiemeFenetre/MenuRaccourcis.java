@@ -267,6 +267,7 @@ public class MenuRaccourcis {
 
 		{//C'est le constructeur
 			putValue (Action.NAME, "Ajout representation");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/Ajouter.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_A);
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK));
 		}

@@ -1,21 +1,20 @@
 package control.activite;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Representation implements Serializable{
 
 	private static final long serialVersionUID = 1875901704643110886L;
 	
-	private String titre, cheminVersImage, duree;
-	private Date date;
+	private String titre, cheminVersImage, duree, date, type;
 
 	
-	public Representation(String titre, String duree, String cheminVersImage, Date date) {
+	public Representation(String titre, String duree, String cheminVersImage, String date, String type) {
 		this.setTitre(titre);
 		this.duree = duree;
 		this.cheminVersImage = cheminVersImage;
-		this.setDate(date);
+		this.date = date;
+		this.setType(type);
 	}
 	
 	@Override
@@ -37,6 +36,8 @@ public class Representation implements Serializable{
 		
 		return compteurFinal;
 	}
+	
+	
 
 	public String getTitre() {
 		return titre;
@@ -54,11 +55,30 @@ public class Representation implements Serializable{
 		this.cheminVersImage = cheminVersImage;
 	}
 
-	public Date getDate() {
+	
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
+	public String getDuree() {
+		return duree;
+	}
+
+	public void setDuree(String duree) {
+		this.duree = duree;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

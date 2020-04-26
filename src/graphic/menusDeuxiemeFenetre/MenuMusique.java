@@ -1,6 +1,5 @@
 package graphic.menusDeuxiemeFenetre;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -13,7 +12,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -73,8 +71,6 @@ public class MenuMusique extends JPanel{
 		
 			//CREATION COLONNES: NOM DE TITRE + GESTION LECTURE
 			menuFinal = new JPanel(new GridLayout(nombreDeMusique, 2, 20, 10));
-			
-			menuFinal.setBorder(BorderFactory.createLineBorder(new Color(100,100,100), 10));//BORDURE
 			
 			if(artiste == null) {
 				for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste()) {
@@ -150,9 +146,16 @@ public class MenuMusique extends JPanel{
 	
 	private JPanel constructionEtiquette(Titre titre) {//CONSTRUCTION PANEL ETIQUETTE (TITRE) DE LA CHANSON
 		JPanel description = new JPanel(new FlowLayout());
-		JCheckBox maCheckBox = new JCheckBox(titre.getTitre());
-		mesAssociationsCheckTitre.put(maCheckBox, titre);
-		description.add(maCheckBox);
+		if(artiste==null) {
+			JLabel monTitre = new JLabel(titre.getTitre());
+			description.add(monTitre);
+		} else {
+			JCheckBox maCheckBox = new JCheckBox(titre.getTitre());
+			mesAssociationsCheckTitre.put(maCheckBox, titre);
+			description.add(maCheckBox);
+		}
+		
+		
 		return description;
 	}
 	
@@ -226,9 +229,11 @@ public class MenuMusique extends JPanel{
 	
 	private JPopupMenu createPopupMenu(Album albumAssocie) {
 		JPopupMenu monPopUp = new JPopupMenu();
-		monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actSuppressionAlbum);
-		monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actRenommer);
-		monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actChangerImage);
+		if(artiste!=null) {
+			monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actSuppressionAlbum);
+			monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actRenommer);
+			monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actChangerImage);
+		}
 		return monPopUp;
 	}
 
@@ -237,6 +242,8 @@ public class MenuMusique extends JPanel{
 			if(monAlbum.isSelected()) {
 				personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums().remove(monAlbum);
 				personnesDejaInscrite.getInstance().sauvegarder();
+				this.update();
+				MenuAlbum.getInstance(login).update();
 				break;
 			}
 				
@@ -261,6 +268,8 @@ public class MenuMusique extends JPanel{
 				if(monAlbum.isSelected()) {
 					monAlbum.setCheminVersImageAssocie(selectedFile.getAbsolutePath());
 					personnesDejaInscrite.getInstance().sauvegarder();
+					this.update();
+					MenuAlbum.getInstance(login).update();
 					break;
 				}
 		}
@@ -268,6 +277,7 @@ public class MenuMusique extends JPanel{
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	private void play(Titre titreAssocie) {
 		if(titreEnCoursDeLecture==null) {
 			this.titreEnCoursDeLecture = titreAssocie;

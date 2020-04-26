@@ -8,9 +8,12 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -20,26 +23,26 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
 import control.activite.Representation;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
-import graphic.menusDeuxiemeFenetre.MenuPrincipal;
+import graphic.fenetre.FenetreParametre;
 import graphic.menusDeuxiemeFenetre.MenuRepresentation;
 
 @SuppressWarnings("serial")
 public class MenuAjoutRepresentation extends JPanel{
 	
 	private static MenuAjoutRepresentation instance;
-
+	private static final String[] listeRepres = {"Film", "Comedie"};
 	private String login, cheminVersImage;
 	private Artiste artiste;
 	private JTextField titre, duree;
 	private JTextArea description;
 	private JLabel imageProfil;
 	private JDateChooser calendrier;
+	private JComboBox<String> type;
 	
 	private MenuAjoutRepresentation(String login) {
 		this.login = login;
@@ -82,19 +85,22 @@ public class MenuAjoutRepresentation extends JPanel{
 	
 	private JPanel constructionEtiquetteDroite() {
 		JPanel menuDroite = new JPanel(new BorderLayout());
-		JPanel tempon1 = new JPanel(new GridLayout(2,2, 0, 10));
+		JPanel tempon1 = new JPanel(new GridLayout(3,2, 0, 10));
 		
 		//On crée les labels
 		
-		JLabel titreLabel = new JLabel("Nom :");
+		JLabel titreLabel = new JLabel("Titre :");
 		JLabel dureeLabel = new JLabel("Duree :");
-
+		JLabel typeLabel = new JLabel("Type :");
+		
 		calendrier = new JDateChooser();
+		type = new JComboBox<String>(listeRepres);
 		
 		//On les centres
 		
 		titreLabel.setHorizontalAlignment(JLabel.CENTER);
 		dureeLabel.setHorizontalAlignment(JLabel.CENTER);
+		typeLabel.setHorizontalAlignment(JLabel.CENTER);
 		
 		//On initialise les endroits de rentré de texte
 		
@@ -107,6 +113,8 @@ public class MenuAjoutRepresentation extends JPanel{
 		tempon1.add(titre);
 		tempon1.add(dureeLabel);
 		tempon1.add(duree);
+		tempon1.add(typeLabel);
+		tempon1.add(type);
 
 		
 		menuDroite.add(tempon1, BorderLayout.CENTER);
@@ -125,12 +133,18 @@ public class MenuAjoutRepresentation extends JPanel{
 	
 	
 	private void valider() {
-
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeRepresentations().add(new Representation(titre.getText(), duree.getText(), cheminVersImage, calendrier.getDate()));
-		personnesDejaInscrite.getInstance().sauvegarder();
-		JMenuItem contenant = new JMenuItem();
-		JOptionPane.showMessageDialog(contenant,"La représentation " + titre.getText(),"Représentation ajouté", JOptionPane.INFORMATION_MESSAGE);
-		MenuRepresentation.getInstance(login).update();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		if(calendrier.getDate() != null) {
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeRepresentations().add(new Representation(titre.getText(), duree.getText(), cheminVersImage, dateFormat.format(calendrier.getDate()), (String) type.getSelectedItem()));
+			personnesDejaInscrite.getInstance().sauvegarder();
+			JMenuItem contenant = new JMenuItem();
+			JOptionPane.showMessageDialog(contenant,"La représentation " + titre.getText(),"Représentation ajouté", JOptionPane.INFORMATION_MESSAGE);
+			MenuRepresentation.getInstance(login).update();
+			FenetreParametre.getInstance(login).dispose();
+		} else {
+			JOptionPane.showInternalMessageDialog(this, "Vous n'avez pas mis de date", "Erreur",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 	
 	
