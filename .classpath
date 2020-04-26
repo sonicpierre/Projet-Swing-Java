@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="Librairie_Externe/commons-validator-1.6-bin/commons-validator-1.6/commons-validator-1.6-tests.jar"/>
 	<classpathentry kind="lib" path="/home/eisti/git/Projet_Java_ING1_S2/Librairie_Externe/jlayer1.0/JLayer1.0/jl1.0.jar"/>
 	<classpathentry kind="lib" path="/home/eisti/git/Projet_Java_ING1_S2/Librairie_Externe/mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar"/>
+	<classpathentry kind="lib" path="/home/eisti/git/Projet_Java_ING1_S2/Librairie_Externe/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

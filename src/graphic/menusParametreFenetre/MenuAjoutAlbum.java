@@ -1,4 +1,4 @@
-package graphic.menusDeuxiemeFenetre;
+package graphic.menusParametreFenetre;
 
 import java.awt.FlowLayout;
 import java.io.File;
@@ -21,6 +21,9 @@ import control.activite.Album;
 import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
+import graphic.menusDeuxiemeFenetre.MenuAlbum;
+import graphic.menusDeuxiemeFenetre.MenuMusique;
+import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
 //JPANEL PERMETTANT D'AJOUTER LES ALBUMS
 @SuppressWarnings("serial")

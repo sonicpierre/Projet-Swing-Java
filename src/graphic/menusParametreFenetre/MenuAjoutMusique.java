@@ -1,4 +1,4 @@
-package graphic.menusDeuxiemeFenetre;
+package graphic.menusParametreFenetre;
 
 import java.awt.FlowLayout;
 import java.awt.MenuItem;
@@ -19,6 +19,8 @@ import control.activite.Album;
 import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
+import graphic.menusDeuxiemeFenetre.MenuMusique;
+import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
 @SuppressWarnings("serial")
 public class MenuAjoutMusique extends JPanel{

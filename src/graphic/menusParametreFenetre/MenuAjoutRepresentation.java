@@ -11,7 +11,6 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -21,10 +20,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
 import control.activite.Representation;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
+import graphic.menusDeuxiemeFenetre.MenuRepresentation;
 
 @SuppressWarnings("serial")
 public class MenuAjoutRepresentation extends JPanel{
@@ -36,6 +39,7 @@ public class MenuAjoutRepresentation extends JPanel{
 	private JTextField titre, duree;
 	private JTextArea description;
 	private JLabel imageProfil;
+	private JDateChooser calendrier;
 	
 	private MenuAjoutRepresentation(String login) {
 		this.login = login;
@@ -85,6 +89,7 @@ public class MenuAjoutRepresentation extends JPanel{
 		JLabel titreLabel = new JLabel("Nom :");
 		JLabel dureeLabel = new JLabel("Duree :");
 
+		calendrier = new JDateChooser();
 		
 		//On les centres
 		
@@ -105,7 +110,7 @@ public class MenuAjoutRepresentation extends JPanel{
 
 		
 		menuDroite.add(tempon1, BorderLayout.CENTER);
-		
+		menuDroite.add(calendrier, BorderLayout.SOUTH);
 		return menuDroite;
 	}
 	
@@ -121,11 +126,11 @@ public class MenuAjoutRepresentation extends JPanel{
 	
 	private void valider() {
 
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeRepresentations().add(new Representation(titre.getText(), duree.getText(), cheminVersImage));
+		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeRepresentations().add(new Representation(titre.getText(), duree.getText(), cheminVersImage, calendrier.getDate()));
 		personnesDejaInscrite.getInstance().sauvegarder();
 		JMenuItem contenant = new JMenuItem();
 		JOptionPane.showMessageDialog(contenant,"La représentation " + titre.getText(),"Représentation ajouté", JOptionPane.INFORMATION_MESSAGE);
-		MenuPrincipal.getInstance(login).update();
+		MenuRepresentation.getInstance(login).update();
 	}
 	
 	

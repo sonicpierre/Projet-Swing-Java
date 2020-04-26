@@ -9,12 +9,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import graphic.menusDeuxiemeFenetre.MenuAjoutAlbum;
-import graphic.menusDeuxiemeFenetre.MenuAjoutMusique;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 import graphic.menusDeuxiemeFenetre.MenuRepresentation;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;
+import graphic.menusParametreFenetre.MenuAjoutAlbum;
+import graphic.menusParametreFenetre.MenuAjoutMusique;
 import graphic.menusParametreFenetre.MenuAjoutRepresentation;
 import graphic.menusParametreFenetre.MenuProfilDescription;
 

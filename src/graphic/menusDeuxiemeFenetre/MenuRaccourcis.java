@@ -12,6 +12,7 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreParametre;
+import graphic.menusParametreFenetre.MenuAjoutMusique;
 
 public class MenuRaccourcis {
 
