@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-
 /**
  **/
 public class Modification {
@@ -23,7 +22,7 @@ public class Modification {
 			instance = new Modification();
 		return instance;
 	}
-	
+
 	public void insererArtiste(int id, String nom, String bio, String type) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -60,20 +59,19 @@ public class Modification {
 		}
 	}
 
-	public void insererFilm(int id, String titre, String annee, int idFilm, int idArtiste) {
+	public void insererFilm(int id, String titre, int annee) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(url, user, passwd);
 			System.out.println("Connexion effective !");
 			Statement stat = conn.createStatement();
 			stat.executeUpdate("INSERT INTO Film VALUES(" + id + "," + titre + "," + annee + ")");
-			stat.executeUpdate("INSERT INTO JouerFilm VALUES(" + idFilm + "," + idArtiste + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void insererSpectacle(int id, String titre, String annee, int spectateurs, int idSpectacle, int idArtiste) {
+	public void insererSpectacle(int id, String titre, int annee, int spectateurs) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(url, user, passwd);
@@ -81,6 +79,29 @@ public class Modification {
 			Statement stat = conn.createStatement();
 			stat.executeUpdate(
 					"INSERT INTO Spectacle VALUES(" + id + "," + titre + "," + annee + "," + spectateurs + ")");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void insererJouerFilm(int idFilm, int idArtiste) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(url, user, passwd);
+			System.out.println("Connexion effective !");
+			Statement stat = conn.createStatement();
+			stat.executeUpdate("INSERT INTO JouerFilm VALUES(" + idFilm + "," + idArtiste + ")");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void insererJouerSpectacle(int idSpectacle, int idArtiste) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(url, user, passwd);
+			System.out.println("Connexion effective !");
+			Statement stat = conn.createStatement();
 			stat.executeUpdate("INSERT INTO JouerSpectacle VALUES(" + idSpectacle + "," + idArtiste + ")");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -242,6 +263,5 @@ public class Modification {
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
-	
-	
+
 }
