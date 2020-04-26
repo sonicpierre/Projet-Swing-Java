@@ -15,6 +15,9 @@ import java.security.SignedObject;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * MDP crypté, mdp user, liste artiste et prefezrences
+ **/
 public class CompteAdministrateur implements Serializable{
 
 	private static final long serialVersionUID = 1395120222597597878L;
@@ -22,9 +25,13 @@ public class CompteAdministrateur implements Serializable{
 	
 	private SignedObject passewordCrypte;
 	private Color couleurDuFond, couleurEcriture;
+	
+	/**
+	 *Set artiste*/
 	private Set<Artiste> maListeArtiste;
 	
-	
+	/**
+	 *Deux constructeur diff, */
 	public CompteAdministrateur(String passeword, Color couleurDeFond, Color couleurEcriture) {
 		this.maListeArtiste = new HashSet<Artiste>();
 		this.couleurDuFond = couleurDeFond;
@@ -151,6 +158,10 @@ public class CompteAdministrateur implements Serializable{
 		}	
 	}
 
+		/**
+		 *Suite à la non possibilité de rechercher via la focntions get, nous avons implémenter une fct de recherhce
+		 **/
+	
 	public Artiste rechercher(Artiste artisteRecherche) {
 		for(Artiste monArtiste : this.maListeArtiste)
 			if(artisteRecherche == monArtiste) {

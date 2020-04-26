@@ -14,6 +14,11 @@ import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreParametre;
 import graphic.menusParametreFenetre.MenuAjoutMusique;
 
+/**
+ * Permet de faire le lien entre le cote serveur(actions) et le cote client (bouton)
+ *fonctionne de façon analogue aux liteners
+ *ingleton, deux var clés login et article
+ *Elle peut */
 public class MenuRaccourcis {
 
 	private static MenuRaccourcis instance;
@@ -32,6 +37,9 @@ public class MenuRaccourcis {
 
 
 	@SuppressWarnings("serial")
+	
+	/**
+	 * On donne un nom, une icone puis un emonic qui correction au tab+lettre*/
 	public AbstractAction actParametre = new AbstractAction() {
 
 
@@ -39,11 +47,25 @@ public class MenuRaccourcis {
 			putValue (Action.NAME, "Paramètre...");
 			putValue (Action.SMALL_ICON, new ImageIcon("Icons/parametre.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_P);
+			/**
+			 *Petite fenetre de decription
+			 **/
+			
 			putValue( Action.SHORT_DESCRIPTION, "Paramètre (CTRL+P)");
+			
+			/**
+			 *Raccourci clavier
+			 **/
+			
 			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK));
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action ouvrir la fenetre param 
+		 **/
+
 		public void actionPerformed(ActionEvent arg0) {
 			FenetreParametre.getInstance(login).ajoutParametre();
 		}

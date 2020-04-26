@@ -5,6 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ *Fichier sql permettant de créer les tables de la bdd.
+ *NB : Nous avons été obligé de passer par des requêtes pour créer l'archi la bdd, car JBDC ne connait po la commande source7
+ *suivie du chemin absolue.
+ **/
+
 public class SQLScript {
 
 	

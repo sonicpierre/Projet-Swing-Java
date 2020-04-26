@@ -1,6 +1,7 @@
 package control.activite;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import control.elementSauv.personnesDejaInscrite;
@@ -43,8 +44,7 @@ public class Album implements Serializable {
 	private String cheminVersImageAssocie;
 
 	/**
-	 * Liste de titres
-	 * 
+	 * Set de titres, afin d'éviter les doublons dans la liste pour ne pas avoir deux le même titre
 	 * @see Titre
 	 **/
 
@@ -55,10 +55,14 @@ public class Album implements Serializable {
 	/**
 	 * Initialisation des composentes de l'album
 	 * 
-	 * @param titre                  Titre
-	 * @param type                   Type du titre
-	 * @param titreDeLalbum          Titre album
-	 * @param cheminVersImageAssocie Localisation du chemin associé
+	 *@param titre               
+	 *    Titre
+	 *@param type                 
+	 *   Type du titre
+	 *@param titreDeLalbum         
+	 *  Titre album
+	 *@param cheminVersImageAssocie 
+	 *	Localisation du chemin associé
 	 **/
 
 	public Album(String titre, Set<Titre> titreDeLalbum, String cheminVersImageAssocie) {
@@ -66,7 +70,7 @@ public class Album implements Serializable {
 		
 		
 		this.setTitre(titre);
-
+		this.chansonsDelAlbum = new HashSet<Titre>();
 		this.setChansonsDelAlbum(titreDeLalbum);
 		this.setCheminVersImageAssocie(cheminVersImageAssocie);
 		this.selected = false;
@@ -91,6 +95,11 @@ public class Album implements Serializable {
 			}
 	}
 	
+	/**
+	 *Comparaison album afin de ne pas prendre en compte le chemin vers l'image.
+	 *Ainsi un album sera def par son titre et son chemin
+	 **/
+	
 	@Override
 	public boolean equals(Object autreAlbum) {
 		Album artistePourComparaison = (Album) autreAlbum;
@@ -100,10 +109,18 @@ public class Album implements Serializable {
 		return false;
 	}
 	
+	/**
+	 *On associe un chiffree à chaqie album afin de le retrouver plus rapidemment
+	 **/
 	
 	@Override
 	public int hashCode() {
 		int compteurFinal = 0;
+		
+		/**
+		 *NB : On prend chaque lettre du titre (tab de carac) en demandant son equivalent ascii.
+		 *On somme ensuite le tout afin de nous donner le chiffre
+		 **/
 		
 		char[] monTitre = this.getTitre().toCharArray();
 		
@@ -117,8 +134,8 @@ public class Album implements Serializable {
 
 	/**
 	 * Récupère le titre
-	 * 
-	 * @return Titre
+	 * @return
+	 * Titre
 	 **/
 
 	public String getTitre() {

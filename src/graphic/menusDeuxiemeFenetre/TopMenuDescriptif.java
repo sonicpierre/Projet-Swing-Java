@@ -25,7 +25,7 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private TopMenuDescriptif(String login) {
 		this.login = login;
-		this.artiste = null;
+		this.artiste = null;//CAR ON A CLIQUER SUR AUCUN ARTISTE
 
 		this.add(baseDeDonneMenu());
 		this.add(contactMenu());
@@ -39,6 +39,10 @@ public class TopMenuDescriptif extends JMenuBar{
 		return contacter;
 	}
 	
+	/**
+	 *On utilise tous les raccoursi effectue, en precisant sa localisation
+	 **/
+	
 	private JMenu menuChanteur() {
 		JMenu chanson = new JMenu("Musique");
 
@@ -51,6 +55,7 @@ public class TopMenuDescriptif extends JMenuBar{
 		return chanson;
 	}
 	
+	
 	private JMenu menuPlayer() {
 		JMenu player = new JMenu("Player");
 
@@ -59,6 +64,10 @@ public class TopMenuDescriptif extends JMenuBar{
 		player.add(MenuRaccourcis.getInstance(login, artiste).actReset);
 		return player;
 	}
+	
+	/**
+	 *Suppression du contenu de la barre de menu puis on remet en place les items propres à la brre chanteur
+	 **/
 	
 	public void updateVersChanteur() {
 		this.removeAll();
@@ -79,6 +88,10 @@ public class TopMenuDescriptif extends JMenuBar{
 		this.add(contactMenu());
 	}
 	
+	/**
+	 *Retour en arriève, sans suavegarder la pae d'avant
+	 **/
+	
 	public void updateVersInitial() {
 		this.removeAll();
 		
@@ -86,10 +99,18 @@ public class TopMenuDescriptif extends JMenuBar{
 		this.add(contactMenu());
 	}
 	
+	/**
+	 *Menu poemettant de gerer la bdd, et qui est reserve à l'admin
+	 **/
+	
 	private JMenu baseDeDonneMenu() {
 		JMenu baseDeDonne = new JMenu("Base de données");
 		JMenuItem modifierLaBDD = new JMenuItem("Modifier");
 		JMenuItem paramBDD = new JMenuItem("Paramètres");
+		
+		/**
+		 *Petits separateur entre items
+		 **/
 		
 		baseDeDonne.add(MenuRaccourcis.getInstance(login).actAjoutArtiste);
 		
@@ -103,18 +124,27 @@ public class TopMenuDescriptif extends JMenuBar{
 		return baseDeDonne;
 	}
 	
-	
 	public void ouvertureFenetreMail() {
 		FenetreMail.getInstance().setVisible(true);
 		MenuDeMail.getInstance().getMessage().setText("");
 		MenuDeMail.getInstance().getAdresseMailRentre().setText("");
 	}
 	
+	/**
+	 *Revenir au menu
+	 **/
 	
 	public void deconnexion() {
 		if(MenuMusique.getInstance(login).getTitreEnCoursDeLecture()!=null)
 			MenuMusique.getInstance(login).getTitreEnCoursDeLecture().stop();
+		/**
+		 *Pas de barre de menu sur la fenetre de fond
+		 **/
+		
 		FenetreFond.getInstance().remove(this);
+		
+		/**
+		 *Supp menu prinip*/
 		FenetreFond.getInstance().remove(MenuPrincipal.getInstance(login));
 		FenetreFond.getInstance().changerFenetre(login);
 		FenetreLogin.getInstance().setVisible(true);
