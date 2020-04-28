@@ -51,7 +51,7 @@ public class Artiste implements Serializable{
 		this.couleurDuFond = couleurDeFond;
 		this.couleurEcriture = couleurEcriture;
 		this.cheminVersImage = CheminVersImage;
-		this.setDescription("Vous n avez pas de description pour le moment...");
+		this.setDescription(description);
 		
 	}
 	
@@ -79,7 +79,7 @@ public class Artiste implements Serializable{
 		this.couleurDuFond = Color.BLACK;
 		this.couleurEcriture = Color.WHITE;
 		this.cheminVersImage = CheminVersImage;
-		this.setDescription("Vous n avez pas de description pour le moment...");
+		this.setDescription(description);
 	}
 
 	
