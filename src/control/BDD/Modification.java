@@ -2,6 +2,8 @@ package control.BDD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -23,17 +25,31 @@ public class Modification {
 		return instance;
 	}
 
+	//Permet d'éviter les attaques par injections et en d'autre termes d'éviter que ça plante quand y a des '. 
+	
 	public void insererArtiste(int id, String nom, String bio, String type) {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
-				System.out.println("Connexion effective !");
-				Statement stat = conn.createStatement();
-				stat.executeUpdate("INSERT INTO Artiste VALUES(" + id + ",'" + nom + "','" + bio + "','" + type + "')");
+
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+					System.out.println("Connexion effective !");
+					String requeteSQL = "INSERT INTO Artiste VALUES(" + id + ",?,?,'" + type + "')";
+					
+					try(PreparedStatement stat = conn.prepareStatement(requeteSQL)){
+						stat.setString(1, nom);			//On remplace le premier ? par le nom ici ça commence à 1 et pas 0
+						stat.setString(2, bio);
+						stat.executeUpdate();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	public void insererAlbum(int id, String nom, String date, int idArtiste) {

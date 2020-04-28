@@ -54,6 +54,8 @@ public class Initialisation {
 				 *Permet de faire des requetes qui changent la bdd, mais ne donne pas de resultat.
 				 **/
 				
+				
+				
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("CREATE USER IF NOT EXISTS '"+ userACreer +"'@'localhost' IDENTIFIED BY '" + passwrdAssocie + "'");
 				stat.executeUpdate("GRANT ALL PRIVILEGES ON *.* TO '" + userACreer + "'@'localhost'");
