@@ -61,6 +61,7 @@ public class Lecteur extends Thread implements Serializable{
 			
 			this.fileInputStream = new FileInputStream(maPiste.getFichierAssocie());
 			this.player = new AdvancedPlayer(fileInputStream);
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

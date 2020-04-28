@@ -1,13 +1,20 @@
 package graphic.menusDeuxiemeFenetre;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileSystemView;
 
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
-import graphic.fenetre.FenetreParametre;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 
@@ -105,9 +112,10 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private JMenu baseDeDonneMenu() {
 		JMenu baseDeDonne = new JMenu("Base de données");
-		JMenuItem modifierLaBDD = new JMenuItem("Modifier");
+		JMenuItem modifierLaBDD = new JMenuItem("Remplir à partir d'un csv");
 		JMenuItem paramBDD = new JMenuItem("Paramètres");
 		
+		modifierLaBDD.addActionListener(e -> copieEtRemplissage());
 		/**
 		 *Petits separateur entre items
 		 **/
@@ -160,7 +168,31 @@ public class TopMenuDescriptif extends JMenuBar{
 		this.artiste = artiste;
 	}
 
+	private void copieEtRemplissage() {
+		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		int returnValue = jfc.showOpenDialog(null);
+		File selectedFile;
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+		    selectedFile = jfc.getSelectedFile();
+		    copier(selectedFile, new File("DataCSV/" + selectedFile.getName()));
+		}
+	}
 
+	public static boolean copier(File source, File dest) { 
+	    try (InputStream sourceFile = new java.io.FileInputStream(source);  
+	            OutputStream destinationFile = new FileOutputStream(dest)) { 
+	        // Lecture par segment de 0.5Mo  
+	        byte buffer[] = new byte[512 * 1024]; 
+	        int nbLecture; 
+	        while ((nbLecture = sourceFile.read(buffer)) != -1){ 
+	            destinationFile.write(buffer, 0, nbLecture); 
+	        } 
+	    } catch (IOException e){ 
+	        e.printStackTrace(); 
+	        return false; // Erreur 
+	    } 
+	    return true; // Résultat OK   
+	}
 
 
 	public static TopMenuDescriptif getInstance(String login) {

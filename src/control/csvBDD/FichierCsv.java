@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import control.elementSauv.personnesDejaInscrite;
+import control.personne.Artiste;
+
 
 public class FichierCsv {
 
@@ -92,6 +95,8 @@ public class FichierCsv {
 			data[i-1][1]=lignes.get(i).substring(id1+1, id2);
 			data[i-1][2]=lignes.get(i).substring(id2+1, id3);
 			data[i-1][3]=lignes.get(i).substring(id3+1,lignes.get(i).length() );
+			
+			
 		}
 		return data;
 		
