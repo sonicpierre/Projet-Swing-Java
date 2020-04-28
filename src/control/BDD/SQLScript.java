@@ -18,55 +18,55 @@ public class SQLScript {
 		String urlApresConnexion = "jdbc:mysql://localhost/Artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(urlApresConnexion, user, passwrd);
+			try(Connection conn = DriverManager.getConnection(urlApresConnexion, user, passwrd)){
 			
-			System.out.println("Connexion effective !");
-			Statement stat = conn.createStatement();
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Artiste(\n" + 
-					"	id INT PRIMARY KEY,\n" + 
-					"	nom VARCHAR(30),\n" + 
-					"	biographie VARCHAR(10000),\n" + 
-					"	type VARCHAR(10));");
-			
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Album(\n" + 
-					"	id INT PRIMARY KEY,\n" + 
-					"	nom VARCHAR(150),\n" + 
-					"	date VARCHAR(10),\n" + 
-					"	idArtiste INT,\n" + 
-					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
-			
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Chanson(\n" + 
-					"	id INT PRIMARY KEY,\n" + 
-					"	titre VARCHAR(150),\n" + 
-					"	duree INT,\n" + 
-					"	idAlbum INT,\n" + 
-					"	FOREIGN KEY fk_artiste(idAlbum) REFERENCES Album(id));");
-			
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Film(\n" + 
-					"	id INT PRIMARY KEY,\n" + 
-					"	titre VARCHAR(30),\n" + 
-					"	annee INT);");
-			
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Spectacle(\n" + 
-					"	id INT PRIMARY KEY,\n" + 
-					"	titre VARCHAR(30),\n" + 
-					"	annee INT,\n" + 
-					"	spectateurs INT);");
-			
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS JouerFilm(\n" + 
-					"	idFilm INT,\n" + 
-					"	idArtiste INT,\n" + 
-					"	CONSTRAINT pk_JouerFilm PRIMARY KEY (idFilm, idArtiste),\n" + 
-					"	FOREIGN KEY fk_film(idFilm) REFERENCES Film(id),\n" + 
-					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
-			
-			stat.executeUpdate("CREATE TABLE IF NOT EXISTS JouerSpectacle(\n" + 
-					"	idSpectacle INT,\n" + 
-					"	idArtiste INT,\n" + 
-					"	CONSTRAINT pk_JouerFilm PRIMARY KEY (idSpectacle, idArtiste),\n" + 
-					"	FOREIGN KEY fk_spectacle(idSpectacle) REFERENCES Spectacle(id),\n" + 
-					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
-			
+				System.out.println("Connexion effective !");
+				Statement stat = conn.createStatement();
+				stat.executeUpdate("CREATE TABLE IF NOT EXISTS Artiste(\n" + 
+						"	id INT PRIMARY KEY,\n" + 
+						"	nom VARCHAR(30),\n" + 
+						"	biographie VARCHAR(10000),\n" + 
+						"	type VARCHAR(10));");
+				
+				stat.executeUpdate("CREATE TABLE IF NOT EXISTS Album(\n" + 
+						"	id INT PRIMARY KEY,\n" + 
+						"	nom VARCHAR(150),\n" + 
+						"	date VARCHAR(10),\n" + 
+						"	idArtiste INT,\n" + 
+						"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
+				
+				stat.executeUpdate("CREATE TABLE IF NOT EXISTS Chanson(\n" + 
+						"	id INT PRIMARY KEY,\n" + 
+						"	titre VARCHAR(150),\n" + 
+						"	duree INT,\n" + 
+						"	idAlbum INT,\n" + 
+						"	FOREIGN KEY fk_artiste(idAlbum) REFERENCES Album(id));");
+				
+				stat.executeUpdate("CREATE TABLE IF NOT EXISTS Film(\n" + 
+						"	id INT PRIMARY KEY,\n" + 
+						"	titre VARCHAR(30),\n" + 
+						"	annee INT);");
+				
+				stat.executeUpdate("CREATE TABLE IF NOT EXISTS Spectacle(\n" + 
+						"	id INT PRIMARY KEY,\n" + 
+						"	titre VARCHAR(30),\n" + 
+						"	annee INT,\n" + 
+						"	spectateurs INT);");
+				
+				stat.executeUpdate("CREATE TABLE IF NOT EXISTS JouerFilm(\n" + 
+						"	idFilm INT,\n" + 
+						"	idArtiste INT,\n" + 
+						"	CONSTRAINT pk_JouerFilm PRIMARY KEY (idFilm, idArtiste),\n" + 
+						"	FOREIGN KEY fk_film(idFilm) REFERENCES Film(id),\n" + 
+						"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
+				
+				stat.executeUpdate("CREATE TABLE IF NOT EXISTS JouerSpectacle(\n" + 
+						"	idSpectacle INT,\n" + 
+						"	idArtiste INT,\n" + 
+						"	CONSTRAINT pk_JouerFilm PRIMARY KEY (idSpectacle, idArtiste),\n" + 
+						"	FOREIGN KEY fk_spectacle(idSpectacle) REFERENCES Spectacle(id),\n" + 
+						"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
+			}
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

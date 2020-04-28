@@ -44,23 +44,25 @@ public class Initialisation {
 			
 				/**
 				 *Connexion avec root car c'est qu'avec lui qu'on peut creer un utilisateur
+				 *l'utilisation du try comme ça permet de fermer la connection automatiquement
 				 **/
 				
-			Connection conn = DriverManager.getConnection(url, "root", passwrdRoot);
-			System.out.println("Connexion effective !");
+			try(Connection conn = DriverManager.getConnection(url, "root", passwrdRoot)){
+				System.out.println("Connexion effective !");
 			
-			/**
-			 *Permet de faire des requetes qui changent la bdd, mais ne donne pas de resultat.
-			 **/
-			
-			Statement stat = conn.createStatement();
-			stat.executeUpdate("CREATE USER IF NOT EXISTS '"+ userACreer +"'@'localhost' IDENTIFIED BY '" + passwrdAssocie + "'");
-			stat.executeUpdate("GRANT ALL PRIVILEGES ON *.* TO '" + userACreer + "'@'localhost'");
-			stat.executeUpdate("CREATE DATABASE IF NOT EXISTS Artistak");
-			
-			/**
-			 *En cas d'erreur, on fzaitr apparaitre la fenetre, mais on garde l'erreur en console avecle e.trace
-			 **/
+				/**
+				 *Permet de faire des requetes qui changent la bdd, mais ne donne pas de resultat.
+				 **/
+				
+				Statement stat = conn.createStatement();
+				stat.executeUpdate("CREATE USER IF NOT EXISTS '"+ userACreer +"'@'localhost' IDENTIFIED BY '" + passwrdAssocie + "'");
+				stat.executeUpdate("GRANT ALL PRIVILEGES ON *.* TO '" + userACreer + "'@'localhost'");
+				stat.executeUpdate("CREATE DATABASE IF NOT EXISTS Artistak");
+				
+				/**
+				 *En cas d'erreur, on fzaitr apparaitre la fenetre, mais on garde l'erreur en console avecle e.trace
+				 **/
+			}
 			
 			}catch (ClassNotFoundException | SQLException e) {
 				JOptionPane.showInternalMessageDialog(CreerCompte.getInstance(), "Mauvais mot de passe root", "Erreur",
@@ -81,11 +83,12 @@ public class Initialisation {
 	public boolean creerBDD(String user, String passwd) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(url, user, passwd);
-			Statement stat = conn.createStatement();
-			stat.executeUpdate("CREATE DATABASE IF NOT EXISTS Artistak");
-			SQLScript.remplissageDeBDD(user, passwd);
-			return true;
+			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+				Statement stat = conn.createStatement();
+				stat.executeUpdate("CREATE DATABASE IF NOT EXISTS Artistak");
+				SQLScript.remplissageDeBDD(user, passwd);
+				return true;
+			}
 		} catch (Exception e) {
 			JOptionPane.showInternalMessageDialog(CreerCompte.getInstance(), "Mauvais mot de passe ou utilisateur SQL", "Erreur",
 					JOptionPane.WARNING_MESSAGE);
