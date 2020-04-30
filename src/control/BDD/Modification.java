@@ -25,42 +25,43 @@ public class Modification {
 		return instance;
 	}
 
-	//Permet d'éviter les attaques par injections et en d'autre termes d'éviter que ça plante quand y a des '. 
-	
+	// Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
+	// ça plante quand y a des '.
+
 	public void insererArtiste(int id, String nom, String bio, String type) {
-
-			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-
-				try(Connection conn = DriverManager.getConnection(url, user, passwd)){
-					System.out.println("Insertion artiste");
-					String requeteSQL = "INSERT INTO Artiste VALUES(" + id + ",?,?,'" + type + "')";
-					
-					try(PreparedStatement stat = conn.prepareStatement(requeteSQL)){
-						stat.setString(1, nom);			//On remplace le premier ? par le nom ici ça commence à 1 et pas 0
-						stat.setString(2, bio);
-						stat.executeUpdate();
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
+				System.out.println("Insertion artiste");
+				String requeteSQL = "INSERT INTO Artiste VALUES(" + id + ",?,?,'" + type + "')";
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, nom); // On remplace le premier ? par le nom ici ça commence à 1 et pas 0
+					stat.setString(2, bio);
+					stat.executeUpdate();
 				}
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void insererAlbum(int id, String nom, String date, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion album");
-				Statement stat = conn.createStatement();
-				stat.executeUpdate("INSERT INTO Album VALUES(" + id + ",'" + nom + "','" + date + "'," + idArtiste + ")");
+				String requeteSQL = "INSERT INTO Album VALUES(" + id + ",?,'" + date + "'," + idArtiste + ")";
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, nom);
+					stat.executeUpdate();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -68,25 +69,36 @@ public class Modification {
 	public void insererChanson(int id, String titre, int duree, int idAlbum) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion chanson");
-				Statement stat = conn.createStatement();
-				stat.executeUpdate("INSERT INTO Chanson VALUES(" + id + ",'" + titre + "'," + duree + "," + idAlbum + ")");
+				String requeteSQL = "INSERT INTO Chanson VALUES(" + id + ",?," + duree + "," + idAlbum + ")";
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, titre);
+					stat.executeUpdate();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+			
 	}
 
 	public void insererFilm(int id, String titre, int annee) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion film");
-				Statement stat = conn.createStatement();
-				stat.executeUpdate("INSERT INTO Film VALUES(" + id + ",'" + titre + "'," + annee + ")");
+				String requeteSQL = "INSERT INTO Film VALUES(" + id + ",?," + annee + ")";
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, titre);
+					stat.executeUpdate();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -94,12 +106,17 @@ public class Modification {
 	public void insererSpectacle(int id, String titre, int annee, int spectateurs) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion spectacle");
-				Statement stat = conn.createStatement();
-				stat.executeUpdate("INSERT INTO Spectacle VALUES(" + id + ",'" + titre + "'," + annee + "," + spectateurs + ")");
+				String requeteSQL = "INSERT INTO Spectacle VALUES(" + id + ",?," + annee + "," + spectateurs + ")";
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, titre);
+					stat.executeUpdate();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -107,7 +124,7 @@ public class Modification {
 	public void insererJouerFilm(int idFilm, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion lien film acteur");
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("INSERT INTO JouerFilm VALUES(" + idFilm + "," + idArtiste + ")");
@@ -120,7 +137,7 @@ public class Modification {
 	public void insererJouerSpectacle(int idSpectacle, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion lien spectacle acteur");
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("INSERT INTO JouerSpectacle VALUES(" + idSpectacle + "," + idArtiste + ")");
@@ -133,10 +150,11 @@ public class Modification {
 	public void supprimerArtiste(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Suppression artiste");
 				Statement stat = conn.createStatement();
-				stat.executeUpdate("DELETE FROM Chanson WHERE idAlbum IN(SELECT id FROM Album WHERE idArtiste=" + id + ")");
+				stat.executeUpdate(
+						"DELETE FROM Chanson WHERE idAlbum IN(SELECT id FROM Album WHERE idArtiste=" + id + ")");
 				stat.executeUpdate("DELETE FROM Album WHERE idArtiste=" + id);
 				stat.executeUpdate("DELETE FROM JouerFilm WHERE idArtiste=" + id);
 				stat.executeUpdate("DELETE FROM JouerSpectacle WHERE idArtiste=" + id);
@@ -150,7 +168,7 @@ public class Modification {
 	public void supprimerAlbum(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Suppression album");
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("DELETE FROM Chanson WHERE idAlbum=" + id);
@@ -164,7 +182,7 @@ public class Modification {
 	public void supprimerChanson(String titre) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Suppression chanson");
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("DELETE FROM Chanson WHERE titre=" + titre);
@@ -177,7 +195,7 @@ public class Modification {
 	public void supprimerFilm(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Suppression film");
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("DELETE FROM Film WHERE id=" + id);
@@ -191,7 +209,7 @@ public class Modification {
 	public void supprimerSpectacle(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Suppression spectacle");
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("DELETE FROM Spectacle WHERE id=" + id);
@@ -205,14 +223,24 @@ public class Modification {
 	public void modifierArtiste(int id, String nom, String bio, String type) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Modification artiste");
+				String requeteSQL = "UPDATE Artiste SET nom=? WHERE id=" + id;
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, nom);
+					stat.executeUpdate();
+				}
+				requeteSQL = "UPDATE Artiste SET bio=? WHERE id=" + id;
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, bio);
+					stat.executeUpdate();
+				}
 				Statement stat = conn.createStatement();
-				stat.executeUpdate("UPDATE Artiste SET nom='" + nom + "' WHERE id=" + id);
-				stat.executeUpdate("UPDATE Artiste SET bio='" + bio + "' WHERE id=" + id);
 				stat.executeUpdate("UPDATE Artiste SET type='" + type + "' WHERE id=" + id);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -220,14 +248,20 @@ public class Modification {
 	public void modifierAlbum(int id, String nom, String date, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Modification album");
+				String requeteSQL = "UPDATE Album SET nom=? WHERE id=" + id;
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, nom);
+					stat.executeUpdate();
+				}
 				Statement stat = conn.createStatement();
-				stat.executeUpdate("UPDATE Album SET nom='" + nom + "' WHERE id=" + id);
 				stat.executeUpdate("UPDATE Album SET date='" + date + "' WHERE id=" + id);
 				stat.executeUpdate("UPDATE Album SET idArtiste=" + idArtiste + " WHERE id=" + id);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -235,43 +269,55 @@ public class Modification {
 	public void modifierChanson(int id, String titre, int duree, int idAlbum) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
+				System.out.println("Modification chanson");
+				String requeteSQL = "UPDATE Chanson SET titre=? WHERE id=" + id;
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, titre);
+					stat.executeUpdate();
+				}
+				Statement stat = conn.createStatement();
+				stat.executeUpdate("UPDATE Chanson SET duree=" + duree + " WHERE id=" + id);
+				stat.executeUpdate("UPDATE Chanson SET idAlbum=" + idAlbum + " WHERE id=" + id);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void modifierChansonID(int id, int idAlbum) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Modification chanson");
 				Statement stat = conn.createStatement();
-				stat.executeUpdate("UPDATE Chanson SET titre='" + titre + "' WHERE id=" + id);
-				stat.executeUpdate("UPDATE Chanson SET duree=" + duree + " WHERE id=" + id);
 				stat.executeUpdate("UPDATE Chanson SET idAlbum=" + idAlbum + " WHERE id=" + id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void modifierChansonID(int id, int idAlbum) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try(Connection conn = DriverManager.getConnection(url, user, passwd)){
-	            System.out.println("Modification chanson");
-	            Statement stat = conn.createStatement();
-	            stat.executeUpdate("UPDATE Chanson SET idAlbum=" + idAlbum + " WHERE id=" + id);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 	public void modifierFilm(int id, String titre, int annee, int idFilm, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Modification film");
+				String requeteSQL = "UPDATE Film SET titre=? WHERE id=" + id;
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, titre);
+					stat.executeUpdate();
+				}
 				Statement stat = conn.createStatement();
-				stat.executeUpdate("UPDATE Film SET titre='" + titre + "' WHERE id=" + id);
 				stat.executeUpdate("UPDATE Film SET annee=" + annee + " WHERE id=" + id);
 				stat.executeUpdate("UPDATE Film SET idFilm=" + idFilm + " WHERE id=" + id);
 				stat.executeUpdate("UPDATE Film SET idArtiste=" + idArtiste + " WHERE id=" + id);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -279,16 +325,22 @@ public class Modification {
 	public void modifierSpectacle(int id, String titre, int annee, int spectateurs, int idSpectacle, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			try(Connection conn = DriverManager.getConnection(url, user, passwd)){
+			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Modification spectacle");
+				String requeteSQL = "UPDATE Spectacle SET titre=? WHERE id=" + id;
+				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
+					stat.setString(1, titre);
+					stat.executeUpdate();
+				}
 				Statement stat = conn.createStatement();
-				stat.executeUpdate("UPDATE Spectacle SET titre='" + titre + "' WHERE id=" + id);
 				stat.executeUpdate("UPDATE Spectacle SET annee=" + annee + " WHERE id=" + id);
 				stat.executeUpdate("UPDATE Spectacle SET spectateurs=" + spectateurs + " WHERE id=" + id);
 				stat.executeUpdate("UPDATE Spectacle SET idSpectacle=" + idSpectacle + " WHERE id=" + id);
 				stat.executeUpdate("UPDATE Spectacle SET idArtiste=" + idArtiste + " WHERE id=" + id);
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
