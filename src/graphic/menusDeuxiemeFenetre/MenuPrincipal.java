@@ -20,6 +20,7 @@ import javax.swing.JTabbedPane;
 import control.BDD.Modification;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
+import graphic.fenetre.FenetreParametre;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 import graphic.menusParametreFenetre.MenuAjoutAlbum;
@@ -43,8 +44,7 @@ public class MenuPrincipal extends JTabbedPane{
 		update();
 	}
 	
-	/**
-	 **/
+	
 	private JPanel constructionDuMenuPrincipal() {
 		
 		/**
@@ -87,12 +87,19 @@ public class MenuPrincipal extends JTabbedPane{
 		JLabel maPhoto = new JLabel(monImage);
 		maPhoto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		JPopupMenu maPopup = new JPopupMenu();
+		JMenuItem description = new JMenuItem("Description");
 		JMenuItem supprimer = new JMenuItem("Supprimer");
 		JMenuItem contacter = new JMenuItem("Contacter");
 		supprimer.addActionListener((event)->supprimerArtiste(artiste));//CHAQUE LISTENER EST ASSOCIÉ A UN ARTISTE
 		contacter.addActionListener((event)->contacterArtiste(artiste));
+		description.addActionListener((event)->{
+			MenuProfilDescription.getInstance(login).setArtiste(artiste);
+			FenetreParametre.getInstance(login).ajoutParametre();
+			});
+		maPopup.add(description);
 		maPopup.add(supprimer);
 		maPopup.add(contacter);
+		
 		maPhoto.setComponentPopupMenu(maPopup);
 				
 		

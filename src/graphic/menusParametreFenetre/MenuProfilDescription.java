@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,13 +20,16 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreParametre;
+import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
 
 /**
@@ -68,6 +72,11 @@ public class MenuProfilDescription extends JPanel{
 	 **/
 	
 	private JTextArea zoneEdition;
+	
+	
+	private JTextField entreNouveauNom;
+	
+	private JTextField entreNouvelleAdresse;
 	
 	/**Permet d'indentifier l'utilisateur grâce à son login.
 	 *A partir du login on obtient le mot de passe, l'e-mail et le talent de l'utilisateur
@@ -357,6 +366,21 @@ public class MenuProfilDescription extends JPanel{
     
     private void passerEnModeEdition() { 
     	JPanel edition = new JPanel(new BorderLayout());
+    	JPanel etiquette = new JPanel(new GridLayout(2, 2, 10, 0));
+    	JLabel nomArtiste = new JLabel("Nouveau nom");
+    	JLabel nouvelleAdresse = new JLabel("Nouvelle adresse mail");
+    	
+    	nomArtiste.setHorizontalAlignment(JLabel.CENTER);
+    	nouvelleAdresse.setHorizontalAlignment(JLabel.CENTER);
+    	
+    	entreNouveauNom = new JTextField("Nom artiste");
+    	entreNouvelleAdresse = new JTextField("Nouvelle adresse");
+    	
+    	etiquette.add(nomArtiste);
+    	etiquette.add(entreNouveauNom);
+    	etiquette.add(nouvelleAdresse);
+    	etiquette.add(entreNouvelleAdresse);
+    	
     	zoneEdition = new JTextArea(description);
     	
     	/**
@@ -371,6 +395,7 @@ public class MenuProfilDescription extends JPanel{
     	
     	JButton valider = new JButton("Valider");
     	valider.addActionListener((event)->validationEdition());
+    	edition.add(etiquette, BorderLayout.NORTH);
     	edition.add(zoneEdition, BorderLayout.CENTER);
     	edition.add(valider, BorderLayout.SOUTH);
     	this.add(edition);
@@ -386,6 +411,15 @@ public class MenuProfilDescription extends JPanel{
      **/
     
     private void validationEdition() {
+    	if(!entreNouveauNom.getText().equals("Nouveau nom")) {
+    		artiste.setNom(entreNouveauNom.getText());
+    		personnesDejaInscrite.getInstance().sauvegarder();
+    		MenuPrincipal.getInstance(login).update();
+    	} else if(!entreNouvelleAdresse.getText().equals("Nouvelle adresse")) {
+    		artiste.setAdresseMail(entreNouvelleAdresse.getText());
+    		personnesDejaInscrite.getInstance().sauvegarder();
+    		MenuPrincipal.getInstance(login).update();
+    	}
     	personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).setDescription(zoneEdition.getText());
     	description = zoneEdition.getText();
     	personnesDejaInscrite.getInstance().sauvegarder();
