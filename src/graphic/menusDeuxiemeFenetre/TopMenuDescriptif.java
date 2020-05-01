@@ -15,6 +15,7 @@ import javax.swing.filechooser.FileSystemView;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
+import graphic.fenetre.FenetreParametre;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 
@@ -112,10 +113,8 @@ public class TopMenuDescriptif extends JMenuBar{
 	
 	private JMenu baseDeDonneMenu() {
 		JMenu baseDeDonne = new JMenu("Base de données");
-		JMenuItem modifierLaBDD = new JMenuItem("Remplir à partir d'un csv");
-		JMenuItem paramBDD = new JMenuItem("Paramètres");
 		
-		modifierLaBDD.addActionListener(e -> copieEtRemplissage());
+		
 		/**
 		 *Petits separateur entre items
 		 **/
@@ -123,9 +122,9 @@ public class TopMenuDescriptif extends JMenuBar{
 		baseDeDonne.add(MenuRaccourcis.getInstance(login).actAjoutArtiste);
 		
 		baseDeDonne.addSeparator();
-		baseDeDonne.add(modifierLaBDD);
+		baseDeDonne.add(MenuRaccourcis.getInstance(login).actRemplirParUnCSV);
 		baseDeDonne.addSeparator();
-		baseDeDonne.add(paramBDD);
+		baseDeDonne.add(MenuRaccourcis.getInstance(login).actRemplirParUneBDD);
 		baseDeDonne.addSeparator();
 		baseDeDonne.add(MenuRaccourcis.getInstance(login).actDeco);
 		
@@ -168,7 +167,7 @@ public class TopMenuDescriptif extends JMenuBar{
 		this.artiste = artiste;
 	}
 
-	private void copieEtRemplissage() {
+	public void copieEtRemplissage() {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		int returnValue = jfc.showOpenDialog(null);
 		File selectedFile;
@@ -178,7 +177,7 @@ public class TopMenuDescriptif extends JMenuBar{
 		}
 	}
 
-	public static boolean copier(File source, File dest) { 
+	private static boolean copier(File source, File dest) { 
 	    try (InputStream sourceFile = new java.io.FileInputStream(source);  
 	            OutputStream destinationFile = new FileOutputStream(dest)) { 
 	        // Lecture par segment de 0.5Mo  

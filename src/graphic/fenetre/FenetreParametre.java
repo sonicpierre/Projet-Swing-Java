@@ -4,11 +4,15 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import control.activite.Album;
+import control.activite.Titre;
+import control.personne.Artiste;
 import graphic.menusParametreFenetre.MenuAjoutAlbum;
 import graphic.menusParametreFenetre.MenuAjoutArtiste;
 import graphic.menusParametreFenetre.MenuAjoutMusique;
 import graphic.menusParametreFenetre.MenuAjoutRepresentation;
 import graphic.menusParametreFenetre.MenuFinalParametre;
+import graphic.menusParametreFenetre.MenuRenommer;
 
 
 //
@@ -26,6 +30,7 @@ public class FenetreParametre extends JFrame{
 	private final static Dimension dimChoixRepresentation = new Dimension(500,500);//DIMENSION FEN CHOIX MUSIQUE
 	private final static Dimension dimParametre = new Dimension(600,500);//DIM FEN PARAM
 	private final static Dimension dimAjoutArtiste = new Dimension(450,400);//DIMENSION FEN CHOIX ALBUM
+	private final static Dimension dimRenommer = new Dimension(350,70);//DIMENSION DE LA FENETRE POUR RENOMMER
 	
 	private String login;//CLÉ VERS UTILISATEUR
 	
@@ -87,6 +92,17 @@ public class FenetreParametre extends JFrame{
 		this.getContentPane().add(MenuAjoutRepresentation.getInstance(login));//LECTURE CONTENU + AJOUT DU MENU CORRESPONDZNT À L'AJOUT ALBUM
 		setVisible(true);//VISIBLITE DELA FEN
 	}
+	
+	public void ajoutRenommageFenetre(String titre, String texLabel, String textField, Album album, Artiste artiste, Titre musique) {
+		dispose();//ON REND LA FEN INVISIBLE
+		this.setTitle(titre);
+		this.getContentPane().removeAll();//SUPPRESSION CONTENU
+		this.getContentPane().add(MenuRenommer.getInstance(login, texLabel, textField, album, artiste, musique));
+		setSize(dimRenommer);//REDIMENSION
+		
+		setVisible(true);//VISIBLITE DELA FEN
+	}
+	
 	
 	public static FenetreParametre getInstance(String login) {
 		if (instance == null)

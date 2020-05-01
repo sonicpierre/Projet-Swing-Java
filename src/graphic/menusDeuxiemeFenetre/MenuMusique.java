@@ -28,6 +28,7 @@ import control.activite.Album;
 import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
+import graphic.fenetre.FenetreParametre;
 
 //
 @SuppressWarnings("serial")
@@ -234,8 +235,10 @@ public class MenuMusique extends JPanel{
 	private JPopupMenu createPopupMenu(Album albumAssocie) {
 		JPopupMenu monPopUp = new JPopupMenu();
 		if(artiste!=null) {
+			JMenuItem renommer = new JMenuItem("Renommer");
+			renommer.addActionListener(e -> renommerAlbum());
 			monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actSuppressionAlbum);
-			monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actRenommer);
+			monPopUp.add(renommer);
 			monPopUp.add(MenuRaccourcis.getInstance(login, artiste).actChangerImage);
 		}
 		return monPopUp;
@@ -259,8 +262,7 @@ public class MenuMusique extends JPanel{
 	public void renommerAlbum() {
 		for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums())
 			if(monAlbum.isSelected()) {
-				monAlbum.setTitre("Momo va aux moules");
-				personnesDejaInscrite.getInstance().sauvegarder();
+				FenetreParametre.getInstance(login).ajoutRenommageFenetre("Renommer Album", "Renommer Album", "Titre Album", monAlbum, artiste, null);
 				break;
 			}
 				

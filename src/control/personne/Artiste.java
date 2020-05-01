@@ -207,7 +207,7 @@ public class Artiste implements Serializable{
 		
 		return compteurFinal;
 	}
-
+	
 	public String getNom() {
 		return nom;
 	}
