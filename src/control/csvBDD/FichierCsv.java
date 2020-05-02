@@ -6,10 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
-
+import control.activite.*;
 
 public class FichierCsv {
 
@@ -60,7 +62,7 @@ public class FichierCsv {
 	 * */
 	
 	
-	public String[][] lireFichier(File fichier){
+	public List<String> fichierCsvList(File fichier){
 		List<String> lignes = new ArrayList<String>();
 		
 		//Sont égales à null car on ne sait pas si le fichier existe
@@ -79,39 +81,100 @@ public class FichierCsv {
 			fr.close();
 			
 		} catch (IOException e) { //Sinon, elle retourne une erreur
-			String[][] er ={{"Erreur de lecture"}};
-			return er;
+			e.printStackTrace();
 		}
-		
-		String[][] data = new String[lignes.size()-1][4];
-		
-		for (int i = 1; i<lignes.size();i++) { //On ne récupère pas le nom des colonnes
-			
-			int id1 = lignes.get(i).indexOf(",");
-			int id2 = lignes.get(i).indexOf(",", id1+1);
-			int id3 = lignes.get(i).indexOf(",", id2+1);
-			
-			data[i-1][0]=lignes.get(i).substring(0, id1);
-			data[i-1][1]=lignes.get(i).substring(id1+1, id2);
-			data[i-1][2]=lignes.get(i).substring(id2+1, id3);
-			data[i-1][3]=lignes.get(i).substring(id3+1,lignes.get(i).length() );
-			
-			
-		}
-		return data;
-		
+		return lignes;
 	}
 	
-	/* Exemple de main
-	 public static void main(String[] args) throws IOException { //IOException sera demandé pour fonctionner
-		// TODO Auto-generated method stub
-
-		FichierCsv c = new FichierCsv();
-		String[][] resultat;
-		resultat = c.lireFichier(c.getFichier("Bibliothèque/DataTestCSV/data.csv")); //Chemin fictif pour expliquer ou est le csv utilisé
-		System.out.println(resultat[11][1]);
+	
+	
+	
+	public String enregistrment(List<String> lignes){
+		
+		for (int i = 1; i<lignes.size();i++) { //On ne récupère pas le nom des colonnes (1ere ligne)
+	
+			//On récupère l'indice de toutes les virgules qui représentent le changement de cases pour couper la chaine de caractère par catégorie
+			List<Integer> idVirgule = new ArrayList<Integer>();
+			int id = lignes.get(i).indexOf(","); 
+			while (id != -1) { // Tant qu'il reste des virgules
+				idVirgule.add(id);
+				id = lignes.get(i).indexOf(",", id+1);
+			}
+			
+			
+			String[] Artistes = new String[4]; // On crée cet intermédiaire pour plus de lisibilité
+			System.out.println("Artiste "+i+" crée");
+			//On crée l'artiste
+			Artistes[0]=lignes.get(i).substring(0, idVirgule.get(0));
+			Artistes[1]=lignes.get(i).substring(idVirgule.get(0)+1, idVirgule.get(1));
+			Artistes[2]=lignes.get(i).substring(idVirgule.get(1)+1, idVirgule.get(2));
+			Artistes[3]=lignes.get(i).substring(idVirgule.get(2)+1,idVirgule.get(3));
+			Artiste artiste = new Artiste(Artistes[2], //Biblio
+					getChemin("Bibliothèque/DataTest Oeuvres/Artistes/"+Artistes[0]+".jpeg"), // chemin vers image = nom.jpeg 
+					Artistes[0], // Nom
+					Artistes[1], // Prenom
+					Artistes[1].substring(0, 1).toLowerCase() + "."+ Artistes[0].toLowerCase()+"@gmail.com", //adresse mail = p.nom@gmail.com
+					Artistes[3]); // Profession
+		
+			//On crée les oeuvres de l'artiste
+			
+			 int nbOeuvres = (idVirgule.size()-3)/6;
+			String[][] Oeuvres = new String[nbOeuvres][6]; // Idem que pour Artistes et pour différencier les albums
+			
+			for (int j = 0; j<nbOeuvres;j++) {
+				for (int k = 0; k<6 ;k++) {
+					if ( 6*j+4+k != 21) {
+						Oeuvres[j][k]=lignes.get(i).substring(idVirgule.get(6*j+3+k)+1,idVirgule.get(6*j+4+k));
+					} else {
+						Oeuvres[j][k]=lignes.get(i).substring(idVirgule.get(6*j+3+k)+1); //Dernière case, elle ne se termine pas par une virgule donc on ne donne que le début de la coupure
+					}
+				}
+			}
+			
+			// Répartitons des oeuvre en fonction de la profession de l'artiste
+			if (artiste.getType()=="Chanteur") {
+				
+				//On crée un set des différentes chansons
+				Set<Album> albums = new HashSet<Album>(); // Tous les albums de l'artiste
+				Set<Titre> chansons = new HashSet<Titre>(); // Toutes les chansons d'un album
+				int k = 0;
+				while (k!= nbOeuvres) {
+					String titre = Oeuvres[k][3]; //On supposera que les chansons d'un même album sont à la suite
+					while (Oeuvres[k][3]== titre && k!= nbOeuvres) { // on ajoute k!= nbOeuvres car k est incrémenter à chaque fois
+						double duree = (double) Float.valueOf(Oeuvres[k][4]);
+						Titre chanson = new Titre(Oeuvres[k][1], // Titre
+												duree, // Durée
+												getChemin("Bibliothèque/DataTest Oeuvres/Musiques/"+Oeuvres[k][1]+".mp3")); // Emplacement du fichier mp3 = nom de la chanson.mp3
+						// On regroupe ainsi toutes les chansons d'un même album
+						chansons.add(chanson);
+						k=k+1;
+					}
+					// On crée cet album
+					Album album = new Album(titre,chansons,"Bibliothèque/DataTest Oeuvres/Album/"+titre+".jpeg");
+					albums.add(album); // et on l'ajoute à la liste des albums aves la liste des chansons du bon album
+				}
+				artiste.setMaListeDeAlbums(albums);
+			} else { // l'artiste est un acteur ou un commédien
+				Set<Representation> representations = new HashSet<Representation>(); // Toutes les chansons d'un album
+				for (int k =0; k< nbOeuvres; k++) {
+					Representation rep = new Representation(Oeuvres[k][1], // Titre
+															Oeuvres[k][4], // Durée ?
+															getChemin("Bibliothèque/DataTest Oeuvres/Representations/"+Oeuvres[k][1]+".jpeg"), //Chemin vers image = titre.jpeg
+															Oeuvres[k][2], //Date
+															Oeuvres[k][0]); // Type -film ou comédie/spectacle
+				representations.add(rep);
+				}
+				artiste.setMaListeDeRepresentations(representations);
+				
+			}
+			
+		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(artiste.getNom()+" "+artiste.getPrenom()).getMaListeArtiste().add(artiste); // On suppose que le login c'est "Nom Prenom"
+		personnesDejaInscrite.getInstance().sauvegarder();
+		}
+		return "C'est bon";
 	}
-	 *
-	 * Doit retourner "Céline Dion"
-	 * */
+	
 }
+
+
+
