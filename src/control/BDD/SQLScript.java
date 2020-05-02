@@ -29,14 +29,14 @@ public class SQLScript {
 					"	type VARCHAR(10));");
 			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Album(\n" + 
-					"	id VARCHAR(100) PRIMARY KEY,\n" + 
+					"	id INT PRIMARY KEY,\n" + 
 					"	nom VARCHAR(30),\n" + 
 					"	date DATE,\n" + 
 					"	idArtiste INT,\n" + 
 					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
 			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Chanson(\n" + 
-					"	id VARCHAR(100) PRIMARY KEY,\n" + 
+					"	id INT PRIMARY KEY,\n" + 
 					"	titre VARCHAR(30),\n" + 
 					"	duree INT,\n" + 
 					"	idAlbum INT,\n" + 

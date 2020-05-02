@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import control.BDD.Modification;
 import control.activite.Representation;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
@@ -89,6 +90,10 @@ public class MenuRepresentation extends JPanel{
 	private void supprimerRepres(Artiste monArtiste, Representation maRepres) {
 		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(monArtiste).getMaListeDeRepresentations().remove(maRepres);
 		personnesDejaInscrite.getInstance().sauvegarder();
+		if(maRepres.getType().equals("Film"))
+			Modification.getInstance().supprimerFilm(maRepres.hashCode());
+		if(maRepres.getType().equals("Comedie"))
+			Modification.getInstance().supprimerSpectacle(maRepres.hashCode());
 		FenetreFond.getInstance().retourEtatInitial(login);
 	}
 	

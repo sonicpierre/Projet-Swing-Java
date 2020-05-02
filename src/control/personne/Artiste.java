@@ -81,6 +81,30 @@ public class Artiste implements Serializable{
 		this.cheminVersImage = CheminVersImage;
 		this.setDescription(description);
 	}
+	
+	
+	/**
+	 * Cette définition de artiste est spécialement pour le remplissage par copie de BDD ou par copie de csv
+	 * 
+	 * @param description
+	 * @param nom
+	 * @param prenom
+	 * @param type
+	 */
+	
+	public Artiste(String description, String nom, String prenom, String type) {
+		this.description = description;
+		this.setNom(nom);
+		this.setPrenom(prenom);
+		this.setAdresseMail("");
+		this.setType(type);
+		maListeDeRepresentations = new HashSet<Representation>();
+		maListeDeAlbums = new HashSet<Album>();
+		this.couleurDuFond = Color.BLACK;
+		this.couleurEcriture = Color.WHITE;
+		this.cheminVersImage = "ImageProfil/inconnu.jpg";
+		this.setDescription(description);
+	}
 
 	
 	/** Récupère la couleur de fond

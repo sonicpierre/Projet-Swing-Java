@@ -236,7 +236,7 @@ public class MenuRaccourcis {
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_C);
 			putValue (Action.SMALL_ICON, new ImageIcon("Icons/mail.png"));
 			putValue( Action.SHORT_DESCRIPTION, "Contacter artistes (CTRL+C)");
-			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK));
 		}
 
 		@Override
