@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -12,6 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.filechooser.FileSystemView;
 
+import control.csvBDD.FichierCsv;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
@@ -21,7 +23,7 @@ import graphic.fenetreEnvoieMail.MenuDeMail;
 
 
 //BARRE DE HAUT SELON LE TALENT DE L'UTILISATEUR
-//CE N'EST PA PRATIK DAVOIU UN BARR POUR CHAQ PEROSN => COMBINAISON DES PREFERENCES
+//CE N'EST PAS PRATIQUE DAVOIR UNE BARRE POUR CHAQUE PERSONNE => COMBINAISON DES PREFERENCES
 @SuppressWarnings("serial")
 public class TopMenuDescriptif extends JMenuBar{
 	
@@ -173,7 +175,12 @@ public class TopMenuDescriptif extends JMenuBar{
 		File selectedFile;
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    selectedFile = jfc.getSelectedFile();
-		    copier(selectedFile, new File("DataCSV/" + selectedFile.getName()));
+		    File f = new File("DataCSV/" + selectedFile.getName());
+		    copier(selectedFile, f);
+		    
+		    FichierCsv c = new FichierCsv(login);
+			List<String> resultat=c.fichierCsvList(f);
+			c.enregistrment(resultat);
 		}
 	}
 

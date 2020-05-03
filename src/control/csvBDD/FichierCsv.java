@@ -12,8 +12,26 @@ import java.util.Set;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import control.activite.*;
+import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;;
 
 public class FichierCsv {
+
+	private String login;
+	
+	public FichierCsv(String login) {
+		super();
+		this.login = login;
+	}
+	
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 
 	/*  la fonction permet d'obetnir le chemin absolue du fichier fileName:
 	 * 
@@ -21,8 +39,7 @@ public class FichierCsv {
 	 * 
 	 * En sortie, on a le chemin absolue
 	 * */
-	
-	
+
 	public String getChemin(String fileName) {
 		final File f = new File(""); //Fichier null pour avoir le chemin relatif de fichier.java en execution
 		final String cheminDossier = f.getAbsolutePath() + File.separator + fileName;
@@ -103,19 +120,19 @@ public class FichierCsv {
 			
 			
 			String[] Artistes = new String[4]; // On crée cet intermédiaire pour plus de lisibilité
-			System.out.println("Artiste "+i+" crée");
+			
 			//On crée l'artiste
 			Artistes[0]=lignes.get(i).substring(0, idVirgule.get(0));
 			Artistes[1]=lignes.get(i).substring(idVirgule.get(0)+1, idVirgule.get(1));
 			Artistes[2]=lignes.get(i).substring(idVirgule.get(1)+1, idVirgule.get(2));
 			Artistes[3]=lignes.get(i).substring(idVirgule.get(2)+1,idVirgule.get(3));
 			Artiste artiste = new Artiste(Artistes[2], //Biblio
-					getChemin("Bibliothèque/DataTest Oeuvres/Artistes/"+Artistes[0]+".jpeg"), // chemin vers image = nom.jpeg 
+					getChemin("Artistes/"+Artistes[0]+".jpeg"), // chemin vers image = nom.jpeg 
 					Artistes[0], // Nom
 					Artistes[1], // Prenom
 					Artistes[1].substring(0, 1).toLowerCase() + "."+ Artistes[0].toLowerCase()+"@gmail.com", //adresse mail = p.nom@gmail.com
 					Artistes[3]); // Profession
-		
+
 			//On crée les oeuvres de l'artiste
 			
 			 int nbOeuvres = (idVirgule.size()-3)/6;
@@ -144,31 +161,32 @@ public class FichierCsv {
 						double duree = (double) Float.valueOf(Oeuvres[k][4]);
 						Titre chanson = new Titre(Oeuvres[k][1], // Titre
 												duree, // Durée
-												getChemin("Bibliothèque/DataTest Oeuvres/Musiques/"+Oeuvres[k][1]+".mp3")); // Emplacement du fichier mp3 = nom de la chanson.mp3
+												getChemin("Musiques/"+Oeuvres[k][1]+".mp3")); // Emplacement du fichier mp3 = nom de la chanson.mp3
 						// On regroupe ainsi toutes les chansons d'un même album
 						chansons.add(chanson);
 						k=k+1;
 					}
 					// On crée cet album
-					Album album = new Album(titre,chansons,"Bibliothèque/DataTest Oeuvres/Album/"+titre+".jpeg");
+					Album album = new Album(titre,chansons,"Album/"+titre+".jpeg");
 					albums.add(album); // et on l'ajoute à la liste des albums aves la liste des chansons du bon album
 				}
 				artiste.setMaListeDeAlbums(albums);
+				
 			} else { // l'artiste est un acteur ou un commédien
 				Set<Representation> representations = new HashSet<Representation>(); // Toutes les chansons d'un album
 				for (int k =0; k< nbOeuvres; k++) {
 					Representation rep = new Representation(Oeuvres[k][1], // Titre
 															Oeuvres[k][4], // Durée ?
-															getChemin("Bibliothèque/DataTest Oeuvres/Representations/"+Oeuvres[k][1]+".jpeg"), //Chemin vers image = titre.jpeg
+															getChemin("Representations/"+Oeuvres[k][1]+".jpeg"), //Chemin vers image = titre.jpeg
 															Oeuvres[k][2], //Date
 															Oeuvres[k][0]); // Type -film ou comédie/spectacle
 				representations.add(rep);
 				}
 				artiste.setMaListeDeRepresentations(representations);
 				
+				
 			}
-			
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(artiste.getNom()+" "+artiste.getPrenom()).getMaListeArtiste().add(artiste); // On suppose que le login c'est "Nom Prenom"
+		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(artiste); // On suppose que le login c'est "Nom Prenom"
 		personnesDejaInscrite.getInstance().sauvegarder();
 		}
 		return "C'est bon";
