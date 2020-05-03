@@ -12,6 +12,7 @@ import java.util.Set;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import control.activite.*;
+import graphic.fenetre.FenetreFond;
 import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;;
 
 public class FichierCsv {
@@ -189,6 +190,7 @@ public class FichierCsv {
 		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(artiste); // On suppose que le login c'est "Nom Prenom"
 		personnesDejaInscrite.getInstance().sauvegarder();
 		}
+		FenetreFond.getInstance().retourEtatInitial(login);
 		return "C'est bon";
 	}
 	

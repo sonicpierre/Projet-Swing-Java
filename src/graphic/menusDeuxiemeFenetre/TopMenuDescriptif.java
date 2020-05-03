@@ -175,6 +175,7 @@ public class TopMenuDescriptif extends JMenuBar{
 		File selectedFile;
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    selectedFile = jfc.getSelectedFile();
+<<<<<<< HEAD
 		    File f = new File("Bibliothèque/" + selectedFile.getName());
 		    try {
 				copy(selectedFile, f);
@@ -182,9 +183,14 @@ public class TopMenuDescriptif extends JMenuBar{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+=======
+		    //Le fichier selectionner doit être un dossier avec les data et les images/musiques
+		    File f = new File("DataCSV/" + selectedFile.getName());
+		    copier(selectedFile, f);
+>>>>>>> branch 'master' of https://github.com/sonicpierre/Projet_Java_ING1_S2.git
 		    
 		    FichierCsv c = new FichierCsv(login);
-			List<String> resultat=c.fichierCsvList(f);
+			List<String> resultat=c.fichierCsvList(c.getFichier(f.getName()+"/data.csv"));
 			c.enregistrment(resultat);
 		}
 	}
