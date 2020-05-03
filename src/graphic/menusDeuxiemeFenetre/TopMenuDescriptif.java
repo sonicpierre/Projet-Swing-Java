@@ -185,7 +185,7 @@ public class TopMenuDescriptif extends JMenuBar{
 			}
 		    
 		    FichierCsv c = new FichierCsv(login);
-			List<String> resultat=c.fichierCsvList(c.getFichier(f.getName()+"/data.csv"));
+			List<String> resultat=c.fichierCsvList(c.getFichier("Bibliothèque/" +f.getName()+"/data.csv"));
 			c.enregistrment(resultat);
 		}
 	}
