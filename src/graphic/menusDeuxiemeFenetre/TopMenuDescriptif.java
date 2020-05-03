@@ -175,11 +175,12 @@ public class TopMenuDescriptif extends JMenuBar{
 		File selectedFile;
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    selectedFile = jfc.getSelectedFile();
+		    //Le fichier selectionner doit être un dossier avec les data et les images/musiques
 		    File f = new File("DataCSV/" + selectedFile.getName());
 		    copier(selectedFile, f);
 		    
 		    FichierCsv c = new FichierCsv(login);
-			List<String> resultat=c.fichierCsvList(f);
+			List<String> resultat=c.fichierCsvList(c.getFichier(f.getName()+"/data.csv"));
 			c.enregistrment(resultat);
 		}
 	}
