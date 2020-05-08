@@ -77,8 +77,9 @@ public class FenetreFond extends JFrame {
 			//On définit le BorderLayout pour organiser les différents panels
 			JPanel intermediaire = new JPanel(new BorderLayout());
 			intermediaire.add(TopMenuDescriptif.getInstance(login));
-			//On met ici la barre de menu en haut pour naviger dans l'applie
+			//On met ici la barre de menu en haut pour donner les différentes actions possibles.
 			this.add(intermediaire, BorderLayout.NORTH);
+			//On ajoute 
 			this.add(MenuPrincipal.getInstance(login), BorderLayout.CENTER);
 			setResizable(true);
 			setVisible(true);
