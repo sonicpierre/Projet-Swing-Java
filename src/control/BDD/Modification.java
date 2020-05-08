@@ -24,9 +24,13 @@ public class Modification {
 			instance = new Modification();
 		return instance;
 	}
+	
+	/**
+	 * 	Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
+	 	ça plante quand y a des '.
+	 * 
+	 */
 
-	// Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
-	// ça plante quand y a des '.
 
 	public void insererArtiste(int id, String nom, String bio, String type) {
 		try {

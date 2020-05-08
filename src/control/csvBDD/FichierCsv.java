@@ -5,15 +5,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import control.activite.Album;
+import control.activite.Representation;
+import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
-import control.activite.*;
-import graphic.fenetre.FenetreFond;
-import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;;
+import graphic.fenetre.FenetreFond;;
 
 public class FichierCsv {
 

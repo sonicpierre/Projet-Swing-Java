@@ -6,43 +6,70 @@ import javax.swing.JFrame;
 
 import graphic.menusDepart.MenuDemmarrage;
 
-@SuppressWarnings("serial")
-public class FenetreLogin extends JFrame {// LE CONSTRUCTEUR N'EST ACCESSIBLE QUE DE L'INTERIEUR => CREATION OBJET A
-											// PARTIR DE GET INSTANCE
+/**
+ * La classe <b>FentreLogin</b> permet de générer la fenêtre permettant de se login et de créer un utilisateur SQL.
+ * 
+ * @author Pierre VIRGAUX
+ * @version 2.0
+ * 
+ **/
 
-	// On ajoute la partie principale
+@SuppressWarnings("serial")
+public class FenetreLogin extends JFrame {
 
 	private static FenetreLogin instance;
-
-	// On a pas la même dimension pour la fenêtre de menu de login et de création
-
+	
+	/**
+	 * {@value #dimLogin} est la dimension de la fenêtre pour se login
+	 * {@value #dimCreationMenu} est la dimension de la fenêtre pour créer un utilisateur SQL
+	 */
 	private static final Dimension dimLogin = new Dimension(400, 200);
 	private static final Dimension dimCreationMenu = new Dimension(400, 350);
 
+	/**
+	 * Ici il s'agit du constructeur qui permet d'afficher la fenêtre de login et de création de mot de passe mais aussi la fenêtre de fond.
+	 * On initialise tout les paramètres qui ne changeront pas forcément par la suite.
+	 * @see MenuDemmarrage
+	 */
+	
 	private FenetreLogin() {
+		//On lance la fenêtre de fond en même temps pour avoir l'image en fond.
 		FenetreFond.getInstance();
+		//On définit le titre de la fenêtre
 		this.setTitle("Connexion");
 		setSize(dimLogin);
+		//Certe la fenêtre Login se fermera en appuyant sur la croix mais le programme tout entier s'arrêtera avec la fenêtre de fond associé.
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		getContentPane().add(new MenuDemmarrage().getMesOnglets());// AVOIR L'INTÉRIEUR DE LA FENETRE VU QU'IL EST VIDE
-																	// ET ON Y AJOUTE QUELQUE CHOSE DE CENTRÉ
+		//On ajoute ici le menu avec les 2 onglets celui pour se connecter et celui pour la création de compte SQL
+		getContentPane().add(new MenuDemmarrage().getMesOnglets());
 		setVisible(true);
 		setResizable(false);
 	}
 
+	/**
+	 * Permet de switcher d'une fenêtre à l'autre en fonction de si on veut se login ou si on veut créer un compte.
+	 */
 	public void changerLadim() {
-
-		if (this.getSize().equals(dimLogin)) {// CONDITION DE TAILLE UNIQUEMENT LORS DU CHANGEMENT D'ONGLET
-			this.setTitle("Créer un compte");// CHANGEMENT DU NOM
+		//Permet de savoir à quelle dimension on est et par conséquent savoir aussi sur quelle fenêtre on est.
+		if (this.getSize().equals(dimLogin)) {
+			//On redonne un nouveau nom
+			this.setTitle("Créer un compte");
+			//On change la dimension de la fenêtre
 			this.setSize(dimCreationMenu);
 		} else {
 			this.setTitle("Connexion");
-			this.setSize(dimLogin);// DIMENSION FENETRE
+			this.setSize(dimLogin);
 		}
-		this.setLocationRelativeTo(null);// CENTRER LA FENETRE
+		//On centre la fenêtre
+		this.setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Cette fonction permet d'accéder à l'objet FenetreLogin
+	 * @return L'objet singleton
+	 */
+	
 	public static FenetreLogin getInstance() {
 		if (instance == null)
 			instance = new FenetreLogin();
