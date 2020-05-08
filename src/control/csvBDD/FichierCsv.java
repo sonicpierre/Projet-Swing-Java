@@ -5,22 +5,21 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
-import control.activite.Album;
-import control.activite.Representation;
-import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
-import graphic.fenetre.FenetreFond;;
+import control.activite.*;
+import graphic.fenetre.FenetreFond;
+import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;;
 
 public class FichierCsv {
 
 	private String login;
 	
-	public FichierCsv(String login) {
+	public FichierCsv(String login) { 
 		super();
 		this.login = login;
 	}
@@ -129,12 +128,14 @@ public class FichierCsv {
 			Artistes[2]=lignes.get(i).substring(idVirgule.get(1)+1, idVirgule.get(2));
 			Artistes[3]=lignes.get(i).substring(idVirgule.get(2)+1,idVirgule.get(3));
 			Artiste artiste = new Artiste(Artistes[2], //Biblio
-					getChemin("Artistes/"+Artistes[0]+".jpeg"), // chemin vers image = nom.jpeg 
-					Artistes[0], // Nom
-					Artistes[1], // Prenom
-					Artistes[1].substring(0, 1).toLowerCase() + "."+ Artistes[0].toLowerCase()+"@gmail.com", //adresse mail = p.nom@gmail.com
+					"Bibliothèque/DataTestOeuvres/Artistes/"+Artistes[1]+".jpeg",//CheminversImage
+					Artistes[1], // Nom
+					Artistes[0], // Prenom
+					Artistes[0].substring(0, 1) + "." + Artistes[1].toLowerCase() + "@gmail.com",//adresse mail=p.nom@gmail.com
 					Artistes[3]); // Profession
 
+			
+			
 			//On crée les oeuvres de l'artiste
 			
 			 int nbOeuvres = (idVirgule.size()-3)/6;
@@ -151,25 +152,26 @@ public class FichierCsv {
 			}
 			
 			// Répartitons des oeuvre en fonction de la profession de l'artiste
-			if (artiste.getType()=="Chanteur") {
-				
+			if (Artistes[3].equals("Chanteur")) {
 				//On crée un set des différentes chansons
 				Set<Album> albums = new HashSet<Album>(); // Tous les albums de l'artiste
 				Set<Titre> chansons = new HashSet<Titre>(); // Toutes les chansons d'un album
 				int k = 0;
-				while (k!= nbOeuvres) {
+				while (k!= nbOeuvres && Oeuvres[k][4].length()!=0) { //.length !=0 est s'arreter en cas de case vide
 					String titre = Oeuvres[k][3]; //On supposera que les chansons d'un même album sont à la suite
-					while (Oeuvres[k][3]== titre && k!= nbOeuvres) { // on ajoute k!= nbOeuvres car k est incrémenter à chaque fois
+					while (k!= nbOeuvres &&  Oeuvres[k][3].equals(titre)) { // on ajoute k!= nbOeuvres car k est incrémenter à chaque fois
 						double duree = (double) Float.valueOf(Oeuvres[k][4]);
 						Titre chanson = new Titre(Oeuvres[k][1], // Titre
 												duree, // Durée
-												getChemin("Musiques/"+Oeuvres[k][1]+".mp3")); // Emplacement du fichier mp3 = nom de la chanson.mp3
+												"Bibliothèque/DataTestOeuvres/Musiques/"+Oeuvres[k][1]+".mp3"); // Emplacement du fichier mp3 = nom de la chanson.mp3
 						// On regroupe ainsi toutes les chansons d'un même album
 						chansons.add(chanson);
 						k=k+1;
+						
 					}
 					// On crée cet album
-					Album album = new Album(titre,chansons,"Album/"+titre+".jpeg");
+					Album album = new Album(titre,chansons,"Bibliothèque/DataTestOeuvres/Album/"+titre+".jpeg");
+					System.out.println("Album: "+album.getCheminVersImageAssocie());
 					albums.add(album); // et on l'ajoute à la liste des albums aves la liste des chansons du bon album
 				}
 				artiste.setMaListeDeAlbums(albums);
@@ -179,7 +181,7 @@ public class FichierCsv {
 				for (int k =0; k< nbOeuvres; k++) {
 					Representation rep = new Representation(Oeuvres[k][1], // Titre
 															Oeuvres[k][4], // Durée ?
-															getChemin("Representations/"+Oeuvres[k][1]+".jpeg"), //Chemin vers image = titre.jpeg
+															"Bibliothèque/DataTestOeuvres/representations/"+Oeuvres[k][1]+".jpeg", //Chemin vers image = titre.jpeg
 															Oeuvres[k][2], //Date
 															Oeuvres[k][0]); // Type -film ou comédie/spectacle
 				representations.add(rep);
@@ -188,7 +190,7 @@ public class FichierCsv {
 				
 				
 			}
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(artiste); // On suppose que le login c'est "Nom Prenom"
+		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(artiste); 
 		personnesDejaInscrite.getInstance().sauvegarder();
 		}
 		FenetreFond.getInstance().retourEtatInitial(login);
