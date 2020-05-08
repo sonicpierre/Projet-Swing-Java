@@ -20,10 +20,22 @@ import graphic.menusParametreFenetre.MenuAjoutRepresentation;
 import graphic.menusParametreFenetre.MenuProfilDescription;
 
 
+/**
+ * La classe <b>FentreFond</b> permet de générer la fenêtre permettant d'avoir le menu principal de notre application.
+ * 
+ * @author Pierre VIRGAUX
+ * @version 2.0
+ * 
+ **/
+
+
 @SuppressWarnings("serial")
 public class FenetreFond extends JFrame {
 	
 	private static FenetreFond instance;
+	/**
+	 * {@value #dimFenetre} est la dimension de la fenêtre principale
+	 */
 	
 	private static final Dimension dimFenetre = new Dimension(1200, 800);
 	
@@ -80,7 +92,7 @@ public class FenetreFond extends JFrame {
 			intermediaire.add(TopMenuDescriptif.getInstance(login));
 			//On met ici la barre de menu en haut pour donner les différentes actions possibles.
 			this.add(intermediaire, BorderLayout.NORTH);
-			//On ajoute 
+			//On ajoute le panel principal au centre de la fenêtre
 			this.add(MenuPrincipal.getInstance(login), BorderLayout.CENTER);
 			setResizable(true);
 			setVisible(true);
@@ -91,6 +103,7 @@ public class FenetreFond extends JFrame {
 		else {
 			dispose();
 			this.getContentPane().removeAll();
+			//On remet l'image de fond
 			this.add(ImageFond);
 			setUndecorated(true);
 			setResizable(false);
@@ -101,8 +114,18 @@ public class FenetreFond extends JFrame {
 		}
 	}
 	
+	/**
+	 * Permet de revenir au menu principal
+	 * @param login
+	 * @see MenuPrincipal
+	 * @see MenuRepresentation
+	 * @see MenuAlbum
+	 * @see MenuMusique
+	 */
+	
 	public void retourEtatInitial(String login) {
 		dispose();
+		//On repasse l'attribut artiste dans chaque menu à null car on n'a rien selectionner encore 
 		MenuPrincipal.getInstance(login).setArtisteSelectionne(null);
 		MenuMusique.getInstance(login).setArtiste(null);
 		MenuAjoutAlbum.getInstance(login).setArtiste(null);
@@ -113,11 +136,12 @@ public class FenetreFond extends JFrame {
 		TopMenuDescriptif.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).updateVersInitial();
 		
+		//On enlève tout ce qu'il y avait sur le panel
 		this.getContentPane().removeAll();
 		JPanel intermediaire = new JPanel(new BorderLayout());
-		
 		intermediaire.add(TopMenuDescriptif.getInstance(login));
 		this.add(intermediaire, BorderLayout.NORTH);
+		//On met à jour tous les panels
 		MenuAlbum.getInstance(login).update();
 		MenuMusique.getInstance(login).update();
 		MenuRepresentation.getInstance(login).update();
@@ -125,6 +149,12 @@ public class FenetreFond extends JFrame {
 		this.add(MenuPrincipal.getInstance(login), BorderLayout.CENTER);
 		setVisible(true);
 	}
+	
+	/**
+	 * Cette fonction permet d'accéder à l'objet FenetreFond
+	 * @return L'objet singleton
+	 */
+	
 	
 	public static FenetreFond getInstance() {
 		if (instance == null)
