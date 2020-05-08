@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ * Classe regroupant toutes les fonctions en rapport avec l'insertion, la
+ * modification ou la suppression de données de la BDD
  **/
 public class Modification {
 	private static final String url = "jdbc:mysql://localhost/Artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private String user;
 	private String passwd;
-	boolean userCree = false;
 	private static Modification instance;
 
 	private Modification() {
@@ -25,15 +26,22 @@ public class Modification {
 		return instance;
 	}
 
-	// Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
-	// ça plante quand y a des '.
-
 	public void insererArtiste(int id, String nom, String bio, String type) {
 		try {
+			/**
+			 * importation du driver
+			 */
 			Class.forName("com.mysql.cj.jdbc.Driver");
+			/**
+			 * Connexion à la BDD
+			 */
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion artiste");
 				String requeteSQL = "INSERT INTO Artiste VALUES(" + id + ",?,?,'" + type + "')";
+				/**
+				 * Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
+				 * ça plante quand y a des '.
+				 */
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, nom); // On remplace le premier ? par le nom ici ça commence à 1 et pas 0
 					stat.setString(2, bio);
@@ -82,7 +90,7 @@ public class Modification {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-			
+
 	}
 
 	public void insererFilm(int id, String titre, int annee) {

@@ -2,6 +2,10 @@ package control.BDD;
 
 import java.sql.*;
 
+/**
+ * Cette classe sert à importer les données d'une BDD pré existante dans celle qu'on utilise
+ */
+
 public class Copier {
 	String url1 = "jdbc:mysql://localhost/";
 	String url2 = "/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
