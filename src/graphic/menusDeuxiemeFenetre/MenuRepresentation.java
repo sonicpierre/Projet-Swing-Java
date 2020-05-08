@@ -23,6 +23,7 @@ public class MenuRepresentation extends JPanel{
 	private static MenuRepresentation instance;
 	private Artiste artiste;
 	private String login;
+	private int compteur;
 	
 	public MenuRepresentation(String login) {
 		this.login = login;
@@ -30,7 +31,7 @@ public class MenuRepresentation extends JPanel{
 	}
 	
 	private void constructionPanel() {
-		int compteur = 0;
+		compteur = 0;
 		if(artiste == null) {
 			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste())
 				if(monArtiste.getType().equals("Acteur") || monArtiste.getType().equals("Comedien"))
@@ -116,6 +117,14 @@ public class MenuRepresentation extends JPanel{
 		if (instance == null)
 			instance = new MenuRepresentation(login);
 		return instance;
+	}
+
+	public int getCompteur() {
+		return compteur;
+	}
+
+	public void setCompteur(int compteur) {
+		this.compteur = compteur;
 	}
 	
 }

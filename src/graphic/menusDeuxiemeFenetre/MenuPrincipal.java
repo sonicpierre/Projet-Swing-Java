@@ -168,7 +168,7 @@ public class MenuPrincipal extends JTabbedPane{
 		
 		representation = new JScrollPane();
 		JPanel menuRepresentation = MenuRepresentation.getInstance(login);
-		menuRepresentation.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 100));
+		menuRepresentation.setPreferredSize(new Dimension(100, MenuRepresentation.getInstance(login).getCompteur() * 130));
 		representation.setViewportView(menuRepresentation);
 		
 		artiste = new JScrollPane();

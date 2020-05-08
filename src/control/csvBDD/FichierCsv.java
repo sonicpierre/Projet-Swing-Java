@@ -5,15 +5,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import control.activite.Album;
+import control.activite.Representation;
+import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
-import control.activite.*;
 import graphic.fenetre.FenetreFond;
-import graphic.menusDeuxiemeFenetre.TopMenuDescriptif;;
+import graphic.menusDeuxiemeFenetre.MenuPrincipal;;
 
 public class FichierCsv {
 
@@ -104,9 +106,6 @@ public class FichierCsv {
 		return lignes;
 	}
 	
-	
-	
-	
 	public String enregistrment(List<String> lignes){
 		
 		for (int i = 1; i<lignes.size();i++) { //On ne récupère pas le nom des colonnes (1ere ligne)
@@ -193,6 +192,7 @@ public class FichierCsv {
 		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(artiste); 
 		personnesDejaInscrite.getInstance().sauvegarder();
 		}
+		
 		FenetreFond.getInstance().retourEtatInitial(login);
 		return "C'est bon";
 	}

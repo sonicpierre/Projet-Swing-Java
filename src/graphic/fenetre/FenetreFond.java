@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import graphic.menusDeuxiemeFenetre.MenuAlbum;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 import graphic.menusDeuxiemeFenetre.MenuRepresentation;
@@ -117,9 +118,10 @@ public class FenetreFond extends JFrame {
 		
 		intermediaire.add(TopMenuDescriptif.getInstance(login));
 		this.add(intermediaire, BorderLayout.NORTH);
+		MenuAlbum.getInstance(login).update();
 		MenuMusique.getInstance(login).update();
-		MenuPrincipal.getInstance(login).update();
 		MenuRepresentation.getInstance(login).update();
+		MenuPrincipal.getInstance(login).update();
 		this.add(MenuPrincipal.getInstance(login), BorderLayout.CENTER);
 		setVisible(true);
 	}
