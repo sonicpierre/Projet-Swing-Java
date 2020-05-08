@@ -127,7 +127,9 @@ public class MenuPrincipal extends JTabbedPane{
 						MenuRepresentation.getInstance(login).update();
 						MenuPrincipal.getInstance(login).removeAll();
 						JScrollPane temporaireRepres = new JScrollPane();
-						temporaireRepres.setViewportView(MenuRepresentation.getInstance(login));
+						JPanel menuRepresentation = MenuRepresentation.getInstance(login);
+						menuRepresentation.setPreferredSize(new Dimension(100, MenuRepresentation.getInstance(login).getCompteur() * 130));
+						temporaireRepres.setViewportView(menuRepresentation);
 						MenuPrincipal.getInstance(login).add(temporaireRepres,"Représentation de " + artiste.getNom());
 						MenuPrincipal.getInstance(login).validate();
 						TopMenuDescriptif.getInstance(login).setArtiste(artiste);

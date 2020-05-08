@@ -35,7 +35,7 @@ public class MenuRepresentation extends JPanel{
 		if(artiste == null) {
 			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste())
 				if(monArtiste.getType().equals("Acteur") || monArtiste.getType().equals("Comedien"))
-					compteur += monArtiste.getMaListeDeRepresentations().size() + 1;
+					compteur += monArtiste.getMaListeDeRepresentations().size();
 			
 			this.setLayout(new GridLayout(compteur, 1));
 			
@@ -44,13 +44,14 @@ public class MenuRepresentation extends JPanel{
 					for(Representation maRepresentation : monArtiste.getMaListeDeRepresentations())
 						this.add(constructionCase(artiste, maRepresentation));
 		} else {
-			compteur = artiste.getMaListeDeRepresentations().size() + 1;
+			compteur = artiste.getMaListeDeRepresentations().size();
 			this.setLayout(new GridLayout(compteur, 1));
 
 			if(artiste.getType().equals("Acteur") || artiste.getType().equals("Comedien"))
 				for(Representation maRepresentation : artiste.getMaListeDeRepresentations())
 					this.add(constructionCase(artiste, maRepresentation));
 		}
+		this.validate();
 	}
 	
 	private JPanel constructionCase(Artiste artiste, Representation marepres) {
@@ -101,7 +102,7 @@ public class MenuRepresentation extends JPanel{
 	public void update() {
 		this.removeAll();
 		constructionPanel();
-		this.validate();
+		
 	}
 	
 	
