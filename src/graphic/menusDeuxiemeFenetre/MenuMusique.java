@@ -321,7 +321,8 @@ public class MenuMusique extends JPanel{
 	
 	/**
 	 * Permet ici d'arrêter le titre qui entrain d'être joué.
-	 * Si jamais aucun titre n'est sélectionné une 
+	 * Si jamais aucun titre n'est sélectionné une fenêtre s'ouvre avec un Warning
+	 * @see Titre
 	 */
 	
 	private void stop() {
@@ -329,9 +330,15 @@ public class MenuMusique extends JPanel{
 			titreEnCoursDeLecture.stop();
 		else {
     	  JMenuItem indication = new JMenuItem();
+    	  //Fenêtre préexistence dans Swing
     	  JOptionPane.showMessageDialog(indication,"Aucun Titre est joué");
 		}
 	}
+	
+	/**
+	 * Comme pour stop(), ici il faut qu'un titre soit joué pour être rejoué du début
+	 * @see Titre
+	 */
 	
 	private void reset() {
 		if(titreEnCoursDeLecture!=null)
@@ -342,6 +349,10 @@ public class MenuMusique extends JPanel{
 			}
 	}
 
+	/**
+	 * Getter du titre entrain d'être lu possibilité d'avoir un retour null
+	 * @return titre en cour de lecture
+	 */
 
 	public Titre getTitreEnCoursDeLecture() {
 		return titreEnCoursDeLecture;
