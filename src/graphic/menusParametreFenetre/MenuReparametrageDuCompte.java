@@ -9,11 +9,38 @@ import javax.swing.JPanel;
 import control.personne.Artiste;
 
 @SuppressWarnings("serial")
+
+/**
+ *<b>MenuReparametrageDuCompte</b> est la classe qui permet de modifier les parameètres du compte
+ *@author ATANGANA Daniel 
+ *@version 2.0
+ **/
+
 public class MenuReparametrageDuCompte extends JPanel{
 	
+	/**
+	 *Déclaration du login de l'artiste
+	 **/
+	
 	private String login;
+	
+	/**
+	 *Déclaration de l'artiste
+	 **/
+	
 	private Artiste artiste;
+	
+	/**
+	 *Décalaration d'une fenetre de transition
+	 **/
+	
 	private JPanel tempon1;
+	
+	/**
+	 *Permet de générer le menu de reparamètrage du compte utilisateur
+	 *@param login	
+	 *	Login utilisateur
+	 **/
 	
 	public MenuReparametrageDuCompte(String login){
 		this.login = login;
@@ -32,11 +59,22 @@ public class MenuReparametrageDuCompte extends JPanel{
 		this.add(tempon1);
 		
 	}
-
+	
+	/**
+	 *Récupère l'artiste 
+	 *@return Artiste
+	 **/
+	
 	public Artiste getArtiste() {
 		return artiste;
 	}
-
+	
+	/**
+	 *Initialisation de l'artiste
+	 *@param artiste
+	 *	Artiste
+	 **/
+	
 	public void setArtiste(Artiste artiste) {
 		this.artiste = artiste;
 	}

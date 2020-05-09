@@ -27,7 +27,6 @@ import graphic.menusDeuxiemeFenetre.MenuAlbum;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
-//JPANEL PERMETTANT D'AJOUTER LES ALBUMS
 @SuppressWarnings("serial")
 
 /**
@@ -96,7 +95,9 @@ public class MenuAjoutAlbum extends JPanel{
 	
 	/**
 	 *Construction du contenu du menu
-	 *@return Action choisie */
+	 *@return Action choisie
+	 **/
+	
 	private JPanel choixLabels() {
 		mesAssociationsCheckTitre = new HashMap<JCheckBox, Titre>();
 		JPanel choixLabels = new JPanel(new FlowLayout());
@@ -105,8 +106,18 @@ public class MenuAjoutAlbum extends JPanel{
 		nom = new JTextField("Nom Album");
 		JButton dossier = new JButton("Browse");
 		JButton valider = new JButton("Valider");
-		dossier.addActionListener((event)->choixDunAlbum());//FONCTION DE CHOIX ALBUM
-		valider.addActionListener((event)->valider());//FONCTION VALIDATION ENSEMBLE CHOIX ALBUM
+		
+		/**
+		 *Fonction de choix album
+		 **/
+		
+		dossier.addActionListener((event)->choixDunAlbum());
+		
+		/**
+		 *Fonction de validation du choix de l'album
+		 **/
+		
+		valider.addActionListener((event)->valider());
 		
 		choixLabels.add(nomLabel);
 		choixLabels.add(nom);
@@ -116,43 +127,124 @@ public class MenuAjoutAlbum extends JPanel{
 		return choixLabels;
 	}
 	
+	/**
+	 *Instanciation du menu d'ajout album
+	 *@param login
+	 *	LOgin utilisateur
+	 *@return Menu d'ajout album
+	 **/
+	
 	public static MenuAjoutAlbum getInstance(String login) {
 		if (instance == null)
 			instance = new MenuAjoutAlbum(login);
 		return instance;
 	}
 	
-	//
+	/**
+	 *Permet de faire le choix d'un album à ajouter
+	 **/
 	private void choixDunAlbum() {
-        JFileChooser jfc = new JFileChooser();//FONCTION CHOIX 
-        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);//ARRET QUAND POLUS DE DOSS A OUVRIR
-        int ret = jfc.showOpenDialog(null); // ne te rend la main que si tu ferme
+		
+		/**
+		 *Fonction de choix
+		 **/
+		
+        JFileChooser jfc = new JFileChooser();
         
-        if(ret == JFileChooser.APPROVE_OPTION) { // validation
-        	File repSon = jfc.getSelectedFile();//RECUPERE LE DOSSIER SELECTIONNÉ
-        	File repImage = repSon;//COPIE CAR SLECTION MP3 DAN SUN PREMOIER TEMPS, PUISJPEG ENSUITE
-	        File[] fichiersMP3 = repSon.listFiles(new FilenameFilter(){//TABLEAU DE FICHIER MP3
+        /**
+         *Condition d'arrêt lorsqu'il n'y a plus de dossier à ouvrir
+         **/
+        
+        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        /**
+         *Ne rend la main à l'utilisateur que s'il ferme la fenetre de navigation dossier
+         **/
+        
+        int ret = jfc.showOpenDialog(null);
+        
+        /**
+         *Permet la validation du choix
+         **/
+        
+        if(ret == JFileChooser.APPROVE_OPTION) {
+        	
+        	/**
+        	 *Récupère le dossier selectionné
+        	 **/
+        	
+        	File repSon = jfc.getSelectedFile();
+        	
+        	/**
+        	 *Copie de la selection du MP3 dans un premier temps, puis de l'image associée
+        	 **/
+        	
+        	File repImage = repSon;
+        	
+        	/**
+        	 *Tableau de fichier MP3
+        	 **/
+        	
+	        File[] fichiersMP3 = repSon.listFiles(new FilenameFilter(){
 	          public boolean accept(File dir, String name) {
-	            return name.endsWith(".mp3");//TEST DE TERMINAISON
+	        	  
+	        	  /**
+	        	   *Test de terminaison
+	        	   **/
+	        	  
+	            return name.endsWith(".mp3");
 	          }
 	        });
-	        File[] fichiersImage = repImage.listFiles(new FilenameFilter(){//IDEM POUR IMAGE
+	        
+	        /**
+	         *Même procédé que précédemment pour l'image
+	         **/
+	        
+	        File[] fichiersImage = repImage.listFiles(new FilenameFilter(){
 		          public boolean accept(File dir, String name) {
 		            return name.endsWith(".jpg");
 		          }
 		        });
-	        cheminVersImageAssocie = fichiersImage[0].getAbsolutePath();//ON GARDE QUE LA PREMIERE IMAGE SELECTIONNÉE
-	        titreAssocie = new HashSet<Titre>();//LISTE DE CHEMIN VERS FICHIER MP3
+	        
+	        /**
+	         *Garde la première image selectionnée
+	         **/
+	        
+	        cheminVersImageAssocie = fichiersImage[0].getAbsolutePath();
+	        
+	        /**
+	         *Liste de chemin fichier MP3
+	         **/
+	        
+	        titreAssocie = new HashSet<Titre>();
 	        for(File monFile : fichiersMP3) {
 	        	Titre monTitre = new Titre(monFile.getName(), monFile.getAbsolutePath());
-	        	titreAssocie.add(monTitre);//REMPLISSAGE AVEC LES CHEMINS ABS
+	        	
+	        	/**
+	        	 *Remplissage avec les chemins absolus
+	        	 **/
+	        	
+	        	titreAssocie.add(monTitre);
 	        }
         }
 	}
 	
-
+	/**
+	 *Permet la validation du choix album
+	 *@see Album
+	 *@see personnesDejaInscrite
+	 *@see Modification
+	 *@see MenuMusique
+	 *@see MenuPrincipal
+	 **/
+	
 	private void valider() {
-		if(titreAssocie != null) {//SI LA LISTE DE TITE N'EST PAS NULLE => CREATION ALBUM DANSLES ENDROOITS DE SAUVEGARDE
+		
+		/**
+		 *Test du contenu de la liste et création d'album dans la localisation de sauvegarder
+		 **/
+		
+		if(titreAssocie != null) {
 			Album monAlbum = new Album(nom.getText(), titreAssocie, cheminVersImageAssocie);
 			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).ajouterAlbum(monAlbum);
 			
@@ -165,10 +257,29 @@ public class MenuAjoutAlbum extends JPanel{
 			for(Titre maChanson : titreAssocie)
 				Modification.getInstance().insererChanson(maChanson.hashCode(), maChanson.getTitre(), 0, monAlbum.hashCode());
 			
-			MenuMusique.getInstance(login).update();//ON LA FONCTION QUE PV A CREER QUI S'APPELLE ET QUI PERMET L'AJOUT DE L'ALNUM ENTRE
+			/**
+			 *Ajout de la musique entrée
+			 **/
+			
+			MenuMusique.getInstance(login).update();
+			
+			/**
+			 *Validation de l'ajout
+			 **/
+			
 			MenuPrincipal.getInstance(login).validate();
-			titreAssocie = null;//INITIALISATION DE LA LISTE
-			nom.setText("Nom Album");//RESTTAURATION DE LA FENETRE 
+			
+			/**
+			 *Initialisation de la liste
+			 **/
+			
+			titreAssocie = null;
+			
+			/**
+			 *Restaurationnde la fenetre
+			 **/
+			
+			nom.setText("Nom Album"); 
 
 			JMenuItem contenant = new JMenuItem();
 			JOptionPane.showMessageDialog(contenant,"Album ajouté");
@@ -177,11 +288,22 @@ public class MenuAjoutAlbum extends JPanel{
 			MenuAlbum.getInstance(login).update();
 		}
 	}
-
+	
+	/**
+	 *Récupère l'artiste
+	 *@return Artiste
+	 **/
+	
 	public Artiste getArtiste() {
 		return artiste;
 	}
-
+	
+	/**
+	 *Initialisation de l'artiste
+	 *@param artiste
+	 *	Artiste
+	 **/
+	
 	public void setArtiste(Artiste artiste) {
 		this.artiste = artiste;
 	}
