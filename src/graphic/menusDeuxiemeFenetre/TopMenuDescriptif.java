@@ -21,27 +21,56 @@ import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 
 
-//BARRE DE HAUT SELON LE TALENT DE L'UTILISATEUR
-//CE N'EST PAS PRATIQUE DAVOIR UNE BARRE POUR CHAQUE PERSONNE => COMBINAISON DES PREFERENCES
 @SuppressWarnings("serial")
+
+/**
+ *<b>TopMenuDescriptif</b> est la classe qui permet de gérer la barre de dessus des fenetres artistes
+ *@author BEZIAT Lucille
+ *@version 2.0
+ **/
+
 public class TopMenuDescriptif extends JMenuBar{
 	
+	/**
+	 *Déclaration de l'instance du menu descriptif
+	 **/
 	
 	private static TopMenuDescriptif instance;
 	
+	/**
+	 *Déclaration du login utilisateur
+	 **/
+	
 	private String login;
+	
+	/**
+	 *Déclaration de l'artiste
+	 **/
+	
 	private Artiste artiste;
+	
+	/**
+	 *Permet de générer le menu descriptif utilisateur
+	 *@param login
+	 *	Login utilisateur
+	 **/
 	
 	private TopMenuDescriptif(String login) {
 		this.login = login;
-		this.artiste = null;//CAR ON A CLIQUER SUR AUCUN ARTISTE
+		this.artiste = null;
 
 		this.add(baseDeDonneMenu());
 		this.add(contactMenu());
 		
 	}
 	
-	private JMenu contactMenu() {//RESERVER A L'ADMIN => IL CONTACTE TOUT LE MONDE
+	/**
+	 *Permet de définir les actions du menu de contact réservé à l'administrateur
+	 *@see MenuRaccourcis
+	 *@return Contact des utilisateur
+	 **/
+	
+	private JMenu contactMenu() {
 		JMenu contacter = new JMenu("Contact");
 		contacter.add(MenuRaccourcis.getInstance(login).actContacter);
 		
@@ -49,7 +78,9 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	/**
-	 *On utilise tous les raccoursi effectue, en precisant sa localisation
+	 *Permet de gérer le menu chanteur en utilisant les raccourcis et en précisant sa localisation
+	 *@see MenuRaccourcis
+	 *@return Chanson
 	 **/
 	
 	private JMenu menuChanteur() {
@@ -64,6 +95,10 @@ public class TopMenuDescriptif extends JMenuBar{
 		return chanson;
 	}
 	
+	/**
+	 *Permet de gérer les actions du menu de lecture musique
+	 *@see MenuRaccourcis
+	 **/
 	
 	private JMenu menuPlayer() {
 		JMenu player = new JMenu("Player");
@@ -75,17 +110,20 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	/**
-	 *Suppression du contenu de la barre de menu puis on remet en place les items propres à la brre chanteur
+	 *Suppression du contenu de la barre de menu puis on remet en place les items propres à la barre chanteur
 	 **/
 	
 	public void updateVersChanteur() {
 		this.removeAll();
-		
 		this.add(menuChanteur());
 		this.add(menuPlayer());
 		this.add(contactMenu());
 		this.validate();
 	}
+	
+	/**
+	 *Permet la mise à jour de la fenetre pour un acteur ou un comédien
+	 **/
 	
 	public void updateVersActeurComedien() {
 		this.removeAll();
@@ -98,7 +136,7 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	/**
-	 *Retour en arriève, sans suavegarder la pae d'avant
+	 *Retour en arriève, sans sauvegarder la page antérieure
 	 **/
 	
 	public void updateVersInitial() {
@@ -109,7 +147,8 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	/**
-	 *Menu poemettant de gerer la bdd, et qui est reserve à l'admin
+	 *Permet de gérer la base de données et est reservé à l'administrateur de l'application
+	 *@return Base de données
 	 **/
 	
 	private JMenu baseDeDonneMenu() {
@@ -132,6 +171,12 @@ public class TopMenuDescriptif extends JMenuBar{
 		return baseDeDonne;
 	}
 	
+	/**
+	 *Permet l'ouverture de la fenetre d'envpoie e-mail
+	 *@see FenetreMail
+	 *@see MenuDeMail
+	 **/
+	
 	public void ouvertureFenetreMail() {
 		FenetreMail.getInstance().setVisible(true);
 		MenuDeMail.getInstance().getMessage().setText("");
@@ -139,7 +184,10 @@ public class TopMenuDescriptif extends JMenuBar{
 	}
 	
 	/**
-	 *Revenir au menu
+	 *Permet la déconnexion et le retour au menu principal
+	 *@see MenuMusique
+	 *@see FenetreFond
+	 *@see FenetreLogin
 	 **/
 	
 	public void deconnexion() {
@@ -152,25 +200,40 @@ public class TopMenuDescriptif extends JMenuBar{
 		FenetreFond.getInstance().remove(this);
 		
 		/**
-		 *Supp menu prinip*/
+		 *Suppression du menu prinipal
+		 **/
+		
 		FenetreFond.getInstance().remove(MenuPrincipal.getInstance(login));
 		FenetreFond.getInstance().changerFenetre(login);
 		FenetreLogin.getInstance().setVisible(true);
 	}
 	
+	/**
+	 *Récupère l'artiste
+	 *@return Artiste
+	 **/
 	
 	public Artiste getArtiste() {
 		return artiste;
 	}
 
-
+	/**Initialisation de l'artiste
+	 *@param artiste
+	 * 	Artiste
+	 **/
+	
 	public void setArtiste(Artiste artiste) {
 		this.artiste = artiste;
 	}
-
+	
+	/**
+	 *Permet de copier les informations et de remplir le fichier CSV
+	 *@see FichierCsv
+	 **/
+	
 	public void copieEtRemplissage() {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);//ARRET QUAND POLUS DE DOSS A OUVRIR
+		jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		int returnValue = jfc.showOpenDialog(null);
 		File selectedFile;
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -189,33 +252,53 @@ public class TopMenuDescriptif extends JMenuBar{
 			c.enregistrment(resultat);
 		}
 	}
-
+	
+	/**
+	 *Permet de copier le fichier dans un repertoire
+	 *@param src
+	 *	Dossier source
+	 *@param dest
+	 *	Destination de copie
+	 **/
+	
 	public static void copy(File src, File dest) throws IOException{
 	    
 	      if(src.isDirectory()){
-	      //si le répertoire n'existe pas, créez-le
+	      /**
+	       *Si le répertoire n'existe pas, créez-le
+	       */
 	        if(!dest.exists()){
 	           dest.mkdir();
 	           System.out.println("Dossier "+ src + "  > " + dest);
 	        }
-	        //lister le contenu du répertoire
+	        /**
+	         *Liste le contenu du répertoire
+	         */
 	        String files[] = src.list();
 	        
 	        for (String f : files) {
-	           //construire la structure des fichiers src et dest
+	           /**
+	            *Construire la structure des fichiers src et dest
+	            */
 	           File srcF = new File(src, f);
 	           File destF = new File(dest, f);
-	           //copie récursive
+	           /**
+	            *Copie récursive
+	            */
 	           copy(srcF, destF);
 	        }
 	      }else{
-	          //si src est un fichier, copiez-le.
+	          /**
+	           *si src est un fichier, copiez-le.
+	           */
 	          InputStream in = new FileInputStream(src);
 	          OutputStream out = new FileOutputStream(dest); 
 	                           
 	          byte[] buffer = new byte[1024];
 	          int length;
-	          //copier le contenu du fichier
+	          /**
+	           *Copie le contenu du fichier
+	           */
 	          while ((length = in.read(buffer)) > 0){
 	            out.write(buffer, 0, length);
 	          }
@@ -225,7 +308,14 @@ public class TopMenuDescriptif extends JMenuBar{
 	          System.out.println("Fichier " + src + " > " + dest);
 	      }
 	  }
-
+	
+	/**
+	 *Instanciation du menu descriptif
+	 *@param login
+	 *	Login utilisateur
+	 *@return Menu descriptif
+	 **/
+	
 	public static TopMenuDescriptif getInstance(String login) {
 		if (instance == null)
 			instance = new TopMenuDescriptif(login);
