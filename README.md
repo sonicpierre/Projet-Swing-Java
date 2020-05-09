@@ -83,7 +83,13 @@ Après leur importation, les musiques de l'album sont affichées sur le réperto
 
 <img src="ImageReadMe/repertoire.png" lab="Répertoire de musique" height="400">
 
-## 6. L'envoie d'e-mail
+## 6. Gestion de l'interface acteur & comédien :
+
+De manière analogue à la partie chanteur, les interfaces dédiées à la gestion des representation des acteurs et comédiens permettent l'ajout de nouvelles informations qui seront par la suite afficher sur la page d'accueil.
+
+<img src="ImageReadMe/film.png" lab="Fenetre d'ajout representations" height="400">
+
+## 7. L'envoie d'e-mail
 
 Il est possible pour l'administrateur d'envoyer des messages électroniquesa aux artistes de son choix. Cet envoi se fait via une fenêtre de message, où il devra saisir l'objet, le contenu et le destinataire du message. Cette interface est accessible en utilisant l'onglet "contact" de l'application. 
 
