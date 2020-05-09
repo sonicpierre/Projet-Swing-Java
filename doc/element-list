@@ -1,6 +1,9 @@
+control.activite
+control.BDD
+control.csvBDD
 control.elementSauv
-control.musique
+control.main
 control.personne
+graphic.fenetre
 graphic.fenetreEnvoieMail
 graphic.menusDepart
-graphic.menusParametreFenetre

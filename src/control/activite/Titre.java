@@ -9,7 +9,10 @@ import control.elementSauv.personnesDejaInscrite;
  *<p><b>Titre</b> est la classe permettant de définir les actions 
  *relatives aux titres des albums.
  *</p>
+ *@author VIRGAUX Pierre
+ *@version 2.0
  **/
+
 
 public class Titre implements Serializable{
 
@@ -59,6 +62,16 @@ public class Titre implements Serializable{
 	 **/
 	
 	private Album albumAssocie;
+	
+	/**
+	 *Initialisation des états d'un titre
+	 *@param titre
+	 *	Titre de la musique
+	 *@param duree
+	 *	Durée de la musique
+	 *@param cheminVersLaMusique
+	 *	Localisation de la musique
+	 **/
 	
 	public Titre(String titre, double duree, String cheminVersLaMusique) {
 		
@@ -171,6 +184,11 @@ public class Titre implements Serializable{
 			
 	}
 	
+	/**
+	 *Supprime la musique selectionnée
+	 *@see personnesDejaInscrite
+	 **/
+	
 	public void supprimerMusique() {
 		
 		albumAssocie.rechercheSuppressionMusique(this);
@@ -272,17 +290,36 @@ public class Titre implements Serializable{
 	public void setEnPause(boolean isEnPause) {
 		this.isEnPause = isEnPause;
 	}
-
+	
+	/**
+	 *Récupère l'album associé
+	 *@return Album associé
+	 **/
+	
 	public Album getAlbumAssocie() {
 		return albumAssocie;
 	}
-
+	
+	/**
+	 *Initialisation de l'album associé
+	 *@param albumAssocie
+	 *	Album associé
+	 **/
+	
 	public void setAlbumAssocie(Album albumAssocie) {
 		this.albumAssocie = albumAssocie;
 	}
 	
 
 	@Override
+	
+	/**
+	 *On réutilise la méthode equals pour comparer les musiques selon leur titre et chemin
+	 *@param autreTitre
+	 *	Titre de comparaison
+	 *@return True si les titres correspondent
+	 **/
+	
 	public boolean equals(Object autreTitre) {
 		Titre titrePourComparaison = (Titre) autreTitre;
 		if(this.titre.equals(titrePourComparaison.getTitre()) && this.cheminVersLaMusique.equals(titrePourComparaison.cheminVersLaMusique))
@@ -293,6 +330,13 @@ public class Titre implements Serializable{
 	
 	
 	@Override
+	
+	/**
+	 *La méthode hashCode est utilisée afin de permettre le bon fonctionnement du Set
+	 *NB : Ainsi deux titre seront égaux s'ils ont le même nom et titre. On évite également les doublons dans la liste
+	 *@return Nombre de titre compté
+	 **/
+	
 	public int hashCode() {
 		int compteurFinal = 0;
 		

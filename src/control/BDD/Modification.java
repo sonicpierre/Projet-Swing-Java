@@ -7,18 +7,52 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ *<b>Modification</b> est la classe qui permet de modifier le répertoire de chaque artiste en y ajoutant ou supprimant des éléments.
+ *@author VIRGAUX Pierre
+ *@version 2.0
  **/
+
 public class Modification {
+	
+	/**
+	 *URL de connexion à la base de données
+	 **/
+	
 	private static final String url = "jdbc:mysql://localhost/Artistak?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	
+	/**
+	 *Utilisateur
+	 **/
+	
 	private String user;
+	
+	/**
+	 *Mot de pase crypté
+	 **/
+	
 	private String passwd;
+	
+	/**
+	 *Etat de création d'un utilisateur
+	 **/
+	
 	boolean userCree = false;
+	
+	/**
+	 *Déclaration de l'instance de modification
+	 **/
+	
 	private static Modification instance;
 
 	private Modification() {
 
 	}
-
+	
+	/**
+	 *Instanciation de la modification
+	 *@return Etat modifié de la fenêtre
+	 **/
+	
 	public static Modification getInstance() {
 		if (instance == null)
 			instance = new Modification();
@@ -26,11 +60,16 @@ public class Modification {
 	}
 	
 	/**
-	 * 	Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
-	 	ça plante quand y a des '.
-	 * 
-	 */
-
+	 *Permet d'enregistrer le répertoire d'artistes dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param nom
+	 *	Nom de l'artiste
+	 *@param bio
+	 *	Biographie de l'artiste
+	 *@param type
+	 *	Talent de l'artiste
+	 **/
 
 	public void insererArtiste(int id, String nom, String bio, String type) {
 		try {
@@ -51,7 +90,19 @@ public class Modification {
 		}
 
 	}
-
+	
+	/**
+	 *Permet d'enregistrer le répertoire d'album dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param nom
+	 *	Nom de l'album
+	 *@param date
+	 *	Date de l'album
+	 *@param idArtiste
+	 *	ID de l'artiste
+	 **/
+	
 	public void insererAlbum(int id, String nom, String date, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -69,7 +120,19 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet d'enregistrer le répertoire de chansons dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param titre
+	 *	Titre de la chanson
+	 *@param duree
+	 *	Durée du spectacle
+	 *@param idAlbum
+	 *	ID de l'album
+	 **/
+	
 	public void insererChanson(int id, String titre, int duree, int idAlbum) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -88,7 +151,17 @@ public class Modification {
 		}
 			
 	}
-
+	
+	/**
+	 *Permet d'ajouter un film à la base de données
+	 *@param id
+	 *	ID
+	 *@param titre
+	 *	Titre du film
+	 *@param annee
+	 *	Année du film
+	 **/
+	
 	public void insererFilm(int id, String titre, int annee) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -106,7 +179,19 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet d'ajouter un spectacle dans la base de données
+	 *@param id 
+	 *	ID spectacle
+	 *@param titre
+	 *	Titre spectacle
+	 *@param annee
+	 *	Année spectacle
+	 *@param spectateurs
+	 *	Nombre de spectateur
+	 **/
+	
 	public void insererSpectacle(int id, String titre, int annee, int spectateurs) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -124,7 +209,15 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de modifier le répertoire de films dans la base de données
+	 *@param idFilm
+	 *	ID du film
+	 *@param idArtiste
+	 *	ID de l'artiste concerné
+	 **/
+	
 	public void insererJouerFilm(int idFilm, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -137,7 +230,15 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet d'enregistrer un spectacle de la base de données via son id
+	 *@param idSpectacle
+	 *	ID du spectacle
+	 *@param idArtiste
+	 *	ID de l'artiste concerné
+	 **/
+	
 	public void insererJouerSpectacle(int idSpectacle, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -150,7 +251,13 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de supprimer un artiste de la base de données via son id
+	 *@param id
+	 *	ID de l'artiste
+	 **/
+	
 	public void supprimerArtiste(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -168,7 +275,13 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de supprimer un album de la base de données via son id
+	 *@param id
+	 *	ID de l'album
+	 **/
+	
 	public void supprimerAlbum(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -182,7 +295,13 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de supprimer une chanson de la base de données via son id
+	 *@param titre
+	 *	Titre de la chanson
+	 **/
+	
 	public void supprimerChanson(String titre) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -195,7 +314,13 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de supprimer un film de la base de données via son id
+	 *@param id
+	 *	ID du film
+	 **/
+	
 	public void supprimerFilm(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -209,7 +334,13 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de supprimer un spectacle de la base de données via son id
+	 *@param id
+	 *	ID du spectacle
+	 **/
+	
 	public void supprimerSpectacle(int id) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -223,7 +354,19 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de modifier le répertoire d'artistes dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param nom
+	 *	Nom de l'artiste
+	 *@param bio
+	 *	Biographie de l'artiste
+	 *@param type
+	 *	Talent de l'artiste
+	 **/
+	
 	public void modifierArtiste(int id, String nom, String bio, String type) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -248,7 +391,19 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de modifier le répertoire d'album dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param nom
+	 *	Nom de l'album
+	 *@param date
+	 *	Date de l'album
+	 *@param idArtiste
+	 *	ID de l'artiste
+	 **/
+	
 	public void modifierAlbum(int id, String nom, String date, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -269,7 +424,19 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de modifier le répertoire de chansons dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param titre
+	 *	Titre de la chanson
+	 *@param duree
+	 *	Durée de la chanson
+	 *@param idAlbum
+	 *	ID de l'album
+	 **/
+	
 	public void modifierChanson(int id, String titre, int duree, int idAlbum) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -290,7 +457,15 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de modifier le répertoire de chansons par son ID 
+	 *@param id
+	 *	ID 
+	 *@param idAlbum
+	 *	ID de l'album
+	 **/
+	
 	public void modifierChansonID(int id, int idAlbum) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -303,7 +478,21 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de modifier le répertoire de films dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param titre
+	 *	Titre du spectacle
+	 *@param annee
+	 *	Année du film
+	 *@param idFilm
+	 *	ID du film
+	 *@param idArtiste
+	 *	ID de l'artiste concerné
+	 **/
+	
 	public void modifierFilm(int id, String titre, int annee, int idFilm, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -325,7 +514,23 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Permet de modifier le répertoire de spectacles dans la base de données
+	 *@param id
+	 *	ID 
+	 *@param titre
+	 *	Titre du spectacle
+	 *@param annee
+	 *	Année du spectacle
+	 *@param spectateurs
+	 *	Nombre de spectateurs
+	 *@param idSpectacle
+	 *	ID du spectacle
+	 *@param idArtiste
+	 *	ID de l'artiste concerné
+	 **/
+	
 	public void modifierSpectacle(int id, String titre, int annee, int spectateurs, int idSpectacle, int idArtiste) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -348,19 +553,41 @@ public class Modification {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 *Récupère l'utilisateur
+	 *@return Utilisateur
+	 **/
+	
 	public String getUser() {
 		return user;
 	}
-
+	
+	/**
+	 *Initialisation de l'utilisateur
+	 *@param user
+	 *	Utilisateur
+	 **/
+	
 	public void setUser(String user) {
 		this.user = user;
 	}
-
+	
+	/**
+	 *Récupère le mot de passe
+	 *@return Mot de passe
+	 **/
+	
 	public String getPasswd() {
 		return passwd;
 	}
-
+	
+	/**
+	 *Initialisation du mot de passe
+	 *@param passwd
+	 *	Mot de passe
+	 **/
+	
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}

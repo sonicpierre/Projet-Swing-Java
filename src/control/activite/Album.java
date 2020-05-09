@@ -19,6 +19,8 @@ import control.elementSauv.personnesDejaInscrite;
  * volumineux.Ainsi on stocke le chemin du dossier plutot que le dossier
  * lui-même
  * </p>
+ * @author VIRGAUX Pierre
+ * @version 2.0
  **/
 
 public class Album implements Serializable {
@@ -57,8 +59,6 @@ public class Album implements Serializable {
 	 * 
 	 *@param titre               
 	 *    Titre
-	 *@param type                 
-	 *   Type du titre
 	 *@param titreDeLalbum         
 	 *  Titre album
 	 *@param cheminVersImageAssocie 
@@ -79,12 +79,24 @@ public class Album implements Serializable {
 			montTitre.setAlbumAssocie(this);
 	}
 
+	
+	/**
+	 *Permet d'ajouter une musique à un album
+	 *@param titreAAjouter
+	 *	Titre de la musique à ajouter
+	 *@see personnesDejaInscrite
+	 **/
+	
+	
 	public void ajouterMusique(Titre titreAAjouter) {
 		this.getChansonsDelAlbum().add(titreAAjouter);
 		personnesDejaInscrite.getInstance().sauvegarder();
 	}
 
-	//Permet de chercher pour suppression
+	/**Permet de chercher une musique pour sa suppression
+	 *@param musiqueATrouver
+	 *	Musique à supprimer
+	 **/
 	
 	public void rechercheSuppressionMusique(Titre musiqueATrouver) {
 		for (Titre monTitre : this.getChansonsDelAlbum())
@@ -184,8 +196,8 @@ public class Album implements Serializable {
 
 	/**
 	 * Initialisation des chansons de l'album
-	 * 
 	 * @param chansonsDelAlbum
+	 * 	Chanson de l'album
 	 **/
 
 	public void setChansonsDelAlbum(Set<Titre> chansonsDelAlbum) {
@@ -194,7 +206,6 @@ public class Album implements Serializable {
 
 	/**
 	 * Récupération de la localisation du chemin de l'image associée
-	 * 
 	 * @return Localisation image associée
 	 **/
 
@@ -204,18 +215,29 @@ public class Album implements Serializable {
 
 	/**
 	 * Initialisation du chemin de l'image album
-	 * 
 	 * @param cheminVersImageAssocie
+	 * 	Localisation de la musique associée
 	 **/
 
 	public void setCheminVersImageAssocie(String cheminVersImageAssocie) {
 		this.cheminVersImageAssocie = cheminVersImageAssocie;
 	}
-
+	
+	/**
+	 *Récupère la musique selectionnée
+	 *@return Musique selectionnée
+	 **/
+	
 	public boolean isSelected() {
 		return selected;
 	}
-
+	
+	/**
+	 *Initialise la musique selectionnée
+	 *@param selected
+	 *	Musique selectionnée
+	 **/
+	
 	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}

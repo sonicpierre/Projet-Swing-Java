@@ -33,15 +33,23 @@ public class FenetreLogin extends JFrame {
 	 */
 	
 	private FenetreLogin() {
-		//On lance la fenêtre de fond en même temps pour avoir l'image en fond.
+		/**
+		 *On lance la fenêtre de fond en même temps pour avoir l'image en fond.
+		 */
 		FenetreFond.getInstance();
-		//On définit le titre de la fenêtre
+		/**
+		 *On définit le titre de la fenêtre
+		 */
 		this.setTitle("Connexion");
 		setSize(dimLogin);
-		//Certe la fenêtre Login se fermera en appuyant sur la croix mais le programme tout entier s'arrêtera avec la fenêtre de fond associé.
+		/**
+		 *Certes la fenêtre Login se fermera en appuyant sur la croix mais le programme tout entier s'arrêtera avec la fenêtre de fond associé.
+		 */
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		//On ajoute ici le menu avec les 2 onglets celui pour se connecter et celui pour la création de compte SQL
+		/**
+		 *On ajoute ici le menu avec les 2 onglets celui pour se connecter et celui pour la création de compte SQL
+		 */
 		getContentPane().add(new MenuDemmarrage().getMesOnglets());
 		setVisible(true);
 		setResizable(false);
@@ -51,17 +59,25 @@ public class FenetreLogin extends JFrame {
 	 * Permet de switcher d'une fenêtre à l'autre en fonction de si on veut se login ou si on veut créer un compte.
 	 */
 	public void changerLadim() {
-		//Permet de savoir à quelle dimension on est et par conséquent savoir aussi sur quelle fenêtre on est.
+		/**
+		 *Permet de savoir à quelle dimension on est et par conséquent savoir aussi sur quelle fenêtre on est.
+		 */
 		if (this.getSize().equals(dimLogin)) {
-			//On redonne un nouveau nom
+			/**
+			 *On redonne un nouveau nom
+			 */
 			this.setTitle("Créer un compte");
-			//On change la dimension de la fenêtre
+			/**
+			 *On change la dimension de la fenêtre
+			 */
 			this.setSize(dimCreationMenu);
 		} else {
 			this.setTitle("Connexion");
 			this.setSize(dimLogin);
 		}
-		//On centre la fenêtre
+		/**
+		 *On centre la fenêtre
+		 */
 		this.setLocationRelativeTo(null);
 	}
 

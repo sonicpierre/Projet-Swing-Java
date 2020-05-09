@@ -17,6 +17,7 @@ import graphic.fenetre.FenetreLogin;
  *</lu>
  *@author VIRAGAUX Pierre
  *</p>
+ *@version 2.0
  **/
 
 @SuppressWarnings("serial")

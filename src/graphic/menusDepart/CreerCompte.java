@@ -23,9 +23,10 @@ import graphic.fenetre.FenetreLogin;
 /**
  * <b>CreerCompte</b> est la classe permettant de définir les actions de
  * création de compte.
- * 
  * @author VIRGAUX Pierre
+ * @version 2.0
  **/
+
 
 @SuppressWarnings({ "serial" })
 public class CreerCompte extends JPanel {
@@ -63,35 +64,34 @@ public class CreerCompte extends JPanel {
 	private CreerCompte() {
 
 		/**
-		 * Définition du menu
+		 *Définition du menu
 		 **/
 
 		menuCreation = new JPanel(new BorderLayout());
 
 		/**
-		 * Couleur de fond du menu
+		 *Couleur de fond du menu
 		 **/
 
 		menuCreation.setBackground(new Color(200, 100, 100));
 
 		/**
-		 * Initialisation et centrage du menu
+		 *Initialisation et centrage du menu
 		 **/
 
 		menuCreation.add(InitialisationDuMenu(), BorderLayout.CENTER);
 
 		/**
-		 * Initialisation et positionnement des boutons en bas
+		 *Initialisation et positionnement des boutons en bas
 		 **/
 
 		menuCreation.add(InitDesBouttons(), BorderLayout.SOUTH);
 	}
 
 	/**
-	 * Permet l'initialisation des composantes du menu d'identification et de
-	 * création de compte
-	 * 
-	 * @return Information saisies
+	 *Permet l'initialisation des composantes du menu d'identification et de
+	 *création de compte
+	 *@return Information saisies
 	 **/
 
 	private JPanel InitialisationDuMenu() {
@@ -110,7 +110,7 @@ public class CreerCompte extends JPanel {
 		motDePasse.setHorizontalAlignment(JLabel.CENTER);
 
 		/**
-		 * Gestion de saisie mot de passe
+		 *Gestion de saisie mot de passe
 		 **/
 
 		JLabel addresseMail = new JLabel("Adresse mail :");
@@ -129,8 +129,8 @@ public class CreerCompte extends JPanel {
 	}
 
 	/**
-	 * Initilisation des boutons <b>NB : </b> Vérification nécessaire de l'existence
-	 * de compte, de la saisie des champs
+	 *Initilisation des boutons <b>NB : </b> Vérification nécessaire de l'existence
+	 *de compte, de la saisie des champs
 	 **/
 
 	private JPanel InitDesBouttons() {
@@ -152,7 +152,7 @@ public class CreerCompte extends JPanel {
 	}
 
 	/**
-	 * Instanciation de la fenetre de creation de compte
+	 *Instanciation de la fenetre de creation de compte
 	 **/
 
 	public static CreerCompte getInstance() {
@@ -163,7 +163,6 @@ public class CreerCompte extends JPanel {
 
 	/**
 	 * Récupère le menu de création
-	 * 
 	 * @return menuCreation
 	 **/
 
@@ -173,7 +172,6 @@ public class CreerCompte extends JPanel {
 
 	/**
 	 * Initialisation du menu de création
-	 * 
 	 * @param menuCreation
 	 **/
 
@@ -190,7 +188,11 @@ public class CreerCompte extends JPanel {
 		FenetreFond.getInstance().dispose();
 		System.exit(0);
 	}
-
+	
+	/**
+	 *Permet de valider la saisie de l'utilisateur
+	 **/
+	
 	private void valider() {
 		String passewordTranslate = new String(passeword.getPassword());
 		String passewordRoot = new String(confirmedRoot.getPassword());

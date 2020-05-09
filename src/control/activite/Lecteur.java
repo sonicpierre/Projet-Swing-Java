@@ -11,10 +11,13 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
  *<p><b>Lecteur</b> est la classe héritée de thread, qui nous permet de séparer le programme de la lecture musique.
  *Cela nous permet ainsi de pouvoir effectuer des actions simultannées entre les côtés graphique et contrôle
  *
- *On utilisera "transient" afin de ne pas prendre en compte la variable à laquelle elle est associée
+ *NB : On utilisera "transient" afin de ne pas prendre en compte la variable à laquelle elle est associée
  *lors de la sauvegarde.
  *</p>
+ *@author VIRGAUX Pierre
+ *@version 2.0
  **/
+
 
 public class Lecteur extends Thread implements Serializable{
 

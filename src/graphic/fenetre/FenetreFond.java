@@ -22,8 +22,7 @@ import graphic.menusParametreFenetre.MenuProfilDescription;
 
 /**
  * La classe <b>FentreFond</b> permet de générer la fenêtre permettant d'avoir le menu principal de notre application.
- * 
- * @author Pierre VIRGAUX
+ * @author VIRGAUX  Pierre
  * @version 2.0
  * 
  **/
@@ -39,10 +38,14 @@ public class FenetreFond extends JFrame {
 	
 	private static final Dimension dimFenetre = new Dimension(1200, 800);
 	
-	//On déclare une image de fond qui peut être un gif pour que ça soit un peu plus dinamique.
+	/**
+	 *On déclare une image de fond qui peut être un gif pour que ça soit un peu plus dinamique.
+	 */
 	private JLabel ImageFond;
 	
-	//Permet de savoir si la fenêtre de fond est active en d'autre terme si on s'est login ou pas
+	/**
+	 *Permet de savoir si la fenêtre de fond est active en d'autre terme si on s'est login ou pas
+	 */
 	private boolean FenetreFondDepartActive;
 	
 	/**
@@ -51,59 +54,91 @@ public class FenetreFond extends JFrame {
 	 */
 	
 	private FenetreFond() {
-		//On donne la bonne dimension à la fenêtre 
+		/**
+		 *On donne la bonne dimension à la fenêtre 
+		 */
 		setSize(dimFenetre);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		//On utilise un JLabel qui permet d'ajouter une image à l'intérieur
+		/**
+		 *On utilise un JLabel qui permet d'ajouter une image à l'intérieur
+		 */
 		ImageFond = new JLabel(new ImageIcon("ImageDeFond/ImageAnime.gif"));
-		//On ajouter le Label à la fenêtre
+		/**
+		 *On ajouter le Label à la fenêtre
+		 */
 		this.add(ImageFond);
-		//Permet d'enlever le contour de la fenètre, il est donc impossible de redimentionner ou de fermer la fenêtre
+		/**
+		 *Permet d'enlever le contour de la fenètre, il est donc impossible de redimentionner ou de fermer la fenêtre
+		 */
 		setUndecorated(true);
 		setVisible(true);
-		//Rend impossible le redimentionnement de la fenêtre
+		/**
+		 *Rend impossible le redimentionnement de la fenêtre
+		 */
 		setResizable(false);
-		//Donne la possibilité à la sourie d'être utilisée.
+		/**
+		 *Donne la possibilité à la sourie d'être utilisée.
+		 */
 		setFocusable(true);
-		//On ne s'est pas encore login
+		/**
+		 *On ne s'est pas encore login
+		 */
 		this.FenetreFondDepartActive = true;
 	}
 	
 	/**
 	 * Va permettre de se déconnecter et de se reconnecter avec un autre utilisateur SQL
 	 * On ajoute dans la fenêtre les onglets
-	 * 
 	 * @param login
+	 * 	Login utilisateur
 	 */
 
 	public void changerFenetre(String login) {
 		if(FenetreFondDepartActive) {
-			//On rend la fenêtre invisible
+			/**
+			 *On rend la fenêtre invisible
+			 */
 			dispose();
-			//On enlève l'image de fond
+			/**
+			 *On enlève l'image de fond
+			 */
 			this.remove(ImageFond);
-			//On remet le menu permettant de fermer et redimensionner la fenêtre
+			/**
+			 *On remet le menu permettant de fermer et redimensionner la fenêtre
+			 */
 			setUndecorated(false);
-			//On donne une couleur au fond de la fenêtre
+			/**
+			 *On donne une couleur au fond de la fenêtre
+			 */
 			getContentPane().setBackground(new Color(100,100,100));
-			//On définit le BorderLayout pour organiser les différents panels
+			/**
+			 *On définit le BorderLayout pour organiser les différents panels
+			 */
 			JPanel intermediaire = new JPanel(new BorderLayout());
 			intermediaire.add(TopMenuDescriptif.getInstance(login));
-			//On met ici la barre de menu en haut pour donner les différentes actions possibles.
+			/**
+			 *On met ici la barre de menu en haut pour donner les différentes actions possibles.
+			 */
 			this.add(intermediaire, BorderLayout.NORTH);
-			//On ajoute le panel principal au centre de la fenêtre
+			/**
+			 *On ajoute le panel principal au centre de la fenêtre
+			 */
 			this.add(MenuPrincipal.getInstance(login), BorderLayout.CENTER);
 			setResizable(true);
 			setVisible(true);
 			setFocusable(true);
-			//On est login donc la fenêtre de fond n'est plus active.
+			/**
+			 *On est login donc la fenêtre de fond n'est plus active.
+			 */
 			FenetreFondDepartActive = false;
 		}
 		else {
 			dispose();
 			this.getContentPane().removeAll();
-			//On remet l'image de fond
+			/**
+			 *On remet l'image de fond
+			 */
 			this.add(ImageFond);
 			setUndecorated(true);
 			setResizable(false);
@@ -125,7 +160,9 @@ public class FenetreFond extends JFrame {
 	
 	public void retourEtatInitial(String login) {
 		dispose();
-		//On repasse l'attribut artiste dans chaque menu à null car on n'a rien selectionner encore 
+		/**
+		 *On repasse l'attribut artiste dans chaque menu à null car on n'a rien selectionner encore 
+		 */
 		MenuPrincipal.getInstance(login).setArtisteSelectionne(null);
 		MenuMusique.getInstance(login).setArtiste(null);
 		MenuAjoutAlbum.getInstance(login).setArtiste(null);
@@ -136,12 +173,16 @@ public class FenetreFond extends JFrame {
 		TopMenuDescriptif.getInstance(login).setArtiste(null);
 		TopMenuDescriptif.getInstance(login).updateVersInitial();
 		
-		//On enlève tout ce qu'il y avait sur le panel
+		/**
+		 *On enlève tout ce qu'il y avait sur le panel
+		 */
 		this.getContentPane().removeAll();
 		JPanel intermediaire = new JPanel(new BorderLayout());
 		intermediaire.add(TopMenuDescriptif.getInstance(login));
 		this.add(intermediaire, BorderLayout.NORTH);
-		//On met à jour tous les panels
+		/**
+		 *On met à jour tous les panels
+		 */
 		MenuAlbum.getInstance(login).update();
 		MenuMusique.getInstance(login).update();
 		MenuRepresentation.getInstance(login).update();

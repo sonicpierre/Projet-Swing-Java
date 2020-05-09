@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 /**
  *<p>
  *<b>SenderMail</b> est la classe qui permet à l'utilisateur d'envoyer des e-mails
- *à des contacts depuis une fenetre d'envoie. Son fonctionne se fait comme suit : 
+ *à des contacts depuis une fenetre d'envoie. Son fonctionnement se fait comme suit : 
  *<ul>
  *<li>Définition du protocole permettant la connexion aux serveurs de Google Mail (Gmail)</li>
  *<li>Définition des identifiants du compte d'envoie d'artistak</li>
@@ -24,9 +24,21 @@ import javax.swing.JOptionPane;
  *</ul>
  *</p>
  *@author VIRGAUX Pierre 
+ *@version 2.0
  **/
 
 public class SenderMail {
+	
+	/**
+	 *Permet l'envoie d'e-mail depuis le compte administrateur
+	 *@param recepient
+	 *	Destinataire
+	 *@param sujet 
+	 *	Objet de l'e-mail
+	 *@param messageAEnvoyer
+	 *	Contenu du message
+	 **/
+	
 	public static void sendMail(String recepient, String sujet, String messageAEnvoyer) throws MessagingException {
 		System.out.println("Preparation de l'envoie du message");
 		
@@ -40,8 +52,17 @@ public class SenderMail {
 		properties.put("mail.smtp.starttls.enable", "true");
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
-	
+		
+		/**
+		 *E-mail administrateur
+		 **/
+		
 		String myAccountEmail = "artistaketexe@gmail.com";
+		
+		/**
+		 *Mot de passe compte administrateur
+		 **/
+		
 		String password = "artistak";
 		
 		/**

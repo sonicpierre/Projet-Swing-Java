@@ -36,6 +36,7 @@ import graphic.menusDeuxiemeFenetre.MenuPrincipal;
  *<b>MenuProfilDescription</b> est la classe qui permet la création de la fenetre 
  *de description utilisateur.
  *@author VIRGAUX Pierre
+ *@version 2.0
  **/
 
 @SuppressWarnings("serial")
@@ -73,10 +74,24 @@ public class MenuProfilDescription extends JPanel{
 	
 	private JTextArea zoneEdition;
 	
+	/**
+	 *Déclaration espace d'édition
+	 **/
 	
 	private JTextField entreNouveauNom;
 	
+	/**
+	 *Déclaration d'un espace saisie pour une nouvelle adresse e-mail
+	 **/
+	
 	private JTextField entreNouvelleAdresse;
+	
+	/**
+	 *Déclaration de l'artiste
+	 **/
+	
+	private Artiste artiste;
+	
 	
 	/**Permet d'indentifier l'utilisateur grâce à son login.
 	 *A partir du login on obtient le mot de passe, l'e-mail et le talent de l'utilisateur
@@ -84,7 +99,6 @@ public class MenuProfilDescription extends JPanel{
 	 *	Login utilisateur
 	 **/
 	
-	private Artiste artiste;
 	
 	private MenuProfilDescription(String login) {
 		this.artiste = null;

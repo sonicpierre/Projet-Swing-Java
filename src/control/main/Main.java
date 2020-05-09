@@ -6,6 +6,13 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import graphic.fenetre.FenetreLogin;
 
+/**
+ *La classe <b>Main</b> est la classe principale de notre application.
+ *Elle permet de lancer la fenêtre graphique qui active l'ensemble des fonctionnalités de l'application
+ *@author VIRGAUX Pierre
+ *@version 2.0
+ **/
+
 public class Main {
 	
 	

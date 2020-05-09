@@ -21,10 +21,9 @@ import graphic.fenetre.FenetreLogin;
 @SuppressWarnings("serial")
 
 /**
- * <b>LoginMenu</b> est la classe qui va créer le menu d'indentification
- * 
- * @author VIRGAUX Pierre
- * @version 2.0
+ *<b>LoginMenu</b> est la classe qui va créer le menu d'indentification
+ *@author VIRGAUX Pierre
+ *@version 2.0
  **/
 
 public class LoginMenu extends JPanel {
@@ -229,7 +228,9 @@ public class LoginMenu extends JPanel {
 		
 		String user = login.getText();
 		String passwd = passewordTraduit;
-		//Permettra de savoir si la connexion à la BDD SQL c'est bien passée.
+		/**
+		 *Permettra de savoir si la connexion à la BDD SQL c'est bien passée.
+		 */
 		boolean reussite;
 		/**
 		 * On va créer la BDD si elle n'existe pas
@@ -244,14 +245,18 @@ public class LoginMenu extends JPanel {
 		Modification.getInstance().setPasswd(passwd);
 		Modification.getInstance().setUser(user);
 		if(reussite) {
-			//Si tout c'est bien passé on regarde si l'utilisateur existe dans le fichier et dans le cas contraire on le crée.
+			/**
+			 *Si tout c'est bien passé on regarde si l'utilisateur existe dans le fichier et dans le cas contraire on le crée.
+			 */
 			if(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(user) == null) {
 				personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().put(user, new CompteAdministrateur(passwd));
 				personnesDejaInscrite.getInstance().sauvegarder();
 			}
 			FenetreLogin.getInstance().dispose();
 			FenetreFond.getInstance().changerFenetre(login.getText());
-			//On remet les champs à nul pour que quand on se déconnecte on est pas le login et le mot de passe de l'utilisateur précédent.
+			/**
+			 *On remet les champs à nul pour que quand on se déconnecte on est pas le login et le mot de passe de l'utilisateur précédent.
+			 */
 			login.setText("");
 			passeword.setText("");
 		}

@@ -8,6 +8,8 @@ import java.io.Serializable;
  *<p>On utilisera "transient" afin de ne pas prendre en compte la variable à laquelle elle est associée
  *lors de la sauvegarde.
  *</p>
+ *@author BEZIAT Lucille
+ *@version 2.0
  **/
 
 public class PisteAudio implements Serializable{
@@ -26,6 +28,9 @@ public class PisteAudio implements Serializable{
 	
 	private final String Name;
 	
+	/**
+	 *Titre de l'audio associé
+	 **/
 	
 	private final Titre titreAssocie;
 	/**
@@ -69,7 +74,12 @@ public class PisteAudio implements Serializable{
 	public String getName() {
 		return Name;
 	}
-
+	
+	/**
+	 *Récupère le titre associé
+	 *@return Titre associé
+	 **/
+	
 	public Titre getTitreAssocie() {
 		return titreAssocie;
 	}
