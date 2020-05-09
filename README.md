@@ -1,6 +1,6 @@
 # Projet_Java_ING1_S2
 
-Pour remplir à partir d'un fichier csv:
+## 2. Pour remplir à partir d'un fichier csv:
 
 Il faut choisir un fichier avec la structure suivante:
 
