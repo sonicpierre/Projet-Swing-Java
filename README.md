@@ -85,9 +85,11 @@ Après leur importation, les musiques de l'album sont affichées sur le réperto
 
 ## 6. Gestion de l'interface acteur & comédien :
 
-De manière analogue à la partie chanteur, les interfaces dédiées à la gestion des representation des acteurs et comédiens permettent l'ajout de nouvelles informations qui seront par la suite afficher sur la page d'accueil.
+De manière analogue à la partie chanteur, les interfaces dédiées à la gestion des representation des acteurs et comédiens permettent l'ajout de nouvelles informations qui seront par la suite afficher sur la page d'accueil. 
 
 <img src="ImageReadMe/film.png" lab="Fenetre d'ajout representations" height="400">
+
+Elle est accessible via l'onglet "représentations" de la session utilisateur.
 
 ## 7. L'envoie d'e-mail
 
