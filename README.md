@@ -10,6 +10,14 @@ Sinon, créez un compte en indiquant un nom d'utilisateur, un mot de passe ainsi
 
 <img src="ImageReadMe/creerCompte.png" lab="Créer compte">
 
+Si vous voulez tester le mot de passe d'un utilisateur SQL à partir du terminal utilisez la commande mysql :
+
+-u "Nom utilisateur" -p
+
+Si jamais vous ne connaissez pas votre mot de passe root et que vous voulez le changer suivez ce tuto :
+
+<a>http://patatos.over-blog.com/article-comment-changer-le-mot-de-passe-de-mysql-49963936.html</a>
+
 ## 2. Pour remplir à partir d'un fichier csv:
 
 Il faut choisir un fichier avec la structure suivante:
