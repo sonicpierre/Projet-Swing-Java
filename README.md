@@ -75,5 +75,10 @@ Depuis ce répertoire il est alors possible d'ajouter musique et album en utilis
 
 <img src="ImageReadMe/Chanteur.png" lab="Après ajout chanteur" height="400">
 
-
 <img src="ImageReadMe/Musique.png" lab="Après ajout chanteur" height="400">
+
+### 5.1. Affichage et gestion des musiques
+
+Après leur importation, les musiques de l'album sont affichées sur le répertoire du chanteur. A partir de cet instant il est possible de jouer une musique, la mettre en pause, l'arrêter ou encore la reprendre. Cette gestion se fait soit via les boutons de l'onglet "player" (en selectionnat au préalable la musique), soit directement sur l'interface en utilisant les boutons de gestion.
+
+<img src="ImageReadMe/repertoire.png" lab="Répertoire de musique" height="400">
