@@ -44,7 +44,7 @@ public class SQLScript {
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Album(\n" + 
 					"	id INT PRIMARY KEY,\n" + 
 					"	nom VARCHAR(30),\n" + 
-					"	date DATE,\n" + 
+					"	date VARCHAR(10),\n" + 
 					"	idArtiste INT,\n" + 
 					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
 			
