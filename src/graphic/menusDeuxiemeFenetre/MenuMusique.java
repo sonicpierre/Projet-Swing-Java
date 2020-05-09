@@ -30,18 +30,30 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreParametre;
 
-//
+/**
+ * 
+ * @author Pierre VIRGAUX
+ *
+ */
 @SuppressWarnings("serial")
 public class MenuMusique extends JPanel{
 
 	private static MenuMusique instance;
+	
 	private JPanel menuFinal;
 	private String login;
 	private Artiste artiste;
+	//Permet d'avoir un panel de taille adaptable
 	private int nombreDeMusique;
+	//A chaque titre on associe une cheque box pour pouvoir faire des opérations dessus, lire, mettre en pause, supprimer
 	Map<JCheckBox, Titre> mesAssociationsCheckTitre;
+	//Va permettre ici de gérer les lectures et ne pas jouer 2 musiques en même temps.
 	private Titre titreEnCoursDeLecture;
-	//A chaque musique sont associé des bouttons :) 
+
+	/**
+	 * Ici on construit la première instance du MenuMusique
+	 * @param login
+	 */
 	
 	private MenuMusique(String login) {
 		this.login = login;
@@ -49,16 +61,21 @@ public class MenuMusique extends JPanel{
 		this.titreEnCoursDeLecture = null;
 		if(artiste == null)
 			constructionDuPanelGlobal();
-			
-		//On utilise ça pour les JScrollPan pour ajouter à la place de add un JScrollPane ne peut gérer qu'un seul élément à la foi
 		this.add(menuFinal);
 	}
 	
+	/**
+	 * Permet de construire le panel principal du menu.
+	 */
 
 	private void constructionDuPanelGlobal() {
+		//On a ici pour chacun des titres musicaux une case qu'on peut cocher.
 		mesAssociationsCheckTitre = new HashMap<JCheckBox, Titre>();
+		//On va compter le nombre de musique pour bien les afficher.
 		nombreDeMusique = 0;
+		//Va permettre d'afficher l'album avant d'afficher les musiques
 		boolean premierPassage = false;
+		//Représente le cas où on n'a pas encore seletionné d'artiste 
 		if(artiste == null) {
 			nombreDeMusique = 0;
 			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste()) {//POUR TOUS LES STYLES DE ZIK, ON PASSE TOUS LES ALBUMS YANT UN CERTAIN STYLE, ON COMPTE LEUR NOMBRE DE TITRE DANS L'LABUM => NBR DE LIGNE DU TABLEAU QUON VEUR AFFICHER
@@ -302,6 +319,10 @@ public class MenuMusique extends JPanel{
 			
 	}
 	
+	/**
+	 * Permet ici d'arrêter le titre qui entrain d'être joué.
+	 * Si jamais aucun titre n'est sélectionné une 
+	 */
 	
 	private void stop() {
 		if(titreEnCoursDeLecture!=null)
@@ -350,7 +371,4 @@ public class MenuMusique extends JPanel{
 	public void setNombreDeMusique(int nombreDeMusique) {
 		this.nombreDeMusique = nombreDeMusique;
 	}
-	
-	
-	
 }

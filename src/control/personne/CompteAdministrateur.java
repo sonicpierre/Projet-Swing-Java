@@ -16,34 +16,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *<b>CompteAdministrateur</b> est la classe qui gère le compte administrateur
- *@author VIRGAUX Pierre
- *@version 2.0
+ * MDP crypté, mdp user, liste artiste et prefezrences
  **/
-
 public class CompteAdministrateur implements Serializable{
 
 	private static final long serialVersionUID = 1395120222597597878L;
 	
-	/**
-	 *Mot de passe crypté
-	 **/
 	
 	private SignedObject passewordCrypte;
-	
-	/**
-	 *Déclaration des couleurs fenêtre
-	 **/
-	
 	private Color couleurDuFond, couleurEcriture;
 	
 	/**
-	 *Set artiste
-	 *@see Artiste
-	 **/
-	
+	 *Set artiste*/
 	private Set<Artiste> maListeArtiste;
 	
+
 	/**
 	 *Définition des préférences du compte administrateur
 	 *@param passeword
@@ -62,12 +49,6 @@ public class CompteAdministrateur implements Serializable{
 		securiser(passeword);
 	}
 	
-	/**
-	 *Définition des couleurs et cryptage mot de passe
-	 *@param passeword
-	 *	Mot de passe utilisateur
-	 *@see Artiste
-	 **/
 	
 	public CompteAdministrateur(String passeword) {
 		this.maListeArtiste = new HashSet<Artiste>();
@@ -85,8 +66,6 @@ public class CompteAdministrateur implements Serializable{
 	}
 	
 	/**Met en place la sécurité du mot de passe
-	 * @param passeword 
-	 * 	Mot de passe utilisateur
 	 **/
 	
 	public void setPasseword(String passeword) {
@@ -189,12 +168,9 @@ public class CompteAdministrateur implements Serializable{
 		}	
 	}
 
-	/**
-	 *Permet de recherhcher un artiste, suite à la l'impossibilité de la rechercher via la fonction get()
-	 *@param artisteRecherche
-	 *@see Artiste
-	 *@return Artiste recherché
-	 **/
+		/**
+		 *Suite à la non possibilité de rechercher via la focntions get, nous avons implémenter une fct de recherhce
+		 **/
 	
 	public Artiste rechercher(Artiste artisteRecherche) {
 		for(Artiste monArtiste : this.maListeArtiste)
@@ -204,23 +180,12 @@ public class CompteAdministrateur implements Serializable{
 		return null;
 		
 	}
-	
-	/**
-	 *Récupère la liste d'artiste
-	 *@return Liste d'artiste
-	 **/
-	
+
 	public Set<Artiste> getMaListeArtiste() {
 		return maListeArtiste;
 	}
 
-	/**
-	 *Définition de la liste d'album
-	 *@param maListeArtiste
-	 *	Liste d'artiste
-	 *@see Artiste
-	 **/
-	
+
 	public void setMaListeArtiste(Set<Artiste> maListeArtiste) {
 		this.maListeArtiste = maListeArtiste;
 	}
