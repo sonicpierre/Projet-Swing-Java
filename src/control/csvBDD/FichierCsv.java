@@ -350,10 +350,12 @@ public class FichierCsv {
 			} else {
 				for (Representation maRepres : artiste.getMaListeDeRepresentations()) {
 					if (artiste.getType().equals("Acteur")) {
+						Modification.getInstance().insererFilm(maRepres.hashCode(), maRepres.getTitre(), 2020);
 						Modification.getInstance().insererJouerFilm(maRepres.hashCode(), artiste.hashCode());
 					} else {
 						Modification.getInstance().insererSpectacle(maRepres.hashCode(), maRepres.getTitre(), 2020,
 								100);
+						Modification.getInstance().insererJouerFilm(maRepres.hashCode(), artiste.hashCode());
 					}
 				}
 			}

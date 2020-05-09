@@ -82,7 +82,7 @@ public class Modification {
 			 */
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion artiste");
-				String requeteSQL = "INSERT INTO Artiste VALUES(" + id + ",?,?,'" + type + "')";
+				String requeteSQL = "INSERT INTO INTO IF NOT EXISTS Artiste VALUES(" + id + ",?,?,'" + type + "')";
 				/**
 				 * Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
 				 * ça plante quand y a des '.
@@ -118,7 +118,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion album");
-				String requeteSQL = "INSERT INTO Album VALUES(" + id + ",?,'" + date + "'," + idArtiste + ")";
+				String requeteSQL = "INSERT INTO INTO IF NOT EXISTS Album VALUES(" + id + ",?,'" + date + "'," + idArtiste + ")";
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, nom);
 					stat.executeUpdate();
@@ -148,7 +148,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion chanson");
-				String requeteSQL = "INSERT INTO Chanson VALUES(" + id + ",?," + duree + "," + idAlbum + ")";
+				String requeteSQL = "INSERT INTO INTO IF NOT EXISTS Chanson VALUES(" + id + ",?," + duree + "," + idAlbum + ")";
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, titre);
 					stat.executeUpdate();
@@ -177,7 +177,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion film");
-				String requeteSQL = "INSERT INTO Film VALUES(" + id + ",?," + annee + ")";
+				String requeteSQL = "INSERT INTO IF NOT EXISTS Film VALUES(" + id + ",?," + annee + ")";
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, titre);
 					stat.executeUpdate();
