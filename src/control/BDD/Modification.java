@@ -82,7 +82,7 @@ public class Modification {
 			 */
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion artiste");
-				String requeteSQL = "INSERT INTO INTO IF NOT EXISTS Artiste VALUES(" + id + ",?,?,'" + type + "')";
+				String requeteSQL = "REPLACE INTO Artiste SET `id`=" + id + ",`nom`= ?, `biographie` = ?, `type`= " + type ;
 				/**
 				 * Permet d'éviter les attaques par injections et en d'autre termes d'éviter que
 				 * ça plante quand y a des '.
@@ -118,7 +118,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion album");
-				String requeteSQL = "INSERT INTO INTO IF NOT EXISTS Album VALUES(" + id + ",?,'" + date + "'," + idArtiste + ")";
+				String requeteSQL = "REPLACE INTO Album SET(" + id + ",?,'" + date + "'," + idArtiste + ")";
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, nom);
 					stat.executeUpdate();
@@ -148,7 +148,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion chanson");
-				String requeteSQL = "INSERT INTO INTO IF NOT EXISTS Chanson VALUES(" + id + ",?," + duree + "," + idAlbum + ")";
+				String requeteSQL = "REPLACE INTO Chanson SET(" + id + ",?," + duree + "," + idAlbum + ")";
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, titre);
 					stat.executeUpdate();
@@ -177,7 +177,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion film");
-				String requeteSQL = "INSERT INTO IF NOT EXISTS Film VALUES(" + id + ",?," + annee + ")";
+				String requeteSQL = "REPLACE INTO Film SET(" + id + ",?," + annee + ")";
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, titre);
 					stat.executeUpdate();
@@ -207,7 +207,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion spectacle");
-				String requeteSQL = "INSERT INTO Spectacle VALUES(" + id + ",?," + annee + "," + spectateurs + ")";
+				String requeteSQL = "REPLACE INTO Spectacle SET(" + id + ",?," + annee + "," + spectateurs + ")";
 				try (PreparedStatement stat = conn.prepareStatement(requeteSQL)) {
 					stat.setString(1, titre);
 					stat.executeUpdate();
