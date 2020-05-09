@@ -73,7 +73,32 @@ Toutes les colonnes (Type, Titre, Annee, Album, Duree, Spectateur) doivent être
 La saisie d'un chanteur crée une interface dédiée à ce groupe d'utilisateur, permettant d'ajouter une musique ou un album de l'artiste. Dans un premier temps, sur la page d'accueil se crée le profil de l'utilisateur ajouté, profil qui lorsqu'on clique dessus conduit au répertoire du chanteur. 
 Depuis ce répertoire il est alors possible d'ajouter musique et album en utilisant les boutons dédiés.
 
-<img src="ImageReadMe/Chanteur.png" lab="Après ajout chanteur">
+<img src="ImageReadMe/Chanteur.png" lab="Après ajout chanteur" height="400">
 
+<img src="ImageReadMe/Musique.png" lab="Après ajout chanteur" height="400">
 
-<img src="ImageReadMe/Musique.png" lab="Après ajout chanteur">
+### 5.1. Affichage et gestion des musiques
+
+Après leur importation, les musiques de l'album sont affichées sur le répertoire du chanteur. A partir de cet instant il est possible de jouer une musique, la mettre en pause, l'arrêter ou encore la reprendre. Cette gestion se fait soit via les boutons de l'onglet "player" (en selectionnat au préalable la musique), soit directement sur l'interface en utilisant les boutons de gestion.
+
+<img src="ImageReadMe/repertoire.png" lab="Répertoire de musique" height="400">
+
+## 6. Gestion de l'interface acteur & comédien :
+
+De manière analogue à la partie chanteur, les interfaces dédiées à la gestion des representation des acteurs et comédiens permettent l'ajout de nouvelles informations qui seront par la suite afficher sur la page d'accueil. 
+
+<img src="ImageReadMe/film.png" lab="Fenetre d'ajout representations" height="400">
+
+Elle est accessible via l'onglet "représentations" de la session utilisateur.
+
+## 7. L'envoie d'e-mail
+
+Il est possible pour l'administrateur d'envoyer des messages électroniquesa aux artistes de son choix. Cet envoi se fait via une fenêtre de message, où il devra saisir l'objet, le contenu et le destinataire du message. Cette interface est accessible en utilisant l'onglet "contact" de l'application. 
+
+<img src="ImageReadMe/mail.png" lab="Fenêtre d'envoie e-mail" height="400">
+
+## 8. Paramètres
+
+Il est également possible, grâce à un clic droit sur l'icone d'un utilisateur depuis la page d'accueil, d'accéder à ses informations de paramètrages. Ainsi il sera possible de la modifier, d'ajouter une photo de profil ou consulter des informations.
+
+<img src="ImageReadMe/paramètres.png" lab="Fenêtre de paramètrage" height="400">
