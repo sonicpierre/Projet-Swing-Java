@@ -4,7 +4,7 @@ Pour remplir à partir d'un fichier csv:
 
 Il faut choisir un fichier avec la structure suivante:
 
-<img src="ImageReadMe/dossier.PNG" lab="Structure du dossier a importer" height="400" >
+<img src="ImageReadMe/dossie.png" lab="Structure du dossier a importer" height="400" >
 
 un dossier Albums avec les images des albums avec en nom: Album.jpeg (sans apostrophe (espace à la place), ni acccent)
 
