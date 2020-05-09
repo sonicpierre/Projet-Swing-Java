@@ -28,7 +28,16 @@ Lorsque vos identifiants de connexion sont validés par le système, vous accéd
 
 <img src="ImageReadMe/post_connexion.png" lab="Page d'accueil" height="400" >
 
-## 4. Pour remplir à partir d'un fichier csv :
+### 2.1. Les onglets d'affichage
+
+L'affichage de l'ensemble des informations disponibles se fait selon leur type, qui est donné par les onglets Artiste, Musique, Albums et Représentations. L'administrateur pourra ainsi visualiser les données des utilisateurs quelque soit leur talent. 
+
+<img src="ImageReadMe/ajout_artiste.png" lab="Fenêtre de saisie manuelle" height="400" >
+
+## 3. Remplissage manuel : 
+
+La saisie manuelle d'un utilisateur se fait via le chemin "Base de données > ajouter artiste". Il donne accès à une fenêtre permettant de remplir les informations telles que le nom, prénom, e-mail, talent et description de l'artiste.
+## 4. Remplissage à partir d'un fichier csv :
 
 Il faut choisir un fichier avec la structure suivante:
 
