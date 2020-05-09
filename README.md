@@ -69,3 +69,11 @@ Toutes les colonnes (Type, Titre, Annee, Album, Duree, Spectateur) doivent être
 </li>
 
 ## 5. Gestion de l'interface chanteur : 
+
+La saisie d'un chanteur crée une interface dédiée à ce groupe d'utilisateur, permettant d'ajouter une musique ou un album de l'artiste. Dans un premier temps, sur la page d'accueil se crée le profil de l'utilisateur ajouté, profil qui lorsqu'on clique dessus conduit au répertoire du chanteur. 
+Depuis ce répertoire il est alors possible d'ajouter musique et album en utilisant les boutons dédiés.
+
+<img src="ImageReadMe/Chanteur.png" lab="Après ajout chanteur">
+
+
+<img src="ImageReadMe/Musique.png" lab="Après ajout chanteur">
