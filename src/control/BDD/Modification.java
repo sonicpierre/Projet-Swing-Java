@@ -163,7 +163,7 @@ public class Modification {
 	}
 	
 	/**
-	 *Permet d'ajouter un film à la base de données
+	 *Permet d'ajouter un bon film à la base de données
 	 *@param id
 	 *	ID
 	 *@param titre
