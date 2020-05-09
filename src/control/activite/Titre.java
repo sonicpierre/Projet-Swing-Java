@@ -310,47 +310,4 @@ public class Titre implements Serializable{
 		this.albumAssocie = albumAssocie;
 	}
 	
-
-	@Override
-	
-	/**
-	 *On réutilise la méthode equals pour comparer les musiques selon leur titre et chemin
-	 *@param autreTitre
-	 *	Titre de comparaison
-	 *@return True si les titres correspondent
-	 **/
-	
-	public boolean equals(Object autreTitre) {
-		Titre titrePourComparaison = (Titre) autreTitre;
-		if(this.titre.equals(titrePourComparaison.getTitre()) && this.cheminVersLaMusique.equals(titrePourComparaison.cheminVersLaMusique))
-			return true;
-		
-		return false;
-	}
-	
-	
-	@Override
-	
-	/**
-	 *La méthode hashCode est utilisée afin de permettre le bon fonctionnement du Set
-	 *NB : Ainsi deux titre seront égaux s'ils ont le même nom et titre. On évite également les doublons dans la liste
-	 *@return Nombre de titre compté
-	 **/
-	
-	public int hashCode() {
-		int compteurFinal = 0;
-		
-		char[] monTitre = this.getTitre().toCharArray();
-		char[] monChemin = this.cheminVersLaMusique.toCharArray();
-		
-		for(char titre : monTitre)
-			compteurFinal+= (int) titre;
-		
-		for(char chemin : monChemin)
-			compteurFinal+= (int) chemin;
-		
-		
-		return compteurFinal;
-	}
-	
 }

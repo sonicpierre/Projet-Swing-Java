@@ -9,13 +9,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import control.BDD.Modification;
 import control.activite.Album;
 import control.activite.Representation;
 import control.activite.Titre;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
-import graphic.fenetre.FenetreFond;
-import graphic.menusDeuxiemeFenetre.MenuPrincipal;;
+import graphic.fenetre.FenetreFond;;
 
 /**<b>FichierCsv</b> est la classe qui permet d'importer un fichier CSV dans l'application
  *@author BEZIAT Lucille
@@ -327,7 +327,25 @@ public class FichierCsv {
 				
 				
 			}
-		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(artiste); 
+		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().add(artiste);
+		Modification.getInstance().insererArtiste(artiste.hashCode(), artiste.getNom(), artiste.getDescription(), artiste.getType());
+		
+		if(artiste.getType().equals("Chanteur")) {
+			for(Album monAlbum : artiste.getMaListeDeAlbums()) {
+				Modification.getInstance().insererAlbum(monAlbum.hashCode(), monAlbum.getTitre(), "2020", artiste.hashCode());
+				for(Titre monTitre : monAlbum.getChansonsDelAlbum())
+					Modification.getInstance().insererChanson(monTitre.hashCode(), monTitre.getTitre(), (int) monTitre.getDuree(), monAlbum.hashCode());
+			}
+			
+		} else {
+			for(Representation maRepres : artiste.getMaListeDeRepresentations()) {
+				if(artiste.getType().equals("Acteur")) {
+					Modification.getInstance().insererJouerFilm(maRepres.hashCode(), artiste.hashCode());
+				} else {
+					Modification.getInstance().insererSpectacle(maRepres.hashCode(), maRepres.getTitre(), 2020, 100);
+				}
+			}
+		}
 		personnesDejaInscrite.getInstance().sauvegarder();
 		}
 		

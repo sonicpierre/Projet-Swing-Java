@@ -258,47 +258,7 @@ public class Artiste implements Serializable{
 		personnesDejaInscrite.getInstance().sauvegarder();
 	}
 	
-	
-	@Override
-	
-	/**Redéfinition de la methode equals car on ne veut pas que la photo soit prise en compte
-	 *@param autreArtiste
-	 *@return True s'il s'agit de l'artiste recherché
-	 **/
-	
-	public boolean equals(Object autreArtiste) {
-		Artiste artistePourComparaison = (Artiste) autreArtiste;
-		if(this.nom.equals(artistePourComparaison.getNom()) && this.prenom.equals(artistePourComparaison.getPrenom()) && this.type.equals(artistePourComparaison.getType()))
-			return true;
-		
-		return false;
-	}
-	
-	/**
-	 *La méthode hashCode est utilisée afin de permettre le bon fonctionnement du Set
-	 *NB : Ainsi deux artistes seront égaux s'ils ont le même nom, prenom et Type. On évite également les doublons dans la liste
-	 **/
-	
-	@Override
-	public int hashCode() {
-		int compteurFinal = 0;
-		
-		char[] monNom = this.getNom().toCharArray();
-		char[] monPrenom = this.getPrenom().toCharArray();
-		char[] monType = this.getType().toCharArray();
-		
-		for(char nom : monNom)
-			compteurFinal+= (int) nom;
-		
-		for(char prenom : monPrenom)
-			compteurFinal+= (int) prenom;
-		
-		for(char type : monType)
-			compteurFinal+= (int) type;
-		
-		return compteurFinal;
-	}
-	
+
 	/**
 	 *Récupère le nom utilisateur
 	 *@return Nom utilisateur

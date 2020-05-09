@@ -3,7 +3,6 @@ package graphic.menusParametreFenetre;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
