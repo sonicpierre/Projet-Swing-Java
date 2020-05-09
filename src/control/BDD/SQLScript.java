@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *Fichier sql permettant de créer les tables de la bdd.
- *NB : Nous avons été obligé de passer par des requêtes pour créer l'archi la bdd, car JBDC ne connait po la commande source7
- *suivie du chemin absolue.
+ *La classe <b>SQLScript</b> est la classe permettant de crée le fichier sql ayant les tables de la base de données.
+ *NB : Nous avons été obligé de passer par des requêtes pour créer l'architecture la base de données. En effet JBDC ne reconnait pas la commande sourcesuivie du chemin absolue.
+ *@author BUISSON-CHAVOT Julien
+ *@version 2.0
  **/
+
 
 public class SQLScript {
 
@@ -28,24 +30,47 @@ public class SQLScript {
 					"	biographie VARCHAR(1000),\n" + 
 					"	type VARCHAR(10));");
 			
+			/**
+			 *Création de la table d'album si elle n'existe pas :
+			 *<ul>
+			 *<li>Définition d'une clé primaire</li>
+			 *<li>Définition du nom de l'utilisateur</li>
+			 *<li>Définition de la date de l'album</li>
+			 *<li>Définition d'un ID artiste auquel correspond l'album</li>
+			 *<li>Définition d'une clé étrangère correspondant à un artiste</li>
+			 *</ul>
+			 **/
+			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Album(\n" + 
-					"	id VARCHAR(100) PRIMARY KEY,\n" + 
+					"	id INT PRIMARY KEY,\n" + 
 					"	nom VARCHAR(30),\n" + 
 					"	date DATE,\n" + 
 					"	idArtiste INT,\n" + 
 					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
 			
+			/**
+			 *Même processus que précédemment
+			 **/
+			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Chanson(\n" + 
-					"	id VARCHAR(100) PRIMARY KEY,\n" + 
+					"	id INT PRIMARY KEY,\n" + 
 					"	titre VARCHAR(30),\n" + 
 					"	duree INT,\n" + 
 					"	idAlbum INT,\n" + 
 					"	FOREIGN KEY fk_artiste(idAlbum) REFERENCES Album(id));");
 			
+			/**
+			 *Même processus que précédemment
+			 **/
+			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Film(\n" + 
 					"	id INT PRIMARY KEY,\n" + 
 					"	titre VARCHAR(30),\n" + 
 					"	annee INT);");
+			
+			/**
+			 *Même processus que précédemment
+			 **/
 			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS Spectacle(\n" + 
 					"	id INT PRIMARY KEY,\n" + 
@@ -53,12 +78,20 @@ public class SQLScript {
 					"	annee INT,\n" + 
 					"	spectateurs INT);");
 			
+			/**
+			 *Même processus que précédemment
+			 **/
+			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS JouerFilm(\n" + 
 					"	idFilm INT,\n" + 
 					"	idArtiste INT,\n" + 
 					"	CONSTRAINT pk_JouerFilm PRIMARY KEY (idFilm, idArtiste),\n" + 
 					"	FOREIGN KEY fk_film(idFilm) REFERENCES Film(id),\n" + 
 					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
+			
+			/**
+			 *Même processus que précédemment
+			 **/
 			
 			stat.executeUpdate("CREATE TABLE IF NOT EXISTS JouerSpectacle(\n" + 
 					"	idSpectacle INT,\n" + 

@@ -20,6 +20,7 @@ import javax.swing.JTabbedPane;
 import control.BDD.Modification;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
+import graphic.fenetre.FenetreParametre;
 import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 import graphic.menusParametreFenetre.MenuAjoutAlbum;
@@ -34,6 +35,7 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	private String login;
 	private JPanel constructionPanel;
+	//On a décidé de déclarer les variables comme ceci par gain de place.
 	private JScrollPane musique, album, artiste, representation;
 	private Artiste artisteSelectionne;
 	
@@ -43,8 +45,7 @@ public class MenuPrincipal extends JTabbedPane{
 		update();
 	}
 	
-	/**
-	 **/
+	
 	private JPanel constructionDuMenuPrincipal() {
 		
 		/**
@@ -63,7 +64,7 @@ public class MenuPrincipal extends JTabbedPane{
 	}
 	
 	/**
-	 *descriptif et position description
+	 *	Ici on a 
 	 **/
 	private JPanel constructionLabelCase(Artiste artiste) {
 		JPanel panelLabel = new JPanel(new BorderLayout());
@@ -87,12 +88,19 @@ public class MenuPrincipal extends JTabbedPane{
 		JLabel maPhoto = new JLabel(monImage);
 		maPhoto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		JPopupMenu maPopup = new JPopupMenu();
+		JMenuItem description = new JMenuItem("Description");
 		JMenuItem supprimer = new JMenuItem("Supprimer");
 		JMenuItem contacter = new JMenuItem("Contacter");
 		supprimer.addActionListener((event)->supprimerArtiste(artiste));//CHAQUE LISTENER EST ASSOCIÉ A UN ARTISTE
 		contacter.addActionListener((event)->contacterArtiste(artiste));
+		description.addActionListener((event)->{
+			MenuProfilDescription.getInstance(login).setArtiste(artiste);
+			FenetreParametre.getInstance(login).ajoutParametre();
+			});
+		maPopup.add(description);
 		maPopup.add(supprimer);
 		maPopup.add(contacter);
+		
 		maPhoto.setComponentPopupMenu(maPopup);
 				
 		
@@ -120,7 +128,9 @@ public class MenuPrincipal extends JTabbedPane{
 						MenuRepresentation.getInstance(login).update();
 						MenuPrincipal.getInstance(login).removeAll();
 						JScrollPane temporaireRepres = new JScrollPane();
-						temporaireRepres.setViewportView(MenuRepresentation.getInstance(login));
+						JPanel menuRepresentation = MenuRepresentation.getInstance(login);
+						menuRepresentation.setPreferredSize(new Dimension(100, MenuRepresentation.getInstance(login).getCompteur() * 130));
+						temporaireRepres.setViewportView(menuRepresentation);
 						MenuPrincipal.getInstance(login).add(temporaireRepres,"Représentation de " + artiste.getNom());
 						MenuPrincipal.getInstance(login).validate();
 						TopMenuDescriptif.getInstance(login).setArtiste(artiste);
@@ -140,7 +150,7 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	/**
 	 *Suppression du contenu
-	 *scroll pan pourr chaque onglet (panel scrollable, ne pouvant conteniur qu'un seul elemnt) pour ca on utilise setvieyxportviex
+	 *scrollPan pour chaque onglet (panel scrollable, ne pouvant conteniur qu'un seul elemnt) pour ca on utilise setvieyxportviex
 	 *chaque onglet a spn scroll panel auqyel on ajoute un panel ou se trouve notre onglet. On peut donc li définir une taille
 	 *en definisszant la taille avec set prefered sieze, on evite d'avoir des onglets de taille egale et on evite les prblm de prez
 	 *a la fin, on ajoute les onglets scrollable au grabd panel en leur donnant des noms
@@ -161,7 +171,7 @@ public class MenuPrincipal extends JTabbedPane{
 		
 		representation = new JScrollPane();
 		JPanel menuRepresentation = MenuRepresentation.getInstance(login);
-		menuRepresentation.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 100));
+		menuRepresentation.setPreferredSize(new Dimension(100, MenuRepresentation.getInstance(login).getCompteur() * 130));
 		representation.setViewportView(menuRepresentation);
 		
 		artiste = new JScrollPane();
@@ -193,21 +203,36 @@ public class MenuPrincipal extends JTabbedPane{
 		FenetreMail.getInstance().contacter();
 	}
 	
-	
-	public static MenuPrincipal getInstance(String login) {
-		if (instance == null)
-			instance = new MenuPrincipal(login);
-		return instance;
-	}
 
+	/**
+	 * Permet de savoir l'artiste qui a été selectionné.
+	 * @return artiste qui a été selectionné
+	 */
 
 	public Artiste getArtisteSelectionne() {
 		return artisteSelectionne;
 	}
 
+	/**
+	 * Permet de donner une valeur à artiste quand on en a selectionné un.
+	 * 
+	 * @param artisteSelectionne
+	 */
 
 	public void setArtisteSelectionne(Artiste artisteSelectionne) {
 		this.artisteSelectionne = artisteSelectionne;
+	}
+	
+	/**
+	 * Cette fonction permet d'accéder à l'objet MenuPrincipal
+	 * @param login Login utilisateur
+	 * @return L'objet singleton
+	 */
+	
+	public static MenuPrincipal getInstance(String login) {
+		if (instance == null)
+			instance = new MenuPrincipal(login);
+		return instance;
 	}
 	
 }

@@ -44,14 +44,14 @@ public class MenuRaccourcis {
 
 
 		{//C'est le constructeur
-			putValue (Action.NAME, "Paramètre...");
-			putValue (Action.SMALL_ICON, new ImageIcon("Icons/parametre.png"));
+			putValue (Action.NAME, "Description...");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/personne.png"));
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_P);
 			/**
 			 *Petite fenetre de decription
 			 **/
 			
-			putValue( Action.SHORT_DESCRIPTION, "Paramètre (CTRL+P)");
+			putValue( Action.SHORT_DESCRIPTION, "Description (CTRL+P)");
 			
 			/**
 			 *Raccourci clavier
@@ -236,7 +236,7 @@ public class MenuRaccourcis {
 			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_C);
 			putValue (Action.SMALL_ICON, new ImageIcon("Icons/mail.png"));
 			putValue( Action.SHORT_DESCRIPTION, "Contacter artistes (CTRL+C)");
-			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_DOWN_MASK));
 		}
 
 		@Override
@@ -279,6 +279,38 @@ public class MenuRaccourcis {
 	};
 	
 	@SuppressWarnings("serial")
+	public AbstractAction actRemplirParUnCSV = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Remplir a partir d'un CSV");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/csv.png"));
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_C);
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			TopMenuDescriptif.getInstance(login).copieEtRemplissage();
+		}
+	};
+	
+	@SuppressWarnings("serial")
+	public AbstractAction actRemplirParUneBDD = new AbstractAction() {
+
+		{//C'est le constructeur
+			putValue (Action.NAME, "Remplir a partir d'une BDD");
+			putValue (Action.SMALL_ICON, new ImageIcon("Icons/bdd.png"));
+			putValue (Action.MNEMONIC_KEY, KeyEvent.VK_B);
+			putValue ( Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			FenetreParametre.getInstance(login).ajoutRenommageFenetre("Remplir à partir d'une BDD", "Nom BDD", "Titre BDD", null, null, null);
+		}
+	};
+	
+	@SuppressWarnings("serial")
 	public AbstractAction actChangerImage = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -293,21 +325,6 @@ public class MenuRaccourcis {
 		}
 	};
 	
-
-	@SuppressWarnings("serial")
-	public AbstractAction actRenommer = new AbstractAction() {
-
-		{//C'est le constructeur
-			putValue (Action.NAME, "Renommer");
-			//putValue (Action.SMALL_ICON, new ImageIcon("icons/paste.png"));
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			MenuMusique.getInstance(login).renommerAlbum();
-			MenuMusique.getInstance(login).update();
-		}
-	};
 	
 	@SuppressWarnings("serial")
 	public AbstractAction actSuppressionAlbum = new AbstractAction() {

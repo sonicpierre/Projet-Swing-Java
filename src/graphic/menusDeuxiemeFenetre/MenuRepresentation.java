@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import control.BDD.Modification;
 import control.activite.Representation;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
@@ -22,6 +23,7 @@ public class MenuRepresentation extends JPanel{
 	private static MenuRepresentation instance;
 	private Artiste artiste;
 	private String login;
+	private int compteur;
 	
 	public MenuRepresentation(String login) {
 		this.login = login;
@@ -29,11 +31,11 @@ public class MenuRepresentation extends JPanel{
 	}
 	
 	private void constructionPanel() {
-		int compteur = 0;
+		compteur = 0;
 		if(artiste == null) {
 			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste())
 				if(monArtiste.getType().equals("Acteur") || monArtiste.getType().equals("Comedien"))
-					compteur += monArtiste.getMaListeDeRepresentations().size() + 1;
+					compteur += monArtiste.getMaListeDeRepresentations().size();
 			
 			this.setLayout(new GridLayout(compteur, 1));
 			
@@ -42,13 +44,14 @@ public class MenuRepresentation extends JPanel{
 					for(Representation maRepresentation : monArtiste.getMaListeDeRepresentations())
 						this.add(constructionCase(artiste, maRepresentation));
 		} else {
-			compteur = artiste.getMaListeDeRepresentations().size() + 1;
+			compteur = artiste.getMaListeDeRepresentations().size();
 			this.setLayout(new GridLayout(compteur, 1));
 
 			if(artiste.getType().equals("Acteur") || artiste.getType().equals("Comedien"))
 				for(Representation maRepresentation : artiste.getMaListeDeRepresentations())
 					this.add(constructionCase(artiste, maRepresentation));
 		}
+		this.validate();
 	}
 	
 	private JPanel constructionCase(Artiste artiste, Representation marepres) {
@@ -89,13 +92,17 @@ public class MenuRepresentation extends JPanel{
 	private void supprimerRepres(Artiste monArtiste, Representation maRepres) {
 		personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(monArtiste).getMaListeDeRepresentations().remove(maRepres);
 		personnesDejaInscrite.getInstance().sauvegarder();
+		if(maRepres.getType().equals("Film"))
+			Modification.getInstance().supprimerFilm(maRepres.hashCode());
+		if(maRepres.getType().equals("Comedie"))
+			Modification.getInstance().supprimerSpectacle(maRepres.hashCode());
 		FenetreFond.getInstance().retourEtatInitial(login);
 	}
 	
 	public void update() {
 		this.removeAll();
 		constructionPanel();
-		this.validate();
+		
 	}
 	
 	
@@ -111,6 +118,14 @@ public class MenuRepresentation extends JPanel{
 		if (instance == null)
 			instance = new MenuRepresentation(login);
 		return instance;
+	}
+
+	public int getCompteur() {
+		return compteur;
+	}
+
+	public void setCompteur(int compteur) {
+		this.compteur = compteur;
 	}
 	
 }

@@ -25,6 +25,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import com.toedter.calendar.JDateChooser;
 
+import control.BDD.Modification;
 import control.activite.Representation;
 import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
@@ -90,7 +91,7 @@ public class MenuAjoutRepresentation extends JPanel{
 		//On crée les labels
 		
 		JLabel titreLabel = new JLabel("Titre :");
-		JLabel dureeLabel = new JLabel("Duree :");
+		JLabel dureeLabel = new JLabel("Nombre spectateur :");
 		JLabel typeLabel = new JLabel("Type :");
 		
 		calendrier = new JDateChooser();
@@ -134,9 +135,17 @@ public class MenuAjoutRepresentation extends JPanel{
 	
 	private void valider() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    	try {
+    		int dureeInt = Integer.parseInt(duree.getText());
+
 		if(calendrier.getDate() != null) {
-			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeRepresentations().add(new Representation(titre.getText(), duree.getText(), cheminVersImage, dateFormat.format(calendrier.getDate()), (String) type.getSelectedItem()));
+			Representation maRepresentation = new Representation(titre.getText(), duree.getText(), cheminVersImage, dateFormat.format(calendrier.getDate()), (String) type.getSelectedItem());
+			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeRepresentations().add(maRepresentation);
 			personnesDejaInscrite.getInstance().sauvegarder();
+			if(maRepresentation.getType().equals("Film"))
+				Modification.getInstance().insererFilm(maRepresentation.hashCode(), maRepresentation.getTitre(), calendrier.getY());
+			if(maRepresentation.getType().equals("Comedie"))
+				Modification.getInstance().insererSpectacle(maRepresentation.hashCode(), maRepresentation.getTitre(), calendrier.getY(), dureeInt);
 			JMenuItem contenant = new JMenuItem();
 			JOptionPane.showMessageDialog(contenant,"La représentation " + titre.getText(),"Représentation ajouté", JOptionPane.INFORMATION_MESSAGE);
 			MenuRepresentation.getInstance(login).update();
@@ -145,6 +154,11 @@ public class MenuAjoutRepresentation extends JPanel{
 			JOptionPane.showInternalMessageDialog(this, "Vous n'avez pas mis de date", "Erreur",
 					JOptionPane.WARNING_MESSAGE);
 		}
+		
+    	} catch (NumberFormatException e){
+			JOptionPane.showInternalMessageDialog(this, "Vous n'avez pas mis un chiffre en durée", "Erreur",
+					JOptionPane.WARNING_MESSAGE);
+    	}
 	}
 	
 	

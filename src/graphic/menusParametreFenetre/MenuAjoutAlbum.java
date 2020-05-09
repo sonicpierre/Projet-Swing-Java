@@ -29,27 +29,74 @@ import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
 //JPANEL PERMETTANT D'AJOUTER LES ALBUMS
 @SuppressWarnings("serial")
-public class MenuAjoutAlbum extends JPanel{
 
+/**
+ *<b>MenuAjoutAlbum</b> est la classe qui permet l'ajout d'album dans le menu album
+ *@author VIRGAUX Pierre
+ *@version 2.0
+ **/
+
+public class MenuAjoutAlbum extends JPanel{
+	
+	/**
+	 *Déclaration de l'instance du menu ajout album
+	 **/
+	
 	private static MenuAjoutAlbum instance;
 	
-	private final String login;//IDENTIFIER UTILISATEUR
+	/**
+	 *Déclaration du login utilisateur permettant de l'identifier
+	 **/
+	
+	private final String login;
+	
+	/**
+	 *Déclaration de l'artiste
+	 *@see Artiste
+	 **/
+	
 	private Artiste artiste;
+	
+	/**
+	 *Déclaration du nom de l'artiste
+	 **/
+	
 	private JTextField nom;
-	private Set<Titre> titreAssocie;//LITE RITRE ASSO
-	private String cheminVersImageAssocie;//CHEMIN DE L'IMAGE JPEG
-
+	/**
+	 *Set des titres associés aux musiques
+	 **/
+	
+	private Set<Titre> titreAssocie;
+	
+	/**
+	 *Localisation de l'image associée à la musique
+	 **/
+	
+	private String cheminVersImageAssocie;
+	
+	/**
+	 *Vérification des titres
+	 *@see Titre
+	 **/
+	
 	Map<JCheckBox, Titre> mesAssociationsCheckTitre;
-	//SINGLETON
-	//AFFICHAGE
+
+	/**
+	 *Affichage de l'interface d'ajout album
+	 *@param login
+	 *	Login utilisateur
+	 **/
+	
 	private MenuAjoutAlbum(String login) {
 		this.login = login;
 		this.artiste = null;
-		this.setLayout(new FlowLayout());//AFICHAE EN HORIZONTAL 
+		this.setLayout(new FlowLayout()); 
 		this.add(choixLabels());
 	}
 	
-	//CONSTRUCTION DU CONTENU
+	/**
+	 *Construction du contenu du menu
+	 *@return Action choisie */
 	private JPanel choixLabels() {
 		mesAssociationsCheckTitre = new HashMap<JCheckBox, Titre>();
 		JPanel choixLabels = new JPanel(new FlowLayout());
