@@ -28,24 +28,62 @@ import graphic.menusParametreFenetre.MenuAjoutMusique;
 import graphic.menusParametreFenetre.MenuAjoutRepresentation;
 import graphic.menusParametreFenetre.MenuProfilDescription;
 
+
+/**
+ *<b>MenuPrincipal</b> est la classe qui permet la construction de l'interface du menu principal et ses fonctionnalités
+ *@author VIRGAUX Pierre
+ *@version 2.0
+ **/
+
 @SuppressWarnings("serial")
 public class MenuPrincipal extends JTabbedPane{
-
+	
+	/**
+	 *Déclaration de l'instance du menu principal
+	 **/
+	
 	private static MenuPrincipal instance;
 	
+	/**
+	 Déclaration du login utilisateur
+	 **/
+	
 	private String login;
+	
+	/**
+	 *Déclaration du panel de construction
+	 **/
 	private JPanel constructionPanel;
-	//On a décidé de déclarer les variables comme ceci par gain de place.
+
+	/**
+	 *Déclaration de la musique, album, artiste et representations
+	 **/
+	
 	private JScrollPane musique, album, artiste, representation;
+	
+	/**
+	 *Déclaration de l'artiste sélectionné
+	 **/
+	
 	private Artiste artisteSelectionne;
 	
-	
+	/**
+	 *Génère la fenetre de menu principal
+	 *@param login
+	 *	Login utilisateur
+	 **/
 	private MenuPrincipal(String login) {
 		this.login = login;
 		update();
 	}
 	
 	
+	/**
+	 *Permet de construire les caractéristiques du menu principal
+	 *@return Fenetre de menu principal
+	 *@see personnesDejaInscrite
+	 *@return Fenete de menu principal
+	 **/
 	private JPanel constructionDuMenuPrincipal() {
 		
 		/**
@@ -54,17 +92,20 @@ public class MenuPrincipal extends JTabbedPane{
 		
 		int nombreDeLigne = personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().size();
 		if(personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().isEmpty())
-			constructionPanel = new JPanel();//AJOUTER UN TRUC QUI DIT QU'IL N'YA PAS D'ARTISTE/DE PERSONNE POUR PIERRE :)
+			constructionPanel = new JPanel();
 		else {
-			constructionPanel = new JPanel(new GridLayout(nombreDeLigne%4 + 1, 4, 10, 20));//MOD 4 CAR 4 4 COL/LIGNE
+			constructionPanel = new JPanel(new GridLayout(nombreDeLigne%4 + 1, 4, 10, 20));
 			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste())
-				constructionPanel.add(constructionCase(monArtiste));//CONSTRCUION CASE ADEQUATE
+				constructionPanel.add(constructionCase(monArtiste));
 		}
 		return constructionPanel;
 	}
 	
 	/**
-	 *	Ici on a 
+	 *Permet de construire la case de label artiste
+	 *@param artiste
+	 *	Artiste
+	 *@return Panel d'informations
 	 **/
 	private JPanel constructionLabelCase(Artiste artiste) {
 		JPanel panelLabel = new JPanel(new BorderLayout());
@@ -80,8 +121,19 @@ public class MenuPrincipal extends JTabbedPane{
 		return panelLabel;
 	}
 	
+	
 	/**
-	 **/
+	*Permet d'ajouter un listener sur la souris afin d'adapter les actions
+	*@see MenuAjoutAlbum
+	*@see MenuProfilDescription
+	*@see MenuAjoutMusique
+	*@see MenuMusique
+	*@see MenuPrincipal
+	*@see TopMenuDescriptif
+	*@see MenuAjoutRepresentation
+	*@return Fenetre construite
+	**/
+	
 	private JPanel constructionCase(Artiste artiste) {
 		JPanel constructionCase = new JPanel(new FlowLayout());
 		ImageIcon monImage = new ImageIcon(new ImageIcon(artiste.getCheminVersImage()).getImage().getScaledInstance(130, 130, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
@@ -91,7 +143,11 @@ public class MenuPrincipal extends JTabbedPane{
 		JMenuItem description = new JMenuItem("Description");
 		JMenuItem supprimer = new JMenuItem("Supprimer");
 		JMenuItem contacter = new JMenuItem("Contacter");
-		supprimer.addActionListener((event)->supprimerArtiste(artiste));//CHAQUE LISTENER EST ASSOCIÉ A UN ARTISTE
+		/**
+		 *Chaque listener est associé à un artiste
+		 **/
+		
+		supprimer.addActionListener((event)->supprimerArtiste(artiste));
 		contacter.addActionListener((event)->contacterArtiste(artiste));
 		description.addActionListener((event)->{
 			MenuProfilDescription.getInstance(login).setArtiste(artiste);
@@ -102,7 +158,7 @@ public class MenuPrincipal extends JTabbedPane{
 		maPopup.add(contacter);
 		
 		maPhoto.setComponentPopupMenu(maPopup);
-				
+
 		
 		maPhoto.addMouseListener(new MouseAdapter() {
 			@Override
@@ -149,11 +205,10 @@ public class MenuPrincipal extends JTabbedPane{
 	}
 	
 	/**
-	 *Suppression du contenu
-	 *scrollPan pour chaque onglet (panel scrollable, ne pouvant conteniur qu'un seul elemnt) pour ca on utilise setvieyxportviex
-	 *chaque onglet a spn scroll panel auqyel on ajoute un panel ou se trouve notre onglet. On peut donc li définir une taille
-	 *en definisszant la taille avec set prefered sieze, on evite d'avoir des onglets de taille egale et on evite les prblm de prez
-	 *a la fin, on ajoute les onglets scrollable au grabd panel en leur donnant des noms
+	 *Cette méthode permet la mise à jour du contenu fenetre. Ainsi, chaque onglet a un scroll panel auquel on ajoute le panel de l'onglet actif.
+	 *Nous pouvons donc définir une taille avec set preferd size cependant il est recommandé d'éviter des onglets de tailles égales pour des questions de présentation
+	 *@see MenuMusique
+	 *@see MenuRepresentation
 	 **/
 	
 	public void update() {
@@ -166,7 +221,7 @@ public class MenuPrincipal extends JTabbedPane{
 		
 		album = new JScrollPane();
 		JPanel menuAlbum = MenuAlbum.getInstance(login);
-		album.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));//160 car cha album a peu pret 160 pxl
+		album.setPreferredSize(new Dimension(100, MenuMusique.getInstance(login).getNombreDeMusique() * 160));
 		album.setViewportView(menuAlbum);
 		
 		representation = new JScrollPane();
@@ -186,9 +241,11 @@ public class MenuPrincipal extends JTabbedPane{
 	}
 	
 	/**
-	 *Fonction des pop-up menu
-	 *utilise lors d'un clic droit sur l'image 
-	 *supprime l'artiste et met  jour
+	 *Permet de gérer les Pop-up menu lors d'un clic droit sur l'image. Elle supprime aussi l'artiste et met à jour l'interface
+	 *@param artiste
+	 *	Artiste
+	 *@see personnesDejaInscrite
+	 *@see Modification
 	 **/
 	
 	private void supprimerArtiste(Artiste artiste) {
@@ -198,6 +255,12 @@ public class MenuPrincipal extends JTabbedPane{
 		this.update();
 	}
 	
+	/**
+	 *Permet de contacter un artiste
+	 *@param artiste
+	 *	Artiste
+	 **/
+	
 	private void contacterArtiste(Artiste artiste) {
 		MenuDeMail.getInstance().setArtiste(artiste);
 		FenetreMail.getInstance().contacter();
@@ -205,8 +268,8 @@ public class MenuPrincipal extends JTabbedPane{
 	
 
 	/**
-	 * Permet de savoir l'artiste qui a été selectionné.
-	 * @return artiste qui a été selectionné
+	 *Permet de savoir l'artiste qui a été selectionné.
+	 *@return artiste qui a été selectionné
 	 */
 
 	public Artiste getArtisteSelectionne() {
@@ -214,9 +277,9 @@ public class MenuPrincipal extends JTabbedPane{
 	}
 
 	/**
-	 * Permet de donner une valeur à artiste quand on en a selectionné un.
-	 * 
-	 * @param artisteSelectionne
+	 *Permet de donner une valeur à artiste quand on en a selectionné un.
+	 *@param artisteSelectionne
+	 *	Artiste selectionné
 	 */
 
 	public void setArtisteSelectionne(Artiste artisteSelectionne) {
@@ -224,9 +287,10 @@ public class MenuPrincipal extends JTabbedPane{
 	}
 	
 	/**
-	 * Cette fonction permet d'accéder à l'objet MenuPrincipal
-	 * @param login Login utilisateur
-	 * @return L'objet singleton
+	 *Cette fonction permet d'accéder à l'objet MenuPrincipal
+	 *@param login 
+	 *	Login utilisateur
+	 *@return L'objet singleton
 	 */
 	
 	public static MenuPrincipal getInstance(String login) {

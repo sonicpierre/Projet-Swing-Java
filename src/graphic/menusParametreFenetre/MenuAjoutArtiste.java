@@ -28,17 +28,63 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
+
+/**
+ *<b>MenuAjoutArtiste</b> est la classe qui crée l'interface dédiée à l'artiste quelque soit son talent
+ *@author BUISSON-CHAVOT Julien
+ *@version 2.0
+ **/
+
 @SuppressWarnings({ "serial", "deprecation" })
 public class MenuAjoutArtiste extends JPanel{
 	
+	/**
+	 *Déclaration del'instance du menu d'ajout artiste
+	 **/
+	
 	private static MenuAjoutArtiste instance;
-
+	
+	/**
+	 *Déclaration des talents possibles pour les artistes
+	 **/
+	
 	private static final String[] mesTalents = {"Chanteur", "Acteur", "Comedien"};
+	
+	/**
+	 *Déclaration du login et du chemin vers l'image de l'artiste
+	 **/
+	
 	private String login, cheminVersImage;
+	
+	/**
+	 *Déclaration du nom, prenom et e-mail artiste
+	 **/
+	
 	private JTextField prenom, nom, adresseMail;
+	
+	/**
+	 *Déclaration de la zone de texte de description artiste
+	 **/
+	
 	private JTextArea description;
+	
+	/**
+	 *Talent possible des artistes
+	 **/
+	
 	private JComboBox<String> type;
+	
+	/**
+	 *Déclaration de l'image de photo utilisateur
+	 **/
+	
 	private JLabel imageProfil;
+	
+	/**
+	 *Construction du menu artiste
+	 *@param login
+	 *	LOgin utilisateur
+	 **/
 	
 	private MenuAjoutArtiste(String login) {
 		this.login = login;
@@ -50,6 +96,11 @@ public class MenuAjoutArtiste extends JPanel{
 		this.add(description, BorderLayout.CENTER);
 		this.add(constructionBoutton(), BorderLayout.SOUTH);
 	}
+	
+	/**
+	 *Construction des caractéristques de la fenete dédiée à l'artiste
+	 *@return Menu d'artiste
+	 **/
 	
 	private JPanel constructionArtiste() {
 		JPanel menuTerminal = new JPanel(new BorderLayout());
@@ -69,6 +120,9 @@ public class MenuAjoutArtiste extends JPanel{
 		return menuTerminal;
 	}
 	
+	/**
+	 *Permet de faire le choix de la photo de l'artiste
+	 **/
 	
 	private void choixPhoto() {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -79,30 +133,41 @@ public class MenuAjoutArtiste extends JPanel{
 		}
 	}
 	
+	/**
+	 *Permet la création de l'onglet droit de la fenetre
+	 **/
 	
 	private JPanel constructionEtiquetteDroite() {
 		JPanel menuDroite = new JPanel(new BorderLayout());
 		JPanel tempon1 = new JPanel(new GridLayout(4,2, 0, 10));
 		
-		//On crée les labels
+		/**
+		 *On crée les labels
+		 */
 		
 		JLabel nomLabel = new JLabel("Nom :");
 		JLabel prenomLabel = new JLabel("Prenom :");
 		JLabel adresseMailLabel = new JLabel("Adresse mail :");
 		
-		//On les centres
+		/**
+		 *On les centre
+		 */
 		
 		nomLabel.setHorizontalAlignment(JLabel.CENTER);
 		prenomLabel.setHorizontalAlignment(JLabel.CENTER);
 		adresseMailLabel.setHorizontalAlignment(JLabel.CENTER);
 		
-		//On initialise les endroits de rentré de texte
+		/**
+		 *On initialise les endroits de rentré de texte
+		 */
 		
 		nom = new JTextField("Nom");
 		prenom = new JTextField("Prenom");
 		adresseMail = new JTextField("Adresse mail");
 		
-		//On ajoute dans le bonne ordre
+		/**
+		 *On ajoute dans le bonne ordre
+		 */
 		
 		tempon1.add(nomLabel);
 		tempon1.add(nom);
@@ -117,6 +182,10 @@ public class MenuAjoutArtiste extends JPanel{
 		return menuDroite;
 	}
 	
+	/**
+	 *Construit le bouton de validation
+	 *@return Bouton valider
+	 **/
 	
 	private JPanel constructionBoutton() {
 		JPanel panelBouttons = new JPanel(new FlowLayout());
@@ -126,6 +195,12 @@ public class MenuAjoutArtiste extends JPanel{
 		return panelBouttons;
 	}
 	
+	/**
+	 *Permet la validation du choix de l'utilisateur
+	 *@see personnesDejaInscrite
+	 *@see MenuPrincipal
+	 *@see Modification
+	 **/
 	
 	private void valider() {
 		if(validateEmailAddress(adresseMail.getText())) {
@@ -145,16 +220,11 @@ public class MenuAjoutArtiste extends JPanel{
 
 	}
 	
-	
 
 	/**
-	 * Permet de vérifier si une seule case talent a été appuyée et renvoie son nom
-	 **/
-
-	/**
-	 * Permet de valider l'adresse e-mail de l'utilisateur
-	 * 
-	 * @param votreEmail E-mail utilisateur
+	 *Permet de valider l'adresse e-mail de l'utilisateur
+	 *@param votreEmail 
+	 * E-mail utilisateur
 	 * @return True si e-mail valide
 	 **/
 	
@@ -166,50 +236,109 @@ public class MenuAjoutArtiste extends JPanel{
 			return false;
 		}
 	}
-	
-	//Ici les getter et les Setters
-	
+
+	/**
+	 *Récupère le chemin vers l'image
+	 *@return Localisation image
+	 **/
 	
 	public String getCheminVersImage() {
 		return cheminVersImage;
 	}
-
+	
+	/**
+	 *Initialisation du chemin vers l'image
+	 *@param cheminVersImage
+	 *	Localisation del'image
+	 **/
+	
 	public void setCheminVersImage(String cheminVersImage) {
 		this.cheminVersImage = cheminVersImage;
 	}
-
+	
+	/**
+	 *Récupère le prenom de l'artiste
+	 *@return Prenom artiste
+	 **/
+	
 	public JTextField getPrenom() {
 		return prenom;
 	}
-
+	
+	/**
+	 *Initialisation du prenom de l'artiste
+	 *@param prenom
+	 *	Prenom artiste
+	 **/
+	
 	public void setPrenom(JTextField prenom) {
 		this.prenom = prenom;
 	}
-
+	
+	/**
+	 *Récupère le nom de l'artiste
+	 *@return Nom artiste
+	 **/
+	
 	public JTextField getNom() {
 		return nom;
-	}
-
+	}	
+	
+	/**
+	 *Initialisation du nom de lartiste
+	 *@param nom
+	 *	Nom artiste
+	 **/
+	
 	public void setNom(JTextField nom) {
 		this.nom = nom;
 	}
-
+	
+	/**
+	 *Récupère l'e-mail utilisateur
+	 *@return E-mail
+	 **/
+	
 	public JTextField getAdresseMail() {
 		return adresseMail;
 	}
-
+	
+	/**
+	 *Initialisation de l'e-mail utilisateur
+	 *@param adresseMail
+	 *	E-mail utilisateur
+	 **/
+	
 	public void setAdresseMail(JTextField adresseMail) {
 		this.adresseMail = adresseMail;
 	}
-
+	
+	/**
+	 *Récupère la description de l'artiste
+	 *@return Description artiste
+	 **/
+	
 	public JTextArea getDescription() {
 		return description;
 	}
-
+	
+	/**
+	 *Initialisation de la description de l'artiste
+	 *@param description	
+	 *	Description artiste
+	 **/
+	
 	public void setDescription(JTextArea description) {
 		this.description = description;
 	}
-
+	
+	/**
+	 *Instanciation du menu d'ajout artiste
+	 *@param login
+	 *	Login utilisateur
+	 *@return Menu d'ajout artiste
+	 **/
+	
 	public static MenuAjoutArtiste getInstance(String login) {
 		if (instance == null)
 			instance = new MenuAjoutArtiste(login);

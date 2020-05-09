@@ -9,11 +9,21 @@ import javax.swing.JTabbedPane;
  *de navigation des onglets de la fenêtre.
  *@author VIRGAUX Pierre
  *</p>
+ *@version 2.0
  **/
+
 @SuppressWarnings("serial")
 public class MenuFinalParametre extends JTabbedPane{
-
+	
+	/**
+	 *Déclaration de l'instance du menu de paramètres
+	 **/
+	
 	private static MenuFinalParametre instance;
+	
+	/**
+	 *Déclaration du login utilisateur
+	 **/
 	
 	private final String login;
 	
@@ -30,6 +40,13 @@ public class MenuFinalParametre extends JTabbedPane{
 		this.add("Mes Préférences", new JPanel());
 		this.add("Mon Compte", new MenuReparametrageDuCompte(login));
 	}	
+	
+	/**
+	 *Instance du menu final de paramètres
+	 *@param login
+	 *	Login utilisateur
+	 *@return Menu de paramètres
+	 **/
 	
 	public static MenuFinalParametre getInstance(String login) {
 		if (instance == null)

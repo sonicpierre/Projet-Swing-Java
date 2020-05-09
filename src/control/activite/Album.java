@@ -107,42 +107,6 @@ public class Album implements Serializable {
 			}
 	}
 	
-	/**
-	 *Comparaison album afin de ne pas prendre en compte le chemin vers l'image.
-	 *Ainsi un album sera def par son titre et son chemin
-	 **/
-	
-	@Override
-	public boolean equals(Object autreAlbum) {
-		Album artistePourComparaison = (Album) autreAlbum;
-		if(this.titre.equals(artistePourComparaison.getTitre()) && this.cheminVerDossier.equals(artistePourComparaison.getCheminVerDossier()))
-			return true;
-		
-		return false;
-	}
-	
-	/**
-	 *On associe un chiffree à chaqie album afin de le retrouver plus rapidemment
-	 **/
-	
-	@Override
-	public int hashCode() {
-		int compteurFinal = 0;
-		
-		/**
-		 *NB : On prend chaque lettre du titre (tab de carac) en demandant son equivalent ascii.
-		 *On somme ensuite le tout afin de nous donner le chiffre
-		 **/
-		
-		char[] monTitre = this.getTitre().toCharArray();
-		
-		for(char titre : monTitre)
-			compteurFinal+= (int) titre;
-
-		
-		return compteurFinal;
-	}
-	
 
 	/**
 	 * Récupère le titre

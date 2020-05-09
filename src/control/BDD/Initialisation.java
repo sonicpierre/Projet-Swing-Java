@@ -11,7 +11,7 @@ import graphic.menusDepart.CreerCompte;
 
 /**
  *<b>Initialisation</b> est la classe permettant d'initialiser la base de données
- *@author VIRGAUX Pierre
+ *@author Julien Buisson Chabot
  *@version 2.0
  **/
 

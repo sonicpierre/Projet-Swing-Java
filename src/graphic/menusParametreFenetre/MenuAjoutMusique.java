@@ -23,16 +23,57 @@ import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
+
+/**
+ *<b>MenuAjoutMusique</b> est la classe qui permet à l'utilisateur d'ajouter un nouvel abum de musique à son répertoire
+ *@author BUISSON-CHAVOT Julien
+ *@version 2.0
+ **/
+
 @SuppressWarnings("serial")
 public class MenuAjoutMusique extends JPanel{
 	
+	/**
+	 *Déclaration de l'instance du menu d'ajout musique
+	 **/
+	
 	private static MenuAjoutMusique instance;
 	
+	/**
+	 *Déclaration du login utilisateur
+	 **/
+	
 	private String login;
+	
+	/**
+	 *Déclaration de l'artiste
+	 **/
+
 	private Artiste artiste;
+	
+	/**
+	 *Déclaration du nouveau nom de l'album
+	 **/
+	
 	private JTextField nouveauNom;
+	
+	/**
+	 *Déclaration de la localisation de la musique
+	 **/
+	
 	private String cheminVersMusique;
+	
+	/**
+	 *Déclaration de la lisye d'album
+	 **/
+	
 	private JComboBox<String> listeAlbum;
+	
+	/**
+	 *Permet de générer le menu d'ajout musique
+	 *@param login
+	 *	Login utilisateur
+	 **/
 	
 	private MenuAjoutMusique(String login) {
 		this.login = login;
@@ -40,6 +81,11 @@ public class MenuAjoutMusique extends JPanel{
 		this.setLayout(new FlowLayout());
 		this.add(panelChoixMusique());
 	}
+	
+	/**
+	 *Permet de construire la fenetre de choix musique avec ses caractéristiques
+	 *@return Fenetre de choix musique
+	 **/
 	
 	private JPanel panelChoixMusique() {
 		JPanel monPanel = new JPanel();
@@ -60,6 +106,11 @@ public class MenuAjoutMusique extends JPanel{
 	}
 	
 	
+	/**
+	 *Permet de construire une liste d'album et de les afficher à la suite sur la fenetre
+	 *@see Album
+	 *@see personnesDejaInscrite
+	 **/
 	
 	private void constructionListeAlbum() {
 		List<String> listeTitreAlbum = new ArrayList<String>();
@@ -79,6 +130,11 @@ public class MenuAjoutMusique extends JPanel{
 		}
 	}
 	
+	/**
+	 *Permet de mettre à jour la fenetre avec les musiques selectionnées
+	 *@see MenuPrincipal
+	 **/
+	
 	public void update() {
 		artiste = MenuPrincipal.getInstance(login).getArtisteSelectionne();
 		System.out.println(artiste);
@@ -86,6 +142,14 @@ public class MenuAjoutMusique extends JPanel{
 		this.add(panelChoixMusique());
 		this.validate();
 	}
+	
+	/**
+	 *Permet de valider le choix de l'utilisateur
+	 *@see personnesDejaInscrite
+	 *@see Titre
+	 *@see Modification
+	 *@see MenuMusique
+	 **/
 	
 	private void valider() {
 		boolean passage = false;
@@ -106,6 +170,10 @@ public class MenuAjoutMusique extends JPanel{
 		}
 	}
 	
+	/**
+	 *Permet de choisir le fichier dans lequel se trouve la musique
+	 **/
+	
 	private void choixFichier() {
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		int returnValue = jfc.showOpenDialog(null);
@@ -115,16 +183,34 @@ public class MenuAjoutMusique extends JPanel{
 		}
 	}
 	
+	/**
+	 *Instanciation du menu d'ajout musique
+	 *@param login
+	 *	Login utilisateur
+	 *@return Menu d'ajout musique
+	 **/
+	
 	public static MenuAjoutMusique getInstance(String login) {
 		if (instance == null)
 			instance = new MenuAjoutMusique(login);
 		return instance;
 	}
-
+	
+	/**
+	 *Récupère l'artiste
+	 *@return Artiste
+	 **/
+	
 	public Artiste getArtiste() {
 		return artiste;
 	}
-
+	
+	/**
+	 *Initialisation de l'artiste
+	 *@param artiste
+	 *	Artiste
+	 **/
+	
 	public void setArtiste(Artiste artiste) {
 		this.artiste = artiste;
 	}

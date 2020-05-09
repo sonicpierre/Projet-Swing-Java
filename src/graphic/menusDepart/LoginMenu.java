@@ -18,21 +18,25 @@ import control.personne.CompteAdministrateur;
 import graphic.fenetre.FenetreFond;
 import graphic.fenetre.FenetreLogin;
 
-@SuppressWarnings("serial")
 
 /**
- *<b>LoginMenu</b> est la classe qui va créer le menu d'indentification
+ *<b>LoginMenu</b> est la classe qui va créer le menu d'indentification.
  *@author VIRGAUX Pierre
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class LoginMenu extends JPanel {
-
+	
+	/**
+	 *Déclaration de l'instance du menu de login
+	 **/
+	
 	private static LoginMenu instance;
 
 	/**
-	 * On met ces variables en globales afin d'y avoir accés partout et pouvoir
-	 * valider la connexion
+	 *On met ces variables en globales afin d'y avoir accés partout et pouvoir
+	 *valider la connexion
 	 **/
 
 	JPanel menuLogin;

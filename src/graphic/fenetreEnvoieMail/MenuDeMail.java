@@ -13,16 +13,16 @@ import javax.swing.JTextField;
 
 import control.personne.Artiste;
 
-@SuppressWarnings("serial")
 
 /**
- *<p><b>MenuDeMail</b> est la classe qui permet de gérer les espaces
+ *<b>MenuDeMail</b> est la classe qui permet de gérer les espaces
  *dédiés à chaque champ de saisie dans la fenetre d'envoie.
- *</p> 
  *@author VIRGAUX Pierre
  *@version 2.0
  **/
 
+
+@SuppressWarnings("serial")
 public class MenuDeMail extends JPanel{
 	
 	/**

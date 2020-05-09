@@ -30,29 +30,60 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreParametre;
 
+
 /**
- * <b>MenuMusique</b> est la classe qui permet de générer l'ensemble du menu concernant les musiques.
- * @author Lucille Beziat
- * @version 2.0
+ *<b>MenuMusique</b> est la classe qui permet de générer l'ensemble du menu concernant les musiques.
+ *@author BEZIAT Lucille
+ *@version 2.0
  */
+
 @SuppressWarnings("serial")
 public class MenuMusique extends JPanel{
-
+	
+	/**
+	 *Déclaration de l'instance du menu musique
+	 **/
+	
 	private static MenuMusique instance;
 	
+	/**
+	 *Déclaration de la fenetre finale
+	 **/
+	
 	private JPanel menuFinal;
+	
+	/**
+	 *Login utilisateur
+	 **/
+	
 	private String login;
+	
+	/**
+	 *Artiste
+	 **/
+	
 	private Artiste artiste;
-	//Permet d'avoir un panel de taille adaptable
+	
+	/**
+	 *Déclaration d'un panel de taille adaptable
+	 **/
+	
 	private int nombreDeMusique;
-	//A chaque titre on associe une cheque box pour pouvoir faire des opérations dessus, lire, mettre en pause, supprimer
+	
+	/**
+	 *Association d'une check box à un titre pour pouvoir lire, mettre en pause, supprimer
+	 */
 	Map<JCheckBox, Titre> mesAssociationsCheckTitre;
-	//Va permettre ici de gérer les lectures et ne pas jouer 2 musiques en même temps.
+	
+	/**
+	 *Gestion des lectures et permet de ne pas jouer 2 musiques en même temps.
+	 */
 	private Titre titreEnCoursDeLecture;
 
 	/**
 	 * Ici on construit la première instance du MenuMusique
 	 * @param login
+	 * Login utilisateur
 	 */
 	
 	private MenuMusique(String login) {
@@ -65,50 +96,103 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Permet de construire le panel principal du menu en prenant en compte le fait qu'on est choisi ou non un artiste.
-	 * Chaque musique sera affiché avec son nom et un player associé permettant de se donner une idée de la musique.
-	 * De plus on ajoute à chaque photo d'album un popupMenu permettant la Mise à jour de celui-ci.
+	 *<p>Permet de construire le panel principal du menu en prenant en compte le fait qu'on est choisi ou non un artiste.
+	 *Chaque musique sera affiché avec son nom et un player associé permettant de se donner une idée de la musique.
+	 *De plus on ajoute à chaque photo d'album un popupMenu permettant la Mise à jour de celui-ci.</p>
 	 */
 
 	private void constructionDuPanelGlobal() {
-		//On a ici pour chacun des titres musicaux une case qu'on peut cocher.
+		/**
+		 *On a ici pour chacun des titres musicaux une case qu'on peut cocher.
+		 */
 		mesAssociationsCheckTitre = new HashMap<JCheckBox, Titre>();
-		//On va compter le nombre de musique pour bien les afficher.
+		/**
+		 *On va compter le nombre de musique pour bien les afficher.
+		 */
 		nombreDeMusique = 0;
-		//Va permettre d'afficher l'album avant d'afficher les musiques
+		/**
+		 *Permet d'afficher l'album avant d'afficher les musiques
+		 */
 		boolean premierPassage = false;
-		//Représente le cas où on n'a pas encore seletionné d'artiste 
+		/**
+		 *Représente le cas où on n'a pas encore seletionné d'artiste 
+		 */
 		if(artiste == null) {
 			nombreDeMusique = 0;
-			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste()) {//POUR TOUS LES STYLES DE ZIK, ON PASSE TOUS LES ALBUMS YANT UN CERTAIN STYLE, ON COMPTE LEUR NOMBRE DE TITRE DANS L'LABUM => NBR DE LIGNE DU TABLEAU QUON VEUR AFFICHER
-				for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(monArtiste).getMaListeDeAlbums())	//POUR TOUS LES ALBUM DAN SLA LISTE D'ALBUM,SAUVEGARDER
-					nombreDeMusique+= monAlbum.getChansonsDelAlbum().size() + 1;//COMPTE DU NBR DE TITRE + 1 CAR RAJOUT D'UNE LIGNE NOM + PHOTO
+			
+			/**
+			 *Pour tous les albums d'un certain style, on compte leur nombre de titre. Ce qui perttra de connaitre de nombre de lignes à afficher
+			 **/
+			
+			for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste()) {
+				
+				/**
+				 *Sauvegarde des albums dans la liste d'album
+				 **/
+				
+				for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(monArtiste).getMaListeDeAlbums())
+					
+					/**
+					 *Compte du nombre de titre puisqu'on rajoute une ligne de nom + photo
+					 **/
+					
+					nombreDeMusique+= monAlbum.getChansonsDelAlbum().size() + 1;
 			}
+			/**
+			 *Idem que précédemment
+			 **/
+			
 		} else {
 			nombreDeMusique = 0;
-			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums())	//POUR TOUS LES ALBUM DAN SLA LISTE D'ALBUM,SAUVEGARDER
-				nombreDeMusique+= monAlbum.getChansonsDelAlbum().size() + 1;//COMPTE DU NBR DE TITRE + 1 CAR RAJOUT D'UNE LIGNE NOM + PHOTO
+			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums())
+				nombreDeMusique+= monAlbum.getChansonsDelAlbum().size() + 1;
 		}
 		
-			//CREATION COLONNES: NOM DE TITRE + GESTION LECTURE
+			/**
+			 *Création de colonnes ayant le nom du titre + l'interface de gestion de lecture
+			 **/
+		
 			menuFinal = new JPanel(new GridLayout(nombreDeMusique, 2, 20, 10));
 			
 			if(artiste == null) {
 				for(Artiste monArtiste : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste()) {
-					for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(monArtiste).getMaListeDeAlbums()) {//POUR TOUS LES ALBUM INSCRIS
+					/**
+					 *Pour tous les alums inscrit
+					 **/
+					
+					for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(monArtiste).getMaListeDeAlbums()) {
 						premierPassage = true;
-						//On passe toutes les musiques de l'Album
+						/**
+						 *On passe toutes les musiques de l'Album
+						 */
 						for(Titre monTitre : monAlbum.getChansonsDelAlbum()) {
 							if(premierPassage) {
-								//On peut remarquer qu'il est possible de mettre du HTML dans les JLabels.
-								JLabel album = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">"+ monAlbum.getTitre() +"</FONT></html>");//ECRITURE EN HTML PERMETTAT DES PREZ FOLIFOLI
-								menuFinal.add(album);//AJOUT TITRE 
+								/**
+								 *On peut remarquer qu'il est possible de mettre du HTML dans les JLabels.
+								 */
+								JLabel album = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">"+ monAlbum.getTitre() +"</FONT></html>");
+								/**
+								 *Ajout du titre
+								 **/
+								
+								menuFinal.add(album);
+								
+								/**
+								 *Redimension 150 par 150
+								 **/
+								
 								ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
 								JLabel imageCorespondante = new JLabel(monImage);
 								
 								imageCorespondante.addMouseListener(new MouseAdapter() {
-									//On définit l'évènement dans le cas d'un mouseEvent particulier
 									@Override
+									
+									/**
+									 *Permet de définir l'évènement dans le cas d'un mouseEvent particulier
+									 *@param event
+									 *	Action de la souris
+									 **/
+									
 									public void mousePressed(MouseEvent event) {
 										monAlbum.setSelected(true);
 										if(event.isPopupTrigger()) {
@@ -118,26 +202,46 @@ public class MenuMusique extends JPanel{
 	
 								});
 								
-								menuFinal.add(imageCorespondante);//BOUTON CORRESPONDANT AU CONTROL DE LA ZIK
+								/**
+								 *Bouton correspondant au controle de la musique
+								 **/
+								
+								menuFinal.add(imageCorespondante);
 								premierPassage = false;
 							}
-								
-							JPanel temponConstruction = constructionEtiquette(monTitre);//TITRE ZIK
+							
+							/**
+							 *Titre de la musique
+							 **/
+							
+							JPanel temponConstruction = constructionEtiquette(monTitre);
 							menuFinal.add(temponConstruction);
-							JPanel bouttons = lesBouttonsDeControle(monTitre);//CONTROLE LECTURE ZIK
+							
+							/**
+							 *Contrôle de la musique
+							 **/
+							
+							JPanel bouttons = lesBouttonsDeControle(monTitre);
 							menuFinal.add(bouttons);
 						}
 					}
 				} 
 			}else {
-					
-					for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums()) {//POUR TOUS LES ALBUM INSCRIS
+					/**
+					 *Pour tous les albums inscrits
+					 **/
+				
+					for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums()) {
 						premierPassage = true;
-						for(Titre monTitre : monAlbum.getChansonsDelAlbum()) {//ON PASSSE TOUTES LES MUSIQUES
+						/**
+						 *On passe toutes les musiques
+						 **/
+						
+						for(Titre monTitre : monAlbum.getChansonsDelAlbum()) {
 							if(premierPassage) {
-								JLabel album = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">"+ monAlbum.getTitre() +"</FONT></html>");//ECRITURE EN HTML PERMETTAT DES PREZ FOLIFOLI
-								menuFinal.add(album);//AJOUT TITRE 
-								ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));//REDIMENSIUON IMG 150 PAR 150
+								JLabel album = new JLabel("<html><FONT color=\"#ff0000\" size = \"6\" face=\"Times New Roman\">"+ monAlbum.getTitre() +"</FONT></html>");
+								menuFinal.add(album);
+								ImageIcon monImage = new ImageIcon(new ImageIcon(monAlbum.getCheminVersImageAssocie()).getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT));
 								JLabel imageCorespondante = new JLabel(monImage);
 								
 								imageCorespondante.addMouseListener(new MouseAdapter() {
@@ -152,13 +256,17 @@ public class MenuMusique extends JPanel{
 	
 								});
 								
-								menuFinal.add(imageCorespondante);//BOUTON CORRESPONDANT AU CONTROL DE LA ZIK
+								/**
+								 *Bouton de controle musique
+								 **/
+								
+								menuFinal.add(imageCorespondante);
 								premierPassage = false;
 							}
 								
-							JPanel temponConstruction = constructionEtiquette(monTitre);//TITRE ZIK
+							JPanel temponConstruction = constructionEtiquette(monTitre);
 							menuFinal.add(temponConstruction);
-							JPanel bouttons = lesBouttonsDeControle(monTitre);//CONTROLE LECTURE ZIK
+							JPanel bouttons = lesBouttonsDeControle(monTitre);
 							menuFinal.add(bouttons);
 						}
 					}
@@ -167,13 +275,14 @@ public class MenuMusique extends JPanel{
 		}
 	
 	/**
-	 * Cette méthode permet de constuire pour chacune des musiques un petit panel avec son titre et sa check box.
-	 * @see Titre
-	 * @param titre
-	 * @return La description de la musique
+	 *Cette méthode permet de constuire pour chacune des musiques un petit panel avec son titre et sa check box.
+	 *@see Titre
+	 *@param titre
+	 *	Titre de la musique
+	 *@return La description de la musique
 	 */
 	
-	private JPanel constructionEtiquette(Titre titre) {//CONSTRUCTION PANEL ETIQUETTE (TITRE) DE LA CHANSON
+	private JPanel constructionEtiquette(Titre titre) {
 		JPanel description = new JPanel(new FlowLayout());
 		if(artiste==null) {
 			JLabel monTitre = new JLabel(titre.getTitre());
@@ -187,11 +296,11 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Cette fonction permet de construire un layout contenant les différents bouttons pour contrôler la musique.
-	 * L'attribut nous donne donc la possibilité d'associer à chacuns des bouttons un titre, pour qu'on puisse jouer les bons titre correspondants.
-	 * 
-	 * @param titreAssocie
-	 * @return un panel contenant les 3 bouttons de contrôle
+	 *Cette fonction permet de construire un layout contenant les différents bouttons pour contrôler la musique.
+	 *L'attribut nous donne donc la possibilité d'associer à chacuns des bouttons un titre, pour qu'on puisse jouer les bons titre correspondants.
+	 *@param titreAssocie
+	 * 	Titre associé
+	 *@return Panel contenant les 3 bouttons de contrôle
 	 */
 	
 	private JPanel lesBouttonsDeControle(Titre titreAssocie) {
@@ -200,7 +309,7 @@ public class MenuMusique extends JPanel{
 		JButton play = new JButton("Play");
 		JButton stop = new JButton("Stop");
 		JButton reset = new JButton("Reset");
-		play.addActionListener((event)-> play(titreAssocie));//DEFINITION DE L'ACTION DU BOUTON CORRESPONDANT AU BON TITRE @SEE TITRE
+		play.addActionListener((event)-> play(titreAssocie));
 		stop.addActionListener((event)-> stop());
 		reset.addActionListener((event)-> reset());
 		menuInter.add(play);
@@ -210,33 +319,41 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Cette méthode sert à recalculer l'ensemble du panel elle va être utile au moment du changement d'artiste mais aussi
-	 * quand on ajoute une musique dés qu'il y a des changements cette méthode sera appelée.
-	 * 
+	 *Cette méthode sert à recalculer l'ensemble du panel elle va être utile au moment du changement d'artiste mais aussi
+	 *quand on ajoute une musique dés qu'il y a des changements cette méthode sera appelée.
 	 * @see MenuPrincipal
 	 */
 	
 	public void update() {
 		this.removeAll();
 		this.artiste = MenuPrincipal.getInstance(login).getArtisteSelectionne();
-		//Recalcule l'intérieur du panel
+		/**
+		 *Recalcule l'intérieur du panel
+		 */
 		constructionDuPanelGlobal();
-		//Ajoute les musiques au menu final
+		/**
+		 *Ajoute les musiques au menu final
+		 */
 		this.add(menuFinal);
-		//Permet de recalculer l'emplacement des layouts.
+		/**
+		 *Permet de recalculer l'emplacement des layouts.
+		 */
 		this.validate();
 	}
 	
 	/**
-	 * Cette méthode permet de regarder toutes les checkBox et d'appliquer des opérations sur les titres associés à 
-	 * la checkBox correspondante. Ici on peut supprimer, Lire, Stoper ou Reset une musique.
-	 * @param operation
+	 *Cette méthode permet de regarder toutes les checkBox et d'appliquer des opérations sur les titres associés à 
+	 *la checkBox correspondante. Ici on peut supprimer, Lire, Stoper ou Reset une musique.
+	 *@param operation
+	 *	Opérations à effectuer
 	 */
 	
 	public void checkOperation(String operation) {
 	      Set<Entry<JCheckBox, Titre>> set = mesAssociationsCheckTitre.entrySet();
 	      Iterator<Entry<JCheckBox, Titre>> monIterateur = set.iterator();
-	      //Va permettre de savoir si on est passer dans les conditions.
+	      /**
+	       *Permet de savoir si on est passer dans les conditions.
+	       */
 	      boolean passage = false;
 	      boolean passagePlayer = false;
 	      while(monIterateur.hasNext()){
@@ -245,7 +362,9 @@ public class MenuMusique extends JPanel{
 	        	 e.getValue().supprimerMusique();
 	        	 Modification.getInstance().supprimerChanson(e.getValue().getTitre());
 	        	 passage = true;
-	        	 //On supprime un album qui est vide
+	        	 /**
+	        	  *Supprime un album qui est vide
+	        	  */
 	        	 if(e.getValue().getAlbumAssocie().getChansonsDelAlbum().isEmpty()) {
 	        		 Modification.getInstance().supprimerAlbum(e.getValue().getAlbumAssocie().hashCode());
 	        		 personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums().remove(e.getValue().getAlbumAssocie());
@@ -272,12 +391,12 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Il faut ici créer la popup avec toutes les opération qu'on veut faire.
-	 * Permet ici de supprimer, changer l'image de l'album et enfin renommer l'album.
-	 * 
-	 * @param albumAssocie
-	 * @see MenuRaccourcis
-	 * @return La popup menu correspondante
+	 *Il faut ici créer la popup avec toutes les opération qu'on veut faire.
+	 *Permet ici de supprimer, changer l'image de l'album et enfin renommer l'album.
+	 *@param albumAssocie
+	 * 	Album associé
+	 *@see MenuRaccourcis
+	 *@return La popup menu correspondante
 	 */
 	
 	private JPopupMenu createPopupMenu(Album albumAssocie) {
@@ -293,12 +412,11 @@ public class MenuMusique extends JPanel{
 	}
 
 	/**
-	 * Permet de supprimer un Album dans la BDD et dans le fichier et donc qu'il apparaisse plus dans l'affichage graphique.
-	 * Ici l'utilisation du hashCode comme id rend la suppression dans la BDD facile et rapide.
-	 * 
-	 * @see Modification
-	 * @see personnesDejaInscrite
-	 * @see MenuAlbum
+	 *Permet de supprimer un Album dans la BDD et dans le fichier et donc qu'il apparaisse plus dans l'affichage graphique.
+	 *Ici l'utilisation du hashCode comme id rend la suppression dans la BDD facile et rapide.
+	 *@see Modification
+	 *@see personnesDejaInscrite
+	 *@see MenuAlbum
 	 */
 	
 	public void supprimerAlbum() {
@@ -315,8 +433,8 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Cette méthode permet de donner un nouveau nom à l'album.
-	 * @see FenetreParametre
+	 *Cette méthode permet de donner un nouveau nom à l'album.
+	 *@see FenetreParametre
 	 */
 	
 	public void renommerAlbum() {
@@ -329,21 +447,24 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Cette méthode va permettre par le biais d'une popup menu de donner la possibilité de changer l'image correspondant à un Album.
-	 * Une fois changé l'image changera certes dans le MenuMusique mais aussi dans le menu Album.
-	 * 
-	 * @see MenuAlbum
+	 *Cette méthode va permettre par le biais d'une popup menu de donner la possibilité de changer l'image correspondant à un Album.
+	 *Une fois changé l'image changera certes dans le MenuMusique mais aussi dans le menu Album.
+	 *@see MenuAlbum
 	 */
 	
 	public void changerImage() {
-		//Ce composant est particulièrement util pour choisir un fichier et c'est pourquoi on l'utilise ici pour choisir la nouvelle photo
+		/**
+		 *Ce composant est particulièrement util pour choisir un fichier et c'est pourquoi on l'utilise ici pour choisir la nouvelle photo
+		 */
 		JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		int returnValue = jfc.showOpenDialog(null);
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 		    File selectedFile = jfc.getSelectedFile();
 			for(Album monAlbum : personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).rechercher(artiste).getMaListeDeAlbums())
 				if(monAlbum.isSelected()) {
-					//On prend le chemin absolu car il est nécessaire lorsqu'on change d'ordinateur l'architecture n'est pas forcément la même
+					/**
+					 *On prend le chemin absolu car il est nécessaire lorsqu'on change d'ordinateur l'architecture n'est pas forcément la même
+					 */
 					monAlbum.setCheminVersImageAssocie(selectedFile.getAbsolutePath());
 					personnesDejaInscrite.getInstance().sauvegarder();
 					this.update();
@@ -355,12 +476,13 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Il est plus difficile de lire le titre en cours. En effet il faut d'abord vérifier qu'il n'est pas déjà entrain d'être lu, vérifier si 
-	 * il est en pause ou si le titre est encore à null car il n'a jamais été utilisé ou qu'il avait fini de lire le titre.
+	 *Il est plus difficile de lire le titre en cours. En effet il faut d'abord vérifier qu'il n'est pas déjà entrain d'être lu, vérifier si 
+	 *il est en pause ou si le titre est encore à null car il n'a jamais été utilisé ou qu'il avait fini de lire le titre.
 	 * 
-	 * @see Titre
-	 * @param titreAssocie
-	 * @deprecated On utilise ici une méthode dépréciée qui est play mais qui nous sert à lancer le player facilement, elle est dépréciée car elle ne permet pas de refermer les fluxs correctement
+	 *@see Titre
+	 *@param titreAssocie
+	 * 	Titre associé
+	 *@deprecated On utilise ici une méthode dépréciée qui est play mais qui nous sert à lancer le player facilement, elle est dépréciée car elle ne permet pas de refermer les fluxs correctement
 	 */
 	
 	private void play(Titre titreAssocie) {
@@ -379,9 +501,9 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Permet ici d'arrêter le titre qui entrain d'être joué.
-	 * Si jamais aucun titre n'est sélectionné une fenêtre s'ouvre avec un Warning
-	 * @see Titre
+	 *Permet ici d'arrêter le titre qui entrain d'être joué.
+	 *Si jamais aucun titre n'est sélectionné une fenêtre s'ouvre avec un Warning
+	 *@see Titre
 	 */
 	
 	private void stop() {
@@ -389,13 +511,15 @@ public class MenuMusique extends JPanel{
 			titreEnCoursDeLecture.stop();
 		else {
     	  JMenuItem indication = new JMenuItem();
-    	  //Fenêtre préexistence dans Swing
+    	  /**
+    	   *Fenêtre préexistence dans Swing
+    	   */
     	  JOptionPane.showMessageDialog(indication,"Aucun Titre est joué");
 		}
 	}
 	
 	/**
-	 * Comme pour stop(), ici il faut qu'un titre soit joué pour être rejoué du début
+	 *Comme pour stop(), ici il faut qu'un titre soit joué pour être rejoué du début
 	 * @see Titre
 	 */
 	
@@ -409,7 +533,7 @@ public class MenuMusique extends JPanel{
 	}
 
 	/**
-	 * Getter du titre entrain d'être lu possibilité d'avoir un retour null
+	 *Getter du titre entrain d'être lu possibilité d'avoir un retour null
 	 * @return titre en cour de lecture
 	 */
 
@@ -418,8 +542,9 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Permet de changer le titre en cours de lecture
+	 *Permet de changer le titre en cours de lecture
 	 * @param titreEnCoursDeLecture
+	 * 	Musique en lecture
 	 */
 
 	public void setTitreEnCoursDeLecture(Titre titreEnCoursDeLecture) {
@@ -427,8 +552,8 @@ public class MenuMusique extends JPanel{
 	}
 	
 	/**
-	 * Permet de récupérer l'artiste qui avait été sélectionné
-	 * @return Artiste sélectionné
+	 *Permet de récupérer l'artiste qui avait été sélectionné
+	 *@return Artiste sélectionné
 	 */
 
 	public Artiste getArtiste() {
@@ -436,8 +561,9 @@ public class MenuMusique extends JPanel{
 	}
 
 	/**
-	 * Permet de remettre l'artiste à null quand c'est fini et de l'initialiser quand on rentre sur le menu
-	 * @param artiste
+	 *Permet de remettre l'artiste à null quand c'est fini et de l'initialiser quand on rentre sur le menu
+	 *@param artiste
+	 * 	Artiste
 	 */
 
 	public void setArtiste(Artiste artiste) {
@@ -445,8 +571,8 @@ public class MenuMusique extends JPanel{
 	}
 
 	/**
-	 * Permet de récupérer le nombre de musique nécessaire pour faire un bon affichage dans le MenuPrincipal
-	 * @return Le nombre de musique de l'artiste
+	 *Permet de récupérer le nombre de musique nécessaire pour faire un bon affichage dans le MenuPrincipal
+	 *@return Le nombre de musique de l'artiste
 	 */
 
 	public int getNombreDeMusique() {
@@ -454,8 +580,9 @@ public class MenuMusique extends JPanel{
 	}
 
 	/**
-	 * Permet de changer le nombre de musique comme tous les artistes n'ont pas le même nombre de musiques
-	 * @param nombreDeMusique
+	 *Permet de changer le nombre de musique comme tous les artistes n'ont pas le même nombre de musiques
+	 *@param nombreDeMusique
+	 *	Nombre de musique
 	 */
 
 	public void setNombreDeMusique(int nombreDeMusique) {
@@ -464,9 +591,10 @@ public class MenuMusique extends JPanel{
 	
 	
 	/**
-	 * Cette fonction permet d'accéder à l'objet MenuMusique
-	 * @param login Login utilisateur
-	 * @return L'objet singleton
+	 *Cette fonction permet d'accéder à l'objet MenuMusique
+	 *@param login 
+	 *	Login utilisateur
+	 *@return L'objet singleton
 	 */
 	
 	public static MenuMusique getInstance(String login) {

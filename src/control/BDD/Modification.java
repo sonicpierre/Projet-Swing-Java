@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 /**
  *<b>Modification</b> est la classe qui permet de modifier le répertoire de chaque artiste en y ajoutant ou supprimant des éléments.
- *@author VIRGAUX Pierre
+ *@author Julien Buisson Chabot
  *@version 2.0
  **/
 
