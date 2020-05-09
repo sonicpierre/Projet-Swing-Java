@@ -96,3 +96,9 @@ Elle est accessible via l'onglet "représentations" de la session utilisateur.
 Il est possible pour l'administrateur d'envoyer des messages électroniquesa aux artistes de son choix. Cet envoi se fait via une fenêtre de message, où il devra saisir l'objet, le contenu et le destinataire du message. Cette interface est accessible en utilisant l'onglet "contact" de l'application. 
 
 <img src="ImageReadMe/mail.png" lab="Fenêtre d'envoie e-mail" height="400">
+
+## 8. Paramètres
+
+Il est également possible, grâce à un clic droit sur l'icone d'un utilisateur depuis la page d'accueil, d'accéder à ses informations de paramètrages. Ainsi il sera possible de la modifier, d'ajouter une photo de profil ou consulter des informations.
+
+<img src="ImageReadMe/paramètres.png" lab="Fenêtre de paramètrage" height="400">
