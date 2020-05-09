@@ -67,3 +67,5 @@ La première ligne doit contenir les entêtes des colonnes:
 
 Toutes les colonnes (Type, Titre, Annee, Album, Duree, Spectateur) doivent être écrite sur la première ligne même si toutes les cases ne sont pas remplies. On répète (Type, Titre, Annee, Album, Duree, Spectateur) autant qu'il y a des oeuvres.
 </li>
+
+## 5. Gestion de l'interface chanteur : 
