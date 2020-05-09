@@ -26,7 +26,9 @@ Lorsque vos identifiants de connexion sont validés par le système, vous accéd
  <li>Ajout par une base de données</li>
 </ul>
 
-## 2. Pour remplir à partir d'un fichier csv :
+<img src="ImageReadMe/post_connexion.png" lab="Page d'accueil" height="400" >
+
+## 4. Pour remplir à partir d'un fichier csv :
 
 Il faut choisir un fichier avec la structure suivante:
 
