@@ -82,3 +82,9 @@ Depuis ce répertoire il est alors possible d'ajouter musique et album en utilis
 Après leur importation, les musiques de l'album sont affichées sur le répertoire du chanteur. A partir de cet instant il est possible de jouer une musique, la mettre en pause, l'arrêter ou encore la reprendre. Cette gestion se fait soit via les boutons de l'onglet "player" (en selectionnat au préalable la musique), soit directement sur l'interface en utilisant les boutons de gestion.
 
 <img src="ImageReadMe/repertoire.png" lab="Répertoire de musique" height="400">
+
+## 6. L'envoie d'e-mail
+
+Il est possible pour l'administrateur d'envoyer des messages électroniquesa aux artistes de son choix. Cet envoi se fait via une fenêtre de message, où il devra saisir l'objet, le contenu et le destinataire du message. Cette interface est accessible en utilisant l'onglet "contact" de l'application. 
+
+<img src="ImageReadMe/mail.png" lab="Fenêtre d'envoie e-mail" height="400">
