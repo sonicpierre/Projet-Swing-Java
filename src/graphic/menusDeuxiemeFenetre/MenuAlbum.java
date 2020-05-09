@@ -16,9 +16,9 @@ import control.personne.Artiste;
 public class MenuAlbum extends JPanel{
 	
 	private static MenuAlbum instance;
-	
+
 	private String login;
-	
+
 	private MenuAlbum(String login) {
 		this.login = login;
 		constructionPanel();
@@ -60,6 +60,7 @@ public class MenuAlbum extends JPanel{
 		this.constructionPanel();
 		this.validate();
 	}
+	
 	
 	public static MenuAlbum getInstance(String login) {
 		if (instance == null)
