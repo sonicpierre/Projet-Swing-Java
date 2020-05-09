@@ -1,6 +1,6 @@
 # Projet_Java_ING1_S2
 
-## 1. Pour créer un compte/se connecter:
+## 1. Pour créer un compte/se connecter :
 
 Si vous avez déjà un compte utilisateur de MySQL disposant de droits d'administrateur, entrez le nom d'utilisateur et le mot de passe dans l'espace prévu à cet effet.
 
@@ -17,8 +17,16 @@ Si jamais vous ne connaissez pas votre mot de passe root et que vous voulez le c
 
 <a>http://patatos.over-blog.com/article-comment-changer-le-mot-de-passe-de-mysql-49963936.html</a>
 
+## 2. Après la connexion : 
 
-## 2. Pour remplir à partir d'un fichier csv:
+Lorsque vos identifiants de connexion sont validés par le système, vous accédez à la page d'aacueil de l'application. Cette page initialement vide poura être complétée par des données via différentes méthodes : 
+<ul>
+ <li>Ajout par saisie</li>
+ <li>Ajout par un fichier CSV</li>
+ <li>Ajout par une base de données</li>
+</ul>
+
+## 2. Pour remplir à partir d'un fichier csv :
 
 Il faut choisir un fichier avec la structure suivante:
 
