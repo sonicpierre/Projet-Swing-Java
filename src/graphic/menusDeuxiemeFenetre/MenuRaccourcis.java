@@ -20,16 +20,44 @@ import graphic.menusParametreFenetre.MenuAjoutMusique;
  *ingleton, deux var clés login et article
  *Elle peut */
 public class MenuRaccourcis {
-
+	
+	/**
+	 *Déclaration de l'instabce du menu raccourcis
+	 **/
+	
 	private static MenuRaccourcis instance;
+	
+	/**
+	 *Déclaration du login utilisateur
+	 **/
+	
 	private String login;
+	
+	/**
+	 *Déclaration de l'artiste
+	 **/
+	
 	private Artiste artiste;
-
+	
+	/**
+	 *Création du menu raccourcis
+	 *@param login
+	 *	Login utilisateur
+	 *@param artiste
+	 *Artiste
+	 **/
+	
 	private MenuRaccourcis(String login, Artiste artiste) {
 		this.login = login;
 		this.artiste = artiste;
 	}
-
+	
+	/**
+	 *Création du menu raccourcis
+	 *@param login
+	 *	Login utilisateur
+	 **/
+	
 	private MenuRaccourcis(String login) {
 		this.login = login;
 		this.artiste = null;
@@ -39,7 +67,9 @@ public class MenuRaccourcis {
 	@SuppressWarnings("serial")
 	
 	/**
-	 * On donne un nom, une icone puis un emonic qui correction au tab+lettre*/
+	 *Crée les actions à mener sur les paramètres en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actParametre = new AbstractAction() {
 
 
@@ -63,7 +93,10 @@ public class MenuRaccourcis {
 		@Override
 		
 		/**
-		 *Associe au bouton l'action ouvrir la fenetre param 
+		 *Associe au bouton l'action ouvrir la fenetre de paramètres
+		 *@param arg0
+		 *	Argument
+		 *@see FenetreParametre
 		 **/
 
 		public void actionPerformed(ActionEvent arg0) {
@@ -73,6 +106,11 @@ public class MenuRaccourcis {
 
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur l'labum en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actAjoutAlb = new AbstractAction() {
 
 
@@ -85,12 +123,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action ajout album à la fenetre
+		 *@param event
+		 *	Action
+		 *@see FenetreParametre
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			FenetreParametre.getInstance(login).ajoutAlbumFenetre();
 		}
 	};
 
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur les musiques en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actAjoutMus = new AbstractAction() {
 
 
@@ -103,12 +154,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action ajout album à la fenetre
+		 *@param event
+		 *	Action
+		 *@see FenetreParametre
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			FenetreParametre.getInstance(login).ajoutMusiqueFenetre();
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur la deconnexion en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actDeco = new AbstractAction() {
 
 
@@ -121,12 +185,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action deconnexion
+		 *@param event
+		 *	Action
+		 *@see TopMenuDescriptif
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			TopMenuDescriptif.getInstance(login).deconnexion();
 		}
 	};
 
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur la suppression de musique en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actSuppressionMusique = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -138,12 +215,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action suppression
+		 *@param event
+		 *	Action
+		 *@see MenuMusique
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			MenuMusique.getInstance(login).checkOperation("Supprimer");
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur la lecture musique de musique en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actPlay = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -155,12 +245,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action lecture
+		 *@param event
+		 *	Action
+		 *@see MenuMusique
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			MenuMusique.getInstance(login).checkOperation("Play");
 		}
 	};
 
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur l'arrêt musique de musique en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actStop = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -172,12 +275,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action l'arrêt musique
+		 *@param event
+		 *	Action
+		 *@see MenuMusique
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			MenuMusique.getInstance(login).checkOperation("Stop");
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur la reprise musique de musique en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actReset = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -189,12 +305,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action la reprise musique
+		 *@param event
+		 *	Action
+		 *@see MenuMusique
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			MenuMusique.getInstance(login).checkOperation("Reset");
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur le retour en arrière musique de musique en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actBack = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -206,12 +335,24 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		/**
+		 *Associe au bouton l'action retour arrière de la musique
+		 *@param event
+		 *	Action
+		 *@see FenetreFond
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			FenetreFond.getInstance().retourEtatInitial(login);
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur l'ajout artiste en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actAjoutArtiste = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -223,12 +364,26 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action ajout artiste
+		 *@param event
+		 *	Action
+		 *@see FenetreFond
+		 **/
+		
+		
 		public void actionPerformed(ActionEvent event) {
 			FenetreParametre.getInstance(login).ajoutArtisteFenetre();
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur contacter artiste en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actContacter = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -240,12 +395,25 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action contacter artiste
+		 *@param event
+		 *	Action
+		 *@see TopMenuDescriptif
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			TopMenuDescriptif.getInstance(login).ouvertureFenetreMail();
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur suppression artiste en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actSupressionArtiste = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -255,6 +423,15 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action supprimer artiste
+		 *@param event
+		 *	Action
+		 *@see personnesDejaInscrite
+		 *@see MenuPrincipal
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			personnesDejaInscrite.getInstance().getMaListDePersonneInscrite().get(login).getMaListeArtiste().remove(artiste);
 			MenuPrincipal.getInstance(login).update();
@@ -263,6 +440,11 @@ public class MenuRaccourcis {
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur ajout representation en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actAjoutRepresentation = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -273,12 +455,26 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action ajout representation
+		 *@param event
+		 *	Action
+		 *@see personnesDejaInscrite
+		 *@see MenuPrincipal
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			FenetreParametre.getInstance(login).ajoutRepresentationFenetre();
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée les actions à mener sur remplissage par un fichier CSV en donnant un nom et une icone qui correspont à la saisie clavier
+	 **/
+	
 	public AbstractAction actRemplirParUnCSV = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -289,12 +485,26 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Associe au bouton l'action remplissage par CSV
+		 *@param event
+		 *	Action
+		 *@see TopMenuDescriptif
+		 **/
+		
+		
 		public void actionPerformed(ActionEvent event) {
 			TopMenuDescriptif.getInstance(login).copieEtRemplissage();
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Génère l'interface de remplissage à partir d'une base de données
+	 **/
+	
 	public AbstractAction actRemplirParUneBDD = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -305,12 +515,22 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		/**
+		 *Crée l'action de remplissage de la base de données
+		 *@see FenetreParametre
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			FenetreParametre.getInstance(login).ajoutRenommageFenetre("Remplir à partir d'une BDD", "Nom BDD", "Titre BDD", null, null, null);
 		}
 	};
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Crée l'action de changement d'image album
+	 **/
+	
 	public AbstractAction actChangerImage = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -319,6 +539,14 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		
+		/**
+		 *Permet de définir les actions de changement image sur le menu
+		 *@param event
+		 *	Evènement
+		 *@see MenuMusique
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			MenuMusique.getInstance(login).changerImage();
 			MenuMusique.getInstance(login).update();
@@ -327,6 +555,11 @@ public class MenuRaccourcis {
 	
 	
 	@SuppressWarnings("serial")
+	
+	/**
+	 *Permet de créer une action de suppression album
+	 **/
+	
 	public AbstractAction actSuppressionAlbum = new AbstractAction() {
 
 		{//C'est le constructeur
@@ -335,6 +568,15 @@ public class MenuRaccourcis {
 		}
 
 		@Override
+		/**
+		 *Permet de définir les actions de mise à jour à mener sur l'interface de menu
+		 *@param event
+		 *	Evènement
+		 *@see MenuMusique
+		 *@see MenuAjoutMusique
+		 *@see MenuPrincipal
+		 **/
+		
 		public void actionPerformed(ActionEvent event) {
 			MenuMusique.getInstance(login).supprimerAlbum();
 			MenuMusique.getInstance(login).update();
@@ -343,6 +585,14 @@ public class MenuRaccourcis {
 		}
 	};
 	
+	/**
+	 *Instanciation du menu de raccourcis pour un artiste en fonction de son login
+	 *@param login
+	 *	Login utilisateur
+	 *@param artiste
+	 *	Artiste
+	 *@return Menu raccourcis
+	 **/
 	
 	public static MenuRaccourcis getInstance(String login, Artiste artiste) {
 		if (instance == null)
@@ -350,16 +600,34 @@ public class MenuRaccourcis {
 		return instance;
 	}
 	
+	/**
+	 *Instanciation du menu raccourcis
+	 *@param login
+	 *	Login utilisateur
+	 *@return Menu raccourcis
+	 **/
+	
 	public static MenuRaccourcis getInstance(String login) {
 		if (instance == null)
 			instance = new MenuRaccourcis(login);
 		return instance;
 	}
-
+	
+	/**
+	 *Récupère l'artiste
+	 *@return Artiste
+	 **/
+	
 	public Artiste getArtiste() {
 		return artiste;
 	}
-
+	
+	/**
+	 *Initialisation de l'artiste
+	 *@param artiste
+	 *	Artiste
+	 **/
+	
 	public void setArtiste(Artiste artiste) {
 		this.artiste = artiste;
 	}
