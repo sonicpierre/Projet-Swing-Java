@@ -47,7 +47,7 @@ public class Modification {
 	private Modification() {
 
 	}
-	
+	//R
 	/**
 	 *Instanciation de la modification
 	 *@return Etat modifié de la fenêtre
