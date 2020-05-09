@@ -20,15 +20,39 @@ import control.personne.Artiste;
  *dédiés à chaque champ de saisie dans la fenetre d'envoie.
  *</p> 
  *@author VIRGAUX Pierre
+ *@version 2.0
  **/
 
 public class MenuDeMail extends JPanel{
 	
+	/**
+	 *Déclaration de l'instacnce du menu e-mail
+	 **/
+	
 	private static MenuDeMail instance;
 	
+	/**
+	 *Décalaration de l'instance du menu e-mail
+	 **/
+	
 	private JPanel menuMail;
+	
+	/**
+	 *Déclaration des données d'envoie
+	 **/
+	
 	private JTextField adresseMailRentre, objetEntre;
+	
+	/**
+	 *Déclaration de la zone de saisie message
+	 **/
+	
 	private JTextArea message;
+	
+	/**
+	 *Déclaration de l'artiste
+	 **/
+	
 	private Artiste artiste;
 	
 	/**
@@ -70,6 +94,7 @@ public class MenuDeMail extends JPanel{
 	
 	/**
 	 *Création de l'espace de zone de texte
+	 *@return Message saisie
 	 **/
 	
 	private JTextArea zoneMessage() {
@@ -81,6 +106,7 @@ public class MenuDeMail extends JPanel{
 	/**
 	 *Permet de définir l'action du bouton d'envoie d'e-mail
 	 *@see SenderMail
+	 *@return Bouton d'envoie
 	 **/
 	
 	private JPanel bouttonEnvoi() {
@@ -164,11 +190,21 @@ public class MenuDeMail extends JPanel{
 		return message;
 	}
 	
+	/**
+	 *Initialise l'espace e-mail
+	 *@return Saisie utilisateur
+	 **/
 	
 	public JTextField getObjetEntre() {
 		return objetEntre;
 	}
-
+	
+	/**
+	 *Initialise l'objet entré
+	 *@param objetEntre
+	 *	Objet saisi
+	 **/
+	
 	public void setObjetEntre(JTextField objetEntre) {
 		this.objetEntre = objetEntre;
 	}
@@ -181,11 +217,22 @@ public class MenuDeMail extends JPanel{
 	public void setMessage(JTextArea message) {
 		this.message = message;
 	}
-
+	
+	/**
+	 *Récupère l'artiste
+	 *@return Artiste
+	 **/
+	
 	public Artiste getArtiste() {
 		return artiste;
 	}
-
+	
+	/**
+	 *Initialise l'artiste
+	 *@param artiste
+	 *	Artiste
+	 **/
+	
 	public void setArtiste(Artiste artiste) {
 		this.artiste = artiste;
 	}

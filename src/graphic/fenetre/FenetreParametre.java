@@ -34,12 +34,12 @@ public class FenetreParametre extends JFrame{
 	private static FenetreParametre instance;
 	
 	/**
-	 * {@value #dimChoixAlbum} est la dimension de la fenêtre pour ajouter des Albums
-	 * {@value #dimChoixMusique} est la dimension de la fenêtre pour ajouter une musique
-	 * {@value #dimChoixRepresentation} est la dimension de la fenêtre pour ajouter une représentation
-	 * {@value #dimParametre} est la dimension de la fenêtre pour décrire les artistes
-	 * {@value #dimAjoutArtiste} est la dimension de la fenêtre pour ajouter un artiste
-	 * {@value #dimRenommer} est la dimension de la fenêtre pour renommer un album ou une représentation
+	 *{@value #dimChoixAlbum} est la dimension de la fenêtre pour ajouter des Albums
+	 *{@value #dimChoixMusique} est la dimension de la fenêtre pour ajouter une musique
+	 *{@value #dimChoixRepresentation} est la dimension de la fenêtre pour ajouter une représentation
+	 *{@value #dimParametre} est la dimension de la fenêtre pour décrire les artistes
+	 *{@value #dimAjoutArtiste} est la dimension de la fenêtre pour ajouter un artiste
+	 *{@value #dimRenommer} est la dimension de la fenêtre pour renommer un album ou une représentation
 	 */
 	
 	private final static Dimension dimChoixAlbum = new Dimension(600,100);
@@ -56,8 +56,8 @@ public class FenetreParametre extends JFrame{
 	
 	/** 
 	 * Ici on a le constructeur de la fenêtre qui permet de mettre de set certains paramètres qui ne changeront pas.
-	 * 
 	 * @param login
+	 * 	Login utilisateur
 	 */
 	
 	private FenetreParametre(String login){
@@ -72,46 +72,81 @@ public class FenetreParametre extends JFrame{
 	}
 	
 	/**
-	 * @see MenuFinalParametre
-	 * Permet de faire apparaitre la fenêtre correspondante à la description de l'artiste et à la réédition de ses paramètres.
+	 *Permet de faire apparaitre la fenêtre correspondante à la description de l'artiste et à la réédition de ses paramètres.
+	 *@see MenuFinalParametre
 	 */
 	public void ajoutParametre() {
-		//On rend la fenêtre invisible 
+		/**
+		 *On rend la fenêtre invisible 
+		 */
 		dispose();
-		//On change le titre
+		/**
+		 *On change le titre
+		 */
 		this.setTitle("Paramètre");
-		//On supprime l'ensemble du contenu
+		/**
+		 *On supprime l'ensemble du contenu
+		 */
 		this.getContentPane().removeAll();
-		//On change la dimension de la fenêtre
+		/**
+		 *On change la dimension de la fenêtre
+		 */
 		setSize(dimParametre);
-		//On ajoute le panel correspondant
+		/**
+		 *On ajoute le panel correspondant
+		 */
 		this.getContentPane().add(MenuFinalParametre.getInstance(login));
-		//On rend la fenêtre visible à nouveau
+		/**
+		 *On rend la fenêtre visible à nouveau
+		 */
 		setVisible(true);
 		
 	}
 	
 	/**
-	 * Permet l'ajouter d'un Album et de toutes les musiques qu'il contient.
-	 * Codé sur le modèle de ajoutParametre()
-	 * 
-	 * @see MenuAjoutAlbum
+	 *Permet l'ajouter d'un Album et de toutes les musiques qu'il contient.
+	 *Codé sur le modèle de ajoutParametre()
+	 *@see MenuAjoutAlbum
 	 */
 	
 	public void ajoutAlbumFenetre() {
-		dispose();//ON REND LA FEN INVISIBLE
+		
+		/**
+		 *Rend la fenetre invisible
+		 **/
+		
+		dispose();
 		this.setTitle("Ajouter album");
-		this.getContentPane().removeAll();//SUPPREMSSION CONTENU
-		setSize(dimChoixAlbum);//REDIMENSION
-		this.getContentPane().add(MenuAjoutAlbum.getInstance(login));//LECTURE CONTENU + AJOUT DU MENU CORRESPONDZNT À L'AJOUT ALBUM
-		setVisible(true);//VISIBLITE DELA FEN
+		
+		/**
+		 *Suppression du contenu
+		 **/
+		
+		this.getContentPane().removeAll();
+		
+		/**
+		 *Redimension de la fenetre
+		 **/
+		
+		setSize(dimChoixAlbum);
+		
+		/**
+		 *Lecture du contenu et ajout du menu correspondant à l'ajout album
+		 **/
+		
+		this.getContentPane().add(MenuAjoutAlbum.getInstance(login));
+		
+		/**
+		 *Visibilité de la fenetre
+		 **/
+		
+		setVisible(true);
 	}
 	
 	/**
-	 * Permet d'ajouter une musique à un Album.
-	 * Codé sur le modèle de ajoutParametre()
-	 * 
-	 * @see MenuAjoutMusique
+	 *Permet d'ajouter une musique à un Album.
+	 *Codé sur le modèle de ajoutParametre()
+	 *@see MenuAjoutMusique
 	 * 
 	 */
 	
@@ -125,10 +160,9 @@ public class FenetreParametre extends JFrame{
 	}
 	
 	/**
-	 * Permet d'appeler la fenêtre pour l'ajout d'un artiste.
-	 * Codé sur le modèle de ajoutParametre()
-	 * 
-	 * @see MenuAjoutArtiste
+	 *Permet d'appeler la fenêtre pour l'ajout d'un artiste.
+	 *Codé sur le modèle de ajoutParametre()
+	 *@see MenuAjoutArtiste
 	 */
 	
 	public void ajoutArtisteFenetre() {
@@ -141,10 +175,9 @@ public class FenetreParametre extends JFrame{
 	}
 	
 	/**
-	 * 	Cette fenêtre permettre d'ajouter des représentations.
-	 * 	Codé sur le modèle de ajoutParametre()
-	 * 
-	 * 	@see MenuAjoutRepresentation
+	 *Cette fenêtre permettre d'ajouter des représentations.
+	 *Codé sur le modèle de ajoutParametre()
+	 *@see MenuAjoutRepresentation
 	 */
 
 	
@@ -160,17 +193,23 @@ public class FenetreParametre extends JFrame{
 	/**
 	 * 
 	 * @param titre
+	 * 	Titre musique
 	 * @param texLabel
+	 * 	Champ de saisie
 	 * @param textField
+	 * 	Champ de saisie
 	 * @param album
+	 * 	Album de musiques
 	 * @param artiste
+	 * 	Artiste
 	 * @param musique
+	 * 	Musique
 	 * @see MenuRenommer
 	 * 
 	 * Cette fenêtre permettra de renommer les musiques, les représentation et les albums.
 	 * Tous les paramètres ne sont pas forcément utilisés et seront mis à null au moment de l'appel si nécessaire.
 	 * 
-	 * Codé sur le modèle de ajoutParametre()
+	 *NB : Codé sur le modèle de ajoutParametre()
 	 * 
 	 */
 	
@@ -185,8 +224,8 @@ public class FenetreParametre extends JFrame{
 	
 	/**
 	 * Cette fonction permet d'accéder à l'objet FenetreParametre
-	 * 
 	 * @param login
+	 * 	LOgin utilisateur
 	 * @return L'objet singleton
 	 */
 	

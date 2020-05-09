@@ -12,6 +12,7 @@ import javax.swing.JFrame;
  *d'envoie du message.
  *</p>
  *@author VIRGAUX Pierre
+ *@version 2.0
  **/
 
 public class FenetreMail extends JFrame {
@@ -41,6 +42,11 @@ public class FenetreMail extends JFrame {
 		setResizable(false);
 		setVisible(true);
 	}
+	
+	/**
+	 *Permet de contacter un utilisateur
+	 *@see MenuDeMail
+	 **/
 	
 	public void contacter() {
 		MenuDeMail.getInstance().getAdresseMailRentre().setText(MenuDeMail.getInstance().getArtiste().getAdresseMail());
