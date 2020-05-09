@@ -14,18 +14,19 @@ import graphic.menusParametreFenetre.MenuRenommer;
 
 
 /**
- * La classe <b>FentreParametre</b> permet de générer les différents types de fenêtres permettant des mises à jours :
- * <lu>
- * <li>Une fenêtre de description</li>
- * <li>Une fenêtre pour ajouter des albums</li>
- * <li>Une fenêtre pour ajouter un film ou un spectacle</li>
- * <li>Une fenêtre pour ajouter une musique</li>
- * <li>Une fenêtre pour renommer</li> </lu>
- * 
- * 
- * @author Pierre VIRGAUX
- * @version 2.0
- * 
+ *<b>FenetreParametre</b> est la classe qui permet de générer les différents types de fenêtres permettant des mises à jours :
+ *<p>
+ *<ul>
+ *<li>Une fenêtre de description
+ *<li>Une fenêtre pour ajouter des albums
+ *<li>Une fenêtre pour ajouter un film ou un spectacle
+ *<li>Une fenêtre pour ajouter une musique
+ *<li>Une fenêtre pour renommer
+ *</ul>
+ *<p>
+ *
+ *@author Pierre VIRGAUX
+ *@version 2.0
  **/
 
 @SuppressWarnings("serial")

@@ -1,6 +1,6 @@
 # Projet_Java_ING1_S2
 
-## 1. Pour créer un compte/se connecter:
+## 1. Pour créer un compte/se connecter :
 
 Si vous avez déjà un compte utilisateur de MySQL disposant de droits d'administrateur, entrez le nom d'utilisateur et le mot de passe dans l'espace prévu à cet effet.
 
@@ -17,8 +17,28 @@ Si jamais vous ne connaissez pas votre mot de passe root et que vous voulez le c
 
 <a>http://patatos.over-blog.com/article-comment-changer-le-mot-de-passe-de-mysql-49963936.html</a>
 
+## 2. Après la connexion : 
 
-## 2. Pour remplir à partir d'un fichier csv:
+Lorsque vos identifiants de connexion sont validés par le système, vous accédez à la page d'aacueil de l'application. Cette page initialement vide poura être complétée par des données via différentes méthodes : 
+<ul>
+ <li>Ajout par saisie</li>
+ <li>Ajout par un fichier CSV</li>
+ <li>Ajout par une base de données</li>
+</ul>
+
+<img src="ImageReadMe/post_connexion.png" lab="Page d'accueil" height="400" >
+
+### 2.1. Les onglets d'affichage
+
+L'affichage de l'ensemble des informations disponibles se fait selon leur type, qui est donné par les onglets Artiste, Musique, Albums et Représentations. L'administrateur pourra ainsi visualiser les données des utilisateurs quelque soit leur talent. 
+
+## 3. Remplissage manuel : 
+
+La saisie manuelle d'un utilisateur se fait via le chemin "Base de données > ajouter artiste". Il donne accès à une fenêtre permettant de remplir les informations telles que le nom, prénom, e-mail, talent et description de l'artiste.
+
+<img src="ImageReadMe/ajout_artiste.png" lab="Fenêtre de saisie manuelle" height="400" >
+
+## 4. Remplissage à partir d'un fichier csv :
 
 Il faut choisir un fichier avec la structure suivante:
 

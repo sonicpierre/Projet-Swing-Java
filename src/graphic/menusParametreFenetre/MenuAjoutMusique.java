@@ -23,7 +23,6 @@ import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
-@SuppressWarnings("serial")
 
 /**
  *<b>MenuAjoutMusique</b> est la classe qui permet à l'utilisateur d'ajouter un nouvel abum de musique à son répertoire
@@ -31,6 +30,7 @@ import graphic.menusDeuxiemeFenetre.MenuPrincipal;
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class MenuAjoutMusique extends JPanel{
 	
 	/**

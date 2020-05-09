@@ -17,14 +17,13 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreFond;
 
-@SuppressWarnings("serial")
-
 /**
  *<b>MenuRepresentation</b> est la classe qui permet de gérer les actions possibles sur les representations de l'artiste
  *@author BUISSON-CHAVOT Julien
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class MenuRepresentation extends JPanel{
 	
 	/**

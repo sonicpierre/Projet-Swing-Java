@@ -7,16 +7,17 @@ import javax.swing.JFrame;
 import graphic.menusDepart.MenuDemmarrage;
 
 /**
- * La classe <b>FentreLogin</b> permet de générer la fenêtre permettant de se login et de créer un utilisateur SQL.
- * 
- * @author Pierre VIRGAUX
- * @version 2.0
- * 
+ *La classe <b>FentreLogin</b> permet de générer la fenêtre permettant de se login et de créer un utilisateur SQL.
+ *@author Pierre VIRGAUX
+ *@version 2.0
  **/
-
 @SuppressWarnings("serial")
 public class FenetreLogin extends JFrame {
-
+	
+	/**
+	 *Déclaration de l'instance de la fenetre de login
+	 **/
+	
 	private static FenetreLogin instance;
 	
 	/**

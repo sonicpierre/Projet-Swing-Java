@@ -5,16 +5,16 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-@SuppressWarnings("serial")
 
 /**
- *<p><b>FenetreMail</b> est la classe qui permet de générer la fenetre
+ *<b>FenetreMail</b> est la classe qui permet de générer la fenetre
  *d'envoie du message.
- *</p>
  *@author VIRGAUX Pierre
  *@version 2.0
  **/
 
+
+@SuppressWarnings("serial")
 public class FenetreMail extends JFrame {
 	
 	

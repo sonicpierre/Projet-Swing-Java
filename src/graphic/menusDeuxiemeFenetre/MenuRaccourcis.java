@@ -15,10 +15,11 @@ import graphic.fenetre.FenetreParametre;
 import graphic.menusParametreFenetre.MenuAjoutMusique;
 
 /**
- * Permet de faire le lien entre le cote serveur(actions) et le cote client (bouton)
- *fonctionne de façon analogue aux liteners
- *ingleton, deux var clés login et article
- *Elle peut */
+ *<b>MenuRaccourcis</b> est la classe qui permet de lier le côté serveur (actions) et le côté client (bouton). 
+ *Son fonctionnement suit celui des listeners, singleton avec deux variables clés : login et artiste
+ *@author BUISSON-CHAVOT Julien
+ *@version 2.0
+ **/
 public class MenuRaccourcis {
 	
 	/**

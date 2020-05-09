@@ -28,7 +28,6 @@ import graphic.menusParametreFenetre.MenuAjoutMusique;
 import graphic.menusParametreFenetre.MenuAjoutRepresentation;
 import graphic.menusParametreFenetre.MenuProfilDescription;
 
-@SuppressWarnings("serial")
 
 /**
  *<b>MenuPrincipal</b> est la classe qui permet la construction de l'interface du menu principal et ses fonctionnalités
@@ -36,6 +35,7 @@ import graphic.menusParametreFenetre.MenuProfilDescription;
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class MenuPrincipal extends JTabbedPane{
 	
 	/**
