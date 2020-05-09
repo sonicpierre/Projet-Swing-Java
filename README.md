@@ -25,7 +25,7 @@ Il faut choisir un fichier avec la structure suivante:
 une ligne par artiste avec ses oeuvres en suivant sur la même ligne.
 La première ligne doit contenir les entêtes des colonnes:
 
-**Nom** (de l'artiste), **Prenom** (de l'artiste), **Description** (ou bibliographie de l'artiste), **Profession** (de l'artiste), **Type** (de l'oeuvre), **Titre** (de l'oeuvre), **Annee** (de l'oeuvre), **Album** (de l'oeuvre si c'est une chanson), **Duree** (de l'oeuvre si c'est une chanson), **Spectateur** (de l'oeuvre si c'est une représentation),...
+**Nom** (de l'artiste), **Prenom** (de l'artiste), **Description** (ou bibliographie de l'artiste), **Profession** (de l'artiste), **Type** (de l'oeuvre), **Titre** (de l'oeuvre), **Annee** (de l'oeuvre), **Album** (de l'oeuvre si c'est une chanson), **Duree** (de l'oeuvre si c'est une chanson), **Spectateur** (de l'oeuvre si c'est une représentation),**...**
 
 Toutes les colonnes (Type, Titre, Annee, Album, Duree, Spectateur) doivent être écrite sur la première ligne même si toutes les cases ne sont pas remplies. On répète (Type, Titre, Annee, Album, Duree, Spectateur) autant qu'il y a des oeuvres.
 </li>
