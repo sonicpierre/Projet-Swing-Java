@@ -8,7 +8,7 @@ Si vous avez déjà un compte utilisateur de MySQL disposant de droits d'adminis
 
 Sinon, créez un compte en indiquant un nom d'utilisateur, un mot de passe ainsi que le mot de passe administrateur MySQL. Vous pourrez ensuite vous connecter comme indiqué à l'étape précédente.
 
-<img src="ImageReadMe/connexion.png lab="Créer compte">
+<img src="ImageReadMe/connexion.png lab="Connexion">
 
 ## 2. Pour remplir à partir d'un fichier csv:
 
