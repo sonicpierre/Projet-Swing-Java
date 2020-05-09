@@ -31,7 +31,9 @@ public class CompteAdministrateur implements Serializable{
 	private Set<Artiste> maListeArtiste;
 	
 	/**
-	 *Deux constructeur diff, */
+	 *Deux constructeur diff, 
+	 *
+	 **/
 	public CompteAdministrateur(String passeword, Color couleurDeFond, Color couleurEcriture) {
 		this.maListeArtiste = new HashSet<Artiste>();
 		this.couleurDuFond = couleurDeFond;
