@@ -22,6 +22,7 @@ import control.personne.Artiste;
 public class MenuAlbum extends JPanel{
 	
 	private static MenuAlbum instance;
+
 	
 	//Ici on a toujours le nom de l'utilisateur qui est une clef pour lire le fichier de sauvegarde
 	
@@ -31,6 +32,7 @@ public class MenuAlbum extends JPanel{
 	 * Ici il s'agit de la méthode qui permet de construire le panel
 	 * @param login
 	 */
+
 	private MenuAlbum(String login) {
 		this.login = login;
 		//Par soucis de propreté on appelle une fonction histoire de pas tout mettre dans le constructeur.
@@ -100,12 +102,14 @@ public class MenuAlbum extends JPanel{
 		this.validate();
 	}
 	
+
 	/**
 	 * Cette fonction permet d'accéder à l'objet MenuAlbum
 	 * 
 	 * @param login
 	 * @return L'objet singleton
 	 */
+
 	
 	public static MenuAlbum getInstance(String login) {
 		if (instance == null)
