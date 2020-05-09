@@ -28,7 +28,6 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
-@SuppressWarnings({ "serial", "deprecation" })
 
 /**
  *<b>MenuAjoutArtiste</b> est la classe qui crée l'interface dédiée à l'artiste quelque soit son talent
@@ -36,6 +35,7 @@ import graphic.menusDeuxiemeFenetre.MenuPrincipal;
  *@version 2.0
  **/
 
+@SuppressWarnings({ "serial", "deprecation" })
 public class MenuAjoutArtiste extends JPanel{
 	
 	/**

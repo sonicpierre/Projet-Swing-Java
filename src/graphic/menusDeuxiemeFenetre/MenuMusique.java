@@ -30,11 +30,13 @@ import control.elementSauv.personnesDejaInscrite;
 import control.personne.Artiste;
 import graphic.fenetre.FenetreParametre;
 
+
 /**
- * <b>MenuMusique</b> est la classe qui permet de générer l'ensemble du menu concernant les musiques.
- * @author BEZIAT Lucille
- * @version 2.0
+ *<b>MenuMusique</b> est la classe qui permet de générer l'ensemble du menu concernant les musiques.
+ *@author BEZIAT Lucille
+ *@version 2.0
  */
+
 @SuppressWarnings("serial")
 public class MenuMusique extends JPanel{
 	

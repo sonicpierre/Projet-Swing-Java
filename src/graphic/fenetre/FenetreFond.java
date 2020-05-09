@@ -21,13 +21,10 @@ import graphic.menusParametreFenetre.MenuProfilDescription;
 
 
 /**
- * La classe <b>FentreFond</b> permet de générer la fenêtre permettant d'avoir le menu principal de notre application.
- * @author VIRGAUX  Pierre
- * @version 2.0
- * 
+ *La classe <b>FentreFond</b> permet de générer la fenêtre permettant d'avoir le menu principal de notre application.
+ *@author VIRGAUX  Pierre
+ *@version 2.0
  **/
-
-
 @SuppressWarnings("serial")
 public class FenetreFond extends JFrame {
 	

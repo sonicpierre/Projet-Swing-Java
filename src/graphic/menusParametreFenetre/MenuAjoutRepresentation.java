@@ -32,14 +32,13 @@ import control.personne.Artiste;
 import graphic.fenetre.FenetreParametre;
 import graphic.menusDeuxiemeFenetre.MenuRepresentation;
 
-@SuppressWarnings("serial")
-
 /**
  *<b>MenuAjoutRepresentation</b> est la classe qui permet de créer le menu d'ajout de representation d'un artiste
  *@author VIRGAUX Pierre
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class MenuAjoutRepresentation extends JPanel{
 	
 	/**

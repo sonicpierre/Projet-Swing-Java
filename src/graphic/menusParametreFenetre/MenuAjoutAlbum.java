@@ -27,7 +27,6 @@ import graphic.menusDeuxiemeFenetre.MenuAlbum;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 import graphic.menusDeuxiemeFenetre.MenuPrincipal;
 
-@SuppressWarnings("serial")
 
 /**
  *<b>MenuAjoutAlbum</b> est la classe qui permet l'ajout d'album dans le menu album
@@ -35,6 +34,7 @@ import graphic.menusDeuxiemeFenetre.MenuPrincipal;
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class MenuAjoutAlbum extends JPanel{
 	
 	/**

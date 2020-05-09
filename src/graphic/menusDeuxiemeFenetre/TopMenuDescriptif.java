@@ -21,14 +21,13 @@ import graphic.fenetreEnvoieMail.FenetreMail;
 import graphic.fenetreEnvoieMail.MenuDeMail;
 
 
-@SuppressWarnings("serial")
-
 /**
  *<b>TopMenuDescriptif</b> est la classe qui permet de gérer la barre de dessus des fenetres artistes
  *@author BEZIAT Lucille
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class TopMenuDescriptif extends JMenuBar{
 	
 	/**

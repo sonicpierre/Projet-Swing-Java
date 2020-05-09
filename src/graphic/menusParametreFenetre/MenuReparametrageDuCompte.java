@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 
 import control.personne.Artiste;
 
-@SuppressWarnings("serial")
 
 /**
  *<b>MenuReparametrageDuCompte</b> est la classe qui permet de modifier les parameètres du compte
@@ -16,6 +15,7 @@ import control.personne.Artiste;
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class MenuReparametrageDuCompte extends JPanel{
 	
 	/**

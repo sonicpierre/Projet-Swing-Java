@@ -15,7 +15,6 @@ import control.personne.Artiste;
 import graphic.menusDeuxiemeFenetre.MenuAlbum;
 import graphic.menusDeuxiemeFenetre.MenuMusique;
 
-@SuppressWarnings("serial")
 
 /**
  *<b>MenuRenommer</b> est la classe qui permet à l'utilisateur de modifier les informations saisies précédemment
@@ -23,6 +22,7 @@ import graphic.menusDeuxiemeFenetre.MenuMusique;
  *@version 2.0
  **/
 
+@SuppressWarnings("serial")
 public class MenuRenommer extends JPanel{
 	
 	/**
