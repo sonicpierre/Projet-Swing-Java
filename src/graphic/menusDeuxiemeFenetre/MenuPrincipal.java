@@ -35,6 +35,7 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	private String login;
 	private JPanel constructionPanel;
+	//On a décidé de déclarer les variables comme ceci par gain de place.
 	private JScrollPane musique, album, artiste, representation;
 	private Artiste artisteSelectionne;
 	
@@ -63,7 +64,7 @@ public class MenuPrincipal extends JTabbedPane{
 	}
 	
 	/**
-	 *descriptif et position description
+	 *	Ici on a 
 	 **/
 	private JPanel constructionLabelCase(Artiste artiste) {
 		JPanel panelLabel = new JPanel(new BorderLayout());
@@ -149,7 +150,7 @@ public class MenuPrincipal extends JTabbedPane{
 	
 	/**
 	 *Suppression du contenu
-	 *scroll pan pourr chaque onglet (panel scrollable, ne pouvant conteniur qu'un seul elemnt) pour ca on utilise setvieyxportviex
+	 *scrollPan pour chaque onglet (panel scrollable, ne pouvant conteniur qu'un seul elemnt) pour ca on utilise setvieyxportviex
 	 *chaque onglet a spn scroll panel auqyel on ajoute un panel ou se trouve notre onglet. On peut donc li définir une taille
 	 *en definisszant la taille avec set prefered sieze, on evite d'avoir des onglets de taille egale et on evite les prblm de prez
 	 *a la fin, on ajoute les onglets scrollable au grabd panel en leur donnant des noms
@@ -202,21 +203,36 @@ public class MenuPrincipal extends JTabbedPane{
 		FenetreMail.getInstance().contacter();
 	}
 	
-	
-	public static MenuPrincipal getInstance(String login) {
-		if (instance == null)
-			instance = new MenuPrincipal(login);
-		return instance;
-	}
 
+	/**
+	 * Permet de savoir l'artiste qui a été selectionné.
+	 * @return artiste qui a été selectionné
+	 */
 
 	public Artiste getArtisteSelectionne() {
 		return artisteSelectionne;
 	}
 
+	/**
+	 * Permet de donner une valeur à artiste quand on en a selectionné un.
+	 * 
+	 * @param artisteSelectionne
+	 */
 
 	public void setArtisteSelectionne(Artiste artisteSelectionne) {
 		this.artisteSelectionne = artisteSelectionne;
+	}
+	
+	/**
+	 * Cette fonction permet d'accéder à l'objet MenuPrincipal
+	 * @param login Login utilisateur
+	 * @return L'objet singleton
+	 */
+	
+	public static MenuPrincipal getInstance(String login) {
+		if (instance == null)
+			instance = new MenuPrincipal(login);
+		return instance;
 	}
 	
 }

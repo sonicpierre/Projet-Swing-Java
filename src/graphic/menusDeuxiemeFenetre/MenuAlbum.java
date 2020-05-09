@@ -14,6 +14,8 @@ import control.personne.Artiste;
 
 /**
  * La classe <b>MenuAlbum</b> permet d'avoir une vision des Albums qui ont été ajouté :
+ * @author Julien Buisson Chabot
+ * @version 2.0
  **/
 
 @SuppressWarnings("serial")
