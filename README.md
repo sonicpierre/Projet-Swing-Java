@@ -1,5 +1,12 @@
 # Projet_Java_ING1_S2
 
+## 1. Artistak Etxe
+
+Artistak Etxe est une application conçue pour la gestion des données d'une agence artistique. Ces données correspondent à celles des artistes de l'agence qui peuvent être comédiens, acteurs ou chanteurs. L'application va leur permettre de visualiser leurs réalisations, de recevoir des messages de l'administrateur et modifier leurs informations.
+
+<img src="ImageReadMe/accueil.png" lab="Page d'accueil" height="400" >
+
+
 ## 1. Pour créer un compte/se connecter :
 
 Si vous avez déjà un compte utilisateur de MySQL disposant de droits d'administrateur, entrez le nom d'utilisateur et le mot de passe dans l'espace prévu à cet effet.
