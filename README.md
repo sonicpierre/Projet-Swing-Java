@@ -7,7 +7,7 @@ Artistak Etxe est une application conçue pour la gestion des données d'une age
 <img src="ImageReadMe/accueil.png" lab="Page d'accueil" height="400" >
 
 
-## 1. Pour créer un compte/se connecter :
+## 2. Pour créer un compte/se connecter :
 
 Si vous avez déjà un compte utilisateur de MySQL disposant de droits d'administrateur, entrez le nom d'utilisateur et le mot de passe dans l'espace prévu à cet effet.
 
@@ -24,28 +24,27 @@ Si jamais vous ne connaissez pas votre mot de passe root et que vous voulez le c
 
 <a>http://patatos.over-blog.com/article-comment-changer-le-mot-de-passe-de-mysql-49963936.html</a>
 
-## 2. Après la connexion : 
+## 3. Après la connexion : 
 
 Lorsque vos identifiants de connexion sont validés par le système, vous accédez à la page d'aacueil de l'application. Cette page initialement vide poura être complétée par des données via différentes méthodes : 
 <ul>
  <li>Ajout par saisie</li>
  <li>Ajout par un fichier CSV</li>
- <li>Ajout par une base de données</li>
 </ul>
 
 <img src="ImageReadMe/post_connexion.png" lab="Page d'accueil" height="400" >
 
-### 2.1. Les onglets d'affichage
+### 3.1. Les onglets d'affichage
 
 L'affichage de l'ensemble des informations disponibles se fait selon leur type, qui est donné par les onglets Artiste, Musique, Albums et Représentations. L'administrateur pourra ainsi visualiser les données des utilisateurs quelque soit leur talent. 
 
-## 3. Remplissage manuel : 
+## 4. Remplissage manuel : 
 
 La saisie manuelle d'un utilisateur se fait via le chemin "Base de données > ajouter artiste". Il donne accès à une fenêtre permettant de remplir les informations telles que le nom, prénom, e-mail, talent et description de l'artiste.
 
 <img src="ImageReadMe/ajout_artiste.png" lab="Fenêtre de saisie manuelle" height="400" >
 
-## 4. Remplissage à partir d'un fichier csv :
+## 5. Remplissage à partir d'un fichier csv :
 
 Il faut choisir un fichier avec la structure suivante:
 
@@ -75,7 +74,7 @@ La première ligne doit contenir les entêtes des colonnes:
 Toutes les colonnes (Type, Titre, Annee, Album, Duree, Spectateur) doivent être écrite sur la première ligne même si toutes les cases ne sont pas remplies. On répète (Type, Titre, Annee, Album, Duree, Spectateur) autant qu'il y a des oeuvres.
 </li>
 
-## 5. Gestion de l'interface chanteur : 
+## 6. Gestion de l'interface chanteur : 
 
 La saisie d'un chanteur crée une interface dédiée à ce groupe d'utilisateur, permettant d'ajouter une musique ou un album de l'artiste. Dans un premier temps, sur la page d'accueil se crée le profil de l'utilisateur ajouté, profil qui lorsqu'on clique dessus conduit au répertoire du chanteur. 
 Depuis ce répertoire il est alors possible d'ajouter musique et album en utilisant les boutons dédiés.
@@ -84,13 +83,13 @@ Depuis ce répertoire il est alors possible d'ajouter musique et album en utilis
 
 <img src="ImageReadMe/Musique.png" lab="Après ajout chanteur" height="400">
 
-### 5.1. Affichage et gestion des musiques
+### 6.1. Affichage et gestion des musiques
 
 Après leur importation, les musiques de l'album sont affichées sur le répertoire du chanteur. A partir de cet instant il est possible de jouer une musique, la mettre en pause, l'arrêter ou encore la reprendre. Cette gestion se fait soit via les boutons de l'onglet "player" (en selectionnat au préalable la musique), soit directement sur l'interface en utilisant les boutons de gestion.
 
 <img src="ImageReadMe/repertoire.png" lab="Répertoire de musique" height="400">
 
-## 6. Gestion de l'interface acteur & comédien :
+## 7. Gestion de l'interface acteur & comédien :
 
 De manière analogue à la partie chanteur, les interfaces dédiées à la gestion des representation des acteurs et comédiens permettent l'ajout de nouvelles informations qui seront par la suite afficher sur la page d'accueil. 
 
@@ -98,13 +97,13 @@ De manière analogue à la partie chanteur, les interfaces dédiées à la gesti
 
 Elle est accessible via l'onglet "représentations" de la session utilisateur.
 
-## 7. L'envoie d'e-mail
+## 8. L'envoie d'e-mail
 
 Il est possible pour l'administrateur d'envoyer des messages électroniquesa aux artistes de son choix. Cet envoi se fait via une fenêtre de message, où il devra saisir l'objet, le contenu et le destinataire du message. Cette interface est accessible en utilisant l'onglet "contact" de l'application. 
 
 <img src="ImageReadMe/mail.png" lab="Fenêtre d'envoie e-mail" height="400">
 
-## 8. Paramètres
+## 9. Paramètres
 
 Il est également possible, grâce à un clic droit sur l'icone d'un utilisateur depuis la page d'accueil, d'accéder à ses informations de paramètrages. Ainsi il sera possible de la modifier, d'ajouter une photo de profil ou consulter des informations.
 
