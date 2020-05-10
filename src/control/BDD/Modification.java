@@ -233,6 +233,7 @@ public class Modification {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			try (Connection conn = DriverManager.getConnection(url, user, passwd)) {
 				System.out.println("Insertion lien film acteur");
+				System.out.println(idFilm +" " + idArtiste);
 				Statement stat = conn.createStatement();
 				stat.executeUpdate("REPLACE INTO JouerFilm SET `idFilm`=" + idFilm + ",`idArtiste`=" + idArtiste);
 			}

@@ -36,41 +36,6 @@ public class Representation implements Serializable {
 		this.setType(type);
 	}
 	
-	@Override
-	
-	/**
-	 *On réutilise la méthode equals pour comparer les representations selon leur titre et duree
-	 *@param represAComparer
-	 *	Representation à comparer
-	 *@return True si les representations correspondent
-	 **/
-	
-	public boolean equals(Object represAComparer) {
-		Representation representationAComparer = (Representation) represAComparer;
-		if(this.titre.equals(representationAComparer.getTitre()) && (this.duree == representationAComparer.duree))
-			return true;
-		return false;
-	}
-	
-	@Override
-	
-
-	/**
-	 *La méthode hashCode est utilisée afin de permettre le bon fonctionnement du Set
-	 *@return Nombre de titre compté
-	 **/
-	
-	public int hashCode() {
-		int compteurFinal = 0;
-		
-		char[] monTitre = this.getTitre().toCharArray();
-
-		for(char titre : monTitre)
-			compteurFinal+= (int) titre;
-		
-		return compteurFinal;
-	}
-	
 	
 	/**
 	 *Récupère le titre

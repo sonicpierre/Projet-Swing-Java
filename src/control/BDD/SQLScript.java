@@ -86,8 +86,8 @@ public class SQLScript {
 					"	idFilm INT,\n" + 
 					"	idArtiste INT,\n" + 
 					"	CONSTRAINT pk_JouerFilm PRIMARY KEY (idFilm, idArtiste),\n" + 
-					"	FOREIGN KEY fk_film(idFilm) REFERENCES Film(id),\n" + 
-					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id));");
+					"	FOREIGN KEY fk_film(idFilm) REFERENCES Film(id) on update cascade,\n" + 
+					"	FOREIGN KEY fk_artiste(idArtiste) REFERENCES Artiste(id) on update cascade );");
 			
 			/**
 			 *Même processus que précédemment

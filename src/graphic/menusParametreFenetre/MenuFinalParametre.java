@@ -1,6 +1,5 @@
 package graphic.menusParametreFenetre;
 
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 
@@ -37,7 +36,6 @@ public class MenuFinalParametre extends JTabbedPane{
 
 		this.login = login;
 		this.add("Mon profil", MenuProfilDescription.getInstance(login));
-		this.add("Mes Préférences", new JPanel());
 		this.add("Mon Compte", new MenuReparametrageDuCompte(login));
 	}	
 	

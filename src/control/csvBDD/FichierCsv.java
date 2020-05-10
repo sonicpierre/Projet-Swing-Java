@@ -348,6 +348,9 @@ public class FichierCsv {
 				}
 
 			} else {
+				
+				/*
+				 * Ne fonctionne pas partiellement :/
 				for (Representation maRepres : artiste.getMaListeDeRepresentations()) {
 					if (artiste.getType().equals("Acteur")) {
 						Modification.getInstance().insererFilm(maRepres.hashCode(), maRepres.getTitre(), 2020);
@@ -358,6 +361,7 @@ public class FichierCsv {
 						Modification.getInstance().insererJouerFilm(maRepres.hashCode(), artiste.hashCode());
 					}
 				}
+				*/
 			}
 			personnesDejaInscrite.getInstance().sauvegarder();
 		}
